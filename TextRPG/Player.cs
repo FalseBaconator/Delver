@@ -11,13 +11,16 @@ namespace TextRPG
         public int x;
         public int y;
         public char sprite;
+        public Map map;
 
-        public Player(int x, int y, char sprite)
+        public Player(int x, int y, char sprite, Map map)
         {
             this.x = x;
             this.y = y;
             this.sprite = sprite;
+            this.map = map;
             Console.SetCursorPosition(this.x, this.y);
+            Console.ForegroundColor = ConsoleColor.White;
             Console.Write(sprite);
         }
 
@@ -25,23 +28,22 @@ namespace TextRPG
         {
             if (x < Console.WindowWidth && x > 0 && y < Console.WindowHeight && y > 0)
             {
-                Console.SetCursorPosition(x, y);
-                Console.Write(' ');
+                map.DrawTile(x, y);
             }
 
-            if(key == ConsoleKey.W || key == ConsoleKey.UpArrow)
+            if((key == ConsoleKey.W || key == ConsoleKey.UpArrow) && map.CheckTile(x, y - 1))
             {
                 y--;
             }
-            if (key == ConsoleKey.S || key == ConsoleKey.DownArrow)
+            if ((key == ConsoleKey.S || key == ConsoleKey.DownArrow) && map.CheckTile(x, y + 1))
             {
                 y++;
             }
-            if (key == ConsoleKey.A || key == ConsoleKey.LeftArrow)
+            if ((key == ConsoleKey.A || key == ConsoleKey.LeftArrow) && map.CheckTile(x - 1, y))
             {
                 x--;
             }
-            if (key == ConsoleKey.D || key == ConsoleKey.RightArrow)
+            if ((key == ConsoleKey.D || key == ConsoleKey.RightArrow) && map.CheckTile(x + 1, y))
             {
                 x++;
             }
@@ -49,6 +51,7 @@ namespace TextRPG
             if (x < Console.WindowWidth && x > 0 && y < Console.WindowHeight && y > 0)
             {
                 Console.SetCursorPosition(x, y);
+                Console.ForegroundColor = ConsoleColor.White;
                 Console.Write(sprite);
             }
         }

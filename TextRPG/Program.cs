@@ -12,13 +12,16 @@ namespace TextRPG
         static bool play = true;
         static ConsoleKey key;
 
-        static Player player = new Player(5, 5, '@');
-        
+        static Map map = new Map();
+
+        static Player player = new Player(14, 14, '@', map);
+
 
 
         static void Main(string[] args)
         {
             Console.CursorVisible = false;
+            //map.Draw();
             while (play)
             {
                 if(Console.CursorVisible) Console.CursorVisible = false;
