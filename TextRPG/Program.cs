@@ -12,7 +12,7 @@ namespace TextRPG
         static bool play = true;
         static ConsoleKey key;
 
-        static Player player = new Player(5, 5, 'X');
+        static Player player = new Player(5, 5, '@');
         
 
 
@@ -21,6 +21,7 @@ namespace TextRPG
             Console.CursorVisible = false;
             while (play)
             {
+                if(Console.CursorVisible) Console.CursorVisible = false;
                 key = Console.ReadKey(true).Key;
                 if(key == ConsoleKey.Escape)
                 {
