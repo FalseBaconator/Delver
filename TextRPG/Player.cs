@@ -12,15 +12,17 @@ namespace TextRPG
         public int y;
         public char sprite;
         public Map map;
+        public ConsoleColor color;
 
-        public Player(int x, int y, char sprite, Map map)
+        public Player(int x, int y, char sprite, Map map, ConsoleColor color)
         {
             this.x = x;
             this.y = y;
             this.sprite = sprite;
             this.map = map;
+            this.color = color;
             Console.SetCursorPosition(this.x, this.y);
-            Console.ForegroundColor = ConsoleColor.White;
+            Console.ForegroundColor = color;
             Console.Write(sprite);
         }
 
@@ -51,7 +53,7 @@ namespace TextRPG
             if (x < Console.WindowWidth && x > 0 && y < Console.WindowHeight && y > 0)
             {
                 Console.SetCursorPosition(x, y);
-                Console.ForegroundColor = ConsoleColor.White;
+                Console.ForegroundColor = color;
                 Console.Write(sprite);
             }
         }

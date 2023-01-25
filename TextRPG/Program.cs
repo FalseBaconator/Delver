@@ -14,7 +14,7 @@ namespace TextRPG
 
         static Map map = new Map();
 
-        static Player player = new Player(14, 14, '@', map);
+        static Player player = new Player(14, 14, '@', map, ConsoleColor.White);
 
 
 
