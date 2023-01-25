@@ -1,0 +1,8 @@
+C:\Users\w0460451\Documents\OOP\TextRPG\TextRPG\bin\Debug\TextRPG.exe.config
+C:\Users\w0460451\Documents\OOP\TextRPG\TextRPG\bin\Debug\TextRPG.exe
+C:\Users\w0460451\Documents\OOP\TextRPG\TextRPG\bin\Debug\TextRPG.pdb
+C:\Users\w0460451\Documents\OOP\TextRPG\TextRPG\obj\Debug\TextRPG.csproj.AssemblyReference.cache
+C:\Users\w0460451\Documents\OOP\TextRPG\TextRPG\obj\Debug\TextRPG.csproj.SuggestedBindingRedirects.cache
+C:\Users\w0460451\Documents\OOP\TextRPG\TextRPG\obj\Debug\TextRPG.csproj.CoreCompileInputs.cache
+C:\Users\w0460451\Documents\OOP\TextRPG\TextRPG\obj\Debug\TextRPG.exe
+C:\Users\w0460451\Documents\OOP\TextRPG\TextRPG\obj\Debug\TextRPG.pdb
