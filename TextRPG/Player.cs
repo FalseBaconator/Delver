@@ -23,8 +23,12 @@ namespace TextRPG
 
         public void Move(ConsoleKey key)
         {
-            Console.SetCursorPosition(x, y);
-            Console.Write(' ');
+            if (x < Console.WindowWidth && x > 0 && y < Console.WindowHeight && y > 0)
+            {
+                Console.SetCursorPosition(x, y);
+                Console.Write(' ');
+            }
+
             if(key == ConsoleKey.W || key == ConsoleKey.UpArrow)
             {
                 y--;
@@ -41,8 +45,12 @@ namespace TextRPG
             {
                 x++;
             }
-            Console.SetCursorPosition(x, y);
-            Console.Write(sprite);
+
+            if (x < Console.WindowWidth && x > 0 && y < Console.WindowHeight && y > 0)
+            {
+                Console.SetCursorPosition(x, y);
+                Console.Write(sprite);
+            }
         }
 
 
