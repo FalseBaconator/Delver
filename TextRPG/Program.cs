@@ -12,24 +12,25 @@ namespace TextRPG
         static bool play = true;
         static ConsoleKey key;
 
-        static Map map = new Map();
+        static MapGenerator mapGen = new MapGenerator();
+        static Map map = new Map(mapGen.RandomizeMap());
 
         static EnemyManager enemyManager = new EnemyManager();
 
-        static Player player = new Player(14, 14, 5, 2, '@', map, enemyManager, ConsoleColor.White);
+        static Player player = new Player(17, 17, 5, 2, '@', map, enemyManager, ConsoleColor.White);
 
         static List<Enemy> enemies = new List<Enemy>
         {
             new Enemy(10, 10, 1, 1, 'O', map, ConsoleColor.Red, player, enemyManager),
-            new Enemy(20, 11, 1, 1, 'O', map, ConsoleColor.Red, player, enemyManager),
-            new Enemy(25, 25, 1, 1, 'O', map, ConsoleColor.Red, player, enemyManager)
+            new Enemy(17, 3, 1, 1, 'O', map, ConsoleColor.Red, player, enemyManager),
+            new Enemy(31, 31, 1, 1, 'O', map, ConsoleColor.Red, player, enemyManager)
         };
 
         static void Main(string[] args)
         {
             Console.CursorVisible = false;
             enemyManager.Enemies = enemies;
-            //map.Draw();
+            //map.DrawMap();
             while (play && player.alive)
             {
                 if(Console.CursorVisible) Console.CursorVisible = false;

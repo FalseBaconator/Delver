@@ -124,7 +124,7 @@ namespace TextRPG
         public void DisplayHP()
         {
             Console.ResetColor();
-            Console.SetCursorPosition(35, 10);
+            Console.SetCursorPosition(45, 10);
             Console.Write("HP: " + HP);
         }
 
