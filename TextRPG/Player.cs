@@ -32,6 +32,7 @@ namespace TextRPG
             Console.SetCursorPosition(this.x, this.y);
             Console.ForegroundColor = color;
             Console.Write(sprite);
+            DisplayHP();
         }
 
         public void Move(ConsoleKey key)
@@ -113,10 +114,18 @@ namespace TextRPG
         public void TakeDMG(int DMG)
         {
             HP -= DMG;
+            DisplayHP();
             if(HP <= 0)
             {
                 alive = false;
             }
+        }
+
+        public void DisplayHP()
+        {
+            Console.ResetColor();
+            Console.SetCursorPosition(35, 10);
+            Console.Write("HP: " + HP);
         }
 
     }

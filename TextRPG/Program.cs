@@ -20,9 +20,9 @@ namespace TextRPG
 
         static List<Enemy> enemies = new List<Enemy>
         {
-            new Enemy(10, 10, 1, 5, 'O', map, ConsoleColor.Red, player, enemyManager),
-            new Enemy(20, 11, 1, 5, 'O', map, ConsoleColor.Red, player, enemyManager),
-            new Enemy(25, 25, 1, 5, 'O', map, ConsoleColor.Red, player, enemyManager)
+            new Enemy(10, 10, 1, 1, 'O', map, ConsoleColor.Red, player, enemyManager),
+            new Enemy(20, 11, 1, 1, 'O', map, ConsoleColor.Red, player, enemyManager),
+            new Enemy(25, 25, 1, 1, 'O', map, ConsoleColor.Red, player, enemyManager)
         };
 
         static void Main(string[] args)
