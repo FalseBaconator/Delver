@@ -17,6 +17,8 @@ namespace TextRPG
         public EnemyManager enemyManager;
         public ConsoleColor color;
 
+        public bool alive = true;
+
         public Player(int x, int y, int HP, int ATK, char sprite, Map map, EnemyManager enemyManager, ConsoleColor color)
         {
             this.x = x;
@@ -106,6 +108,15 @@ namespace TextRPG
         public void Attack(Enemy enemy)
         {
             enemy.TakeDamage(ATK);
+        }
+
+        public void TakeDMG(int DMG)
+        {
+            HP -= DMG;
+            if(HP <= 0)
+            {
+                alive = false;
+            }
         }
 
     }

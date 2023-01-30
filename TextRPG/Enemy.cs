@@ -57,12 +57,21 @@ namespace TextRPG
                             {
                                 y--;
                                 moved = true;
+                            }else if (player.PlayerCheck(x, y - 1))
+                            {
+                                Attack(player);
+                                moved = true;
                             }
                             break;
                         case 1:
                             if (map.CheckTile(x, y + 1) && player.PlayerCheck(x, y + 1) == false && enemyManager.EnemyCheck(x, y + 1) == null)
                             {
                                 y++;
+                                moved = true;
+                            }
+                            else if (player.PlayerCheck(x, y + 1))
+                            {
+                                Attack(player);
                                 moved = true;
                             }
                             break;
@@ -72,11 +81,21 @@ namespace TextRPG
                                 x--;
                                 moved = true;
                             }
+                            else if (player.PlayerCheck(x, y + 1))
+                            {
+                                Attack(player);
+                                moved = true;
+                            }
                             break;
                         case 3:
                             if (map.CheckTile(x + 1, y) && player.PlayerCheck(x + 1, y) == false && enemyManager.EnemyCheck(x + 1, y) == null)
                             {
                                 x++;
+                                moved = true;
+                            }
+                            else if (player.PlayerCheck(x, y +  1))
+                            {
+                                Attack(player);
                                 moved = true;
                             }
                             break;
@@ -101,6 +120,11 @@ namespace TextRPG
                 map.DrawTile(x, y);
                 enemyManager.RemoveEnemy(this);
             }
+        }
+
+        public void Attack(Player target)
+        {
+            target.TakeDMG(ATK);
         }
 
     }
