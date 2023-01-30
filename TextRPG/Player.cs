@@ -10,16 +10,22 @@ namespace TextRPG
     {
         public int x;
         public int y;
+        public int HP;
+        public int ATK;
         public char sprite;
         public Map map;
+        public EnemyManager enemyManager;
         public ConsoleColor color;
 
-        public Player(int x, int y, char sprite, Map map, ConsoleColor color)
+        public Player(int x, int y, int HP, int ATK, char sprite, Map map, EnemyManager enemyManager, ConsoleColor color)
         {
             this.x = x;
             this.y = y;
+            this.HP = HP;
+            this.ATK = ATK;
             this.sprite = sprite;
             this.map = map;
+            this.enemyManager = enemyManager;
             this.color = color;
             Console.SetCursorPosition(this.x, this.y);
             Console.ForegroundColor = color;
@@ -33,22 +39,54 @@ namespace TextRPG
                 map.DrawTile(x, y);
             }
 
-            if((key == ConsoleKey.W || key == ConsoleKey.UpArrow) && map.CheckTile(x, y - 1))
+            switch (key)
             {
-                y--;
+                case ConsoleKey.W:
+                case ConsoleKey.UpArrow:
+                    if(map.CheckTile(x, y - 1) && enemyManager.EnemyCheck(x,y-1) == null)
+                    {
+                        y--;
+                    }else if(enemyManager.EnemyCheck(x,y-1) != null)
+                    {
+                        Attack(enemyManager.EnemyCheck(x, y - 1));
+                    }
+                    break;
+                case ConsoleKey.S:
+                case ConsoleKey.DownArrow:
+                    if (map.CheckTile(x, y + 1) && enemyManager.EnemyCheck(x, y + 1) == null)
+                    {
+                        y++;
+                    }
+                    else if (enemyManager.EnemyCheck(x, y + 1) != null)
+                    {
+                        Attack(enemyManager.EnemyCheck(x, y + 1));
+                    }
+                    break;
+                case ConsoleKey.A:
+                case ConsoleKey.LeftArrow:
+                    if (map.CheckTile(x-1, y) && enemyManager.EnemyCheck(x - 1, y) == null)
+                    {
+                        x--;
+                    }
+                    else if (enemyManager.EnemyCheck(x - 1, y) != null)
+                    {
+                        Attack(enemyManager.EnemyCheck(x - 1, y));
+                    }
+                    break;
+                case ConsoleKey.D:
+                case ConsoleKey.RightArrow:
+                    if (map.CheckTile(x + 1, y) && enemyManager.EnemyCheck(x + 1, y) == null)
+                    {
+                        x++;
+                    }
+                    else if (enemyManager.EnemyCheck(x + 1, y) != null)
+                    {
+                        Attack(enemyManager.EnemyCheck(x + 1, y));
+                    }
+                    break;
             }
-            if ((key == ConsoleKey.S || key == ConsoleKey.DownArrow) && map.CheckTile(x, y + 1))
-            {
-                y++;
-            }
-            if ((key == ConsoleKey.A || key == ConsoleKey.LeftArrow) && map.CheckTile(x - 1, y))
-            {
-                x--;
-            }
-            if ((key == ConsoleKey.D || key == ConsoleKey.RightArrow) && map.CheckTile(x + 1, y))
-            {
-                x++;
-            }
+
+            
 
             if (x < Console.WindowWidth && x > 0 && y < Console.WindowHeight && y > 0)
             {
@@ -58,6 +96,17 @@ namespace TextRPG
             }
         }
 
+        public bool PlayerCheck(int x, int y)
+        {
+            bool check = false;
+            if (this.x == x && this.y == y) check = true;
+            return check;
+        }
+
+        public void Attack(Enemy enemy)
+        {
+            enemy.TakeDamage(ATK);
+        }
 
     }
 }
