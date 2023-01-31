@@ -15,21 +15,29 @@ namespace TextRPG
         static MapGenerator mapGen = new MapGenerator();
         static Map map = new Map(mapGen.RandomizeMap());
 
-        static EnemyManager enemyManager = new EnemyManager();
+        static EnemyManager enemyManager = new EnemyManager(map);
 
         static Player player = new Player(17, 17, 5, 2, '@', map, enemyManager, ConsoleColor.White);
 
-        static List<Enemy> enemies = new List<Enemy>
+        /*static List<Enemy> enemies = new List<Enemy>
         {
-            new Enemy(10, 10, 1, 1, 'O', map, ConsoleColor.Red, player, enemyManager),
-            new Enemy(17, 3, 1, 1, 'O', map, ConsoleColor.Red, player, enemyManager),
-            new Enemy(31, 31, 1, 1, 'O', map, ConsoleColor.Red, player, enemyManager)
-        };
+            //new Enemy(10, 10, 1, 1, 'O', map, ConsoleColor.Red, player, enemyManager),
+            //new Enemy(17, 3, 1, 1, 'O', map, ConsoleColor.Red, player, enemyManager),
+            //new Enemy(31, 31, 1, 1, 'O', map, ConsoleColor.Red, player, enemyManager)
+
+            *//*new Goblin(10, 10, map, player, enemyManager),
+            new Goblin(17, 4, map, player, enemyManager),
+            new Goblin(31, 31, map, player, enemyManager),
+            new Slime(10, 31, map, player, enemyManager),
+            new Slime(17, 31, map, player, enemyManager),
+            new Slime(31, 10, map, player, enemyManager),*//*
+
+        };*/
 
         static void Main(string[] args)
         {
             Console.CursorVisible = false;
-            enemyManager.Enemies = enemies;
+            enemyManager.GenerateEnemies();
             //map.DrawMap();
             while (play && player.alive)
             {

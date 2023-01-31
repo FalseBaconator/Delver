@@ -12,6 +12,7 @@ namespace TextRPG
 
         public Player(int x, int y, int HP, int ATK, char sprite, Map map, EnemyManager enemyManager, ConsoleColor color) : base(x,y,HP,ATK,sprite,map,enemyManager,color)
         {
+            enemyManager.player = this;
             DisplayHP();
         }
 
