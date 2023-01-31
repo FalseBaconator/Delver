@@ -37,7 +37,7 @@ namespace TextRPG
         static void Main(string[] args)
         {
             Console.CursorVisible = false;
-            enemyManager.GenerateEnemies();
+            enemyManager.GenerateEnemies(5);
             //map.DrawMap();
             while (play && player.alive)
             {

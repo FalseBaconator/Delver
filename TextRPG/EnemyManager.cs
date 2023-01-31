@@ -11,6 +11,7 @@ namespace TextRPG
         public List<Enemy> Enemies = new List<Enemy>();
         public Map map;
         public Player player;
+        public Random random = new Random();
         public bool toMove;
 
         public EnemyManager(Map map)
@@ -18,29 +19,28 @@ namespace TextRPG
             this.map = map;
         }
 
-        public void GenerateEnemies()
+        public void GenerateEnemies(int count)
         {
-            Random r = new Random();
-            for (int i = 3; i < 35; i+=7)
+            for (int i = 3; i < 35; i += 7)
             {
-                for (int j = 3; j < 35; j+=7)
+                for (int j = 3; j < 35; j += 7)
                 {
-                    int chance = r.Next(0, 10);
                     if(i != player.x || j != player.y)
                     {
+                        int chance = random.Next(10);
                         switch (chance)
                         {
                             case 0:
                             case 1:
+                                Enemies.Add(new Slime(i, j, map, player, this));
+                                break;
                             case 2:
                             case 3:
-                                Enemies.Add(new Slime(i, j, map, player, this));
+                                Enemies.Add(new Goblin(i, j, map, player, this));
                                 break;
                             case 4:
                             case 5:
                             case 6:
-                                Enemies.Add(new Goblin(i, j, map, player, this));
-                                break;
                             case 7:
                             case 8:
                             case 9:

@@ -9,7 +9,9 @@ namespace TextRPG
     internal class Enemy : GameCharacter
     {
         Player player;
-        
+
+        Random random = new Random();
+
         private bool moved;
 
         public Enemy(int x, int y, int HP, int ATK, char sprite, Map map, ConsoleColor color, Player player, EnemyManager enemyManager) : base(x, y, HP, ATK, sprite, map, enemyManager, color)
@@ -34,8 +36,7 @@ namespace TextRPG
 
                 while (moved == false)
                 {
-                    Random random = new Random();
-                    int Dir = random.Next(0, 4);
+                    int Dir = random.Next(4);
                     switch (Dir)
                     {
                         case 0:
