@@ -6,32 +6,12 @@ using System.Threading.Tasks;
 
 namespace TextRPG
 {
-    internal class Player
+    internal class Player : GameCharacter
     {
-        public int x;
-        public int y;
-        public int HP;
-        public int ATK;
-        public char sprite;
-        public Map map;
-        public EnemyManager enemyManager;
-        public ConsoleColor color;
+        
 
-        public bool alive = true;
-
-        public Player(int x, int y, int HP, int ATK, char sprite, Map map, EnemyManager enemyManager, ConsoleColor color)
+        public Player(int x, int y, int HP, int ATK, char sprite, Map map, EnemyManager enemyManager, ConsoleColor color) : base(x,y,HP,ATK,sprite,map,enemyManager,color)
         {
-            this.x = x;
-            this.y = y;
-            this.HP = HP;
-            this.ATK = ATK;
-            this.sprite = sprite;
-            this.map = map;
-            this.enemyManager = enemyManager;
-            this.color = color;
-            Console.SetCursorPosition(this.x, this.y);
-            Console.ForegroundColor = color;
-            Console.Write(sprite);
             DisplayHP();
         }
 
@@ -108,17 +88,13 @@ namespace TextRPG
 
         public void Attack(Enemy enemy)
         {
-            enemy.TakeDamage(ATK);
+            enemy.TakeDMG(ATK);
         }
 
-        public void TakeDMG(int DMG)
+        public override void TakeDMG(int DMG)
         {
-            HP -= DMG;
+            base.TakeDMG(DMG);
             DisplayHP();
-            if(HP <= 0)
-            {
-                alive = false;
-            }
         }
 
         public void DisplayHP()

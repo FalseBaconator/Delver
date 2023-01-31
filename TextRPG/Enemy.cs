@@ -6,35 +6,15 @@ using System.Threading.Tasks;
 
 namespace TextRPG
 {
-    internal class Enemy
+    internal class Enemy : GameCharacter
     {
-        public int x;
-        public int y;
-        public int HP;
-        public int ATK;
-        public char sprite;
-        public Map map;
-        public ConsoleColor color;
-        public Player player;
-        public EnemyManager enemyManager;
-
+        Player player;
+        
         private bool moved;
-        private bool alive = true;
 
-        public Enemy(int x, int y, int HP, int ATK, char sprite, Map map, ConsoleColor color, Player player, EnemyManager enemyManager)
+        public Enemy(int x, int y, int HP, int ATK, char sprite, Map map, ConsoleColor color, Player player, EnemyManager enemyManager) : base(x, y, HP, ATK, sprite, map, enemyManager, color)
         {
-            this.x = x;
-            this.y = y;
-            this.HP = HP;
-            this.ATK = ATK;
-            this.sprite = sprite;
-            this.map = map;
-            this.color = color;
             this.player = player;
-            this.enemyManager = enemyManager;
-            Console.SetCursorPosition(this.x, this.y);
-            Console.ForegroundColor = color;
-            Console.Write(sprite);
         }
 
         public void Move()
@@ -98,15 +78,10 @@ namespace TextRPG
         }
 
 
-        public void TakeDamage(int DMG)
+        public override void TakeDMG(int DMG)
         {
-            HP -= DMG;
-            if(HP <= 0)
-            {
-                alive = false;
-                map.DrawTile(x, y);
-                enemyManager.RemoveEnemy(this);
-            }
+            base.TakeDMG(DMG);
+            if (HP <= 0) enemyManager.RemoveEnemy(this);
         }
 
         public void Attack(Player target)

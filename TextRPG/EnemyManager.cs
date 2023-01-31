@@ -13,10 +13,7 @@ namespace TextRPG
         public Player player;
         public bool toMove;
 
-        /*public EnemyManager(Enemy[] Enemies)
-        {
-            this.Enemies = Enemies;
-        }*/
+
 
         public void MoveEnemies()
         {
