@@ -57,7 +57,7 @@ namespace TextRPG
             {
                 foreach(Enemy enemy in Enemies)
                 {
-                    enemy.Move();
+                    enemy.Move(random);
                 }
             }
             toMove = !toMove;

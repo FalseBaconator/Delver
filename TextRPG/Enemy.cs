@@ -10,7 +10,7 @@ namespace TextRPG
     {
         Player player;
 
-        Random random = new Random();
+        //Random random = new Random();
 
         private bool moved;
 
@@ -19,7 +19,7 @@ namespace TextRPG
             this.player = player;
         }
 
-        public void Move()
+        public void Move(Random random)
         {
             if (alive)
             {
