@@ -50,8 +50,6 @@ namespace TextRPG
         public Map(char[,] grid)
         {
             map = grid;
-            if(Console.WindowHeight < 40) Console.WindowHeight = 40;
-            if (Console.WindowWidth < 40) Console.WindowWidth = 40;
             DrawMap();
         }
 
