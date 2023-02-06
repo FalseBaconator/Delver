@@ -45,12 +45,14 @@ namespace TextRPG
             {'▓','▓','▓','▓','▓','▓','▓','▓','▓','▓','▓','▓','▓','▓','▓','▓','▓','▓','▓','▓','▓','▓','▓','▓','▓','▓','▓','▓','▓','▓'}
         };*/
 
+        private Render rend;
+
         public char[,] map;
 
-        public Map(char[,] grid)
+        public Map(char[,] grid, Render rend)
         {
             map = grid;
-            DrawMap();
+            this.rend = rend;
         }
 
         public void DrawMap()
@@ -66,8 +68,10 @@ namespace TextRPG
                     {
                         Console.ForegroundColor = ConsoleColor.DarkYellow;
                     }
-                    Console.SetCursorPosition(i, j);
-                    Console.Write(map[i, j]);
+                    //Console.SetCursorPosition(i, j);
+                    //Console.Write(map[i, j]);
+                    rend.ScreenChars[i,j] = map[i,j];
+                    rend.ScreenColors[i, j] = Console.ForegroundColor;
                 }
             }
         }

@@ -9,34 +9,32 @@ namespace TextRPG
     internal class Program
     {
 
-        static bool play = true;
-        static ConsoleKey key;
+
+        static Render render = new Render();
 
         static MapGenerator mapGen = new MapGenerator();
-        static Map map = new Map(mapGen.RandomizeMap());
+        static Map map = new Map(mapGen.RandomizeMap(), render);
 
-        static EnemyManager enemyManager = new EnemyManager(map);
+        static EnemyManager enemyManager = new EnemyManager(map, render);
 
-        static Player player = new Player(17, 17, 5, 2, '@', map, enemyManager, ConsoleColor.White);
+        static Player player = new Player(17, 17, 5, 2, '@', map, enemyManager, ConsoleColor.White, render);
 
+        static InputManager inputManager = new InputManager(player);
+        static GameManager manager = new GameManager(player, enemyManager, map, inputManager, render);
+        
         static void Main(string[] args)
         {
-            Console.CursorVisible = false;
             enemyManager.GenerateEnemies(5);
-            while (play && player.alive)
+            manager.Draw();
+            while (manager.play)
             {
-                if(Console.CursorVisible) Console.CursorVisible = false;
-                key = Console.ReadKey(true).Key;
-                if(key == ConsoleKey.Escape)
-                {
-                    play = false;
-                }
-                else
-                {
-                    player.Move(key);
-                    enemyManager.MoveEnemies();
-                }
+                manager.Update();
+                manager.Draw();
             }
+            Console.Clear();
+            Console.ResetColor();
+            Console.Write("You are dead, no big surprise");
+            Console.ReadKey(true);
 
         }
     }

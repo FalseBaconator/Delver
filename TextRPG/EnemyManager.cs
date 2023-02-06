@@ -13,10 +13,12 @@ namespace TextRPG
         public Player player;
         public Random random = new Random();
         public bool toMove;
+        public Render rend;
 
-        public EnemyManager(Map map)
+        public EnemyManager(Map map, Render rend)
         {
             this.map = map;
+            this.rend = rend;
         }
 
         public void GenerateEnemies(int count)
@@ -32,11 +34,11 @@ namespace TextRPG
                         {
                             case 0:
                             case 1:
-                                Enemies.Add(new Slime(i, j, map, player, this));
+                                Enemies.Add(new Slime(i, j, map, player, this, rend));
                                 break;
                             case 2:
                             case 3:
-                                Enemies.Add(new Goblin(i, j, map, player, this));
+                                Enemies.Add(new Goblin(i, j, map, player, this, rend));
                                 break;
                             case 4:
                             case 5:
@@ -51,7 +53,7 @@ namespace TextRPG
             }
         }
 
-        public void MoveEnemies()
+        public void UpdateEnemies()
         {
             if (toMove)
             {
@@ -74,6 +76,14 @@ namespace TextRPG
                 }
             }
             return foundEnemy;
+        }
+
+        public void DrawEnemies()
+        {
+            foreach (Enemy enemy in Enemies)
+            {
+                enemy.Draw();
+            }
         }
 
         public void RemoveEnemy(Enemy enemy)

@@ -8,21 +8,18 @@ namespace TextRPG
 {
     internal class Player : GameCharacter
     {
-        
+        public InputManager inputManager;
+        private ConsoleKey key;
 
-        public Player(int x, int y, int HP, int ATK, char sprite, Map map, EnemyManager enemyManager, ConsoleColor color) : base(x,y,HP,ATK,sprite,map,enemyManager,color)
+        public Player(int x, int y, int HP, int ATK, char sprite, Map map, EnemyManager enemyManager, ConsoleColor color, Render rend) : base(x,y,HP,ATK,sprite,map,enemyManager,color, rend)
         {
             enemyManager.player = this;
             DisplayHP();
         }
 
-        public void Move(ConsoleKey key)
+        public void Update()
         {
-            if (x < Console.WindowWidth && x > 0 && y < Console.WindowHeight && y > 0)
-            {
-                map.DrawTile(x, y);
-            }
-
+            key = inputManager.GetKey();
             switch (key)
             {
                 case ConsoleKey.W:
@@ -69,15 +66,6 @@ namespace TextRPG
                     }
                     break;
             }
-
-            
-
-            if (x < Console.WindowWidth && x > 0 && y < Console.WindowHeight && y > 0)
-            {
-                Console.SetCursorPosition(x, y);
-                Console.ForegroundColor = color;
-                Console.Write(sprite);
-            }
         }
 
         public bool PlayerCheck(int x, int y)
@@ -95,7 +83,6 @@ namespace TextRPG
         public override void TakeDMG(int DMG)
         {
             base.TakeDMG(DMG);
-            DisplayHP();
         }
 
         public void DisplayHP()

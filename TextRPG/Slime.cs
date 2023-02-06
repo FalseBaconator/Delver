@@ -9,7 +9,7 @@ namespace TextRPG
     internal class Slime : Enemy
     {
 
-        public Slime(int x, int y, Map map, Player player, EnemyManager enemyManager) : base(x, y, 1, 1, 'O', map, ConsoleColor.Cyan, player, enemyManager)
+        public Slime(int x, int y, Map map, Player player, EnemyManager enemyManager, Render rend) : base(x, y, 1, 1, 'O', map, ConsoleColor.Cyan, player, enemyManager, rend)
         {
 
         }

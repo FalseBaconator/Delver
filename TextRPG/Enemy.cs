@@ -14,7 +14,7 @@ namespace TextRPG
 
         private bool moved;
 
-        public Enemy(int x, int y, int HP, int ATK, char sprite, Map map, ConsoleColor color, Player player, EnemyManager enemyManager) : base(x, y, HP, ATK, sprite, map, enemyManager, color)
+        public Enemy(int x, int y, int HP, int ATK, char sprite, Map map, ConsoleColor color, Player player, EnemyManager enemyManager, Render rend) : base(x, y, HP, ATK, sprite, map, enemyManager, color, rend)
         {
             this.player = player;
         }
@@ -24,10 +24,7 @@ namespace TextRPG
             if (alive)
             {
                 moved = false;
-                if (x < Console.WindowWidth && x > 0 && y < Console.WindowHeight && y > 0)
-                {
-                    map.DrawTile(x, y);
-                }
+                
                 if(player.PlayerCheck(x,y-1) || player.PlayerCheck(x, y + 1) || player.PlayerCheck(x-1, y) || player.PlayerCheck(x+1, y))
                 {
                     Attack(player);
@@ -68,12 +65,6 @@ namespace TextRPG
                             }
                             break;
                     }
-                }
-                if (x < Console.WindowWidth && x > 0 && y < Console.WindowHeight && y > 0)
-                {
-                    Console.SetCursorPosition(x, y);
-                    Console.ForegroundColor = color;
-                    Console.Write(sprite);
                 }
             }
         }

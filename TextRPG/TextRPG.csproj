@@ -46,13 +46,16 @@
     <Compile Include="Enemy.cs" />
     <Compile Include="EnemyManager.cs" />
     <Compile Include="GameCharacter.cs" />
+    <Compile Include="GameManager.cs" />
     <Compile Include="Goblin.cs" />
+    <Compile Include="InputManager.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="MapChunk.cs" />
     <Compile Include="MapGenerator.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Render.cs" />
     <Compile Include="Slime.cs" />
   </ItemGroup>
   <ItemGroup>

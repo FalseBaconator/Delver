@@ -9,7 +9,7 @@ namespace TextRPG
     internal class Goblin : Enemy
     {
 
-        public Goblin(int x, int y, Map map, Player player, EnemyManager enemyManager) : base(x, y, 5, 2, 'X', map, ConsoleColor.DarkGreen, player, enemyManager)
+        public Goblin(int x, int y, Map map, Player player, EnemyManager enemyManager, Render rend) : base(x, y, 5, 2, 'X', map, ConsoleColor.DarkGreen, player, enemyManager, rend)
         {
 
         }
