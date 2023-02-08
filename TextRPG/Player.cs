@@ -10,11 +10,18 @@ namespace TextRPG
     {
         public InputManager inputManager;
         private ConsoleKey key;
+        private int maxHP;
+        private int shield;
+        private int maxShield;
+        public ItemManager itemManager;
 
-        public Player(int x, int y, int HP, int ATK, char sprite, Map map, EnemyManager enemyManager, ConsoleColor color, Render rend) : base(x,y,HP,ATK,sprite,map,enemyManager,color, rend)
+        public Player(int x, int y, int HP, int shield, int ATK, char sprite, Map map, EnemyManager enemyManager, ConsoleColor color, Render rend) : base(x,y,HP,ATK,sprite,map,enemyManager,color, rend)
         {
             enemyManager.player = this;
-            DisplayHP();
+            maxHP = HP;
+            this.shield = shield;
+            maxShield = shield;
+            DisplayHud();
         }
 
         public void Update()
@@ -66,6 +73,10 @@ namespace TextRPG
                     }
                     break;
             }
+            if(itemManager.ItemChecks(x,y) != null)
+            {
+                itemManager.PickUp(itemManager.ItemChecks(x,y));
+            }
         }
 
         public bool PlayerCheck(int x, int y)
@@ -82,14 +93,50 @@ namespace TextRPG
 
         public override void TakeDMG(int DMG)
         {
-            base.TakeDMG(DMG);
+            if(shield > DMG)
+            {
+                shield -= DMG;
+            }
+            else
+            {
+                DMG -= shield;
+                shield = 0;
+                base.TakeDMG(DMG);
+            }
         }
 
-        public void DisplayHP()
+        public void Heal(int heal)
+        {
+            HP += heal;
+            if(HP > maxHP)
+            {
+                HP = maxHP;
+            }
+        }
+
+        public void RestoreShield(int restore)
+        {
+            shield += restore;
+            if(shield > maxShield)
+            {
+                shield = maxShield;
+            }
+        }
+
+        public void RaiseATK(int raise)
+        {
+            ATK += raise;
+        }
+
+        public void DisplayHud()
         {
             Console.ResetColor();
             Console.SetCursorPosition(45, 10);
             Console.Write("HP: " + HP);
+            Console.SetCursorPosition(45, 11);
+            Console.Write("Shield: " + shield);
+            Console.SetCursorPosition(45, 12);
+            Console.Write("ATK: " + ATK);
         }
 
     }

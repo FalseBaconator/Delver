@@ -17,20 +17,27 @@ namespace TextRPG
 
         static EnemyManager enemyManager = new EnemyManager(map, render);
 
-        static Player player = new Player(17, 17, 5, 2, '@', map, enemyManager, ConsoleColor.White, render);
+        static Player player = new Player(17, 17, 5, 5, 2, '@', map, enemyManager, ConsoleColor.White, render);
+
+        static ItemManager itemManager = new ItemManager(player, enemyManager, render);
 
         static InputManager inputManager = new InputManager(player);
-        static GameManager manager = new GameManager(player, enemyManager, map, inputManager, render);
+        static GameManager manager = new GameManager(player, enemyManager, map, inputManager, itemManager, render);
         
         static void Main(string[] args)
         {
-            enemyManager.GenerateEnemies(5);
+            itemManager.GenerateItems(5);
+            enemyManager.GenerateEnemies();
             manager.Draw();
+
+
             while (manager.play)
             {
                 manager.Update();
                 manager.Draw();
             }
+
+
             Console.Clear();
             Console.ResetColor();
             Console.Write("You are dead, no big surprise");

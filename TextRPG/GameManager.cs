@@ -18,15 +18,18 @@ namespace TextRPG
 
         InputManager inputManager;
 
+        ItemManager itemManager;
+
         Render rend;
 
-        public GameManager(Player player, EnemyManager eManager, Map map, InputManager inputManager, Render rend)
+        public GameManager(Player player, EnemyManager eManager, Map map, InputManager inputManager, ItemManager itemManager, Render rend)
         {
             this.player = player;
             this.eManager = eManager;
             this.map = map;
             this.inputManager = inputManager;
             inputManager.manager = this;
+            this.itemManager = itemManager;
             this.rend = rend;
         }
 
@@ -44,8 +47,9 @@ namespace TextRPG
         public void Draw()
         {
             map.DrawMap();
+            itemManager.Draw();
             player.Draw();
-            player.DisplayHP();
+            player.DisplayHud();
             eManager.DrawEnemies();
             rend.DrawToScreen();
         }

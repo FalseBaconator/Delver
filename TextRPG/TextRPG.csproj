@@ -45,10 +45,13 @@
   <ItemGroup>
     <Compile Include="Enemy.cs" />
     <Compile Include="EnemyManager.cs" />
+    <Compile Include="EnemyType.cs" />
     <Compile Include="GameCharacter.cs" />
     <Compile Include="GameManager.cs" />
     <Compile Include="Goblin.cs" />
     <Compile Include="InputManager.cs" />
+    <Compile Include="Item.cs" />
+    <Compile Include="ItemManager.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="MapChunk.cs" />
     <Compile Include="MapGenerator.cs" />

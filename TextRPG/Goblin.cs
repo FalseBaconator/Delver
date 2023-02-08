@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace TextRPG
 {
-    internal class Goblin : Enemy
+    internal class Goblin //: Enemy
     {
 
-        public Goblin(int x, int y, Map map, Player player, EnemyManager enemyManager, Render rend) : base(x, y, 5, 2, 'X', map, ConsoleColor.DarkGreen, player, enemyManager, rend)
+        /*public Goblin(int x, int y, Map map, Player player, EnemyManager enemyManager, Render rend) : base(x, y, 5, 2, 'X', map, ConsoleColor.DarkGreen, player, enemyManager, rend)
         {
 
-        }
+        }*/
 
     }
 }

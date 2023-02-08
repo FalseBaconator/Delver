@@ -10,12 +10,21 @@ namespace TextRPG
     {
         Player player;
 
+        EnemyType type;
+
         //Random random = new Random();
 
         private bool moved;
 
-        public Enemy(int x, int y, int HP, int ATK, char sprite, Map map, ConsoleColor color, Player player, EnemyManager enemyManager, Render rend) : base(x, y, HP, ATK, sprite, map, enemyManager, color, rend)
+        /*public Enemy(int x, int y, int HP, int ATK, char sprite, Map map, ConsoleColor color, Player player, EnemyManager enemyManager, Render rend) : base(x, y, HP, ATK, sprite, map, enemyManager, color, rend)
         {
+            this.player = player;
+        }
+        */
+
+        public Enemy(int x, int y, EnemyType type, Map map, Player player, EnemyManager enemyManager, Render rend) : base(x,y,type.HP, type.ATK, type.sprite, map, enemyManager, type.color, rend)
+        {
+            this.type = type;
             this.player = player;
         }
 
