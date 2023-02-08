@@ -17,7 +17,7 @@ namespace TextRPG
 
 
         //public int type;
-        Type type;
+        public Type type;
 
         public int HP;
         public int ATK;
@@ -26,7 +26,8 @@ namespace TextRPG
 
         public EnemyType(Type type)
         {
-            switch (type)
+            this.type = type;
+            switch (this.type)
             {
                 case Type.slime:
                     HP = 1;
