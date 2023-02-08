@@ -24,13 +24,13 @@ namespace TextRPG
 
         public void GenerateItems(int ItemNum)
         {
-            for (int i = 0; i < ItemNum; i++)
+            while(items.Count < ItemNum)
             {
                 int x = rand.Next(0, 5);
                 int y = rand.Next(0, 5);
                 x = x * 7 + 3;
                 y = y * 7 + 3;
-                if(ItemChecks(x, y) == null)
+                if(ItemChecks(x, y) == null && player.PlayerCheck(x,y) == false)
                 {
                     switch (rand.Next(0, 3))
                     {

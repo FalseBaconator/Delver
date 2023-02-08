@@ -38,13 +38,13 @@ namespace TextRPG
                                 Enemies.Add(new Enemy(i, j, new EnemyType(0), map, player, this, rend)); //slime
                                 break;
                             case 2:
-                            case 3:
                                 Enemies.Add(new Enemy(i, j, new EnemyType(1), map, player, this, rend)); //goblin
                                 break;
+                            case 3:
                             case 4:
-                            case 5:
                                 Enemies.Add(new Enemy(i, j, new EnemyType(2), map, player, this, rend)); //kobold
                                 break;
+                            case 5:
                             case 6:
                             case 7:
                             case 8:
