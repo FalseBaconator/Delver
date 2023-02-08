@@ -8,29 +8,39 @@ namespace TextRPG
 {
     internal class EnemyType
     {
-        public int type;
+        public enum Type
+        {
+            slime,
+            goblin,
+            kobold
+        }
+
+
+        //public int type;
+        Type type;
+
         public int HP;
         public int ATK;
         public char sprite;
         public ConsoleColor color;
 
-        public EnemyType(int type)
+        public EnemyType(Type type)
         {
             switch (type)
             {
-                case 0:     //Slime
+                case Type.slime:
                     HP = 1;
                     ATK = 1;
                     sprite = 'O';
-                    color = ConsoleColor.Blue;
+                    color = ConsoleColor.Cyan;
                     break;
-                case 1:     //Goblin
+                case Type.goblin:
                     HP = 5;
                     ATK = 2;
                     sprite = 'X';
                     color = ConsoleColor.DarkGreen;
                     break;
-                case 2:     //Kobold
+                case Type.kobold:
                     HP = 3;
                     ATK = 1;
                     sprite = 'X';

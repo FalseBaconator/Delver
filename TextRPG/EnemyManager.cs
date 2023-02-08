@@ -35,14 +35,14 @@ namespace TextRPG
                         {
                             case 0:
                             case 1:
-                                Enemies.Add(new Enemy(i, j, new EnemyType(0), map, player, this, rend)); //slime
+                                Enemies.Add(new Enemy(i, j, new EnemyType(EnemyType.Type.slime), map, player, this, rend));
                                 break;
                             case 2:
-                                Enemies.Add(new Enemy(i, j, new EnemyType(1), map, player, this, rend)); //goblin
+                                Enemies.Add(new Enemy(i, j, new EnemyType(EnemyType.Type.goblin), map, player, this, rend));
                                 break;
                             case 3:
                             case 4:
-                                Enemies.Add(new Enemy(i, j, new EnemyType(2), map, player, this, rend)); //kobold
+                                Enemies.Add(new Enemy(i, j, new EnemyType(EnemyType.Type.kobold), map, player, this, rend));
                                 break;
                             case 5:
                             case 6:
