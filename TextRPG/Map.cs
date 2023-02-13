@@ -70,7 +70,7 @@ namespace TextRPG
                     }
                     //Console.SetCursorPosition(i, j);
                     //Console.Write(map[i, j]);
-                    rend.ScreenChars[i,j] = map[i,j];
+                    rend.ScreenChars[i, j] = map[i, j];
                     rend.ScreenColors[i, j] = Console.ForegroundColor;
                 }
             }

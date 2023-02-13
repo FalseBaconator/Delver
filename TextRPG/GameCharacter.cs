@@ -19,6 +19,8 @@ namespace TextRPG
         public ConsoleColor color;
         public Render rend;
 
+        private bool attacked = false;
+
         public bool alive = true;
 
         public GameCharacter(int x, int y, int HP, int ATK, char sprite, Map map, EnemyManager enemyManager, ConsoleColor color, Render rend)
@@ -34,8 +36,17 @@ namespace TextRPG
             this.rend = rend;
         }
 
-        public void Draw()
+        public virtual void Draw()
         {
+            if (attacked)
+            {
+                attacked = false;
+                rend.BackgroundColors[x, y] = ConsoleColor.Red;
+            }
+            else
+            {
+                rend.BackgroundColors[x, y] = ConsoleColor.Black;
+            }
             rend.ScreenColors[x, y] = color;
             rend.ScreenChars[x, y] = sprite;
         }
@@ -43,6 +54,7 @@ namespace TextRPG
         public virtual void TakeDMG(int DMG)
         {
             HP -= DMG;
+            attacked = true;
             if (HP <= 0)
             {
                 map.DrawTile(x, y);

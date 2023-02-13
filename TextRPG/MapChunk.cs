@@ -10,9 +10,16 @@ namespace TextRPG
     {
         public char[,] tile;
 
+        public bool BOpen = false;
+        public bool LOpen = false;
+        public bool ROpen = false;
+        public bool TOpen = false;
+
         public MapChunk(char[,] tile)
         {
             this.tile = tile;
         }
+
+
     }
 }

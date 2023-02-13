@@ -96,6 +96,7 @@ namespace TextRPG
             if(shield > DMG)
             {
                 shield -= DMG;
+                base.TakeDMG(0);
             }
             else
             {

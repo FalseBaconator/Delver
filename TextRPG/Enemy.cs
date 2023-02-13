@@ -186,7 +186,6 @@ namespace TextRPG
             }
         }
 
-
         public override void TakeDMG(int DMG)
         {
             base.TakeDMG(DMG);

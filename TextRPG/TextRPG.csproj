@@ -62,5 +62,22 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="MapChunkCategories\B.txt" />
+    <Content Include="MapChunkCategories\BL.txt" />
+    <Content Include="MapChunkCategories\BLR.txt" />
+    <Content Include="MapChunkCategories\BLRT.txt" />
+    <Content Include="MapChunkCategories\BLT.txt" />
+    <Content Include="MapChunkCategories\BR.txt" />
+    <Content Include="MapChunkCategories\BRT.txt" />
+    <Content Include="MapChunkCategories\BT.txt" />
+    <Content Include="MapChunkCategories\L.txt" />
+    <Content Include="MapChunkCategories\LR.txt" />
+    <Content Include="MapChunkCategories\LRT.txt" />
+    <Content Include="MapChunkCategories\R.txt" />
+    <Content Include="MapChunkCategories\T.txt" />
+    <Content Include="MapChunkCategories\LT.txt" />
+    <Content Include="MapChunkCategories\RT.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

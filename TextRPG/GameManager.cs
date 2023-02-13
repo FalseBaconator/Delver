@@ -46,6 +46,7 @@ namespace TextRPG
 
         public void Draw()
         {
+            rend.ResetBackgrounds();
             map.DrawMap();
             itemManager.Draw();
             player.Draw();

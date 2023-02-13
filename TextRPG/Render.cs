@@ -13,6 +13,8 @@ namespace TextRPG
 
         public ConsoleColor[,] ScreenColors = new ConsoleColor[35, 35];
 
+        public ConsoleColor[,] BackgroundColors = new ConsoleColor[35, 35];
+
         public void DrawToScreen()
         {
             Console.CursorVisible = false;
@@ -21,8 +23,20 @@ namespace TextRPG
                 for (int j = 0; j < ScreenChars.GetLength(1); j++)
                 {
                     Console.SetCursorPosition(i, j);
+                    Console.BackgroundColor = BackgroundColors[i, j];
                     Console.ForegroundColor = ScreenColors[i, j];
                     Console.Write(ScreenChars[i, j]);
+                }
+            }
+        }
+
+        public void ResetBackgrounds()
+        {
+            for (int i = 0; i < BackgroundColors.GetLength(0); i++)
+            {
+                for (int j = 0; j < BackgroundColors.GetLength(1); j++)
+                {
+                    BackgroundColors[i, j] = ConsoleColor.Black;
                 }
             }
         }
