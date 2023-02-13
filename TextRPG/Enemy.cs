@@ -140,66 +140,42 @@ namespace TextRPG
                                     {
                                         x++;
                                     }
-                                    else /////////////////////////////////////////////////
+                                    else if (map.CheckTile(x, y + 1) && player.PlayerCheck(x, y + 1) == false && enemyManager.EnemyCheck(x, y + 1) == null)
                                     {
-                                        if (map.CheckTile(x, y + 1) && player.PlayerCheck(x, y + 1) == false && enemyManager.EnemyCheck(x, y + 1) == null)
-                                        {
-                                            y++;
-                                        }
+                                        y++;
                                     }
                                 }
                                 else if (deltaX < 0 && deltaY >= 0)
                                 {
-                                    if (deltaX * -1 >= deltaY)
+                                    if (deltaX * -1 >= deltaY && map.CheckTile(x + 1, y) && player.PlayerCheck(x + 1, y) == false && enemyManager.EnemyCheck(x + 1, y) == null)
                                     {
-                                        if (map.CheckTile(x + 1, y) && player.PlayerCheck(x + 1, y) == false && enemyManager.EnemyCheck(x + 1, y) == null)
-                                        {
-                                            x++;
-                                        }
-
+                                        x++;
                                     }
-                                    else
+                                    else if (map.CheckTile(x, y - 1) && player.PlayerCheck(x, y - 1) == false && enemyManager.EnemyCheck(x, y - 1) == null)
                                     {
-                                        if (map.CheckTile(x, y - 1) && player.PlayerCheck(x, y - 1) == false && enemyManager.EnemyCheck(x, y - 1) == null)
-                                        {
-                                            y--;
-                                        }
+                                        y--;
                                     }
                                 }
                                 else if (deltaX >= 0 && deltaY < 0)
                                 {
-                                    if (deltaX >= deltaY * -1)
+                                    if (deltaX >= deltaY * -1 && map.CheckTile(x - 1, y) && player.PlayerCheck(x - 1, y) == false && enemyManager.EnemyCheck(x - 1, y) == null)
                                     {
-                                        if (map.CheckTile(x - 1, y) && player.PlayerCheck(x - 1, y) == false && enemyManager.EnemyCheck(x - 1, y) == null)
-                                        {
-                                            x--;
-                                        }
-
+                                        x--;
                                     }
-                                    else
+                                    else if (map.CheckTile(x, y + 1) && player.PlayerCheck(x, y + 1) == false && enemyManager.EnemyCheck(x, y + 1) == null)
                                     {
-                                        if (map.CheckTile(x, y + 1) && player.PlayerCheck(x, y + 1) == false && enemyManager.EnemyCheck(x, y + 1) == null)
-                                        {
-                                            y++;
-                                        }
+                                        y++;
                                     }
                                 }
                                 if (deltaX >= 0 && deltaY >= 0)
                                 {
-                                    if (deltaX >= deltaY )
+                                    if (deltaX >= deltaY && map.CheckTile(x - 1, y) && player.PlayerCheck(x - 1, y) == false && enemyManager.EnemyCheck(x - 1, y) == null)
                                     {
-                                        if (map.CheckTile(x - 1, y) && player.PlayerCheck(x - 1, y) == false && enemyManager.EnemyCheck(x - 1, y) == null)
-                                        {
-                                            x--;
-                                        }
-
+                                        x--;
                                     }
-                                    else
+                                    else if (map.CheckTile(x, y - 1) && player.PlayerCheck(x, y - 1) == false && enemyManager.EnemyCheck(x, y - 1) == null)
                                     {
-                                        if (map.CheckTile(x, y - 1) && player.PlayerCheck(x, y - 1) == false && enemyManager.EnemyCheck(x, y - 1) == null)
-                                        {
-                                            y--;
-                                        }
+                                        y--;
                                     }
                                 }
                                 break;
