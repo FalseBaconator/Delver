@@ -19,7 +19,7 @@ namespace TextRPG
 
         static Player player = new Player(17, 17, 5, 5, 2, '@', map, enemyManager, ConsoleColor.White, render);
 
-        static ItemManager itemManager = new ItemManager(player, enemyManager, render);
+        static ItemManager itemManager = new ItemManager(player, enemyManager, map, render);
 
         static InputManager inputManager = new InputManager(player);
         static GameManager manager = new GameManager(player, enemyManager, map, inputManager, itemManager, render);
@@ -38,10 +38,7 @@ namespace TextRPG
             }
 
 
-            Console.Clear();
-            Console.ResetColor();
-            Console.Write("You are dead, no big surprise");
-            Console.ReadKey(true);
+            manager.EndGame();
 
         }
     }

@@ -55,5 +55,37 @@ namespace TextRPG
             rend.DrawToScreen();
         }
 
+        public void EndGame()
+        {
+            if (player.alive && eManager.Enemies.Count == 0)
+            {
+                Console.Clear();
+                Console.ResetColor();
+                Console.Write("You Win!");
+                Console.ReadKey(true);
+            }
+            else if (player.alive == false)
+            {
+                Console.Clear();
+                Console.ResetColor();
+                Console.Write("You are dead, no big surprise");
+                Console.ReadKey(true);
+            }
+            else if(inputManager.GetKey() == ConsoleKey.Escape)
+            {
+                Console.Clear();
+                Console.ResetColor();
+                Console.Write("Hope to see you again!");
+                Console.ReadKey(true);
+            }
+            else
+            {
+                Console.Clear();
+                Console.ResetColor();
+                Console.Write("I don't know how you saw this message, but contact RWohler and tell them what caused your playthrough to end.");
+                Console.ReadKey(true);
+            }
+        }
+
     }
 }

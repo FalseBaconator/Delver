@@ -13,11 +13,13 @@ namespace TextRPG
 
         Player player;
         Render rend;
+        Map map;
 
-        public ItemManager(Player player, EnemyManager eManager, Render rend)
+        public ItemManager(Player player, EnemyManager eManager, Map map, Render rend)
         {
             this.player = player;
             this.rend = rend;
+            this.map = map;
             player.itemManager = this;
             eManager.itemManager = this;
         }
@@ -30,7 +32,7 @@ namespace TextRPG
                 int y = rand.Next(0, 5);
                 x = x * 7 + 3;
                 y = y * 7 + 3;
-                if(ItemChecks(x, y) == null && player.PlayerCheck(x,y) == false)
+                if(ItemChecks(x, y) == null && player.PlayerCheck(x,y) == false && map.map[x,y] == ',')
                 {
                     switch (rand.Next(0, 3))
                     {
