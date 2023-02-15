@@ -63,21 +63,51 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="MapChunkCategories\B.txt" />
-    <Content Include="MapChunkCategories\BL.txt" />
-    <Content Include="MapChunkCategories\BLR.txt" />
-    <Content Include="MapChunkCategories\BLRT.txt" />
-    <Content Include="MapChunkCategories\BLT.txt" />
-    <Content Include="MapChunkCategories\BR.txt" />
-    <Content Include="MapChunkCategories\BRT.txt" />
-    <Content Include="MapChunkCategories\BT.txt" />
-    <Content Include="MapChunkCategories\L.txt" />
-    <Content Include="MapChunkCategories\LR.txt" />
-    <Content Include="MapChunkCategories\LRT.txt" />
-    <Content Include="MapChunkCategories\R.txt" />
-    <Content Include="MapChunkCategories\T.txt" />
-    <Content Include="MapChunkCategories\LT.txt" />
-    <Content Include="MapChunkCategories\RT.txt" />
+    <Content Include="MapChunkCategories\B.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MapChunkCategories\BL.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MapChunkCategories\BLR.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MapChunkCategories\BLRT.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MapChunkCategories\BLT.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MapChunkCategories\BR.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MapChunkCategories\BRT.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MapChunkCategories\BT.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MapChunkCategories\L.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MapChunkCategories\LR.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MapChunkCategories\LRT.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MapChunkCategories\R.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MapChunkCategories\T.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MapChunkCategories\LT.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="MapChunkCategories\RT.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

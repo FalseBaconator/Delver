@@ -363,7 +363,7 @@ namespace TextRPG
 
         private void GetFiles()
         {
-            string[] tempB = File.ReadAllLines("TextRPG/MapChunkCategories/B");
+            string[] tempB = File.ReadAllLines("MapChunkCategories/B.txt");
             for (int i = 0; i < 3; i++)
             {
                 B[i] = new MapChunk(new char[7,7]);
@@ -372,12 +372,12 @@ namespace TextRPG
                 {
                     for (int k = 0; k < 7; k++)
                     {
-                        B[i].tile[j, k] = tempB[j][k];
+                        B[i].tile[j, k] = tempB[j + (7 * i)][k];
                     }   
                 }
             }
 
-            string[] tempL = File.ReadAllLines("TextRPG/MapChunkCategories/L");
+            string[] tempL = File.ReadAllLines("MapChunkCategories/L.txt");
             for (int i = 0; i < 3; i++)
             {
                 L[i] = new MapChunk(new char[7, 7]);
@@ -386,12 +386,12 @@ namespace TextRPG
                 {
                     for (int k = 0; k < 7; k++)
                     {
-                        L[i].tile[j, k] = tempL[j][k];
+                        L[i].tile[j, k] = tempL[j + (7 * i)][k];
                     }
                 }
             }
 
-            string[] tempR = File.ReadAllLines("TextRPG/MapChunkCategories/R");
+            string[] tempR = File.ReadAllLines("MapChunkCategories/R.txt");
             for (int i = 0; i < 3; i++)
             {
                 R[i] = new MapChunk(new char[7, 7]);
@@ -400,12 +400,12 @@ namespace TextRPG
                 {
                     for (int k = 0; k < 7; k++)
                     {
-                        R[i].tile[j, k] = tempR[j][k];
+                        R[i].tile[j, k] = tempR[j + (7 * i)][k];
                     }
                 }
             }
 
-            string[] tempT = File.ReadAllLines("TextRPG/MapChunkCategories/T");
+            string[] tempT = File.ReadAllLines("MapChunkCategories/T.txt");
             for (int i = 0; i < 3; i++)
             {
                 T[i] = new MapChunk(new char[7, 7]);
@@ -414,12 +414,12 @@ namespace TextRPG
                 {
                     for (int k = 0; k < 7; k++)
                     {
-                        T[i].tile[j, k] = tempT[j][k];
+                        T[i].tile[j, k] = tempT[j + (7 * i)][k];
                     }
                 }
             }
 
-            string[] tempBL = File.ReadAllLines("TextRPG/MapChunkCategories/BL");
+            string[] tempBL = File.ReadAllLines("MapChunkCategories/BL.txt");
             for (int i = 0; i < 3; i++)
             {
                 BL[i] = new MapChunk(new char[7, 7]);
@@ -429,12 +429,12 @@ namespace TextRPG
                 {
                     for (int k = 0; k < 7; k++)
                     {
-                        BL[i].tile[j, k] = tempBL[j][k];
+                        BL[i].tile[j, k] = tempBL[j + (7 * i)][k];
                     }
                 }
             }
 
-            string[] tempBR = File.ReadAllLines("TextRPG/MapChunkCategories/BR");
+            string[] tempBR = File.ReadAllLines("MapChunkCategories/BR.txt");
             for (int i = 0; i < 3; i++)
             {
                 BR[i] = new MapChunk(new char[7, 7]);
@@ -444,12 +444,12 @@ namespace TextRPG
                 {
                     for (int k = 0; k < 7; k++)
                     {
-                        BR[i].tile[j, k] = tempBR[j][k];
+                        BR[i].tile[j, k] = tempBR[j + (7 * i)][k];
                     }
                 }
             }
 
-            string[] tempBT = File.ReadAllLines("TextRPG/MapChunkCategories/BT");
+            string[] tempBT = File.ReadAllLines("MapChunkCategories/BT.txt");
             for (int i = 0; i < 3; i++)
             {
                 BT[i] = new MapChunk(new char[7, 7]);
@@ -459,12 +459,12 @@ namespace TextRPG
                 {
                     for (int k = 0; k < 7; k++)
                     {
-                        BT[i].tile[j, k] = tempBT[j][k];
+                        BT[i].tile[j, k] = tempBT[j + (7 * i)][k];
                     }
                 }
             }
 
-            string[] tempLR = File.ReadAllLines("TextRPG/MapChunkCategories/LR");
+            string[] tempLR = File.ReadAllLines("MapChunkCategories/LR.txt");
             for (int i = 0; i < 3; i++)
             {
                 LR[i] = new MapChunk(new char[7, 7]);
@@ -474,12 +474,12 @@ namespace TextRPG
                 {
                     for (int k = 0; k < 7; k++)
                     {
-                        LR[i].tile[j, k] = tempLR[j][k];
+                        LR[i].tile[j, k] = tempLR[j + (7 * i)][k];
                     }
                 }
             }
 
-            string[] tempLT = File.ReadAllLines("TextRPG/MapChunkCategories/LT");
+            string[] tempLT = File.ReadAllLines("MapChunkCategories/LT.txt");
             for (int i = 0; i < 3; i++)
             {
                 LT[i] = new MapChunk(new char[7, 7]);
@@ -489,12 +489,12 @@ namespace TextRPG
                 {
                     for (int k = 0; k < 7; k++)
                     {
-                        LT[i].tile[j, k] = tempLT[j][k];
+                        LT[i].tile[j, k] = tempLT[j + (7 * i)][k];
                     }
                 }
             }
 
-            string[] tempRT = File.ReadAllLines("TextRPG/MapChunkCategories/RT");
+            string[] tempRT = File.ReadAllLines("MapChunkCategories/RT.txt");
             for (int i = 0; i < 3; i++)
             {
                 RT[i] = new MapChunk(new char[7, 7]);
@@ -504,12 +504,12 @@ namespace TextRPG
                 {
                     for (int k = 0; k < 7; k++)
                     {
-                        RT[i].tile[j, k] = tempRT[j][k];
+                        RT[i].tile[j, k] = tempRT[j + (7 * i)][k];
                     }
                 }
             }
 
-            string[] tempBLR = File.ReadAllLines("TextRPG/MapChunkCategories/BLR");
+            string[] tempBLR = File.ReadAllLines("MapChunkCategories/BLR.txt");
             for (int i = 0; i < 3; i++)
             {
                 BLR[i] = new MapChunk(new char[7, 7]);
@@ -520,12 +520,12 @@ namespace TextRPG
                 {
                     for (int k = 0; k < 7; k++)
                     {
-                        BLR[i].tile[j, k] = tempBLR[j][k];
+                        BLR[i].tile[j, k] = tempBLR[j + (7 * i)][k];
                     }
                 }
             }
 
-            string[] tempBLT = File.ReadAllLines("TextRPG/MapChunkCategories/BLT");
+            string[] tempBLT = File.ReadAllLines("MapChunkCategories/BLT.txt");
             for (int i = 0; i < 3; i++)
             {
                 BLT[i] = new MapChunk(new char[7, 7]);
@@ -536,12 +536,12 @@ namespace TextRPG
                 {
                     for (int k = 0; k < 7; k++)
                     {
-                        BLT[i].tile[j, k] = tempBLT[j][k];
+                        BLT[i].tile[j, k] = tempBLT[j + (7 * i)][k];
                     }
                 }
             }
 
-            string[] tempBRT = File.ReadAllLines("TextRPG/MapChunkCategories/BRT");
+            string[] tempBRT = File.ReadAllLines("MapChunkCategories/BRT.txt");
             for (int i = 0; i < 3; i++)
             {
                 BRT[i] = new MapChunk(new char[7, 7]);
@@ -552,12 +552,12 @@ namespace TextRPG
                 {
                     for (int k = 0; k < 7; k++)
                     {
-                        BRT[i].tile[j, k] = tempBRT[j][k];
+                        BRT[i].tile[j, k] = tempBRT[j + (7 * i)][k];
                     }
                 }
             }
 
-            string[] tempLRT = File.ReadAllLines("TextRPG/MapChunkCategories/LRT");
+            string[] tempLRT = File.ReadAllLines("MapChunkCategories/LRT.txt");
             for (int i = 0; i < 3; i++)
             {
                 LRT[i] = new MapChunk(new char[7, 7]);
@@ -568,12 +568,12 @@ namespace TextRPG
                 {
                     for (int k = 0; k < 7; k++)
                     {
-                        LRT[i].tile[j, k] = tempLRT[j][k];
+                        LRT[i].tile[j, k] = tempLRT[j + (7 * i)][k];
                     }
                 }
             }
 
-            string[] tempBLRT = File.ReadAllLines("TextRPG/MapChunkCategories/BLRT");
+            string[] tempBLRT = File.ReadAllLines("MapChunkCategories/BLRT.txt");
             for (int i = 0; i < 3; i++)
             {
                 BLRT[i] = new MapChunk(new char[7, 7]);
@@ -585,7 +585,7 @@ namespace TextRPG
                 {
                     for (int k = 0; k < 7; k++)
                     {
-                        BLRT[i].tile[j, k] = tempBLRT[j][k];
+                        BLRT[i].tile[j, k] = tempBLRT[j + (7 * i)][k];
                     }
                 }
             }
@@ -600,233 +600,233 @@ namespace TextRPG
 
         private MapChunk FillTile(int x, int y)
         {
-            if (x == 0) // Left Side of map
+            if (y == 0) // Left Side of map
             {
-                if(y == 0) // Top of Map
+                if(x == 0) // Top of Map
                 {
-                    if (TempMap[x+1, y].LOpen && TempMap[x, y + 1].TOpen)
+                    if (TempMap[x, y+1].LOpen && TempMap[x+1, y].TOpen)
                     {
                         return RandomizeTile(BR);
-                    }else if (TempMap[x + 1, y].LOpen)
+                    }else if (TempMap[x, y+1].LOpen)
                     {
                         return RandomizeTile(R);
-                    }else if (TempMap[x, y + 1].TOpen)
+                    }else if (TempMap[x+1, y].TOpen)
                     {
                         return RandomizeTile(B);
                     }
-                }else if (y == TempMap.GetLength(1)) //Bottom of map
+                }else if (x == TempMap.GetLength(0)-1) //Bottom of map
                 {
-                    if (TempMap[x + 1, y].LOpen && TempMap[x, y - 1].BOpen)
+                    if (TempMap[x, y+1].LOpen && TempMap[x-1, y].BOpen)
                     {
                         return RandomizeTile(RT);
                     }
-                    else if (TempMap[x + 1, y].LOpen)
+                    else if (TempMap[x, y+1].LOpen)
                     {
                         return RandomizeTile(R);
                     }
-                    else if (TempMap[x, y - 1].BOpen)
+                    else if (TempMap[x-1, y].BOpen)
                     {
                         return RandomizeTile(T);
                     }
                 }
                 else //left side of map not top or bottom
                 {
-                    if (TempMap[x + 1, y].LOpen && TempMap[x, y + 1].TOpen && TempMap[x, y - 1].BOpen)
+                    if (TempMap[x, y+1].LOpen && TempMap[x+1, y].TOpen && TempMap[x-1, y].BOpen)
                     {
                         return RandomizeTile(BRT);
-                    } else if (TempMap[x + 1, y].LOpen && TempMap[x, y + 1].TOpen)
+                    } else if (TempMap[x, y+1].LOpen && TempMap[x+1, y].TOpen)
                     {
                         return RandomizeTile(BR);
-                    } else if (TempMap[x, y - 1].BOpen && TempMap[x + 1, y].LOpen)
+                    } else if (TempMap[x-1, y].BOpen && TempMap[x, y+1].LOpen)
                     {
                         return RandomizeTile(RT);
-                    } else if (TempMap[x, y - 1].BOpen && TempMap[x, y + 1].TOpen)
+                    } else if (TempMap[x-1, y].BOpen && TempMap[x+1, y].TOpen)
                     {
                         return RandomizeTile(BT);
-                    } else if (TempMap[x + 1, y].LOpen)
+                    } else if (TempMap[x, y+1].LOpen)
                     {
                         return RandomizeTile(R);
-                    } else if (TempMap[x, y - 1].BOpen)
+                    } else if (TempMap[x-1, y].BOpen)
                     {
                         return RandomizeTile(T);
-                    } else if (TempMap[x, y + 1].TOpen)
+                    } else if (TempMap[x+1, y].TOpen)
                     {
                         return RandomizeTile(B);
                     }
                 }
-            } else if(x == TempMap.GetLength(0))    //right side of map
+            } else if(y == TempMap.GetLength(1) - 1)    //right side of map
             {
-                if (y == 0) //top of map
+                if (x == 0) //top of map
                 {
-                    if (TempMap[x - 1, y].ROpen && TempMap[x, y + 1].TOpen)
+                    if (TempMap[x, y-1].ROpen && TempMap[x+1, y].TOpen)
                     {
                         return RandomizeTile(BL);
                     }
-                    else if (TempMap[x - 1, y].ROpen)
+                    else if (TempMap[x, y-1].ROpen)
                     {
                         return RandomizeTile(L);
                     }
-                    else if (TempMap[x, y + 1].TOpen)
+                    else if (TempMap[x+1, y].TOpen)
                     {
                         return RandomizeTile(B);
                     }
                 }
-                else if (y == TempMap.GetLength(1)) // bottom of map
+                else if (x == TempMap.GetLength(0) - 1) // bottom of map
                 {
-                    if (TempMap[x - 1, y].ROpen && TempMap[x, y - 1].BOpen)
+                    if (TempMap[x, y-1].ROpen && TempMap[x-1, y].BOpen)
                     {
                         return RandomizeTile(LT);
                     }
-                    else if (TempMap[x- 1, y].ROpen)
+                    else if (TempMap[x, y-1].ROpen)
                     {
                         return RandomizeTile(L);
                     }
-                    else if (TempMap[x, y - 1].BOpen)
+                    else if (TempMap[x-1, y].BOpen)
                     {
                         return RandomizeTile(T);
                     }
                 }
                 else    // right side of map not top or bottom
                 {
-                    if (TempMap[x - 1, y].ROpen && TempMap[x, y + 1].TOpen && TempMap[x, y - 1].BOpen)
+                    if (TempMap[x, y-1].ROpen && TempMap[x+1, y].TOpen && TempMap[x-1, y].BOpen)
                     {
                         return RandomizeTile(BLT);
                     }
-                    else if (TempMap[x - 1, y].ROpen && TempMap[x, y + 1].TOpen)
+                    else if (TempMap[x, y-1].ROpen && TempMap[x+1, y].TOpen)
                     {
                         return RandomizeTile(BL);
                     }
-                    else if (TempMap[x, y - 1].BOpen && TempMap[x + 1, y].ROpen)
+                    else if (TempMap[x-1, y].BOpen && TempMap[x, y-1].ROpen)
                     {
                         return RandomizeTile(LT);
                     }
-                    else if (TempMap[x, y - 1].BOpen && TempMap[x, y + 1].TOpen)
+                    else if (TempMap[x-1, y].BOpen && TempMap[x+1, y].TOpen)
                     {
                         return RandomizeTile(BT);
                     }
-                    else if (TempMap[x - 1, y].ROpen)
+                    else if (TempMap[x, y-1].ROpen)
                     {
                         return RandomizeTile(L);
                     }
-                    else if (TempMap[x, y - 1].BOpen)
+                    else if (TempMap[x-1, y].BOpen)
                     {
                         return RandomizeTile(T);
                     }
-                    else if (TempMap[x, y + 1].TOpen)
+                    else if (TempMap[x+1, y].TOpen)
                     {
                         return RandomizeTile(B);
                     }
                 }
-            }else if (y == 0)   //Top of Map not left or right
+            }else if (x == 0)   //Top of Map not left or right
             {
-                if (TempMap[x+1, y].LOpen && TempMap[x-1, y].ROpen && TempMap[x, y + 1].TOpen)
+                if (TempMap[x, y+1].LOpen && TempMap[x, y-1].ROpen && TempMap[x+1, y].TOpen)
                 {
                     return RandomizeTile(BLR);
-                }else if (TempMap[x + 1, y].LOpen && TempMap[x - 1, y].ROpen)
+                }else if (TempMap[x, y+1].LOpen && TempMap[x, y-1].ROpen)
                 {
                     return RandomizeTile(LR);
-                }else if (TempMap[x+1, y].LOpen && TempMap[x, y + 1].TOpen)
+                }else if (TempMap[x, y+1].LOpen && TempMap[x+1, y].TOpen)
                 {
                     return RandomizeTile(BR);
-                }else if (TempMap[x-1, y].ROpen && TempMap[x, y + 1].TOpen)
+                }else if (TempMap[x, y-1].ROpen && TempMap[x+1, y].TOpen)
                 {
                     return RandomizeTile(BL);
-                }else if (TempMap[x + 1, y].LOpen)
+                }else if (TempMap[x, y+1].LOpen)
                 {
                     return RandomizeTile(R);
-                }else if (TempMap[x-1, y].ROpen)
+                }else if (TempMap[x, y-1].ROpen)
                 {
                     return RandomizeTile(L);
-                }else if (TempMap[x, y + 1].TOpen)
+                }else if (TempMap[x+1, y].TOpen)
                 {
                     return RandomizeTile(B);
                 }
-            }else if(y == TempMap.GetLength(1)) //bottom of map not left or right
+            }else if(x == TempMap.GetLength(0) - 1) //bottom of map not left or right
             {
-                if (TempMap[x + 1, y].LOpen && TempMap[x - 1, y].ROpen && TempMap[x, y - 1].BOpen)
+                if (TempMap[x, y+1].LOpen && TempMap[x, y-1].ROpen && TempMap[x-1, y].BOpen)
                 {
                     return RandomizeTile(LRT);
                 }
-                else if (TempMap[x + 1, y].LOpen && TempMap[x - 1, y].ROpen)
+                else if (TempMap[x, y+1].LOpen && TempMap[x, y-1].ROpen)
                 {
                     return RandomizeTile(LR);
                 }
-                else if (TempMap[x + 1, y].LOpen && TempMap[x, y - 1].BOpen)
+                else if (TempMap[x, y+1].LOpen && TempMap[x-1, y].BOpen)
                 {
                     return RandomizeTile(RT);
                 }
-                else if (TempMap[x - 1, y].ROpen && TempMap[x, y - 1].BOpen)
+                else if (TempMap[x, y-1].ROpen && TempMap[x-1, y].BOpen)
                 {
                     return RandomizeTile(LT);
                 }
-                else if (TempMap[x + 1, y].LOpen)
+                else if (TempMap[x, y+1].LOpen)
                 {
                     return RandomizeTile(R);
                 }
-                else if (TempMap[x - 1, y].ROpen)
+                else if (TempMap[x, y-1].ROpen)
                 {
                     return RandomizeTile(L);
                 }
-                else if (TempMap[x, y - 1].BOpen)
+                else if (TempMap[x-1, y].BOpen)
                 {
                     return RandomizeTile(T);
                 }
             }
             else    //not on the edge of the map
             {
-                if (TempMap[x, y - 1].BOpen && TempMap[x - 1, y].ROpen && TempMap[x + 1, y].LOpen && TempMap[x, y + 1].TOpen)
+                if (TempMap[x-1, y].BOpen && TempMap[x, y-1].ROpen && TempMap[x, y+1].LOpen && TempMap[x+1, y].TOpen)
                 {
                     return RandomizeTile(BLRT);
                 }
-                else if (TempMap[x + 1, y].LOpen && TempMap[x - 1, y].ROpen && TempMap[x, y + 1].TOpen)
+                else if (TempMap[x, y+1].LOpen && TempMap[x, y-1].ROpen && TempMap[x+1, y].TOpen)
                 {
                     return RandomizeTile(BLR);
                 }
-                else if (TempMap[x + 1, y].LOpen && TempMap[x - 1, y].ROpen && TempMap[x, y - 1].BOpen)
+                else if (TempMap[x, y+1].LOpen && TempMap[x, y-1].ROpen && TempMap[x-1, y].BOpen)
                 {
                     return RandomizeTile(LRT);
-                }else if (TempMap[x - 1, y].ROpen && TempMap[x, y + 1].TOpen && TempMap[x, y - 1].BOpen)
+                }else if (TempMap[x, y-1].ROpen && TempMap[x+1, y].TOpen && TempMap[x-1, y].BOpen)
                 {
                     return RandomizeTile(BLT);
-                }else if (TempMap[x + 1, y].LOpen && TempMap[x, y + 1].TOpen && TempMap[x, y - 1].BOpen)
+                }else if (TempMap[x, y+1].LOpen && TempMap[x+1, y].TOpen && TempMap[x-1, y].BOpen)
                 {
                     return RandomizeTile(BRT);
-                } else if (TempMap[x + 1, y].LOpen && TempMap[x, y - 1].BOpen)
+                } else if (TempMap[x, y+1].LOpen && TempMap[x-1, y].BOpen)
                 {
                     return RandomizeTile(RT);
-                } else if (TempMap[x - 1, y].ROpen && TempMap[x, y - 1].BOpen)
+                } else if (TempMap[x, y-1].ROpen && TempMap[x-1, y].BOpen)
                 {
                     return RandomizeTile(LT);
                 }
-                else if (TempMap[x, y - 1].BOpen && TempMap[x, y + 1].TOpen)
+                else if (TempMap[x-1, y].BOpen && TempMap[x+1, y].TOpen)
                 {
                     return RandomizeTile(BT);
                 }
-                else if (TempMap[x + 1, y].LOpen && TempMap[x - 1, y].ROpen)
+                else if (TempMap[x, y+1].LOpen && TempMap[x, y-1].ROpen)
                 {
                     return RandomizeTile(LR);
                 }
-                else if (TempMap[x + 1, y].LOpen && TempMap[x, y + 1].TOpen)
+                else if (TempMap[x, y+1].LOpen && TempMap[x+1, y].TOpen)
                 {
                     return RandomizeTile(BR);
                 }
-                else if (TempMap[x - 1, y].ROpen && TempMap[x, y + 1].TOpen)
+                else if (TempMap[x, y-1].ROpen && TempMap[x+1, y].TOpen)
                 {
                     return RandomizeTile(BL);
                 }
-                else if (TempMap[x, y - 1].BOpen)
+                else if (TempMap[x-1, y].BOpen)
                 {
                     return RandomizeTile(T);
                 }
-                else if (TempMap[x + 1, y].LOpen)
+                else if (TempMap[x, y+1].LOpen)
                 {
                     return RandomizeTile(R);
                 }
-                else if (TempMap[x - 1, y].ROpen)
+                else if (TempMap[x, y-1].ROpen)
                 {
                     return RandomizeTile(L);
                 }
-                else if (TempMap[x, y + 1].TOpen)
+                else if (TempMap[x+1, y].TOpen)
                 {
                     return RandomizeTile(B);
                 }
@@ -866,6 +866,8 @@ namespace TextRPG
 
         public char[,] RandomizeMap()
         {
+            rand = new Random();
+
             GetFiles();
 
 
@@ -1051,18 +1053,18 @@ namespace TextRPG
                     TempMap[4, 4] = RandomizeTile(T);
                     break;
             }
-            FillTile(0, 1);
-            FillTile(0, 3);
-            FillTile(1, 0);
-            FillTile(1, 2);
-            FillTile(1, 4);
-            FillTile(2, 1);
-            FillTile(2, 3);
-            FillTile(3, 0);
-            FillTile(3, 2);
-            FillTile(3, 4);
-            FillTile(4, 1);
-            FillTile(4, 3);
+            TempMap[0, 1] = FillTile(0, 1);
+            TempMap[0, 3] = FillTile(0, 3);
+            TempMap[1, 0] = FillTile(1, 0);
+            TempMap[1, 2] = FillTile(1, 2);
+            TempMap[1, 4] = FillTile(1, 4);
+            TempMap[2, 1] = FillTile(2, 1);
+            TempMap[2, 3] = FillTile(2, 3);
+            TempMap[3, 0] = FillTile(3, 0);
+            TempMap[3, 2] = FillTile(3, 2);
+            TempMap[3, 4] = FillTile(3, 4);
+            TempMap[4, 1] = FillTile(4, 1);
+            TempMap[4, 3] = FillTile(4, 3);
 
             for (int i = 0; i < 5; i++)
             {
