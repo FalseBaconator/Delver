@@ -12,6 +12,7 @@ namespace TextRPG
         public int x;
         public int y;
         public int HP;
+        public int maxHP;
         public int ATK;
         public char sprite;
         public Map map;
@@ -28,6 +29,7 @@ namespace TextRPG
             this.x = x;
             this.y = y;
             this.HP = HP;
+            this.maxHP = HP;
             this.ATK = ATK;
             this.sprite = sprite;
             this.map = map;
@@ -57,6 +59,7 @@ namespace TextRPG
             attacked = true;
             if (HP <= 0)
             {
+                HP = 0;
                 map.DrawTile(x, y);
                 alive = false;
             }

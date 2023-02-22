@@ -8,7 +8,7 @@ namespace TextRPG
 {
     internal class Item
     {
-        string name; //heal, dmg, shield
+        public string name; //heal, dmg, shield
         int value;
         int x;
         int y;
@@ -32,15 +32,15 @@ namespace TextRPG
             this.rend = rend;
             switch (name)
             {
-                case "heal":
+                case "Healing Potion":
                     sprite = '+';
                     color = ConsoleColor.Green;
                     break;
-                case "dmg":
+                case "ATK Buff":
                     sprite = '*';
                     color = ConsoleColor.Red;
                     break;
-                case "shield":
+                case "Shield Repair":
                     sprite = '#';
                     color = ConsoleColor.Blue;
                     break;

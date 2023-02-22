@@ -48,6 +48,7 @@
     <Compile Include="EnemyType.cs" />
     <Compile Include="GameCharacter.cs" />
     <Compile Include="GameManager.cs" />
+    <Compile Include="Hud.cs" />
     <Compile Include="InputManager.cs" />
     <Compile Include="Item.cs" />
     <Compile Include="ItemManager.cs" />

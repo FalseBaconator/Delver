@@ -16,7 +16,11 @@ namespace TextRPG
 
         private bool moved;
 
+        public string name;
+
         private int sightRange = 5;
+
+        private GameManager gManager;
 
         /*public Enemy(int x, int y, int HP, int ATK, char sprite, Map map, ConsoleColor color, Player player, EnemyManager enemyManager, Render rend) : base(x, y, HP, ATK, sprite, map, enemyManager, color, rend)
         {
@@ -24,10 +28,12 @@ namespace TextRPG
         }
         */
 
-        public Enemy(int x, int y, EnemyType type, Map map, Player player, EnemyManager enemyManager, Render rend) : base(x,y,type.HP, type.ATK, type.sprite, map, enemyManager, type.color, rend)
+        public Enemy(int x, int y, EnemyType type, Map map, Player player, EnemyManager enemyManager, Render rend, GameManager gManager) : base(x, y, type.HP, type.ATK, type.sprite, map, enemyManager, type.color, rend)
         {
             this.type = type;
             this.player = player;
+            name = this.type.name;
+            this.gManager = gManager;
         }
 
         public void Move(Random random)
@@ -50,28 +56,28 @@ namespace TextRPG
                         switch (Dir)
                         {
                             case 0:
-                                if (map.CheckTile(x, y - 1) && player.PlayerCheck(x, y - 1) == false && enemyManager.EnemyCheck(x, y - 1) == null)
+                                if (map.CheckTile(x, y - 1) && player.PlayerCheck(x, y - 1) == false && enemyManager.EnemyCheck(x, y - 1, false) == null)
                                 {
                                     y--;
                                     moved = true;
                                 }
                                 break;
                             case 1:
-                                if (map.CheckTile(x, y + 1) && player.PlayerCheck(x, y + 1) == false && enemyManager.EnemyCheck(x, y + 1) == null)
+                                if (map.CheckTile(x, y + 1) && player.PlayerCheck(x, y + 1) == false && enemyManager.EnemyCheck(x, y + 1, false) == null)
                                 {
                                     y++;
                                     moved = true;
                                 }
                                 break;
                             case 2:
-                                if (map.CheckTile(x - 1, y) && player.PlayerCheck(x - 1, y) == false && enemyManager.EnemyCheck(x - 1, y) == null)
+                                if (map.CheckTile(x - 1, y) && player.PlayerCheck(x - 1, y) == false && enemyManager.EnemyCheck(x - 1, y, false) == null)
                                 {
                                     x--;
                                     moved = true;
                                 }
                                 break;
                             case 3:
-                                if (map.CheckTile(x + 1, y) && player.PlayerCheck(x + 1, y) == false && enemyManager.EnemyCheck(x + 1, y) == null)
+                                if (map.CheckTile(x + 1, y) && player.PlayerCheck(x + 1, y) == false && enemyManager.EnemyCheck(x + 1, y, false) == null)
                                 {
                                     x++;
                                     moved = true;
@@ -88,12 +94,12 @@ namespace TextRPG
                             case EnemyType.Type.goblin: //chase
                                 if(deltaX >= 0 && deltaY >= 0)
                                 {
-                                    if(deltaX >= deltaY && map.CheckTile(x + 1, y) && player.PlayerCheck(x + 1, y) == false && enemyManager.EnemyCheck(x + 1, y) == null)
+                                    if(deltaX >= deltaY && map.CheckTile(x + 1, y) && player.PlayerCheck(x + 1, y) == false && enemyManager.EnemyCheck(x + 1, y, false) == null)
                                     {
                                         x++;
                                         
                                     }
-                                    else if(map.CheckTile(x, y + 1) && player.PlayerCheck(x, y + 1) == false && enemyManager.EnemyCheck(x, y + 1) == null)
+                                    else if(map.CheckTile(x, y + 1) && player.PlayerCheck(x, y + 1) == false && enemyManager.EnemyCheck(x, y + 1, false) == null)
                                     {
                                         
                                         y++;
@@ -101,33 +107,33 @@ namespace TextRPG
                                     }
                                 }else if (deltaX >= 0 && deltaY < 0)
                                 {
-                                    if (deltaX >= deltaY * -1 && map.CheckTile(x + 1, y) && player.PlayerCheck(x + 1, y) == false && enemyManager.EnemyCheck(x + 1, y) == null)
+                                    if (deltaX >= deltaY * -1 && map.CheckTile(x + 1, y) && player.PlayerCheck(x + 1, y) == false && enemyManager.EnemyCheck(x + 1, y, false) == null)
                                     {
                                         x++;
                                     }
-                                    else if (map.CheckTile(x, y - 1) && player.PlayerCheck(x, y - 1) == false && enemyManager.EnemyCheck(x, y - 1) == null)
+                                    else if (map.CheckTile(x, y - 1) && player.PlayerCheck(x, y - 1) == false && enemyManager.EnemyCheck(x, y - 1, false) == null)
                                     {
                                         y--;
                                         
                                     }
                                 }else if (deltaX < 0 && deltaY >= 0)
                                 {
-                                    if (deltaX * -1 >= deltaY && map.CheckTile(x - 1, y) && player.PlayerCheck(x - 1, y) == false && enemyManager.EnemyCheck(x - 1, y) == null)
+                                    if (deltaX * -1 >= deltaY && map.CheckTile(x - 1, y) && player.PlayerCheck(x - 1, y) == false && enemyManager.EnemyCheck(x - 1, y, false) == null)
                                     {
                                         x--;
                                     }
-                                    else if (map.CheckTile(x, y + 1) && player.PlayerCheck(x, y + 1) == false && enemyManager.EnemyCheck(x, y + 1) == null)
+                                    else if (map.CheckTile(x, y + 1) && player.PlayerCheck(x, y + 1) == false && enemyManager.EnemyCheck(x, y + 1, false) == null)
                                     {
                                         y++;
                                     }
                                 }
                                 if (deltaX < 0 && deltaY < 0)
                                 {
-                                    if (deltaX * -1 >= deltaY * -1 && map.CheckTile(x - 1, y) && player.PlayerCheck(x - 1, y) == false && enemyManager.EnemyCheck(x - 1, y) == null)
+                                    if (deltaX * -1 >= deltaY * -1 && map.CheckTile(x - 1, y) && player.PlayerCheck(x - 1, y) == false && enemyManager.EnemyCheck(x - 1, y, false) == null)
                                     {
                                         x--;
                                     }
-                                    else if (map.CheckTile(x, y - 1) && player.PlayerCheck(x, y - 1) == false && enemyManager.EnemyCheck(x, y - 1) == null)
+                                    else if (map.CheckTile(x, y - 1) && player.PlayerCheck(x, y - 1) == false && enemyManager.EnemyCheck(x, y - 1, false) == null)
                                     {
                                         y--;
                                     }
@@ -136,44 +142,44 @@ namespace TextRPG
                             case EnemyType.Type.kobold: //flee
                                 if (deltaX < 0 && deltaY < 0)
                                 {
-                                    if (deltaX * -1 >= deltaY * -1 && map.CheckTile(x + 1, y) && player.PlayerCheck(x + 1, y) == false && enemyManager.EnemyCheck(x + 1, y) == null)
+                                    if (deltaX * -1 >= deltaY * -1 && map.CheckTile(x + 1, y) && player.PlayerCheck(x + 1, y) == false && enemyManager.EnemyCheck(x + 1, y, false) == null)
                                     {
                                         x++;
                                     }
-                                    else if (map.CheckTile(x, y + 1) && player.PlayerCheck(x, y + 1) == false && enemyManager.EnemyCheck(x, y + 1) == null)
+                                    else if (map.CheckTile(x, y + 1) && player.PlayerCheck(x, y + 1) == false && enemyManager.EnemyCheck(x, y + 1, false) == null)
                                     {
                                         y++;
                                     }
                                 }
                                 else if (deltaX < 0 && deltaY >= 0)
                                 {
-                                    if (deltaX * -1 >= deltaY && map.CheckTile(x + 1, y) && player.PlayerCheck(x + 1, y) == false && enemyManager.EnemyCheck(x + 1, y) == null)
+                                    if (deltaX * -1 >= deltaY && map.CheckTile(x + 1, y) && player.PlayerCheck(x + 1, y) == false && enemyManager.EnemyCheck(x + 1, y, false) == null)
                                     {
                                         x++;
                                     }
-                                    else if (map.CheckTile(x, y - 1) && player.PlayerCheck(x, y - 1) == false && enemyManager.EnemyCheck(x, y - 1) == null)
+                                    else if (map.CheckTile(x, y - 1) && player.PlayerCheck(x, y - 1) == false && enemyManager.EnemyCheck(x, y - 1, false) == null)
                                     {
                                         y--;
                                     }
                                 }
                                 else if (deltaX >= 0 && deltaY < 0)
                                 {
-                                    if (deltaX >= deltaY * -1 && map.CheckTile(x - 1, y) && player.PlayerCheck(x - 1, y) == false && enemyManager.EnemyCheck(x - 1, y) == null)
+                                    if (deltaX >= deltaY * -1 && map.CheckTile(x - 1, y) && player.PlayerCheck(x - 1, y) == false && enemyManager.EnemyCheck(x - 1, y, false) == null)
                                     {
                                         x--;
                                     }
-                                    else if (map.CheckTile(x, y + 1) && player.PlayerCheck(x, y + 1) == false && enemyManager.EnemyCheck(x, y + 1) == null)
+                                    else if (map.CheckTile(x, y + 1) && player.PlayerCheck(x, y + 1) == false && enemyManager.EnemyCheck(x, y + 1, false) == null)
                                     {
                                         y++;
                                     }
                                 }
                                 if (deltaX >= 0 && deltaY >= 0)
                                 {
-                                    if (deltaX >= deltaY && map.CheckTile(x - 1, y) && player.PlayerCheck(x - 1, y) == false && enemyManager.EnemyCheck(x - 1, y) == null)
+                                    if (deltaX >= deltaY && map.CheckTile(x - 1, y) && player.PlayerCheck(x - 1, y) == false && enemyManager.EnemyCheck(x - 1, y, false) == null)
                                     {
                                         x--;
                                     }
-                                    else if (map.CheckTile(x, y - 1) && player.PlayerCheck(x, y - 1) == false && enemyManager.EnemyCheck(x, y - 1) == null)
+                                    else if (map.CheckTile(x, y - 1) && player.PlayerCheck(x, y - 1) == false && enemyManager.EnemyCheck(x, y - 1, false) == null)
                                     {
                                         y--;
                                     }
@@ -195,6 +201,9 @@ namespace TextRPG
         public void Attack(Player target)
         {
             target.TakeDMG(ATK);
+            if (target.HP <= 0) gManager.setMessage(name + " killed Player");
+            else if (gManager.message == "") gManager.setMessage(name + " attacked Player");
+            else gManager.setMessage("Player and " + name + " both attacked");
         }
 
         public bool CanSeePlayer()

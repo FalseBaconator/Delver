@@ -14,6 +14,7 @@ namespace TextRPG
         Player player;
         Render rend;
         Map map;
+        public GameManager gManager;
 
         public ItemManager(Player player, EnemyManager eManager, Map map, Render rend)
         {
@@ -37,13 +38,13 @@ namespace TextRPG
                     switch (rand.Next(0, 3))
                     {
                         case 0:
-                            items.Add(new Item("heal", 3, x, y, player, rend));
+                            items.Add(new Item("Healing Potion", 3, x, y, player, rend));
                             break;
                         case 1:
-                            items.Add(new Item("dmg", 1, x, y, player, rend));
+                            items.Add(new Item("ATK Buff", 1, x, y, player, rend));
                             break;
                         case 2:
-                            items.Add(new Item("shield", 3, x, y, player, rend));
+                            items.Add(new Item("Shield Repair", 3, x, y, player, rend));
                             break;
                     }
                 }
@@ -70,6 +71,7 @@ namespace TextRPG
             {
                 item.PickUp();
                 items.Remove(item);
+                gManager.setMessage("Player found " + item.name);
             }
         }
 

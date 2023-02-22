@@ -21,6 +21,7 @@ namespace TextRPG
 
         public int HP;
         public int ATK;
+        public string name;
         public char sprite;
         public ConsoleColor color;
 
@@ -32,18 +33,21 @@ namespace TextRPG
                 case Type.slime:
                     HP = 1;
                     ATK = 1;
+                    name = "Slime";
                     sprite = 'O';
                     color = ConsoleColor.Cyan;
                     break;
                 case Type.goblin:
                     HP = 5;
                     ATK = 2;
+                    name = "Goblin";
                     sprite = 'X';
                     color = ConsoleColor.DarkGreen;
                     break;
                 case Type.kobold:
                     HP = 3;
                     ATK = 1;
+                    name = "Kobold";
                     sprite = 'X';
                     color = ConsoleColor.DarkRed;
                     break;

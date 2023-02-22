@@ -10,10 +10,10 @@ namespace TextRPG
     {
         public InputManager inputManager;
         private ConsoleKey key;
-        private int maxHP;
-        private int shield;
-        private int maxShield;
+        public int shield;
+        public int maxShield;
         public ItemManager itemManager;
+        public GameManager gManager;
 
         public Player(int x, int y, int HP, int shield, int ATK, char sprite, Map map, EnemyManager enemyManager, ConsoleColor color, Render rend) : base(x,y,HP,ATK,sprite,map,enemyManager,color, rend)
         {
@@ -21,55 +21,56 @@ namespace TextRPG
             maxHP = HP;
             this.shield = shield;
             maxShield = shield;
-            DisplayHud();
         }
 
         public void Update()
         {
+            gManager.setMessage("");
+
             key = inputManager.GetKey();
             switch (key)
             {
                 case ConsoleKey.W:
                 case ConsoleKey.UpArrow:
-                    if(map.CheckTile(x, y - 1) && enemyManager.EnemyCheck(x,y-1) == null)
+                    if(map.CheckTile(x, y - 1) && enemyManager.EnemyCheck(x,y-1, false) == null)
                     {
                         y--;
-                    }else if(enemyManager.EnemyCheck(x,y-1) != null)
+                    }else if(enemyManager.EnemyCheck(x,y-1, false) != null)
                     {
-                        Attack(enemyManager.EnemyCheck(x, y - 1));
+                        Attack(enemyManager.EnemyCheck(x, y - 1, true));
                     }
                     break;
                 case ConsoleKey.S:
                 case ConsoleKey.DownArrow:
-                    if (map.CheckTile(x, y + 1) && enemyManager.EnemyCheck(x, y + 1) == null)
+                    if (map.CheckTile(x, y + 1) && enemyManager.EnemyCheck(x, y + 1, false) == null)
                     {
                         y++;
                     }
-                    else if (enemyManager.EnemyCheck(x, y + 1) != null)
+                    else if (enemyManager.EnemyCheck(x, y + 1, false) != null)
                     {
-                        Attack(enemyManager.EnemyCheck(x, y + 1));
+                        Attack(enemyManager.EnemyCheck(x, y + 1, true));
                     }
                     break;
                 case ConsoleKey.A:
                 case ConsoleKey.LeftArrow:
-                    if (map.CheckTile(x-1, y) && enemyManager.EnemyCheck(x - 1, y) == null)
+                    if (map.CheckTile(x-1, y) && enemyManager.EnemyCheck(x - 1, y, false) == null)
                     {
                         x--;
                     }
-                    else if (enemyManager.EnemyCheck(x - 1, y) != null)
+                    else if (enemyManager.EnemyCheck(x - 1, y, false) != null)
                     {
-                        Attack(enemyManager.EnemyCheck(x - 1, y));
+                        Attack(enemyManager.EnemyCheck(x - 1, y, true));
                     }
                     break;
                 case ConsoleKey.D:
                 case ConsoleKey.RightArrow:
-                    if (map.CheckTile(x + 1, y) && enemyManager.EnemyCheck(x + 1, y) == null)
+                    if (map.CheckTile(x + 1, y) && enemyManager.EnemyCheck(x + 1, y, false) == null)
                     {
                         x++;
                     }
-                    else if (enemyManager.EnemyCheck(x + 1, y) != null)
+                    else if (enemyManager.EnemyCheck(x + 1, y, false) != null)
                     {
-                        Attack(enemyManager.EnemyCheck(x + 1, y));
+                        Attack(enemyManager.EnemyCheck(x + 1, y, true));
                     }
                     break;
             }
@@ -89,6 +90,8 @@ namespace TextRPG
         public void Attack(Enemy enemy)
         {
             enemy.TakeDMG(ATK);
+            if (enemy.HP > 0) gManager.setMessage("Player attacked " + enemy.name);
+            else gManager.setMessage("Player killed " + enemy.name);
         }
 
         public override void TakeDMG(int DMG)
@@ -127,17 +130,6 @@ namespace TextRPG
         public void RaiseATK(int raise)
         {
             ATK += raise;
-        }
-
-        public void DisplayHud()
-        {
-            Console.ResetColor();
-            Console.SetCursorPosition(45, 10);
-            Console.Write("HP: " + HP);
-            Console.SetCursorPosition(45, 11);
-            Console.Write("Shield: " + shield);
-            Console.SetCursorPosition(45, 12);
-            Console.Write("ATK: " + ATK);
         }
 
     }

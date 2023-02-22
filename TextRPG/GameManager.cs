@@ -22,15 +22,29 @@ namespace TextRPG
 
         Render rend;
 
-        public GameManager(Player player, EnemyManager eManager, Map map, InputManager inputManager, ItemManager itemManager, Render rend)
+        Hud hud;
+
+        public string message;
+
+        public GameManager(Player player, EnemyManager eManager, Map map, InputManager inputManager, ItemManager itemManager, Render rend, Hud hud)
         {
             this.player = player;
+            player.gManager = this;
             this.eManager = eManager;
+            eManager.gManager = this;
             this.map = map;
             this.inputManager = inputManager;
             inputManager.manager = this;
             this.itemManager = itemManager;
+            itemManager.gManager = this;
             this.rend = rend;
+            this.hud = hud;
+        }
+
+        public void setMessage(string message)
+        {
+            this.message = message;
+            hud.message = message;
         }
 
         public void Update()
@@ -50,8 +64,8 @@ namespace TextRPG
             map.DrawMap();
             itemManager.Draw();
             player.Draw();
-            player.DisplayHud();
             eManager.DrawEnemies();
+            hud.draw();
             rend.DrawToScreen();
         }
 
@@ -59,6 +73,7 @@ namespace TextRPG
         {
             if (player.alive && eManager.Enemies.Count == 0)
             {
+                Console.ReadKey(true);
                 Console.Clear();
                 Console.ResetColor();
                 Console.Write("You Win!");
@@ -66,6 +81,7 @@ namespace TextRPG
             }
             else if (player.alive == false)
             {
+                Console.ReadKey(true);
                 Console.Clear();
                 Console.ResetColor();
                 Console.Write("You are dead, no big surprise");

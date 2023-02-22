@@ -15,6 +15,8 @@ namespace TextRPG
         public bool toMove;
         public Render rend;
         public ItemManager itemManager;
+        public Enemy lastAttacked;
+        public GameManager gManager;
 
         public EnemyManager(Map map, Render rend)
         {
@@ -35,14 +37,14 @@ namespace TextRPG
                         {
                             case 0:
                             case 1:
-                                Enemies.Add(new Enemy(i, j, new EnemyType(EnemyType.Type.slime), map, player, this, rend));
+                                Enemies.Add(new Enemy(i, j, new EnemyType(EnemyType.Type.slime), map, player, this, rend, gManager));
                                 break;
                             case 2:
-                                Enemies.Add(new Enemy(i, j, new EnemyType(EnemyType.Type.goblin), map, player, this, rend));
+                                Enemies.Add(new Enemy(i, j, new EnemyType(EnemyType.Type.goblin), map, player, this, rend, gManager));
                                 break;
                             case 3:
                             case 4:
-                                Enemies.Add(new Enemy(i, j, new EnemyType(EnemyType.Type.kobold), map, player, this, rend));
+                                Enemies.Add(new Enemy(i, j, new EnemyType(EnemyType.Type.kobold), map, player, this, rend, gManager));
                                 break;
                             case 5:
                             case 6:
@@ -68,7 +70,7 @@ namespace TextRPG
             toMove = !toMove;
         }
 
-        public Enemy EnemyCheck(int x, int y)
+        public Enemy EnemyCheck(int x, int y, bool isAttack)
         {
             Enemy foundEnemy = null;
             foreach(Enemy enemy in Enemies)
@@ -78,6 +80,7 @@ namespace TextRPG
                     foundEnemy = enemy;
                 }
             }
+            if (isAttack) lastAttacked = foundEnemy;
             return foundEnemy;
         }
 
