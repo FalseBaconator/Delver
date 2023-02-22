@@ -33,12 +33,11 @@ namespace TextRPG
             enemyManager.GenerateEnemies();     //  Setup
             manager.Draw();                     //
 
-
-            while (manager.play)
-            {
-                manager.Update();
-                manager.Draw();
-            }
+            while (manager.play)    //
+            {                       //
+                manager.Update();   //  Game Loop
+                manager.Draw();     //
+            }                       //
 
             manager.EndGame();
 

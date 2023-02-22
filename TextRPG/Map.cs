@@ -74,8 +74,7 @@ namespace TextRPG
             }
         }
 
-
-        public bool CheckTile(int x, int y)
+        public bool CheckTile(int x, int y) //returns true if the provided coords is a floor
         {
             bool isFloor = false;
             if (map[x,y] == ',') isFloor = true;

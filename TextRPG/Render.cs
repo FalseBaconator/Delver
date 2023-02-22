@@ -22,10 +22,10 @@ namespace TextRPG
             {
                 for (int j = 0; j < ScreenChars.GetLength(1); j++)
                 {
-                    Console.SetCursorPosition(i, j);
-                    Console.BackgroundColor = BackgroundColors[i, j];
-                    Console.ForegroundColor = ScreenColors[i, j];
-                    Console.Write(ScreenChars[i, j]);
+                    Console.SetCursorPosition(i, j);                    //
+                    Console.BackgroundColor = BackgroundColors[i, j];   //  Writes the char with the right background, color, and sprite
+                    Console.ForegroundColor = ScreenColors[i, j];       //
+                    Console.Write(ScreenChars[i, j]);                   //
                 }
             }
         }

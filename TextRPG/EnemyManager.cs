@@ -26,39 +26,39 @@ namespace TextRPG
 
         public void GenerateEnemies()
         {
-            for (int i = 3; i < 35; i += 7)
-            {
-                for (int j = 3; j < 35; j += 7)
+            for (int i = 3; i < 35; i += 7)     //
+            {                                   //  Center of each room
+                for (int j = 3; j < 35; j += 7) //
                 {
-                    if(player.PlayerCheck(i,j) == false && itemManager.ItemChecks(i,j) == null && map.CheckTile(i,j))
-                    {
-                        int chance = random.Next(10);
-                        switch (chance)
-                        {
-                            case 0:
-                            case 1:
-                                Enemies.Add(new Enemy(i, j, new EnemyType(EnemyType.Type.slime), map, player, this, rend, gManager));
-                                break;
-                            case 2:
-                                Enemies.Add(new Enemy(i, j, new EnemyType(EnemyType.Type.goblin), map, player, this, rend, gManager));
-                                break;
-                            case 3:
-                            case 4:
-                                Enemies.Add(new Enemy(i, j, new EnemyType(EnemyType.Type.kobold), map, player, this, rend, gManager));
-                                break;
-                            case 5:
-                            case 6:
-                            case 7:
-                            case 8:
-                            case 9:
-                                break;
-                        }
+                    if(player.PlayerCheck(i,j) == false && itemManager.ItemChecks(i,j) == null && map.CheckTile(i,j))                   //
+                    {                                                                                                                   //
+                        int chance = random.Next(10);                                                                                   //
+                        switch (chance)                                                                                                 //
+                        {                                                                                                               //
+                            case 0:                                                                                                     //
+                            case 1:                                                                                                     //
+                                Enemies.Add(new Enemy(i, j, new EnemyType(EnemyType.Type.slime), map, player, this, rend, gManager));   //
+                                break;                                                                                                  //
+                            case 2:                                                                                                     //  Chance of generating enemy on valid tiles
+                                Enemies.Add(new Enemy(i, j, new EnemyType(EnemyType.Type.goblin), map, player, this, rend, gManager));  //
+                                break;                                                                                                  //
+                            case 3:                                                                                                     //
+                            case 4:                                                                                                     //
+                                Enemies.Add(new Enemy(i, j, new EnemyType(EnemyType.Type.kobold), map, player, this, rend, gManager));  //
+                                break;                                                                                                  //
+                            case 5:                                                                                                     //
+                            case 6:                                                                                                     //
+                            case 7:                                                                                                     //
+                            case 8:                                                                                                     //
+                            case 9:                                                                                                     //
+                                break;                                                                                                  //
+                        }                                                                                                               //
                     }
                 }
             }
         }
 
-        public void UpdateEnemies()
+        public void UpdateEnemies() //Move each enemy on every other turn
         {
             if (toMove)
             {
@@ -70,7 +70,7 @@ namespace TextRPG
             toMove = !toMove;
         }
 
-        public Enemy EnemyCheck(int x, int y, bool isAttack)
+        public Enemy EnemyCheck(int x, int y, bool isAttack)    //Returns the enemy at the provided coords. Saves lastAttacked enemy if attacking
         {
             Enemy foundEnemy = null;
             foreach(Enemy enemy in Enemies)
@@ -84,7 +84,7 @@ namespace TextRPG
             return foundEnemy;
         }
 
-        public void DrawEnemies()
+        public void DrawEnemies()   //Save enemies to rend arrays
         {
             foreach (Enemy enemy in Enemies)
             {
@@ -92,7 +92,7 @@ namespace TextRPG
             }
         }
 
-        public void RemoveEnemy(Enemy enemy)
+        public void RemoveEnemy(Enemy enemy)    //Removes enemy from enemies array
         {
             if (Enemies.Contains(enemy))
             {

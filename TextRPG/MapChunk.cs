@@ -10,7 +10,7 @@ namespace TextRPG
     {
         public char[,] tile;
 
-        public bool BOpen = false;
+        public bool BOpen = false;  //doors. true if open
         public bool LOpen = false;
         public bool ROpen = false;
         public bool TOpen = false;

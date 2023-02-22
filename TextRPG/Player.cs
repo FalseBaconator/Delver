@@ -37,7 +37,7 @@ namespace TextRPG
                         y--;                                                                            //  //  //
                     }                                                                                   //  //  //
                     else if(enemyManager.EnemyCheck(x,y-1, false) != null)                              //  //      //
-                    {                                                                                   //  //      //  If space is occupied by enemy. Attack
+                    {                                                                                   //  //      //  If space is occupied by enemy, Attack
                         Attack(enemyManager.EnemyCheck(x, y - 1, true));                                //  //      //
                     }                                                                                   //  //      //
                     break;                                                                              //  //
@@ -104,7 +104,7 @@ namespace TextRPG
             }                       //
             else                        //
             {                           //
-                DMG -= shield;          //  Shield reduces dmg, before being destroyed and applying dmg normally
+                DMG -= shield;          //  Shield reduces dmg (if it isn't 0 already), before being destroyed and applying dmg normally
                 shield = 0;             //
                 base.TakeDMG(DMG);      //
             }                           //

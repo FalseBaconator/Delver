@@ -22,12 +22,6 @@ namespace TextRPG
 
         private GameManager gManager;
 
-        /*public Enemy(int x, int y, int HP, int ATK, char sprite, Map map, ConsoleColor color, Player player, EnemyManager enemyManager, Render rend) : base(x, y, HP, ATK, sprite, map, enemyManager, color, rend)
-        {
-            this.player = player;
-        }
-        */
-
         public Enemy(int x, int y, EnemyType type, Map map, Player player, EnemyManager enemyManager, Render rend, GameManager gManager) : base(x, y, type.HP, type.ATK, type.sprite, map, enemyManager, type.color, rend)
         {
             this.type = type;
@@ -42,150 +36,146 @@ namespace TextRPG
             {
                 moved = false;
                 
-                if(player.PlayerCheck(x,y-1) || player.PlayerCheck(x, y + 1) || player.PlayerCheck(x-1, y) || player.PlayerCheck(x+1, y))
-                {
-                    Attack(player);
-                    moved = true;
-                }
+                if(player.PlayerCheck(x,y-1) || player.PlayerCheck(x, y + 1) || player.PlayerCheck(x-1, y) || player.PlayerCheck(x+1, y))   //
+                {                                                                                                                           //
+                    Attack(player);                                                                                                         //  Enemy uses turn to attack player if they're adjacent
+                    moved = true;                                                                                                           //
+                }                                                                                                                           //
 
                 while (moved == false)
                 {
-                    int Dir = random.Next(4);
-                    if (type.type == EnemyType.Type.slime || CanSeePlayer() == false)
-                    {
-                        switch (Dir)
-                        {
-                            case 0:
-                                if (map.CheckTile(x, y - 1) && player.PlayerCheck(x, y - 1) == false && enemyManager.EnemyCheck(x, y - 1, false) == null)
-                                {
-                                    y--;
-                                    moved = true;
-                                }
-                                break;
-                            case 1:
-                                if (map.CheckTile(x, y + 1) && player.PlayerCheck(x, y + 1) == false && enemyManager.EnemyCheck(x, y + 1, false) == null)
-                                {
-                                    y++;
-                                    moved = true;
-                                }
-                                break;
-                            case 2:
-                                if (map.CheckTile(x - 1, y) && player.PlayerCheck(x - 1, y) == false && enemyManager.EnemyCheck(x - 1, y, false) == null)
-                                {
-                                    x--;
-                                    moved = true;
-                                }
-                                break;
-                            case 3:
-                                if (map.CheckTile(x + 1, y) && player.PlayerCheck(x + 1, y) == false && enemyManager.EnemyCheck(x + 1, y, false) == null)
-                                {
-                                    x++;
-                                    moved = true;
-                                }
-                                break;
-                        }
-                    }
-                    else
-                    {
-                        int deltaX = player.x - x;
-                        int deltaY = player.y - y;
-                        switch (type.type)
-                        {
-                            case EnemyType.Type.goblin: //chase
-                                if(deltaX >= 0 && deltaY >= 0)
-                                {
-                                    if(deltaX >= deltaY && map.CheckTile(x + 1, y) && player.PlayerCheck(x + 1, y) == false && enemyManager.EnemyCheck(x + 1, y, false) == null)
-                                    {
-                                        x++;
-                                        
-                                    }
-                                    else if(map.CheckTile(x, y + 1) && player.PlayerCheck(x, y + 1) == false && enemyManager.EnemyCheck(x, y + 1, false) == null)
-                                    {
-                                        
-                                        y++;
-                                        
-                                    }
-                                }else if (deltaX >= 0 && deltaY < 0)
-                                {
-                                    if (deltaX >= deltaY * -1 && map.CheckTile(x + 1, y) && player.PlayerCheck(x + 1, y) == false && enemyManager.EnemyCheck(x + 1, y, false) == null)
-                                    {
-                                        x++;
-                                    }
-                                    else if (map.CheckTile(x, y - 1) && player.PlayerCheck(x, y - 1) == false && enemyManager.EnemyCheck(x, y - 1, false) == null)
-                                    {
-                                        y--;
-                                        
-                                    }
-                                }else if (deltaX < 0 && deltaY >= 0)
-                                {
-                                    if (deltaX * -1 >= deltaY && map.CheckTile(x - 1, y) && player.PlayerCheck(x - 1, y) == false && enemyManager.EnemyCheck(x - 1, y, false) == null)
-                                    {
-                                        x--;
-                                    }
-                                    else if (map.CheckTile(x, y + 1) && player.PlayerCheck(x, y + 1) == false && enemyManager.EnemyCheck(x, y + 1, false) == null)
-                                    {
-                                        y++;
-                                    }
-                                }
-                                if (deltaX < 0 && deltaY < 0)
-                                {
-                                    if (deltaX * -1 >= deltaY * -1 && map.CheckTile(x - 1, y) && player.PlayerCheck(x - 1, y) == false && enemyManager.EnemyCheck(x - 1, y, false) == null)
-                                    {
-                                        x--;
-                                    }
-                                    else if (map.CheckTile(x, y - 1) && player.PlayerCheck(x, y - 1) == false && enemyManager.EnemyCheck(x, y - 1, false) == null)
-                                    {
-                                        y--;
-                                    }
-                                }
-                                break;
-                            case EnemyType.Type.kobold: //flee
-                                if (deltaX < 0 && deltaY < 0)
-                                {
-                                    if (deltaX * -1 >= deltaY * -1 && map.CheckTile(x + 1, y) && player.PlayerCheck(x + 1, y) == false && enemyManager.EnemyCheck(x + 1, y, false) == null)
-                                    {
-                                        x++;
-                                    }
-                                    else if (map.CheckTile(x, y + 1) && player.PlayerCheck(x, y + 1) == false && enemyManager.EnemyCheck(x, y + 1, false) == null)
-                                    {
-                                        y++;
-                                    }
-                                }
-                                else if (deltaX < 0 && deltaY >= 0)
-                                {
-                                    if (deltaX * -1 >= deltaY && map.CheckTile(x + 1, y) && player.PlayerCheck(x + 1, y) == false && enemyManager.EnemyCheck(x + 1, y, false) == null)
-                                    {
-                                        x++;
-                                    }
-                                    else if (map.CheckTile(x, y - 1) && player.PlayerCheck(x, y - 1) == false && enemyManager.EnemyCheck(x, y - 1, false) == null)
-                                    {
-                                        y--;
-                                    }
-                                }
-                                else if (deltaX >= 0 && deltaY < 0)
-                                {
-                                    if (deltaX >= deltaY * -1 && map.CheckTile(x - 1, y) && player.PlayerCheck(x - 1, y) == false && enemyManager.EnemyCheck(x - 1, y, false) == null)
-                                    {
-                                        x--;
-                                    }
-                                    else if (map.CheckTile(x, y + 1) && player.PlayerCheck(x, y + 1) == false && enemyManager.EnemyCheck(x, y + 1, false) == null)
-                                    {
-                                        y++;
-                                    }
-                                }
-                                if (deltaX >= 0 && deltaY >= 0)
-                                {
-                                    if (deltaX >= deltaY && map.CheckTile(x - 1, y) && player.PlayerCheck(x - 1, y) == false && enemyManager.EnemyCheck(x - 1, y, false) == null)
-                                    {
-                                        x--;
-                                    }
-                                    else if (map.CheckTile(x, y - 1) && player.PlayerCheck(x, y - 1) == false && enemyManager.EnemyCheck(x, y - 1, false) == null)
-                                    {
-                                        y--;
-                                    }
-                                }
-                                break;
-                        }
+                    int Dir = random.Next(4);                                                                                                               //
+                    if (type.type == EnemyType.Type.slime || CanSeePlayer() == false)                                                                       //
+                    {                                                                                                                                       //
+                        switch (Dir)                                                                                                                        //
+                        {                                                                                                                                   //
+                            case 0:                                                                                                                         //
+                                if (map.CheckTile(x, y - 1) && player.PlayerCheck(x, y - 1) == false && enemyManager.EnemyCheck(x, y - 1, false) == null)   //
+                                {                                                                                                                           //
+                                    y--;                                                                                                                    //
+                                    moved = true;                                                                                                           //
+                                }                                                                                                                           //
+                                break;                                                                                                                      //
+                            case 1:                                                                                                                         //
+                                if (map.CheckTile(x, y + 1) && player.PlayerCheck(x, y + 1) == false && enemyManager.EnemyCheck(x, y + 1, false) == null)   //
+                                {                                                                                                                           //
+                                    y++;                                                                                                                    //
+                                    moved = true;                                                                                                           //
+                                }                                                                                                                           //
+                                break;                                                                                                                      //  Slimes and Goblins/Kobolds who are far away from the player go in random directions
+                            case 2:                                                                                                                         //
+                                if (map.CheckTile(x - 1, y) && player.PlayerCheck(x - 1, y) == false && enemyManager.EnemyCheck(x - 1, y, false) == null)   //
+                                {                                                                                                                           //
+                                    x--;                                                                                                                    //
+                                    moved = true;                                                                                                           //
+                                }                                                                                                                           //
+                                break;                                                                                                                      //
+                            case 3:                                                                                                                         //
+                                if (map.CheckTile(x + 1, y) && player.PlayerCheck(x + 1, y) == false && enemyManager.EnemyCheck(x + 1, y, false) == null)   //
+                                {                                                                                                                           //
+                                    x++;                                                                                                                    //
+                                    moved = true;                                                                                                           //
+                                }                                                                                                                           //
+                                break;                                                                                                                      //
+                        }                                                                                                                                   //
+                    }                                                                                                                                       //
+                    else                                                                                                                                                                    //
+                    {                                                                                                                                                                       //
+                        int deltaX = player.x - x;                                                                                                                                          //  Goblin or Kobold who is close to player
+                        int deltaY = player.y - y;                                                                                                                                          //
+                        switch (type.type)                                                                                                                                                  //
+                        {                                                                                                                                                                   //
+                            case EnemyType.Type.goblin: //chase                                                                                                                             //  //
+                                if(deltaX >= 0 && deltaY >= 0)                                                                                                                              //  //
+                                {                                                                                                                                                           //  //
+                                    if(deltaX >= deltaY && map.CheckTile(x + 1, y) && player.PlayerCheck(x + 1, y) == false && enemyManager.EnemyCheck(x + 1, y, false) == null)            //  //
+                                    {                                                                                                                                                       //  //
+                                        x++;                                                                                                                                                //  //                                        
+                                    }                                                                                                                                                       //  //
+                                    else if(map.CheckTile(x, y + 1) && player.PlayerCheck(x, y + 1) == false && enemyManager.EnemyCheck(x, y + 1, false) == null)                           //  //
+                                    {                                                                                                                                                       //  //                                        
+                                        y++;                                                                                                                                                //  //                                        
+                                    }                                                                                                                                                       //  //  Goblin chases Player
+                                }else if (deltaX >= 0 && deltaY < 0)                                                                                                                        //  //
+                                {                                                                                                                                                           //  //
+                                    if (deltaX >= deltaY * -1 && map.CheckTile(x + 1, y) && player.PlayerCheck(x + 1, y) == false && enemyManager.EnemyCheck(x + 1, y, false) == null)      //  //
+                                    {                                                                                                                                                       //  //
+                                        x++;                                                                                                                                                //  //
+                                    }                                                                                                                                                       //  //
+                                    else if (map.CheckTile(x, y - 1) && player.PlayerCheck(x, y - 1) == false && enemyManager.EnemyCheck(x, y - 1, false) == null)                          //  //
+                                    {                                                                                                                                                       //  //
+                                        y--;                                                                                                                                                //  //                                        
+                                    }                                                                                                                                                       //  //
+                                }else if (deltaX < 0 && deltaY >= 0)                                                                                                                        //  //
+                                {                                                                                                                                                           //  //
+                                    if (deltaX * -1 >= deltaY && map.CheckTile(x - 1, y) && player.PlayerCheck(x - 1, y) == false && enemyManager.EnemyCheck(x - 1, y, false) == null)      //  //
+                                    {                                                                                                                                                       //  //
+                                        x--;                                                                                                                                                //  //
+                                    }                                                                                                                                                       //  //
+                                    else if (map.CheckTile(x, y + 1) && player.PlayerCheck(x, y + 1) == false && enemyManager.EnemyCheck(x, y + 1, false) == null)                          //  //
+                                    {                                                                                                                                                       //  //
+                                        y++;                                                                                                                                                //  //
+                                    }                                                                                                                                                       //  //
+                                }                                                                                                                                                           //  //
+                                if (deltaX < 0 && deltaY < 0)                                                                                                                               //  //
+                                {                                                                                                                                                           //  //
+                                    if (deltaX * -1 >= deltaY * -1 && map.CheckTile(x - 1, y) && player.PlayerCheck(x - 1, y) == false && enemyManager.EnemyCheck(x - 1, y, false) == null) //  //
+                                    {                                                                                                                                                       //  //
+                                        x--;                                                                                                                                                //  //
+                                    }                                                                                                                                                       //  //
+                                    else if (map.CheckTile(x, y - 1) && player.PlayerCheck(x, y - 1) == false && enemyManager.EnemyCheck(x, y - 1, false) == null)                          //  //
+                                    {                                                                                                                                                       //  //
+                                        y--;                                                                                                                                                //  //
+                                    }                                                                                                                                                       //  //
+                                }                                                                                                                                                           //  //
+                                break;                                                                                                                                                      //  //
+                            case EnemyType.Type.kobold: //flee                                                                                                                              //      //
+                                if (deltaX < 0 && deltaY < 0)                                                                                                                               //      //
+                                {                                                                                                                                                           //      //
+                                    if (deltaX * -1 >= deltaY * -1 && map.CheckTile(x + 1, y) && player.PlayerCheck(x + 1, y) == false && enemyManager.EnemyCheck(x + 1, y, false) == null) //      //
+                                    {                                                                                                                                                       //      //
+                                        x++;                                                                                                                                                //      //
+                                    }                                                                                                                                                       //      //
+                                    else if (map.CheckTile(x, y + 1) && player.PlayerCheck(x, y + 1) == false && enemyManager.EnemyCheck(x, y + 1, false) == null)                          //      //
+                                    {                                                                                                                                                       //      //
+                                        y++;                                                                                                                                                //      //
+                                    }                                                                                                                                                       //      //
+                                }                                                                                                                                                           //      //
+                                else if (deltaX < 0 && deltaY >= 0)                                                                                                                         //      //
+                                {                                                                                                                                                           //      //
+                                    if (deltaX * -1 >= deltaY && map.CheckTile(x + 1, y) && player.PlayerCheck(x + 1, y) == false && enemyManager.EnemyCheck(x + 1, y, false) == null)      //      //
+                                    {                                                                                                                                                       //      //
+                                        x++;                                                                                                                                                //      //
+                                    }                                                                                                                                                       //      //
+                                    else if (map.CheckTile(x, y - 1) && player.PlayerCheck(x, y - 1) == false && enemyManager.EnemyCheck(x, y - 1, false) == null)                          //      //
+                                    {                                                                                                                                                       //      //
+                                        y--;                                                                                                                                                //      //
+                                    }                                                                                                                                                       //      //
+                                }                                                                                                                                                           //      //
+                                else if (deltaX >= 0 && deltaY < 0)                                                                                                                         //      //  Kobold runs from Player
+                                {                                                                                                                                                           //      //
+                                    if (deltaX >= deltaY * -1 && map.CheckTile(x - 1, y) && player.PlayerCheck(x - 1, y) == false && enemyManager.EnemyCheck(x - 1, y, false) == null)      //      //
+                                    {                                                                                                                                                       //      //
+                                        x--;                                                                                                                                                //      //
+                                    }                                                                                                                                                       //      //
+                                    else if (map.CheckTile(x, y + 1) && player.PlayerCheck(x, y + 1) == false && enemyManager.EnemyCheck(x, y + 1, false) == null)                          //      //
+                                    {                                                                                                                                                       //      //
+                                        y++;                                                                                                                                                //      //
+                                    }                                                                                                                                                       //      //
+                                }                                                                                                                                                           //      //
+                                if (deltaX >= 0 && deltaY >= 0)                                                                                                                             //      //
+                                {                                                                                                                                                           //      //
+                                    if (deltaX >= deltaY && map.CheckTile(x - 1, y) && player.PlayerCheck(x - 1, y) == false && enemyManager.EnemyCheck(x - 1, y, false) == null)           //      //
+                                    {                                                                                                                                                       //      //
+                                        x--;                                                                                                                                                //      //
+                                    }                                                                                                                                                       //      //
+                                    else if (map.CheckTile(x, y - 1) && player.PlayerCheck(x, y - 1) == false && enemyManager.EnemyCheck(x, y - 1, false) == null)                          //      //
+                                    {                                                                                                                                                       //      //
+                                        y--;                                                                                                                                                //      //
+                                    }                                                                                                                                                       //      //
+                                }                                                                                                                                                           //      //
+                                break;                                                                                                                                                      //      //
+                        }                                                                                                                                                                   //
                         moved = true;
                     }
                 }

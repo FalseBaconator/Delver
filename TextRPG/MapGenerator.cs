@@ -834,36 +834,6 @@ namespace TextRPG
             return Empty;
         }
 
-        /*
-        public char[,] RandomizeMap()
-        {
-            char[,] grid = new char[35, 35];
-            Random r = new Random();
-            MapChunk[,] tempMapChunks = new MapChunk[5, 5]
-            {
-                {TLCorners[r.Next(0,3)], Tops[r.Next(0,3)], Tops[r.Next(0,3)], Tops[r.Next(0,3)], TRCorners[r.Next(0,3)]},
-                {Lefts[r.Next(0,3)], Centers[r.Next(0,3)], Centers[r.Next(0,3)], Centers[r.Next(0,3)], Rights[r.Next(0,3)]},
-                {Lefts[r.Next(0,3)], Centers[r.Next(0,3)], Centers[r.Next(0,3)], Centers[r.Next(0,3)], Rights[r.Next(0,3)]},
-                {Lefts[r.Next(0,3)], Centers[r.Next(0,3)], Centers[r.Next(0,3)], Centers[r.Next(0,3)], Rights[r.Next(0,3)]},
-                {BLCorners[r.Next(0,3)], Bottoms[r.Next(0,3)], Bottoms[r.Next(0,3)], Bottoms[r.Next(0,3)], BRCorners[r.Next(0,3)]}
-            };
-            for (int i = 0; i < 5; i++)
-            {
-                for (int j = 0; j < 5; j++)
-                {
-                    for (int k = 0; k < 7; k++)
-                    {
-                        for (int l = 0; l < 7; l++)
-                        {
-                            grid[i * 7 + k, j * 7 + l] = tempMapChunks[i, j].tile[k, l];
-                        }
-                    }
-                }
-            }
-            return grid;
-        }
-        */
-
         public char[,] RandomizeMap()
         {
             rand = new Random();
@@ -872,8 +842,8 @@ namespace TextRPG
 
 
             char[,] grid = new char[35, 35];
-            TempMap[2,2] = RandomizeTile(BLRT);
-            switch (rand.Next(0, 5))
+            TempMap[2,2] = RandomizeTile(BLRT); //Center tile is always open in all 4 directions
+            switch (rand.Next(0, 5))    //1,1 is always open in at least 3 directions
             {
                 case 0:
                     TempMap[1, 1] = RandomizeTile(BLR);
@@ -891,7 +861,7 @@ namespace TextRPG
                     TempMap[1, 1] = RandomizeTile(BLRT);
                     break;
             }
-            switch (rand.Next(0, 5))
+            switch (rand.Next(0, 5))    //1,3 is always open in at least 3 directions
             {
                 case 0:
                     TempMap[1, 3] = RandomizeTile(BLR);
@@ -909,7 +879,7 @@ namespace TextRPG
                     TempMap[1, 3] = RandomizeTile(BLRT);
                     break;
             }
-            switch (rand.Next(0, 5))
+            switch (rand.Next(0, 5))    //3,1 is always open in at least 3 directions
             {
                 case 0:
                     TempMap[3, 1] = RandomizeTile(BLR);
@@ -927,7 +897,7 @@ namespace TextRPG
                     TempMap[3, 1] = RandomizeTile(BLRT);
                     break;
             }
-            switch (rand.Next(0, 5))
+            switch (rand.Next(0, 5))    //3,3 is always open in at least 3 directions
             {
                 case 0:
                     TempMap[3, 3] = RandomizeTile(BLR);
@@ -945,7 +915,7 @@ namespace TextRPG
                     TempMap[3, 3] = RandomizeTile(BLRT);
                     break;
             }
-            switch (rand.Next(0, 4))
+            switch (rand.Next(0, 4))    //0,2 is always open in at least 2 directions
             {
                 case 0:
                     TempMap[0, 2] = RandomizeTile(LR);
@@ -960,7 +930,7 @@ namespace TextRPG
                     TempMap[0, 2] = RandomizeTile(BLR);
                     break;
             }
-            switch (rand.Next(0, 4))
+            switch (rand.Next(0, 4))    //2,0 is always open in at least 2 directions
             {
                 case 0:
                     TempMap[2, 0] = RandomizeTile(BR);
@@ -975,7 +945,7 @@ namespace TextRPG
                     TempMap[2, 0] = RandomizeTile(BRT);
                     break;
             }
-            switch (rand.Next(0, 4))
+            switch (rand.Next(0, 4))    //2,4 is always open in at least 2 directions
             {
                 case 0:
                     TempMap[2, 4] = RandomizeTile(BL);
@@ -990,7 +960,7 @@ namespace TextRPG
                     TempMap[2, 4] = RandomizeTile(BLT);
                     break;
             }
-            switch (rand.Next(0, 4))
+            switch (rand.Next(0, 4))    //4,2 is always open in at least 2 directions
             {
                 case 0:
                     TempMap[4, 2] = RandomizeTile(LR);
@@ -1005,7 +975,7 @@ namespace TextRPG
                     TempMap[4, 2] = RandomizeTile(LRT);
                     break;
             }
-            switch (rand.Next(0, 3))
+            switch (rand.Next(0, 3))    //top left corner to allow fill to work
             {
                 case 0:
                     TempMap[0, 0] = RandomizeTile(BR);
@@ -1017,7 +987,7 @@ namespace TextRPG
                     TempMap[0, 0] = RandomizeTile(R);
                     break;
             }
-            switch (rand.Next(0, 3))
+            switch (rand.Next(0, 3))    //top right corner to allow fill to work
             {
                 case 0:
                     TempMap[0, 4] = RandomizeTile(BL);
@@ -1029,7 +999,7 @@ namespace TextRPG
                     TempMap[0, 4] = RandomizeTile(L);
                     break;
             }
-            switch (rand.Next(0, 3))
+            switch (rand.Next(0, 3))    //bottom left corner to allow fill to work
             {
                 case 0:
                     TempMap[4, 0] = RandomizeTile(RT);
@@ -1041,7 +1011,7 @@ namespace TextRPG
                     TempMap[4, 0] = RandomizeTile(T);
                     break;
             }
-            switch (rand.Next(0, 3))
+            switch (rand.Next(0, 3))    //bottom right corner to allow fill to work
             {
                 case 0:
                     TempMap[4, 4] = RandomizeTile(LT);
@@ -1053,34 +1023,34 @@ namespace TextRPG
                     TempMap[4, 4] = RandomizeTile(T);
                     break;
             }
-            TempMap[0, 1] = FillTile(0, 1);
-            TempMap[0, 3] = FillTile(0, 3);
-            TempMap[1, 0] = FillTile(1, 0);
-            TempMap[1, 2] = FillTile(1, 2);
-            TempMap[1, 4] = FillTile(1, 4);
-            TempMap[2, 1] = FillTile(2, 1);
-            TempMap[2, 3] = FillTile(2, 3);
-            TempMap[3, 0] = FillTile(3, 0);
-            TempMap[3, 2] = FillTile(3, 2);
-            TempMap[3, 4] = FillTile(3, 4);
-            TempMap[4, 1] = FillTile(4, 1);
-            TempMap[4, 3] = FillTile(4, 3);
+            TempMap[0, 1] = FillTile(0, 1); //
+            TempMap[0, 3] = FillTile(0, 3); //
+            TempMap[1, 0] = FillTile(1, 0); //
+            TempMap[1, 2] = FillTile(1, 2); //
+            TempMap[1, 4] = FillTile(1, 4); //
+            TempMap[2, 1] = FillTile(2, 1); //  Fills in the empty squares based off of the openings provided
+            TempMap[2, 3] = FillTile(2, 3); //
+            TempMap[3, 0] = FillTile(3, 0); //
+            TempMap[3, 2] = FillTile(3, 2); //
+            TempMap[3, 4] = FillTile(3, 4); //
+            TempMap[4, 1] = FillTile(4, 1); //
+            TempMap[4, 3] = FillTile(4, 3); //
 
-            for (int i = 0; i < 5; i++)
-            {
-                for (int j = 0; j < 5; j++)
-                {
-                    for (int k = 0; k < 7; k++)
-                    {
-                        for (int l = 0; l < 7; l++)
-                        {
-                            grid[i * 7 + k, j * 7 + l] = TempMap[i, j].tile[k, l];
-                        }
-                    }
-                }
-            }
+            for (int i = 0; i < 5; i++)                                             //
+            {                                                                       //
+                for (int j = 0; j < 5; j++)                                         //
+                {                                                                   //
+                    for (int k = 0; k < 7; k++)                                     //
+                    {                                                               //
+                        for (int l = 0; l < 7; l++)                                 //
+                        {                                                           //
+                            grid[i * 7 + k, j * 7 + l] = TempMap[i, j].tile[k, l];  //  puts the chunks together in grid
+                        }                                                           //
+                    }                                                               //
+                }                                                                   //
+            }                                                                       //
 
-            return grid;
+            return grid;    //return grid to map
         }
     }
 }

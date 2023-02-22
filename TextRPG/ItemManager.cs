@@ -51,7 +51,7 @@ namespace TextRPG
             }
         }
 
-        public Item ItemChecks(int x, int y)
+        public Item ItemChecks(int x, int y)    //Returns item at provided coords
         {
             Item found = null;
             foreach(Item item in items)
@@ -65,7 +65,7 @@ namespace TextRPG
             return found;
         }
 
-        public void PickUp(Item item)
+        public void PickUp(Item item)   //Uses provided item
         {
             if (items.Contains(item))
             {
@@ -75,7 +75,7 @@ namespace TextRPG
             }
         }
 
-        public void Draw()
+        public void Draw()  //puts items in rend arrays
         {
             foreach(Item item in items)
             {

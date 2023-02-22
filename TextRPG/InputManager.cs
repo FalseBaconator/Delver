@@ -23,7 +23,7 @@ namespace TextRPG
         }
 
 
-        public void Update()
+        public void Update()    //Gets a key
         {
             key = Console.ReadKey(true).Key;
             if (key == ConsoleKey.Escape)
@@ -32,7 +32,7 @@ namespace TextRPG
             }
         }
 
-        public ConsoleKey GetKey()
+        public ConsoleKey GetKey()  //Gets the saved key
         {
             return key;
         }

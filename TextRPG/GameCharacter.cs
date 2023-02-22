@@ -38,9 +38,9 @@ namespace TextRPG
             this.rend = rend;
         }
 
-        public virtual void Draw()
+        public virtual void Draw()  //Assigns proper properties to rend arrays
         {
-            if (attacked)                   
+            if (attacked)
             {
                 attacked = false;
                 rend.BackgroundColors[x, y] = ConsoleColor.Red;
@@ -53,7 +53,7 @@ namespace TextRPG
             rend.ScreenChars[x, y] = sprite;
         }
 
-        public virtual void TakeDMG(int DMG)
+        public virtual void TakeDMG(int DMG)    //Takes DMG and may kill character
         {
             HP -= DMG;
             attacked = true;
