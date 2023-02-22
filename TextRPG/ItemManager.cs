@@ -29,25 +29,25 @@ namespace TextRPG
         {
             while(items.Count < ItemNum)
             {
-                int x = rand.Next(0, 5);
-                int y = rand.Next(0, 5);
-                x = x * 7 + 3;
-                y = y * 7 + 3;
-                if(ItemChecks(x, y) == null && player.PlayerCheck(x,y) == false && map.map[x,y] == ',')
-                {
-                    switch (rand.Next(0, 3))
-                    {
-                        case 0:
-                            items.Add(new Item("Healing Potion", 3, x, y, player, rend));
-                            break;
-                        case 1:
-                            items.Add(new Item("ATK Buff", 1, x, y, player, rend));
-                            break;
-                        case 2:
-                            items.Add(new Item("Shield Repair", 3, x, y, player, rend));
-                            break;
-                    }
-                }
+                int x = rand.Next(0, 5);    //
+                int y = rand.Next(0, 5);    //  Choses random map chunk and moves to center of chunk
+                x = x * 7 + 3;              //
+                y = y * 7 + 3;              //
+                if(ItemChecks(x, y) == null && player.PlayerCheck(x,y) == false && map.map[x,y] == ',') //
+                {                                                                                       //
+                    switch (rand.Next(0, 3))                                                            //
+                    {                                                                                   //
+                        case 0:                                                                         //
+                            items.Add(new Item("Healing Potion", 3, x, y, player, rend));               //  Generates a random item if spot isn't occupied
+                            break;                                                                      //
+                        case 1:                                                                         //
+                            items.Add(new Item("ATK Buff", 1, x, y, player, rend));                     //
+                            break;                                                                      //
+                        case 2:                                                                         //
+                            items.Add(new Item("Shield Repair", 3, x, y, player, rend));                //
+                            break;                                                                      //
+                    }                                                                                   //
+                }                                                                                       //
             }
         }
 

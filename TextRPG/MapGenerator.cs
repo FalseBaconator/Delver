@@ -363,19 +363,19 @@ namespace TextRPG
 
         private void GetFiles()
         {
-            string[] tempB = File.ReadAllLines("MapChunkCategories/B.txt");
-            for (int i = 0; i < 3; i++)
-            {
-                B[i] = new MapChunk(new char[7,7]);
-                B[i].BOpen = true;
-                for (int j = 0; j < 7; j++)
-                {
-                    for (int k = 0; k < 7; k++)
-                    {
-                        B[i].tile[j, k] = tempB[j + (7 * i)][k];
-                    }   
-                }
-            }
+            string[] tempB = File.ReadAllLines("MapChunkCategories/B.txt"); //Grab appropriate text file    //
+            for (int i = 0; i < 3; i++)                                                                     //
+            {                                                                                               //
+                B[i] = new MapChunk(new char[7,7]); //makes new chunk                                       //
+                B[i].BOpen = true;  //sets chunk's appropriate door bools to true                           //
+                for (int j = 0; j < 7; j++)                         //                                      //  Repeat for every chunk category
+                {                                                   //                                      //
+                    for (int k = 0; k < 7; k++)                     //                                      //
+                    {                                               //                                      //
+                        B[i].tile[j, k] = tempB[j + (7 * i)][k];    //Gets chunk chars from file            //
+                    }                                               //                                      //
+                }                                                   //                                      //
+            }                                                                                               //
 
             string[] tempL = File.ReadAllLines("MapChunkCategories/L.txt");
             for (int i = 0; i < 3; i++)
@@ -592,7 +592,7 @@ namespace TextRPG
         }
 
 
-        private MapChunk RandomizeTile(MapChunk[] chunkOptions)
+        private MapChunk RandomizeTile(MapChunk[] chunkOptions) //Gets a chunk from a predetermined category
         {
             MapChunk chunk = chunkOptions[rand.Next(0, chunkOptions.Length)];
             return chunk;
@@ -600,60 +600,60 @@ namespace TextRPG
 
         private MapChunk FillTile(int x, int y)
         {
-            if (y == 0) // Left Side of map
-            {
-                if(x == 0) // Top of Map
-                {
-                    if (TempMap[x, y+1].LOpen && TempMap[x+1, y].TOpen)
-                    {
-                        return RandomizeTile(BR);
-                    }else if (TempMap[x, y+1].LOpen)
-                    {
-                        return RandomizeTile(R);
-                    }else if (TempMap[x+1, y].TOpen)
-                    {
-                        return RandomizeTile(B);
-                    }
-                }else if (x == TempMap.GetLength(0)-1) //Bottom of map
-                {
-                    if (TempMap[x, y+1].LOpen && TempMap[x-1, y].BOpen)
-                    {
-                        return RandomizeTile(RT);
-                    }
-                    else if (TempMap[x, y+1].LOpen)
-                    {
-                        return RandomizeTile(R);
-                    }
-                    else if (TempMap[x-1, y].BOpen)
-                    {
-                        return RandomizeTile(T);
-                    }
-                }
-                else //left side of map not top or bottom
-                {
-                    if (TempMap[x, y+1].LOpen && TempMap[x+1, y].TOpen && TempMap[x-1, y].BOpen)
-                    {
-                        return RandomizeTile(BRT);
-                    } else if (TempMap[x, y+1].LOpen && TempMap[x+1, y].TOpen)
-                    {
-                        return RandomizeTile(BR);
-                    } else if (TempMap[x-1, y].BOpen && TempMap[x, y+1].LOpen)
-                    {
-                        return RandomizeTile(RT);
-                    } else if (TempMap[x-1, y].BOpen && TempMap[x+1, y].TOpen)
-                    {
-                        return RandomizeTile(BT);
-                    } else if (TempMap[x, y+1].LOpen)
-                    {
-                        return RandomizeTile(R);
-                    } else if (TempMap[x-1, y].BOpen)
-                    {
-                        return RandomizeTile(T);
-                    } else if (TempMap[x+1, y].TOpen)
-                    {
-                        return RandomizeTile(B);
-                    }
-                }
+            if (y == 0) // Left Side of map                                                                 //
+            {                                                                                               //
+                if(x == 0) // Top of Map                                                                    //
+                {                                                                                           //
+                    if (TempMap[x, y+1].LOpen && TempMap[x+1, y].TOpen)                                     //
+                    {                                                                                       //
+                        return RandomizeTile(BR);                                                           //
+                    }else if (TempMap[x, y+1].LOpen)                                                        //  Gets a random chunk for the left side of the map
+                    {                                                                                       //
+                        return RandomizeTile(R);                                                            //  Checks all possible entrance arrangements for the current arrangement
+                    }else if (TempMap[x+1, y].TOpen)                                                        //
+                    {                                                                                       //  Gives a random chunk that has the correct arrangement
+                        return RandomizeTile(B);                                                            //
+                    }                                                                                       //
+                }else if (x == TempMap.GetLength(0)-1) //Bottom of map                                      //  Repeat for right side and center
+                {                                                                                           //
+                    if (TempMap[x, y+1].LOpen && TempMap[x-1, y].BOpen)                                     //
+                    {                                                                                       //
+                        return RandomizeTile(RT);                                                           //
+                    }                                                                                       //
+                    else if (TempMap[x, y+1].LOpen)                                                         //
+                    {                                                                                       //
+                        return RandomizeTile(R);                                                            //
+                    }                                                                                       //
+                    else if (TempMap[x-1, y].BOpen)                                                         //
+                    {                                                                                       //
+                        return RandomizeTile(T);                                                            //
+                    }                                                                                       //
+                }                                                                                           //
+                else //left side of map not top or bottom                                                   //
+                {                                                                                           //
+                    if (TempMap[x, y+1].LOpen && TempMap[x+1, y].TOpen && TempMap[x-1, y].BOpen)            //
+                    {                                                                                       //
+                        return RandomizeTile(BRT);                                                          //
+                    } else if (TempMap[x, y+1].LOpen && TempMap[x+1, y].TOpen)                              //
+                    {                                                                                       //
+                        return RandomizeTile(BR);                                                           //
+                    } else if (TempMap[x-1, y].BOpen && TempMap[x, y+1].LOpen)                              //
+                    {                                                                                       //
+                        return RandomizeTile(RT);                                                           //
+                    } else if (TempMap[x-1, y].BOpen && TempMap[x+1, y].TOpen)                              //
+                    {                                                                                       //
+                        return RandomizeTile(BT);                                                           //
+                    } else if (TempMap[x, y+1].LOpen)                                                       //
+                    {                                                                                       //
+                        return RandomizeTile(R);                                                            //
+                    } else if (TempMap[x-1, y].BOpen)                                                       //
+                    {                                                                                       //
+                        return RandomizeTile(T);                                                            //
+                    } else if (TempMap[x+1, y].TOpen)                                                       //
+                    {                                                                                       //
+                        return RandomizeTile(B);                                                            //
+                    }                                                                                       //
+                }                                                                                           //
             } else if(y == TempMap.GetLength(1) - 1)    //right side of map
             {
                 if (x == 0) //top of map

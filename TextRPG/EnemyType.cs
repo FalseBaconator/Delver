@@ -15,8 +15,6 @@ namespace TextRPG
             kobold
         }
 
-
-        //public int type;
         public Type type;
 
         public int HP;
@@ -25,7 +23,7 @@ namespace TextRPG
         public char sprite;
         public ConsoleColor color;
 
-        public EnemyType(Type type)
+        public EnemyType(Type type) //  Premade enemy types to be used by EnemyManager upon generating enemies
         {
             this.type = type;
             switch (this.type)

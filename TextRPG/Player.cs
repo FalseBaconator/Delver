@@ -25,69 +25,70 @@ namespace TextRPG
 
         public void Update()
         {
-            gManager.setMessage("");
+            gManager.setMessage("");    //  Clears Interaction Message
 
-            key = inputManager.GetKey();
-            switch (key)
-            {
-                case ConsoleKey.W:
-                case ConsoleKey.UpArrow:
-                    if(map.CheckTile(x, y - 1) && enemyManager.EnemyCheck(x,y-1, false) == null)
-                    {
-                        y--;
-                    }else if(enemyManager.EnemyCheck(x,y-1, false) != null)
-                    {
-                        Attack(enemyManager.EnemyCheck(x, y - 1, true));
-                    }
-                    break;
-                case ConsoleKey.S:
-                case ConsoleKey.DownArrow:
-                    if (map.CheckTile(x, y + 1) && enemyManager.EnemyCheck(x, y + 1, false) == null)
-                    {
-                        y++;
-                    }
-                    else if (enemyManager.EnemyCheck(x, y + 1, false) != null)
-                    {
-                        Attack(enemyManager.EnemyCheck(x, y + 1, true));
-                    }
-                    break;
-                case ConsoleKey.A:
-                case ConsoleKey.LeftArrow:
-                    if (map.CheckTile(x-1, y) && enemyManager.EnemyCheck(x - 1, y, false) == null)
-                    {
-                        x--;
-                    }
-                    else if (enemyManager.EnemyCheck(x - 1, y, false) != null)
-                    {
-                        Attack(enemyManager.EnemyCheck(x - 1, y, true));
-                    }
-                    break;
-                case ConsoleKey.D:
-                case ConsoleKey.RightArrow:
-                    if (map.CheckTile(x + 1, y) && enemyManager.EnemyCheck(x + 1, y, false) == null)
-                    {
-                        x++;
-                    }
-                    else if (enemyManager.EnemyCheck(x + 1, y, false) != null)
-                    {
-                        Attack(enemyManager.EnemyCheck(x + 1, y, true));
-                    }
-                    break;
-            }
-            if(itemManager.ItemChecks(x,y) != null)
-            {
-                itemManager.PickUp(itemManager.ItemChecks(x,y));
-            }
+            key = inputManager.GetKey();                                                                //  Moving
+            switch (key)                                                                                //
+            {                                                                                           //
+                case ConsoleKey.W:                                                                      //  //  Moving Up
+                case ConsoleKey.UpArrow:                                                                //  //
+                    if(map.CheckTile(x, y - 1) && enemyManager.EnemyCheck(x,y-1, false) == null)        //  //  //
+                    {                                                                                   //  //  //  Move Up if empty space
+                        y--;                                                                            //  //  //
+                    }                                                                                   //  //  //
+                    else if(enemyManager.EnemyCheck(x,y-1, false) != null)                              //  //      //
+                    {                                                                                   //  //      //  If space is occupied by enemy. Attack
+                        Attack(enemyManager.EnemyCheck(x, y - 1, true));                                //  //      //
+                    }                                                                                   //  //      //
+                    break;                                                                              //  //
+                case ConsoleKey.S:                                                                      //      //  Moving Down
+                case ConsoleKey.DownArrow:                                                              //      //
+                    if (map.CheckTile(x, y + 1) && enemyManager.EnemyCheck(x, y + 1, false) == null)    //      //  //
+                    {                                                                                   //      //  //  Move if available
+                        y++;                                                                            //      //  //
+                    }                                                                                   //      //  //
+                    else if (enemyManager.EnemyCheck(x, y + 1, false) != null)                          //      //      //
+                    {                                                                                   //      //      //  Attack if appropriate
+                        Attack(enemyManager.EnemyCheck(x, y + 1, true));                                //      //      //
+                    }                                                                                   //      //      //
+                    break;                                                                              //      //
+                case ConsoleKey.A:                                                                      //  //  Moving Left
+                case ConsoleKey.LeftArrow:                                                              //  //
+                    if (map.CheckTile(x-1, y) && enemyManager.EnemyCheck(x - 1, y, false) == null)      //  //  //
+                    {                                                                                   //  //  //  Move if available
+                        x--;                                                                            //  //  //
+                    }                                                                                   //  //  //
+                    else if (enemyManager.EnemyCheck(x - 1, y, false) != null)                          //  //      //
+                    {                                                                                   //  //      //  Attack if appropriate
+                        Attack(enemyManager.EnemyCheck(x - 1, y, true));                                //  //      //
+                    }                                                                                   //  //      //
+                    break;                                                                              //  //
+                case ConsoleKey.D:                                                                      //      //  Moving Right
+                case ConsoleKey.RightArrow:                                                             //      //
+                    if (map.CheckTile(x + 1, y) && enemyManager.EnemyCheck(x + 1, y, false) == null)    //      //  //
+                    {                                                                                   //      //  //  Move if available
+                        x++;                                                                            //      //  //
+                    }                                                                                   //      //  //
+                    else if (enemyManager.EnemyCheck(x + 1, y, false) != null)                          //      //      //
+                    {                                                                                   //      //      //  Attack if appropriate
+                        Attack(enemyManager.EnemyCheck(x + 1, y, true));                                //      //      //
+                    }                                                                                   //      //      //
+                    break;                                                                              //      //
+            }                                                                                           //
+            if(itemManager.ItemChecks(x,y) != null)                 //
+            {                                                       //  Pick up item if on item space
+                itemManager.PickUp(itemManager.ItemChecks(x,y));    //
+            }                                                       //
         }
 
-        public bool PlayerCheck(int x, int y)
+        public bool PlayerCheck(int x, int y)   //returns true if the provided coordinates are the player's coordinates
         {
             bool check = false;
             if (this.x == x && this.y == y) check = true;
             return check;
         }
 
-        public void Attack(Enemy enemy)
+        public void Attack(Enemy enemy) //Attacks the provided enemy and gives the interaction message
         {
             enemy.TakeDMG(ATK);
             if (enemy.HP > 0) gManager.setMessage("Player attacked " + enemy.name);
@@ -96,20 +97,20 @@ namespace TextRPG
 
         public override void TakeDMG(int DMG)
         {
-            if(shield > DMG)
-            {
-                shield -= DMG;
-                base.TakeDMG(0);
-            }
-            else
-            {
-                DMG -= shield;
-                shield = 0;
-                base.TakeDMG(DMG);
-            }
+            if(shield > DMG)        //
+            {                       //
+                shield -= DMG;      //  Damages shield if dmg wouldn't destroy it
+                base.TakeDMG(0);    //
+            }                       //
+            else                        //
+            {                           //
+                DMG -= shield;          //  Shield reduces dmg, before being destroyed and applying dmg normally
+                shield = 0;             //
+                base.TakeDMG(DMG);      //
+            }                           //
         }
 
-        public void Heal(int heal)
+        public void Heal(int heal)  //  Restores HP up to max
         {
             HP += heal;
             if(HP > maxHP)
@@ -118,7 +119,7 @@ namespace TextRPG
             }
         }
 
-        public void RestoreShield(int restore)
+        public void RestoreShield(int restore)  //  Restores Shield up to max
         {
             shield += restore;
             if(shield > maxShield)
@@ -127,7 +128,7 @@ namespace TextRPG
             }
         }
 
-        public void RaiseATK(int raise)
+        public void RaiseATK(int raise) //  Increase ATK power
         {
             ATK += raise;
         }

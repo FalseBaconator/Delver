@@ -8,7 +8,7 @@ namespace TextRPG
 {
     internal class Item
     {
-        public string name; //heal, dmg, shield
+        public string name; //Healing Potion, ATK Buff, Shield Repair
         int value;
         int x;
         int y;
@@ -47,23 +47,23 @@ namespace TextRPG
             }
         }
 
-        public void PickUp()
+        public void PickUp()    //Has the appropriate effect based on item
         {
             switch (name)
             {
-                case "heal":
+                case "Healing Potion":
                     player.Heal(value);
                     break;
-                case "dmg":
+                case "ATK Buff":
                     player.RaiseATK(value);
                     break;
-                case "shield":
+                case "Shield Repair":
                     player.RestoreShield(value);
                     break;
             }
         }
 
-        public bool ItemCheck(int x, int y)
+        public bool ItemCheck(int x, int y)     //Returns true if item is on provided coords
         {
             bool check = false;
             if(this.x == x && this.y == y){
@@ -72,7 +72,7 @@ namespace TextRPG
             return check;
         }
 
-        public void Draw()
+        public void Draw()  //Draws item on map
         {
             rend.ScreenChars[x, y] = sprite;
             rend.ScreenColors[x, y] = color;

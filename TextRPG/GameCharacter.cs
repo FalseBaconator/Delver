@@ -40,7 +40,7 @@ namespace TextRPG
 
         public virtual void Draw()
         {
-            if (attacked)
+            if (attacked)                   
             {
                 attacked = false;
                 rend.BackgroundColors[x, y] = ConsoleColor.Red;
