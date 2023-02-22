@@ -30,7 +30,7 @@ namespace TextRPG
             {
                 for (int j = 3; j < 35; j += 7)
                 {
-                    if(player.PlayerCheck(i,j) == false && itemManager.ItemChecks(i,j) == null)
+                    if(player.PlayerCheck(i,j) == false && itemManager.ItemChecks(i,j) == null && map.CheckTile(i,j))
                     {
                         int chance = random.Next(10);
                         switch (chance)

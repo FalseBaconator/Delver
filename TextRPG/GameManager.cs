@@ -74,7 +74,6 @@ namespace TextRPG
         {
             if (player.alive && eManager.Enemies.Count == 0)    //
             {                                                   //
-                Console.ReadKey(true);                          //
                 Console.Clear();                                //  Win
                 Console.ResetColor();                           //
                 Console.Write("You Win!");                      //
