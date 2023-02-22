@@ -60,7 +60,6 @@ namespace TextRPG
             if (HP <= 0)
             {
                 HP = 0;
-                map.DrawTile(x, y);
                 alive = false;
             }
         }

@@ -55,7 +55,7 @@ namespace TextRPG
             this.rend = rend;
         }
 
-        public void DrawMap()
+        public void DrawMap()   //sets rend arrays to map chars
         {
             for (int i = 0; i < map.GetLength(0); i++)
             {
@@ -68,28 +68,12 @@ namespace TextRPG
                     {
                         Console.ForegroundColor = ConsoleColor.DarkYellow;
                     }
-                    //Console.SetCursorPosition(i, j);
-                    //Console.Write(map[i, j]);
                     rend.ScreenChars[i, j] = map[i, j];
                     rend.ScreenColors[i, j] = Console.ForegroundColor;
                 }
             }
         }
 
-        public void DrawTile(int x, int y)
-        {
-            Console.SetCursorPosition(x, y);
-            char tile = map[x, y];
-            if (tile == '▓' || tile == ',')
-            {
-                Console.ForegroundColor = ConsoleColor.DarkGray;
-            }
-            else if (tile == '█')
-            {
-                Console.ForegroundColor = ConsoleColor.DarkYellow;
-            }
-            Console.Write(tile);
-        }
 
         public bool CheckTile(int x, int y)
         {
