@@ -834,6 +834,80 @@ namespace TextRPG
             return Empty;
         }
 
+        private void MapChecker()
+        {
+            List<Tuple<int, int>> checkedCoords = new List<Tuple<int, int>>();
+            checkedCoords.Add(Tuple.Create(2, 2));
+            bool done = false;
+            while(done == false)
+            {
+                bool addedRooms = false;
+                List<Tuple<int,int>> toAdd = new List<Tuple<int, int>> ();
+
+                foreach(Tuple<int, int> coords in checkedCoords)
+                {
+                    if(coords.Item1 > 0 && TempMap[coords.Item1, coords.Item2].TOpen)
+                    {
+                        if (checkedCoords.Contains(Tuple.Create(coords.Item1-1, coords.Item2)) == false)
+                        {
+                            addedRooms = true;
+                            toAdd.Add(Tuple.Create(coords.Item1 - 1, coords.Item2));
+                        }
+                    }
+                    if (coords.Item1 < 4 && TempMap[coords.Item1, coords.Item2].BOpen)
+                    {
+                        if (checkedCoords.Contains(Tuple.Create(coords.Item1 + 1, coords.Item2)) == false)
+                        {
+                            addedRooms = true;
+                            toAdd.Add(Tuple.Create(coords.Item1 + 1, coords.Item2));
+                        }
+                    }
+                    if (coords.Item2 > 0 && TempMap[coords.Item1, coords.Item2].LOpen)
+                    {
+                        if (checkedCoords.Contains(Tuple.Create(coords.Item1, coords.Item2 - 1)) == false)
+                        {
+                            addedRooms = true;
+                            toAdd.Add(Tuple.Create(coords.Item1, coords.Item2 - 1));
+                        }
+                    }
+                    if (coords.Item2 < 4 && TempMap[coords.Item1, coords.Item2].ROpen)
+                    {
+                        if (checkedCoords.Contains(Tuple.Create(coords.Item1, coords.Item2 + 1)) == false)
+                        {
+                            addedRooms = true;
+                            toAdd.Add(Tuple.Create(coords.Item1, coords.Item2 + 1));
+                        }
+                    }
+                }
+
+                foreach(Tuple<int, int> coords in toAdd)
+                {
+                    if(checkedCoords.Contains(coords) == false)
+                        checkedCoords.Add(coords);
+                }
+
+                if(addedRooms == false)
+                {
+                    done = true;
+                }
+
+            }
+            
+            for (int i = 0; i < 5; i++)
+            {
+                for (int j = 0; j < 5; j++)
+                {
+                    
+                    if (checkedCoords.Contains(Tuple.Create(i,j)) == false)
+                    {
+                        TempMap[i, j] = Empty;
+                    }
+                    
+                }
+            }
+
+        }
+
         public char[,] RandomizeMap()
         {
             rand = new Random();
@@ -1035,6 +1109,9 @@ namespace TextRPG
             TempMap[3, 4] = FillTile(3, 4); //
             TempMap[4, 1] = FillTile(4, 1); //
             TempMap[4, 3] = FillTile(4, 3); //
+
+            MapChecker();
+
 
             for (int i = 0; i < 5; i++)                                             //
             {                                                                       //
