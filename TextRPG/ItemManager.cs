@@ -33,7 +33,7 @@ namespace TextRPG
                 int y = rand.Next(0, 5);    //  Choses random map chunk and moves to center of chunk
                 x = x * 7 + 3;              //
                 y = y * 7 + 3;              //
-                if(ItemChecks(x, y) == null && player.PlayerCheck(x,y) == false && map.map[x,y] == ',') //
+                if(ItemChecks(x, y) == null && player.PlayerCheck(x,y) == false && map.map[y, x] == ',')//
                 {                                                                                       //
                     switch (rand.Next(0, 3))                                                            //
                     {                                                                                   //

@@ -74,8 +74,8 @@ namespace TextRPG
 
         public void Draw()  //Draws item on map
         {
-            rend.ScreenChars[x, y] = sprite;
-            rend.ScreenColors[x, y] = color;
+            rend.ScreenChars[y, x] = sprite;
+            rend.ScreenColors[y, x] = color;
         }
 
     }

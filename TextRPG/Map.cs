@@ -61,15 +61,15 @@ namespace TextRPG
             {
                 for (int j = 0; j < map.GetLength(1); j++)
                 {
-                    if (map[i,j] == '▓' || map[i,j] == ',')
+                    if (map[j,i] == '▓' || map[j,i] == ',')
                     {
                         Console.ForegroundColor = ConsoleColor.DarkGray;
-                    }else if (map[i,j] == '█')
+                    }else if (map[j,i] == '█')
                     {
                         Console.ForegroundColor = ConsoleColor.DarkYellow;
                     }
-                    rend.ScreenChars[i, j] = map[i, j];
-                    rend.ScreenColors[i, j] = Console.ForegroundColor;
+                    rend.ScreenChars[j, i] = map[j, i];
+                    rend.ScreenColors[j, i] = Console.ForegroundColor;
                 }
             }
         }
@@ -77,7 +77,7 @@ namespace TextRPG
         public bool CheckTile(int x, int y) //returns true if the provided coords is a floor
         {
             bool isFloor = false;
-            if (map[x,y] == ',') isFloor = true;
+            if (map[y,x] == ',') isFloor = true;
             return isFloor;
         }
 

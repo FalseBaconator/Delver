@@ -22,7 +22,7 @@ namespace TextRPG
             {
                 for (int j = 0; j < ScreenChars.GetLength(1); j++)
                 {
-                    Console.SetCursorPosition(i, j);                    //
+                    Console.SetCursorPosition(j, i);                    //
                     Console.BackgroundColor = BackgroundColors[i, j];   //  Writes the char with the right background, color, and sprite
                     Console.ForegroundColor = ScreenColors[i, j];       //
                     Console.Write(ScreenChars[i, j]);                   //
@@ -36,7 +36,7 @@ namespace TextRPG
             {                                                               //
                 for (int j = 0; j < BackgroundColors.GetLength(1); j++)     //
                 {                                                           //  Resets the background color of every char to black
-                    BackgroundColors[i, j] = ConsoleColor.Black;            //
+                    BackgroundColors[j, i] = ConsoleColor.Black;            //
                 }                                                           //
             }                                                               //
         }                                                                   //

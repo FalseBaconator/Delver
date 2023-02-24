@@ -43,14 +43,14 @@ namespace TextRPG
             if (attacked)
             {
                 attacked = false;
-                rend.BackgroundColors[x, y] = ConsoleColor.Red;
+                rend.BackgroundColors[y, x] = ConsoleColor.Red;
             }
             else
             {
-                rend.BackgroundColors[x, y] = ConsoleColor.Black;
+                rend.BackgroundColors[y, x] = ConsoleColor.Black;
             }
-            rend.ScreenColors[x, y] = color;
-            rend.ScreenChars[x, y] = sprite;
+            rend.ScreenColors[y, x] = color;
+            rend.ScreenChars[y, x] = sprite;
         }
 
         public virtual void TakeDMG(int DMG)    //Takes DMG and may kill character
