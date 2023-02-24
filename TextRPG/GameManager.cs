@@ -41,6 +41,13 @@ namespace TextRPG
             this.hud = hud;
         }
 
+        public void SetUp()                 //
+        {                                   //
+            itemManager.GenerateItems(5);   //  Set Up
+            eManager.GenerateEnemies();     //
+            Draw();                         //
+        }                                   //
+
         public void setMessage(string message)
         {
             this.message = message; //save message

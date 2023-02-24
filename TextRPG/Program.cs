@@ -29,9 +29,7 @@ namespace TextRPG
         
         static void Main(string[] args)
         {
-            itemManager.GenerateItems(5);       //
-            enemyManager.GenerateEnemies();     //  Setup
-            manager.Draw();                     //
+            manager.SetUp();
 
             while (manager.play)    //
             {                       //
