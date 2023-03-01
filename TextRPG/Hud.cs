@@ -11,7 +11,7 @@ namespace TextRPG
         private Player player;
         private EnemyManager enemyManager;
         private Enemy enemy;
-        public string message;
+        private string message;
         private int x;
         private int y;
 
@@ -59,23 +59,28 @@ namespace TextRPG
             Console.SetCursorPosition(x + 1, y + 4);                            //
             Console.Write("Player");                                            //
             Console.SetCursorPosition(x + 1, y + 5);                            //
-            Console.Write("HP: " + player.HP + "/" + player.maxHP);             //  Write Player Stats
+            Console.Write("HP: " + player.GetHealth() + "/" + player.GetMaxHealth());             //  Write Player Stats
             Console.SetCursorPosition(x + 1, y + 6);                            //
-            Console.Write("Shield: " + player.shield + "/" + player.maxShield); //
+            Console.Write("Shield: " + player.GetShield() + "/" + player.GetMaxShield()); //
             Console.SetCursorPosition(x + 1, y + 7);                            //
-            Console.Write("ATK: " + player.ATK);                                //
+            Console.Write("ATK: " + player.GetATK());                                //
 
 
-            if (enemyManager.lastAttacked != null)                      //
+            if (enemyManager.GetLastAttacked() != null)                      //
             {                                                           //
-                enemy = enemyManager.lastAttacked;                      //
+                enemy = enemyManager.GetLastAttacked();                      //
                 Console.SetCursorPosition(x + 18, y + 4);               //
-                Console.Write(enemy.name);                              //  Write Stats of Last Attacked Enemy
+                Console.Write(enemy.GetName());                              //  Write Stats of Last Attacked Enemy
                 Console.SetCursorPosition(x + 18, y + 5);               //
-                Console.Write("HP: " + enemy.HP + "/" + enemy.maxHP);   //
+                Console.Write("HP: " + enemy.GetHealth() + "/" + enemy.GetMaxHealth());   //
                 Console.SetCursorPosition(x + 18, y + 6);               //
-                Console.Write("ATK: " + enemy.ATK);                     //
+                Console.Write("ATK: " + enemy.GetATK());                     //
             }                                                           //
+        }
+
+        public void SetMessage(string message)
+        {
+            this.message = message;
         }
 
     }

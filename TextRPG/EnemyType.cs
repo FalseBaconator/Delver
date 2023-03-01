@@ -15,13 +15,13 @@ namespace TextRPG
             kobold
         }
 
-        public Type type;
+        private Type type;
 
-        public int HP;
-        public int ATK;
-        public string name;
-        public char sprite;
-        public ConsoleColor color;
+        private int HP;
+        private int ATK;
+        private string name;
+        private char sprite;
+        private ConsoleColor color;
 
         public EnemyType(Type type) //  Premade enemy types to be used by EnemyManager upon generating enemies
         {
@@ -50,6 +50,36 @@ namespace TextRPG
                     color = ConsoleColor.DarkRed;
                     break;
             }
+        }
+        
+        public int GetHP()
+        {
+            return HP;
+        }
+
+        public int GetATK()
+        {
+            return ATK;
+        }
+
+        public string GetName()
+        {
+            return name;
+        }
+
+        public char GetSprite()
+        {
+            return sprite;
+        }
+
+        public ConsoleColor GetColor()
+        {
+            return color;
+        }
+
+        public Type GetEnemyType()
+        {
+            return type;
         }
 
     }

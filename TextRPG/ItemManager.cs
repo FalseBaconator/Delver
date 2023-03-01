@@ -8,24 +8,21 @@ namespace TextRPG
 {
     internal class ItemManager
     {
-        List<Item> items = new List<Item>();
-        Random rand = new Random();
+        private List<Item> items = new List<Item>();
+        private Random rand = new Random();
 
-        Player player;
-        Render rend;
-        Map map;
-        public GameManager gManager;
+        private Render rend;
+        private Map map;
+        private GameManager gManager;
 
-        public ItemManager(Player player, EnemyManager eManager, Map map, Render rend)
+        public ItemManager(Map map, Render rend, GameManager gManager)
         {
-            this.player = player;
             this.rend = rend;
             this.map = map;
-            player.itemManager = this;
-            eManager.itemManager = this;
+            this.gManager = gManager;
         }
 
-        public void GenerateItems(int ItemNum)
+        public void GenerateItems(int ItemNum, Player player)
         {
             while(items.Count < ItemNum)
             {
@@ -33,18 +30,18 @@ namespace TextRPG
                 int y = rand.Next(0, 5);    //  Choses random map chunk and moves to center of chunk
                 x = x * 7 + 3;              //
                 y = y * 7 + 3;              //
-                if(ItemChecks(x, y) == null && player.PlayerCheck(x,y) == false && map.map[y, x] == ',')//
+                if(ItemChecks(x, y) == null && player.isPlayerAt(x,y) == false && map.isFloorAt(x,y))//
                 {                                                                                       //
                     switch (rand.Next(0, 3))                                                            //
                     {                                                                                   //
                         case 0:                                                                         //
-                            items.Add(new Item("Healing Potion", 3, x, y, player, rend));               //  Generates a random item if spot isn't occupied
+                            items.Add(new Item("Healing Potion", 3, x, y, rend));                       //  Generates a random item if spot isn't occupied
                             break;                                                                      //
                         case 1:                                                                         //
-                            items.Add(new Item("ATK Buff", 1, x, y, player, rend));                     //
+                            items.Add(new Item("ATK Buff", 1, x, y, rend));                             //
                             break;                                                                      //
                         case 2:                                                                         //
-                            items.Add(new Item("Shield Repair", 3, x, y, player, rend));                //
+                            items.Add(new Item("Shield Repair", 3, x, y, rend));                        //
                             break;                                                                      //
                     }                                                                                   //
                 }                                                                                       //
@@ -56,7 +53,7 @@ namespace TextRPG
             Item found = null;
             foreach(Item item in items)
             {
-                if (item.ItemCheck(x, y))
+                if (item.isItemAt(x, y))
                 {
                     found = item;
                 }
@@ -65,13 +62,13 @@ namespace TextRPG
             return found;
         }
 
-        public void PickUp(Item item)   //Uses provided item
+        public void PickUp(Item item, Player player)   //Uses provided item
         {
             if (items.Contains(item))
             {
-                item.PickUp();
+                item.PickUp(player);
                 items.Remove(item);
-                gManager.setMessage("Player found " + item.name);
+                gManager.setMessage("Player found " + item.GetName());
             }
         }
 

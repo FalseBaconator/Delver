@@ -8,43 +8,44 @@ namespace TextRPG
 {
     internal class EnemyManager
     {
-        public List<Enemy> Enemies = new List<Enemy>();
-        public Map map;
-        public Player player;
-        public Random random = new Random();
-        public bool toMove;
-        public Render rend;
-        public ItemManager itemManager;
-        public Enemy lastAttacked;
-        public GameManager gManager;
+        private List<Enemy> Enemies = new List<Enemy>();
+        private Map map;
+        private Random random = new Random();
+        private bool toMove;
+        private Render rend;
+        private ItemManager itemManager;
+        private Enemy lastAttacked;
+        GameManager manager;
 
-        public EnemyManager(Map map, Render rend)
+        public EnemyManager(Map map, Render rend, ItemManager itemManager, GameManager manager)
         {
             this.map = map;
             this.rend = rend;
+            this.itemManager = itemManager;
+            this.manager = manager;
         }
 
-        public void GenerateEnemies()
+        public void GenerateEnemies(Player player)
         {
             for (int i = 3; i < 35; i += 7)     //
             {                                   //  Center of each room
                 for (int j = 3; j < 35; j += 7) //
                 {
-                    if(player.PlayerCheck(i,j) == false && itemManager.ItemChecks(i,j) == null && map.CheckTile(i,j))                   //
+                    if(player.isPlayerAt(i,j) == false && itemManager.ItemChecks(i,j) == null && map.isFloorAt(i,j))                    //
                     {                                                                                                                   //
                         int chance = random.Next(10);                                                                                   //
                         switch (chance)                                                                                                 //
                         {                                                                                                               //
                             case 0:                                                                                                     //
                             case 1:                                                                                                     //
-                                Enemies.Add(new Enemy(i, j, new EnemyType(EnemyType.Type.slime), map, player, this, rend, gManager));   //
+                                Enemies.Add(new Enemy(i, j, new EnemyType(EnemyType.Type.slime), map, player, this, rend, manager));    //
                                 break;                                                                                                  //
                             case 2:                                                                                                     //  Chance of generating enemy on valid tiles
-                                Enemies.Add(new Enemy(i, j, new EnemyType(EnemyType.Type.goblin), map, player, this, rend, gManager));  //
+                                Enemies.Add(new Enemy(i, j, new EnemyType(EnemyType.Type.goblin), map, player, this, rend, manager));   //
                                 break;                                                                                                  //
                             case 3:                                                                                                     //
                             case 4:                                                                                                     //
-                                Enemies.Add(new Enemy(i, j, new EnemyType(EnemyType.Type.kobold), map, player, this, rend, gManager));  //
+                                Enemies.Add(new Enemy(i, j, new EnemyType(EnemyType.Type.kobold), map, player, this, rend, manager));   //
                                 break;                                                                                                  //
                             case 5:                                                                                                     //
                             case 6:                                                                                                     //
@@ -64,18 +65,18 @@ namespace TextRPG
             {
                 foreach(Enemy enemy in Enemies)
                 {
-                    enemy.Move(random);
+                    enemy.Update(random);
                 }
             }
             toMove = !toMove;
         }
 
-        public Enemy EnemyCheck(int x, int y, bool isAttack)    //Returns the enemy at the provided coords. Saves lastAttacked enemy if attacking
+        public Enemy isEnemyAt(int x, int y, bool isAttack)    //Returns the enemy at the provided coords. Saves lastAttacked enemy if attacking
         {
             Enemy foundEnemy = null;
             foreach(Enemy enemy in Enemies)
             {
-                if(enemy.x == x && enemy.y == y)
+                if(enemy.GetX() == x && enemy.GetY() == y)
                 {
                     foundEnemy = enemy;
                 }
@@ -98,6 +99,16 @@ namespace TextRPG
             {
                 Enemies.Remove(enemy);
             }
+        }
+
+        public int GetEnemyCount()
+        {
+            return Enemies.Count();
+        }
+
+        public Enemy GetLastAttacked()
+        {
+            return lastAttacked;
         }
 
     }

@@ -8,85 +8,102 @@ namespace TextRPG
 {
     internal class GameManager
     {
-        public bool play = true;
+        private bool play = true;
 
-        Player player;
+        //Define Objects
+        static Render render = new Render();
 
-        EnemyManager eManager;
+        static MapGenerator mapGen = new MapGenerator();
+        static Map map = new Map(mapGen.RandomizeMap(), render);
 
-        Map map;
+        static EnemyManager enemyManager;
 
-        InputManager inputManager;
+        static Player player;
 
-        ItemManager itemManager;
+        static ItemManager itemManager;
 
-        Render rend;
+        static InputManager inputManager;
 
-        Hud hud;
+        static Hud hud;
 
-        public string message;
+        private string message;
 
-        public GameManager(Player player, EnemyManager eManager, Map map, InputManager inputManager, ItemManager itemManager, Render rend, Hud hud)
+        public GameManager()
         {
-            this.player = player;
-            player.gManager = this;
-            this.eManager = eManager;
-            eManager.gManager = this;
-            this.map = map;
-            this.inputManager = inputManager;
-            inputManager.manager = this;
-            this.itemManager = itemManager;
-            itemManager.gManager = this;
-            this.rend = rend;
-            this.hud = hud;
+            inputManager = new InputManager(this);
+            itemManager = new ItemManager(map, render, this);
+            enemyManager = new EnemyManager(map, render, itemManager, this);
+            player = new Player(17, 17, 5, 5, 2, '@', map, enemyManager, ConsoleColor.White, render, this, inputManager, itemManager);
+            hud = new Hud(player, enemyManager, 0, 36);
         }
 
-        public void SetUp()                 //
-        {                                   //
-            itemManager.GenerateItems(5);   //  Set Up
-            eManager.GenerateEnemies();     //
-            Draw();                         //
-        }                                   //
+        public void SetUp()                         //
+        {                                           //
+            itemManager.GenerateItems(5, player);   //  Set Up
+            enemyManager.GenerateEnemies(player);   //
+            Draw();                                 //
+        }                                           //
 
         public void setMessage(string message)
         {
             this.message = message; //save message
-            hud.message = message;      //set message in hud
+            hud.SetMessage(message);    //set message in hud
+        }
+
+        public string GetMessage()
+        {
+            return message;
         }
 
         public void Update()
         {
-            inputManager.Update();      //
-            player.Update();            //  Update everything
-            eManager.UpdateEnemies();   //
+            inputManager.Update();          //
+            player.Update();                //  Update everything
+            enemyManager.UpdateEnemies();   //
 
-            if(player.alive == false)       //
+            if(player.isAlive() == false)   //
             {                               //  End game if player is dead
                 play = false;               //
             }                               //
         }
+        
+        public void Play()
+        {
+            SetUp();
+            while(play == true)
+            {
+                Update();
+                Draw();
+            }
+            Conclusion();
+        }
 
         public void Draw()  //Draw Everything
         {
-            rend.ResetBackgrounds();    //
+            render.ResetBackgrounds();  //
             map.DrawMap();              //
             itemManager.Draw();         //  Set chars to arrays in rend
             player.Draw();              //
-            eManager.DrawEnemies();     //
+            enemyManager.DrawEnemies(); //
             hud.draw();     //Draws HUD
-            rend.DrawToScreen();    //Draws map and everything in
+            render.DrawToScreen();    //Draws map and everything in
         }
 
         public void EndGame()
         {
-            if (player.alive && eManager.Enemies.Count == 0)    //
-            {                                                   //
-                Console.Clear();                                //  Win
-                Console.ResetColor();                           //
-                Console.Write("You Win!");                      //
-                Console.ReadKey(true);                          //
-            }                                                   //
-            else if (player.alive == false)                         //
+            play = false;
+        }
+
+        public void Conclusion()
+        {
+            if (player.isAlive() && enemyManager.GetEnemyCount() == 0)  //
+            {                                                           //
+                Console.Clear();                                        //  Win
+                Console.ResetColor();                                   //
+                Console.Write("You Win!");                              //
+                Console.ReadKey(true);                                  //
+            }                                                           //
+            else if (player.isAlive() == false)                     //
             {                                                       //
                 Console.ReadKey(true);                              //
                 Console.Clear();                                    //  Lose

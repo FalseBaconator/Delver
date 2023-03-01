@@ -8,27 +8,25 @@ namespace TextRPG
 {
     internal class Item
     {
-        public string name; //Healing Potion, ATK Buff, Shield Repair
-        int value;
-        int x;
-        int y;
+        private string name; //Healing Potion, ATK Buff, Shield Repair
+        private int value;
+        private int x;
+        private int y;
 
-        Player player;
+        private char sprite;
 
-        char sprite;
+        private ConsoleColor color;
 
-        ConsoleColor color;
-
-        Render rend;
+        private Render rend;
 
 
-        public Item(string name, int value, int x, int y, Player player, Render rend)
+        public Item(string name, int value, int x, int y, Render rend)
         {
             this.name = name;
             this.value = value;
             this.x = x;
             this.y = y;
-            this.player = player;
+            //this.player = player;
             this.rend = rend;
             switch (name)
             {
@@ -47,7 +45,7 @@ namespace TextRPG
             }
         }
 
-        public void PickUp()    //Has the appropriate effect based on item
+        public void PickUp(Player player)    //Has the appropriate effect based on item
         {
             switch (name)
             {
@@ -63,7 +61,7 @@ namespace TextRPG
             }
         }
 
-        public bool ItemCheck(int x, int y)     //Returns true if item is on provided coords
+        public bool isItemAt(int x, int y)     //Returns true if item is on provided coords
         {
             bool check = false;
             if(this.x == x && this.y == y){
@@ -76,6 +74,11 @@ namespace TextRPG
         {
             rend.ScreenChars[y, x] = sprite;
             rend.ScreenColors[y, x] = color;
+        }
+
+        public string GetName()
+        {
+            return name;
         }
 
     }

@@ -47,7 +47,7 @@ namespace TextRPG
 
         private Render rend;
 
-        public char[,] map;
+        private char[,] map;
 
         public Map(char[,] grid, Render rend)
         {
@@ -74,7 +74,7 @@ namespace TextRPG
             }
         }
 
-        public bool CheckTile(int x, int y) //returns true if the provided coords is a floor
+        public bool isFloorAt(int x, int y) //returns true if the provided coords is a floor
         {
             bool isFloor = false;
             if (map[y,x] == ',') isFloor = true;

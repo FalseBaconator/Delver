@@ -9,22 +9,23 @@ namespace TextRPG
     internal class GameCharacter
     {
 
-        public int x;
-        public int y;
-        public int HP;
-        public int maxHP;
-        public int ATK;
-        public char sprite;
-        public Map map;
-        public EnemyManager enemyManager;
-        public ConsoleColor color;
-        public Render rend;
+        protected int x;
+        protected int y;
+        protected int HP;
+        protected int maxHP;
+        protected int ATK;
+        protected char sprite;
+        protected Map map;
+        protected EnemyManager enemyManager;
+        protected ConsoleColor color;
+        protected Render rend;
+        protected GameManager manager;
 
-        private bool attacked = false;
+        protected bool attacked = false;
 
-        public bool alive = true;
+        protected bool alive = true;
 
-        public GameCharacter(int x, int y, int HP, int ATK, char sprite, Map map, EnemyManager enemyManager, ConsoleColor color, Render rend)
+        public GameCharacter(int x, int y, int HP, int ATK, char sprite, Map map, EnemyManager enemyManager, ConsoleColor color, Render rend, GameManager manager)
         {
             this.x = x;
             this.y = y;
@@ -36,6 +37,7 @@ namespace TextRPG
             this.enemyManager = enemyManager;
             this.color = color;
             this.rend = rend;
+            this.manager = manager;
         }
 
         public virtual void Draw()  //Assigns proper properties to rend arrays
@@ -62,6 +64,35 @@ namespace TextRPG
                 HP = 0;
                 alive = false;
             }
+        }
+        public int GetHealth()
+        {
+            return HP;
+        }
+
+        public int GetMaxHealth()
+        {
+            return maxHP;
+        }
+
+        public int GetATK()
+        {
+            return ATK;
+        }
+
+        public int GetX()
+        {
+            return x;
+        }
+
+        public int GetY()
+        {
+            return y;
+        }
+
+        public bool isAlive()
+        {
+            return alive;
         }
 
     }

@@ -8,18 +8,14 @@ namespace TextRPG
 {
     internal class InputManager
     {
-        ConsoleKey key;
+        private ConsoleKey key;
 
-        //Program main;
+        private GameManager manager;
 
-        public GameManager manager;
 
-        Player player;
-
-        public InputManager(Player player)
+        public InputManager(GameManager manager)
         {
-            this.player = player;
-            player.inputManager = this;
+            this.manager = manager;
         }
 
 
@@ -28,7 +24,7 @@ namespace TextRPG
             key = Console.ReadKey(true).Key;
             if (key == ConsoleKey.Escape)
             {
-                manager.play = false;
+                manager.EndGame();
             }
         }
 
