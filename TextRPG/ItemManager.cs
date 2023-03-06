@@ -22,9 +22,9 @@ namespace TextRPG
             this.gManager = gManager;
         }
 
-        public void GenerateItems(int ItemNum, Player player)
+        public void GenerateItems(Player player)
         {
-            while(items.Count < ItemNum)
+            while(items.Count < Constants.itemAmount)
             {
                 int x = rand.Next(0, 5);    //
                 int y = rand.Next(0, 5);    //  Choses random map chunk and moves to center of chunk
@@ -35,13 +35,13 @@ namespace TextRPG
                     switch (rand.Next(0, 3))                                                            //
                     {                                                                                   //
                         case 0:                                                                         //
-                            items.Add(new Item("Healing Potion", 3, x, y, rend));                       //  Generates a random item if spot isn't occupied
+                            items.Add(new Item(Constants.healName, x, y, rend));                        //  Generates a random item if spot isn't occupied
                             break;                                                                      //
                         case 1:                                                                         //
-                            items.Add(new Item("ATK Buff", 1, x, y, rend));                             //
+                            items.Add(new Item(Constants.ATKBuffName, x, y, rend));                     //
                             break;                                                                      //
                         case 2:                                                                         //
-                            items.Add(new Item("Shield Repair", 3, x, y, rend));                        //
+                            items.Add(new Item(Constants.ShieldRepairName, x, y, rend));                //
                             break;                                                                      //
                     }                                                                                   //
                 }                                                                                       //

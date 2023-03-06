@@ -14,11 +14,10 @@ namespace TextRPG
         private InputManager inputManager;
         private ItemManager itemManager;
 
-        public Player(int x, int y, int HP, int shield, int ATK, char sprite, Map map, EnemyManager enemyManager, ConsoleColor color, Render rend, GameManager manager, InputManager inputManager, ItemManager itemManager) : base(x,y,HP,ATK,sprite,map,enemyManager,color, rend, manager)
+        public Player(int x, int y, Map map, EnemyManager enemyManager, Render rend, GameManager manager, InputManager inputManager, ItemManager itemManager) : base(x, y, Constants.playerBaseHP, Constants.playerBaseAttack,Constants.playerSprite,map,enemyManager, Constants.playerColor, rend, manager)
         {
-            maxHP = HP;
-            this.shield = shield;
-            maxShield = shield;
+            shield = Constants.playerBaseShield;
+            maxShield = Constants.playerBaseShield;
             this.inputManager = inputManager;
             this.itemManager = itemManager;
         }

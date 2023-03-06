@@ -29,25 +29,25 @@ namespace TextRPG
             switch (this.type)
             {
                 case Type.slime:
-                    HP = 1;
-                    ATK = 1;
-                    name = "Slime";
-                    sprite = 'O';
-                    color = ConsoleColor.Cyan;
+                    HP = Constants.slimeBaseHP;
+                    ATK = Constants.slimeBaseAttack;
+                    name = Constants.slimeName;
+                    sprite = Constants.slimeSprite;
+                    color = Constants.slimeColor;
                     break;
                 case Type.goblin:
-                    HP = 5;
-                    ATK = 2;
-                    name = "Goblin";
-                    sprite = 'X';
-                    color = ConsoleColor.DarkGreen;
+                    HP = Constants.goblinBaseHP;
+                    ATK = Constants.goblinBaseAttack;
+                    name = Constants.goblinName;
+                    sprite = Constants.goblinSprite;
+                    color = Constants.goblinColor;
                     break;
                 case Type.kobold:
-                    HP = 3;
-                    ATK = 1;
-                    name = "Kobold";
-                    sprite = 'X';
-                    color = ConsoleColor.DarkRed;
+                    HP = Constants.koboldBaseHP;
+                    ATK = Constants.koboldBaseAttack;
+                    name = Constants.koboldName;
+                    sprite = Constants.koboldSprite;
+                    color = Constants.koboldColor;
                     break;
             }
         }

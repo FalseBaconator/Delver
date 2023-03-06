@@ -9,7 +9,6 @@ namespace TextRPG
     internal class Item
     {
         private string name; //Healing Potion, ATK Buff, Shield Repair
-        private int value;
         private int x;
         private int y;
 
@@ -20,27 +19,25 @@ namespace TextRPG
         private Render rend;
 
 
-        public Item(string name, int value, int x, int y, Render rend)
+        public Item(string name, int x, int y, Render rend)
         {
             this.name = name;
-            this.value = value;
             this.x = x;
             this.y = y;
-            //this.player = player;
             this.rend = rend;
             switch (name)
             {
-                case "Healing Potion":
-                    sprite = '+';
-                    color = ConsoleColor.Green;
+                case Constants.healName:
+                    sprite = Constants.healSprite;
+                    color = Constants.healColor;
                     break;
-                case "ATK Buff":
-                    sprite = '*';
-                    color = ConsoleColor.Red;
+                case Constants.ATKBuffName:
+                    sprite = Constants.ATKSprite;
+                    color = Constants.ATKColor;
                     break;
-                case "Shield Repair":
-                    sprite = '#';
-                    color = ConsoleColor.Blue;
+                case Constants.ShieldRepairName:
+                    sprite = Constants.ShieldRepairSprite;
+                    color = Constants.ShieldRepairColor;
                     break;
             }
         }
@@ -49,14 +46,14 @@ namespace TextRPG
         {
             switch (name)
             {
-                case "Healing Potion":
-                    player.Heal(value);
+                case Constants.healName:
+                    player.Heal(Constants.healAmount);
                     break;
-                case "ATK Buff":
-                    player.RaiseATK(value);
+                case Constants.ATKBuffName:
+                    player.RaiseATK(Constants.ATKBuffAmount);
                     break;
-                case "Shield Repair":
-                    player.RestoreShield(value);
+                case Constants.ShieldRepairName:
+                    player.RestoreShield(Constants.shieldRepairAmount);
                     break;
             }
         }

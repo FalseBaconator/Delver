@@ -358,7 +358,7 @@ namespace TextRPG
             {' ',' ',' ',' ',' ',' ',' '}
         });
 
-        private MapChunk[,] TempMap = new MapChunk[5, 5];
+        private MapChunk[,] TempMap = new MapChunk[Constants.mapHeight, Constants.mapWidth];
 
 
         private void GetFiles()
