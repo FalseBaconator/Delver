@@ -54,6 +54,8 @@ namespace TextRPG
         //Map Settings
         public const int mapHeight = 5;
         public const int mapWidth = 5;
+        public const int roomHeight = 7;
+        public const int roomWidth = 7;
 
     }
 }
