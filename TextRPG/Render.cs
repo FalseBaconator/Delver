@@ -9,11 +9,11 @@ namespace TextRPG
     internal class Render
     {
 
-        public char[,] ScreenChars = new char[35, 35];
+        public char[,] ScreenChars = new char[Constants.mapHeight * Constants.roomHeight, Constants.mapWidth * Constants.roomWidth];
 
-        public ConsoleColor[,] ScreenColors = new ConsoleColor[35, 35];
+        public ConsoleColor[,] ScreenColors = new ConsoleColor[Constants.mapHeight * Constants.roomHeight, Constants.mapWidth * Constants.roomWidth];
 
-        public ConsoleColor[,] BackgroundColors = new ConsoleColor[35, 35];
+        public ConsoleColor[,] BackgroundColors = new ConsoleColor[Constants.mapHeight * Constants.roomHeight, Constants.mapWidth * Constants.roomWidth];
 
         public void DrawToScreen()  //Draws the map according to the arrays
         {
@@ -32,9 +32,9 @@ namespace TextRPG
 
         public void ResetBackgrounds()                                      //
         {                                                                   //
-            for (int i = 0; i < BackgroundColors.GetLength(0); i++)         //
+            for (int i = 0; i < BackgroundColors.GetLength(1); i++)         //
             {                                                               //
-                for (int j = 0; j < BackgroundColors.GetLength(1); j++)     //
+                for (int j = 0; j < BackgroundColors.GetLength(0); j++)     //
                 {                                                           //  Resets the background color of every char to black
                     BackgroundColors[j, i] = ConsoleColor.Black;            //
                 }                                                           //

@@ -55,8 +55,8 @@ namespace TextRPG
         public const string ShieldRepairName = "Shield Repair";
 
         //Map Settings
-        public const int mapHeight = 5;
-        public const int mapWidth = 5;
+        public const int mapHeight = 8;
+        public const int mapWidth = 9;
         public const int roomHeight = 7;
         public const int roomWidth = 7;
 

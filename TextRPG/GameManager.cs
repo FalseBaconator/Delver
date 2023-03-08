@@ -33,7 +33,7 @@ namespace TextRPG
             inputManager = new InputManager(this);
             itemManager = new ItemManager(map, render, this);
             enemyManager = new EnemyManager(map, render, itemManager, this);
-            player = new Player(17, 17, map, enemyManager, render, this, inputManager, itemManager);
+            player = new Player((Constants.mapWidth/2) * Constants.roomWidth + (Constants.roomWidth/2), (Constants.mapHeight / 2) * Constants.roomHeight + (Constants.roomHeight / 2), map, enemyManager, render, this, inputManager, itemManager);
             hud = new Hud(player, enemyManager, 0, 36);
         }
 

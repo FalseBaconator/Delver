@@ -57,9 +57,9 @@ namespace TextRPG
 
         public void DrawMap()   //sets rend arrays to map chars
         {
-            for (int i = 0; i < map.GetLength(0); i++)
+            for (int i = 0; i < map.GetLength(1); i++)
             {
-                for (int j = 0; j < map.GetLength(1); j++)
+                for (int j = 0; j < map.GetLength(0); j++)
                 {
                     if (map[j,i] == '▓' || map[j,i] == ',')
                     {
