@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace TextRPG
 {
@@ -30,7 +27,7 @@ namespace TextRPG
                 int y = rand.Next(0, 5);    //  Choses random map chunk and moves to center of chunk
                 x = x * 7 + 3;              //
                 y = y * 7 + 3;              //
-                if(ItemChecks(x, y) == null && player.isPlayerAt(x,y) == false && map.isFloorAt(x,y))//
+                if(ItemAt(x, y) == null && player.isPlayerAt(x,y) == false && map.isFloorAt(x,y))//
                 {                                                                                       //
                     switch (rand.Next(0, 3))                                                            //
                     {                                                                                   //
@@ -48,7 +45,7 @@ namespace TextRPG
             }
         }
 
-        public Item ItemChecks(int x, int y)    //Returns item at provided coords
+        public Item ItemAt(int x, int y)    //Returns item at provided coords
         {
             Item found = null;
             foreach(Item item in items)

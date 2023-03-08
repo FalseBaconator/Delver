@@ -13,6 +13,8 @@ namespace TextRPG
         private int maxShield;
         private InputManager inputManager;
         private ItemManager itemManager;
+        private int targetX;
+        private int targetY;
 
         public Player(int x, int y, Map map, EnemyManager enemyManager, Render rend, GameManager manager, InputManager inputManager, ItemManager itemManager) : base(x, y, Constants.playerBaseHP, Constants.playerBaseAttack,Constants.playerSprite,map,enemyManager, Constants.playerColor, rend, manager)
         {
@@ -27,57 +29,38 @@ namespace TextRPG
             manager.setMessage("");    //  Clears Interaction Message
 
             key = inputManager.GetKey();                                                                //  Moving
+            targetX = x;
+            targetY = y;
             switch (key)                                                                                //
             {                                                                                           //
                 case ConsoleKey.W:                                                                      //  //  Moving Up
                 case ConsoleKey.UpArrow:                                                                //  //
-                    if(map.isFloorAt(x, y - 1) && enemyManager.isEnemyAt(x,y-1, false) == null)         //  //  //
-                    {                                                                                   //  //  //  Move Up if empty space
-                        y--;                                                                            //  //  //
-                    }                                                                                   //  //  //
-                    else if(enemyManager.isEnemyAt(x,y-1, false) != null)                               //  //      //
-                    {                                                                                   //  //      //  If space is occupied by enemy, Attack
-                        AttackEnemy(enemyManager.isEnemyAt(x, y - 1, true));                            //  //      //
-                    }                                                                                   //  //      //
+                    targetY--;
                     break;                                                                              //  //
                 case ConsoleKey.S:                                                                      //      //  Moving Down
                 case ConsoleKey.DownArrow:                                                              //      //
-                    if (map.isFloorAt(x, y + 1) && enemyManager.isEnemyAt(x, y + 1, false) == null)     //      //  //
-                    {                                                                                   //      //  //  Move if available
-                        y++;                                                                            //      //  //
-                    }                                                                                   //      //  //
-                    else if (enemyManager.isEnemyAt(x, y + 1, false) != null)                           //      //      //
-                    {                                                                                   //      //      //  Attack if appropriate
-                        AttackEnemy(enemyManager.isEnemyAt(x, y + 1, true));                            //      //      //
-                    }                                                                                   //      //      //
+                    targetY++;
                     break;                                                                              //      //
                 case ConsoleKey.A:                                                                      //  //  Moving Left
                 case ConsoleKey.LeftArrow:                                                              //  //
-                    if (map.isFloorAt(x-1, y) && enemyManager.isEnemyAt(x - 1, y, false) == null)       //  //  //
-                    {                                                                                   //  //  //  Move if available
-                        x--;                                                                            //  //  //
-                    }                                                                                   //  //  //
-                    else if (enemyManager.isEnemyAt(x - 1, y, false) != null)                           //  //      //
-                    {                                                                                   //  //      //  Attack if appropriate
-                        AttackEnemy(enemyManager.isEnemyAt(x - 1, y, true));                            //  //      //
-                    }                                                                                   //  //      //
+                    targetX--;
                     break;                                                                              //  //
                 case ConsoleKey.D:                                                                      //      //  Moving Right
                 case ConsoleKey.RightArrow:                                                             //      //
-                    if (map.isFloorAt(x + 1, y) && enemyManager.isEnemyAt(x + 1, y, false) == null)     //      //  //
-                    {                                                                                   //      //  //  Move if available
-                        x++;                                                                            //      //  //
-                    }                                                                                   //      //  //
-                    else if (enemyManager.isEnemyAt(x + 1, y, false) != null)                           //      //      //
-                    {                                                                                   //      //      //  Attack if appropriate
-                        AttackEnemy(enemyManager.isEnemyAt(x + 1, y, true));                            //      //      //
-                    }                                                                                   //      //      //
+                    targetX++;
                     break;                                                                              //      //
             }                                                                                           //
-            if(itemManager.ItemChecks(x,y) != null)                     //
-            {                                                           //  Pick up item if on item space
-                itemManager.PickUp(itemManager.ItemChecks(x,y), this);  //
-            }                                                           //
+            if(map.isFloorAt(targetX, targetY) && enemyManager.EnemyAt(targetX, targetY, false) == null && itemManager.ItemAt(targetX, targetY) == null)
+            {
+                x = targetX;
+                y = targetY;
+            }else if (enemyManager.EnemyAt(targetX, targetY, false) != null)
+            {
+                AttackEnemy(enemyManager.EnemyAt(targetX, targetY, true));
+            }else if (itemManager.ItemAt(targetX, targetY) != null)
+            {
+                itemManager.PickUp(itemManager.ItemAt(targetX, targetY), this);
+            }
         }
 
         public bool isPlayerAt(int x, int y)   //returns true if the provided coordinates are the player's coordinates

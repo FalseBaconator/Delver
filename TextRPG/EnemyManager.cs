@@ -31,7 +31,7 @@ namespace TextRPG
             {                                   //  Center of each room
                 for (int j = 3; j < 35; j += 7) //
                 {
-                    if(player.isPlayerAt(i,j) == false && itemManager.ItemChecks(i,j) == null && map.isFloorAt(i,j))                    //
+                    if(player.isPlayerAt(i,j) == false && itemManager.ItemAt(i,j) == null && map.isFloorAt(i,j))                    //
                     {                                                                                                                   //
                         int chance = random.Next(10);                                                                                   //
                         switch (chance)                                                                                                 //
@@ -71,7 +71,7 @@ namespace TextRPG
             toMove = !toMove;
         }
 
-        public Enemy isEnemyAt(int x, int y, bool isAttack)    //Returns the enemy at the provided coords. Saves lastAttacked enemy if attacking
+        public Enemy EnemyAt(int x, int y, bool isAttack)    //Returns the enemy at the provided coords. Saves lastAttacked enemy if attacking
         {
             Enemy foundEnemy = null;
             foreach(Enemy enemy in Enemies)

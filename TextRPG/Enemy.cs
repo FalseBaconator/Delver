@@ -46,28 +46,28 @@ namespace TextRPG
                         switch (Dir)                                                                                                                        //
                         {                                                                                                                                   //
                             case 0:                                                                                                                         //
-                                if (map.isFloorAt(x, y - 1) && player.isPlayerAt(x, y - 1) == false && enemyManager.isEnemyAt(x, y - 1, false) == null)     //
+                                if (map.isFloorAt(x, y - 1) && player.isPlayerAt(x, y - 1) == false && enemyManager.EnemyAt(x, y - 1, false) == null)     //
                                 {                                                                                                                           //
                                     y--;                                                                                                                    //
                                     moved = true;                                                                                                           //
                                 }                                                                                                                           //
                                 break;                                                                                                                      //
                             case 1:                                                                                                                         //
-                                if (map.isFloorAt(x, y + 1) && player.isPlayerAt(x, y + 1) == false && enemyManager.isEnemyAt(x, y + 1, false) == null)     //
+                                if (map.isFloorAt(x, y + 1) && player.isPlayerAt(x, y + 1) == false && enemyManager.EnemyAt(x, y + 1, false) == null)     //
                                 {                                                                                                                           //
                                     y++;                                                                                                                    //
                                     moved = true;                                                                                                           //
                                 }                                                                                                                           //
                                 break;                                                                                                                      //  Slimes and Goblins/Kobolds who are far away from the player go in random directions
                             case 2:                                                                                                                         //
-                                if (map.isFloorAt(x - 1, y) && player.isPlayerAt(x - 1, y) == false && enemyManager.isEnemyAt(x - 1, y, false) == null)     //
+                                if (map.isFloorAt(x - 1, y) && player.isPlayerAt(x - 1, y) == false && enemyManager.EnemyAt(x - 1, y, false) == null)     //
                                 {                                                                                                                           //
                                     x--;                                                                                                                    //
                                     moved = true;                                                                                                           //
                                 }                                                                                                                           //
                                 break;                                                                                                                      //
                             case 3:                                                                                                                         //
-                                if (map.isFloorAt(x + 1, y) && player.isPlayerAt(x + 1, y) == false && enemyManager.isEnemyAt(x + 1, y, false) == null)     //
+                                if (map.isFloorAt(x + 1, y) && player.isPlayerAt(x + 1, y) == false && enemyManager.EnemyAt(x + 1, y, false) == null)     //
                                 {                                                                                                                           //
                                     x++;                                                                                                                    //
                                     moved = true;                                                                                                           //
@@ -84,42 +84,42 @@ namespace TextRPG
                             case EnemyType.Type.goblin: //chase                                                                                                                             //  //
                                 if(deltaX >= 0 && deltaY >= 0)                                                                                                                              //  //
                                 {                                                                                                                                                           //  //
-                                    if(deltaX >= deltaY && map.isFloorAt(x + 1, y) && player.isPlayerAt(x + 1, y) == false && enemyManager.isEnemyAt(x + 1, y, false) == null)            //  //
+                                    if(deltaX >= deltaY && map.isFloorAt(x + 1, y) && player.isPlayerAt(x + 1, y) == false && enemyManager.EnemyAt(x + 1, y, false) == null)            //  //
                                     {                                                                                                                                                       //  //
                                         x++;                                                                                                                                                //  //                                        
                                     }                                                                                                                                                       //  //
-                                    else if(map.isFloorAt(x, y + 1) && player.isPlayerAt(x, y + 1) == false && enemyManager.isEnemyAt(x, y + 1, false) == null)                           //  //
+                                    else if(map.isFloorAt(x, y + 1) && player.isPlayerAt(x, y + 1) == false && enemyManager.EnemyAt(x, y + 1, false) == null)                           //  //
                                     {                                                                                                                                                       //  //                                        
                                         y++;                                                                                                                                                //  //                                        
                                     }                                                                                                                                                       //  //  Goblin chases Player
                                 }else if (deltaX >= 0 && deltaY < 0)                                                                                                                        //  //
                                 {                                                                                                                                                           //  //
-                                    if (deltaX >= deltaY * -1 && map.isFloorAt(x + 1, y) && player.isPlayerAt(x + 1, y) == false && enemyManager.isEnemyAt(x + 1, y, false) == null)      //  //
+                                    if (deltaX >= deltaY * -1 && map.isFloorAt(x + 1, y) && player.isPlayerAt(x + 1, y) == false && enemyManager.EnemyAt(x + 1, y, false) == null)      //  //
                                     {                                                                                                                                                       //  //
                                         x++;                                                                                                                                                //  //
                                     }                                                                                                                                                       //  //
-                                    else if (map.isFloorAt(x, y - 1) && player.isPlayerAt(x, y - 1) == false && enemyManager.isEnemyAt(x, y - 1, false) == null)                          //  //
+                                    else if (map.isFloorAt(x, y - 1) && player.isPlayerAt(x, y - 1) == false && enemyManager.EnemyAt(x, y - 1, false) == null)                          //  //
                                     {                                                                                                                                                       //  //
                                         y--;                                                                                                                                                //  //                                        
                                     }                                                                                                                                                       //  //
                                 }else if (deltaX < 0 && deltaY >= 0)                                                                                                                        //  //
                                 {                                                                                                                                                           //  //
-                                    if (deltaX * -1 >= deltaY && map.isFloorAt(x - 1, y) && player.isPlayerAt(x - 1, y) == false && enemyManager.isEnemyAt(x - 1, y, false) == null)      //  //
+                                    if (deltaX * -1 >= deltaY && map.isFloorAt(x - 1, y) && player.isPlayerAt(x - 1, y) == false && enemyManager.EnemyAt(x - 1, y, false) == null)      //  //
                                     {                                                                                                                                                       //  //
                                         x--;                                                                                                                                                //  //
                                     }                                                                                                                                                       //  //
-                                    else if (map.isFloorAt(x, y + 1) && player.isPlayerAt(x, y + 1) == false && enemyManager.isEnemyAt(x, y + 1, false) == null)                          //  //
+                                    else if (map.isFloorAt(x, y + 1) && player.isPlayerAt(x, y + 1) == false && enemyManager.EnemyAt(x, y + 1, false) == null)                          //  //
                                     {                                                                                                                                                       //  //
                                         y++;                                                                                                                                                //  //
                                     }                                                                                                                                                       //  //
                                 }                                                                                                                                                           //  //
                                 if (deltaX < 0 && deltaY < 0)                                                                                                                               //  //
                                 {                                                                                                                                                           //  //
-                                    if (deltaX * -1 >= deltaY * -1 && map.isFloorAt(x - 1, y) && player.isPlayerAt(x - 1, y) == false && enemyManager.isEnemyAt(x - 1, y, false) == null) //  //
+                                    if (deltaX * -1 >= deltaY * -1 && map.isFloorAt(x - 1, y) && player.isPlayerAt(x - 1, y) == false && enemyManager.EnemyAt(x - 1, y, false) == null) //  //
                                     {                                                                                                                                                       //  //
                                         x--;                                                                                                                                                //  //
                                     }                                                                                                                                                       //  //
-                                    else if (map.isFloorAt(x, y - 1) && player.isPlayerAt(x, y - 1) == false && enemyManager.isEnemyAt(x, y - 1, false) == null)                          //  //
+                                    else if (map.isFloorAt(x, y - 1) && player.isPlayerAt(x, y - 1) == false && enemyManager.EnemyAt(x, y - 1, false) == null)                          //  //
                                     {                                                                                                                                                       //  //
                                         y--;                                                                                                                                                //  //
                                     }                                                                                                                                                       //  //
@@ -128,44 +128,44 @@ namespace TextRPG
                             case EnemyType.Type.kobold: //flee                                                                                                                              //      //
                                 if (deltaX < 0 && deltaY < 0)                                                                                                                               //      //
                                 {                                                                                                                                                           //      //
-                                    if (deltaX * -1 >= deltaY * -1 && map.isFloorAt(x + 1, y) && player.isPlayerAt(x + 1, y) == false && enemyManager.isEnemyAt(x + 1, y, false) == null) //      //
+                                    if (deltaX * -1 >= deltaY * -1 && map.isFloorAt(x + 1, y) && player.isPlayerAt(x + 1, y) == false && enemyManager.EnemyAt(x + 1, y, false) == null) //      //
                                     {                                                                                                                                                       //      //
                                         x++;                                                                                                                                                //      //
                                     }                                                                                                                                                       //      //
-                                    else if (map.isFloorAt(x, y + 1) && player.isPlayerAt(x, y + 1) == false && enemyManager.isEnemyAt(x, y + 1, false) == null)                          //      //
+                                    else if (map.isFloorAt(x, y + 1) && player.isPlayerAt(x, y + 1) == false && enemyManager.EnemyAt(x, y + 1, false) == null)                          //      //
                                     {                                                                                                                                                       //      //
                                         y++;                                                                                                                                                //      //
                                     }                                                                                                                                                       //      //
                                 }                                                                                                                                                           //      //
                                 else if (deltaX < 0 && deltaY >= 0)                                                                                                                         //      //
                                 {                                                                                                                                                           //      //
-                                    if (deltaX * -1 >= deltaY && map.isFloorAt(x + 1, y) && player.isPlayerAt(x + 1, y) == false && enemyManager.isEnemyAt(x + 1, y, false) == null)      //      //
+                                    if (deltaX * -1 >= deltaY && map.isFloorAt(x + 1, y) && player.isPlayerAt(x + 1, y) == false && enemyManager.EnemyAt(x + 1, y, false) == null)      //      //
                                     {                                                                                                                                                       //      //
                                         x++;                                                                                                                                                //      //
                                     }                                                                                                                                                       //      //
-                                    else if (map.isFloorAt(x, y - 1) && player.isPlayerAt(x, y - 1) == false && enemyManager.isEnemyAt(x, y - 1, false) == null)                          //      //
+                                    else if (map.isFloorAt(x, y - 1) && player.isPlayerAt(x, y - 1) == false && enemyManager.EnemyAt(x, y - 1, false) == null)                          //      //
                                     {                                                                                                                                                       //      //
                                         y--;                                                                                                                                                //      //
                                     }                                                                                                                                                       //      //
                                 }                                                                                                                                                           //      //
                                 else if (deltaX >= 0 && deltaY < 0)                                                                                                                         //      //  Kobold runs from Player
                                 {                                                                                                                                                           //      //
-                                    if (deltaX >= deltaY * -1 && map.isFloorAt(x - 1, y) && player.isPlayerAt(x - 1, y) == false && enemyManager.isEnemyAt(x - 1, y, false) == null)      //      //
+                                    if (deltaX >= deltaY * -1 && map.isFloorAt(x - 1, y) && player.isPlayerAt(x - 1, y) == false && enemyManager.EnemyAt(x - 1, y, false) == null)      //      //
                                     {                                                                                                                                                       //      //
                                         x--;                                                                                                                                                //      //
                                     }                                                                                                                                                       //      //
-                                    else if (map.isFloorAt(x, y + 1) && player.isPlayerAt(x, y + 1) == false && enemyManager.isEnemyAt(x, y + 1, false) == null)                          //      //
+                                    else if (map.isFloorAt(x, y + 1) && player.isPlayerAt(x, y + 1) == false && enemyManager.EnemyAt(x, y + 1, false) == null)                          //      //
                                     {                                                                                                                                                       //      //
                                         y++;                                                                                                                                                //      //
                                     }                                                                                                                                                       //      //
                                 }                                                                                                                                                           //      //
                                 if (deltaX >= 0 && deltaY >= 0)                                                                                                                             //      //
                                 {                                                                                                                                                           //      //
-                                    if (deltaX >= deltaY && map.isFloorAt(x - 1, y) && player.isPlayerAt(x - 1, y) == false && enemyManager.isEnemyAt(x - 1, y, false) == null)           //      //
+                                    if (deltaX >= deltaY && map.isFloorAt(x - 1, y) && player.isPlayerAt(x - 1, y) == false && enemyManager.EnemyAt(x - 1, y, false) == null)           //      //
                                     {                                                                                                                                                       //      //
                                         x--;                                                                                                                                                //      //
                                     }                                                                                                                                                       //      //
-                                    else if (map.isFloorAt(x, y - 1) && player.isPlayerAt(x, y - 1) == false && enemyManager.isEnemyAt(x, y - 1, false) == null)                          //      //
+                                    else if (map.isFloorAt(x, y - 1) && player.isPlayerAt(x, y - 1) == false && enemyManager.EnemyAt(x, y - 1, false) == null)                          //      //
                                     {                                                                                                                                                       //      //
                                         y--;                                                                                                                                                //      //
                                     }                                                                                                                                                       //      //
