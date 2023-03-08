@@ -15,6 +15,9 @@ namespace TextRPG
         public const char playerSprite = '@';
         public const ConsoleColor playerColor = ConsoleColor.White;
 
+        //Enemy Settings
+        public const int EnemySightRange = 5;
+
         //Slime Settings
         public const int slimeBaseHP = 1;
         public const int slimeBaseAttack = 1;

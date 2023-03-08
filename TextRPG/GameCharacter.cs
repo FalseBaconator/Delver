@@ -10,7 +10,9 @@ namespace TextRPG
     {
 
         protected int x;
+        protected int targetX;
         protected int y;
+        protected int targetY;
         protected int HP;
         protected int maxHP;
         protected int ATK;
