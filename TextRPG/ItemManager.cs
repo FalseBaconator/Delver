@@ -23,25 +23,23 @@ namespace TextRPG
         {
             while(items.Count < Constants.itemAmount)
             {
-                int x = rand.Next(0, 5);    //
-                int y = rand.Next(0, 5);    //  Choses random map chunk and moves to center of chunk
-                x = x * 7 + 3;              //
-                y = y * 7 + 3;              //
-                if(ItemAt(x, y) == null && player.isPlayerAt(x,y) == false && map.isFloorAt(x,y))//
-                {                                                                                       //
-                    switch (rand.Next(0, 3))                                                            //
-                    {                                                                                   //
-                        case 0:                                                                         //
-                            items.Add(new Item(Constants.healName, x, y, rend));                        //  Generates a random item if spot isn't occupied
-                            break;                                                                      //
-                        case 1:                                                                         //
-                            items.Add(new Item(Constants.ATKBuffName, x, y, rend));                     //
-                            break;                                                                      //
-                        case 2:                                                                         //
-                            items.Add(new Item(Constants.ShieldRepairName, x, y, rend));                //
-                            break;                                                                      //
-                    }                                                                                   //
-                }                                                                                       //
+                int x = rand.Next(Constants.mapWidth * Constants.roomWidth);        //
+                int y = rand.Next(Constants.mapHeight * Constants.roomHeight);      //  Choses random map spot
+                if(ItemAt(x, y) == null && Math.Abs(player.GetX() - x) > 5 && Math.Abs(player.GetY() - y) > 5 && map.isFloorAt(x,y))    //
+                {                                                                                                                       //
+                    switch (rand.Next(0, 3))                                                                                            //
+                    {                                                                                                                   //
+                        case 0:                                                                                                         //
+                            items.Add(new Item(Constants.healName, x, y, rend));                                                        //  Generates a random item if spot isn't occupied
+                            break;                                                                                                      //
+                        case 1:                                                                                                         //
+                            items.Add(new Item(Constants.ATKBuffName, x, y, rend));                                                     //
+                            break;                                                                                                      //
+                        case 2:                                                                                                         //
+                            items.Add(new Item(Constants.ShieldRepairName, x, y, rend));                                                //
+                            break;                                                                                                      //
+                    }                                                                                                                   //
+                }                                                                                                                       //
             }
         }
 

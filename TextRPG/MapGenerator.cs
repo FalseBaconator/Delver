@@ -859,7 +859,7 @@ namespace TextRPG
         private void MapChecker()
         {
             List<Tuple<int, int>> checkedCoords = new List<Tuple<int, int>>();
-            checkedCoords.Add(Tuple.Create(2, 2));
+            checkedCoords.Add(Tuple.Create(Constants.mapHeight/2, Constants.mapWidth/2));
             bool done = false;
             while (done == false)
             {
@@ -876,7 +876,7 @@ namespace TextRPG
                             toAdd.Add(Tuple.Create(coords.Item1 - 1, coords.Item2));
                         }
                     }
-                    if (coords.Item1 < 4 && TempMap[coords.Item1, coords.Item2].BOpen)
+                    if (coords.Item1 < Constants.mapWidth -1 && TempMap[coords.Item1, coords.Item2].BOpen)
                     {
                         if (checkedCoords.Contains(Tuple.Create(coords.Item1 + 1, coords.Item2)) == false)
                         {
@@ -892,7 +892,7 @@ namespace TextRPG
                             toAdd.Add(Tuple.Create(coords.Item1, coords.Item2 - 1));
                         }
                     }
-                    if (coords.Item2 < 4 && TempMap[coords.Item1, coords.Item2].ROpen)
+                    if (coords.Item2 < Constants.mapHeight - 1 && TempMap[coords.Item1, coords.Item2].ROpen)
                     {
                         if (checkedCoords.Contains(Tuple.Create(coords.Item1, coords.Item2 + 1)) == false)
                         {
@@ -915,12 +915,12 @@ namespace TextRPG
 
             }
 
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < Constants.mapWidth; i++)
             {
-                for (int j = 0; j < 5; j++)
+                for (int j = 0; j < Constants.mapHeight; j++)
                 {
 
-                    if (checkedCoords.Contains(Tuple.Create(i, j)) == false)
+                    if (checkedCoords.Contains(Tuple.Create(i, j)) != true)
                     {
                         TempMap[i, j] = Empty;
                     }
@@ -948,7 +948,7 @@ namespace TextRPG
                         {
                             roomArrays = new MapChunk[][]
                             {
-                                BLR,BLT,BRT,LRT,BLRT
+                                BLR,BLT,BRT,LRT,BLRT, BL, BR, BT, LR, LT, RT
                             };
                             TempMap[i, j] = RandomizeTile(roomArrays[rand.Next(roomArrays.Length)]);
                         }

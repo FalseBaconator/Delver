@@ -17,6 +17,7 @@ namespace TextRPG
 
         //Enemy Settings
         public const int EnemySightRange = 5;
+        public const int EnemyAmount = 50;
 
         //Slime Settings
         public const int slimeBaseHP = 1;
@@ -40,7 +41,7 @@ namespace TextRPG
         public const string koboldName = "Kobold";
 
         //Item Settings
-        public const int itemAmount = 5;
+        public const int itemAmount = 50;
         public const int healAmount = 3;
         public const int ATKBuffAmount = 1;
         public const int shieldRepairAmount = 3;
@@ -55,7 +56,7 @@ namespace TextRPG
         public const string ShieldRepairName = "Shield Repair";
 
         //Map Settings
-        public const int mapHeight = 8;
+        public const int mapHeight = 9;
         public const int mapWidth = 9;
         public const int roomHeight = 7;
         public const int roomWidth = 7;

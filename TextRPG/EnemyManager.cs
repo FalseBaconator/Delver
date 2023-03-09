@@ -27,33 +27,31 @@ namespace TextRPG
 
         public void GenerateEnemies(Player player)
         {
-            for (int i = 3; i < 35; i += 7)     //
-            {                                   //  Center of each room
-                for (int j = 3; j < 35; j += 7) //
+            int tempX;
+            int tempY;
+            int placedEnemies = 0;
+            while(placedEnemies < Constants.EnemyAmount)
+            {
+                tempX = random.Next(Constants.mapWidth * Constants.roomWidth);
+                tempY = random.Next(Constants.mapHeight * Constants.roomHeight);
+                if(Math.Abs(player.GetX() - tempX) > 5 && Math.Abs(player.GetY() - tempY) > 5 && map.isFloorAt(tempX, tempY) && itemManager.ItemAt(tempX, tempY) == null)
                 {
-                    if(player.isPlayerAt(i,j) == false && itemManager.ItemAt(i,j) == null && map.isFloorAt(i,j))    //
-                    {                                                                                               //
-                        int chance = random.Next(10);                                                               //
-                        switch (chance)                                                                             //
-                        {                                                                                           //
-                            case 0:                                                                                 //
-                            case 1:                                                                                 //
-                                Enemies.Add(new Slime(i, j, map, player, this, itemManager, rend, manager));        //
-                                break;                                                                              //
-                            case 2:                                                                                 //  Chance of generating enemy on valid tiles
-                                Enemies.Add(new Goblin(i, j, map, player, this, itemManager, rend, manager));       //
-                                break;                                                                              //
-                            case 3:                                                                                 //
-                            case 4:                                                                                 //
-                                Enemies.Add(new Kobold(i, j, map, player, this, itemManager, rend, manager));       //
-                                break;                                                                              //
-                            case 5:                                                                                 //
-                            case 6:                                                                                 //
-                            case 7:                                                                                 //
-                            case 8:                                                                                 //
-                            case 9:                                                                                 //
-                                break;                                                                              //
-                        }                                                                                           //
+                    switch (random.Next(5))
+                    {
+                        case 0:
+                        case 1:
+                            Enemies.Add(new Slime(tempX, tempY, map, player, this, itemManager, rend, manager));
+                            placedEnemies++;
+                            break;
+                        case 2:
+                        case 3:
+                            Enemies.Add(new Kobold(tempX, tempY, map, player, this, itemManager, rend, manager));
+                            placedEnemies++;
+                            break;
+                        case 4:
+                            Enemies.Add(new Goblin(tempX, tempY, map, player, this, itemManager, rend, manager));
+                            placedEnemies++;
+                            break;
                     }
                 }
             }
