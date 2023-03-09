@@ -13,13 +13,15 @@ namespace TextRPG
         private int maxShield;
         private InputManager inputManager;
         private ItemManager itemManager;
+        private Exit exit;
 
-        public Player(int x, int y, Map map, EnemyManager enemyManager, Render rend, GameManager manager, InputManager inputManager, ItemManager itemManager) : base(x, y, Constants.playerBaseHP, Constants.playerBaseAttack,Constants.playerSprite,map,enemyManager, Constants.playerColor, rend, manager)
+        public Player(int x, int y, Map map, EnemyManager enemyManager, Render rend, GameManager manager, InputManager inputManager, ItemManager itemManager, Exit exit) : base(x, y, Constants.playerBaseHP, Constants.playerBaseAttack, Constants.playerSprite, map, enemyManager, Constants.playerColor, rend, manager)
         {
             shield = Constants.playerBaseShield;
             maxShield = Constants.playerBaseShield;
             this.inputManager = inputManager;
             this.itemManager = itemManager;
+            this.exit = exit;
         }
 
         public void Update()
@@ -59,6 +61,8 @@ namespace TextRPG
             {                                                                       //  Pick Up item in target space
                 itemManager.PickUp(itemManager.ItemAt(targetX, targetY), this);     //
             }                                                                       //
+
+            exit.isExitAt(x, y, true);
         }
 
         public bool isPlayerAt(int x, int y)   //returns true if the provided coordinates are the player's coordinates

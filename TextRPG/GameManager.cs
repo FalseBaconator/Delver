@@ -9,6 +9,7 @@ namespace TextRPG
     internal class GameManager
     {
         private bool play = true;
+        private bool win = false;
 
         //Define Objects
         static Render render = new Render();
@@ -26,20 +27,24 @@ namespace TextRPG
 
         static Hud hud;
 
+        static Exit exit;
+
         private string message;
 
         public GameManager()
         {
             inputManager = new InputManager(this);
-            itemManager = new ItemManager(map, render, this);
-            enemyManager = new EnemyManager(map, render, itemManager, this);
-            player = new Player((Constants.mapWidth/2) * Constants.roomWidth + (Constants.roomWidth/2), (Constants.mapHeight / 2) * Constants.roomHeight + (Constants.roomHeight / 2), map, enemyManager, render, this, inputManager, itemManager);
+            exit = new Exit(this, render, map);
+            itemManager = new ItemManager(map, render, this, exit);
+            enemyManager = new EnemyManager(map, render, itemManager, this, exit);
+            player = new Player((Constants.mapWidth/2) * Constants.roomWidth + (Constants.roomWidth/2), (Constants.mapHeight / 2) * Constants.roomHeight + (Constants.roomHeight / 2), map, enemyManager, render, this, inputManager, itemManager, exit);
             hud = new Hud(player, enemyManager, 0, 36);
         }
 
         public void SetUp()                         //
         {                                           //
-            itemManager.GenerateItems(player);      //  Set Up
+            exit.PlaceExit(player);                 //  SetUp
+            itemManager.GenerateItems(player);      // 
             enemyManager.GenerateEnemies(player);   //
             Draw();                                 //
         }                                           //
@@ -85,24 +90,26 @@ namespace TextRPG
             itemManager.Draw();         //  Set chars to arrays in rend
             player.Draw();              //
             enemyManager.DrawEnemies(); //
+            exit.Draw();                //
             hud.draw();     //Draws HUD
             render.DrawToScreen();    //Draws map and everything in
         }
 
-        public void EndGame()
+        public void EndGame(bool win)
         {
+            this.win = win;
             play = false;
         }
 
         public void Conclusion()
         {
-            if (player.isAlive() && enemyManager.GetEnemyCount() == 0)  //
-            {                                                           //
-                Console.Clear();                                        //  Win
-                Console.ResetColor();                                   //
-                Console.Write("You Win!");                              //
-                Console.ReadKey(true);                                  //
-            }                                                           //
+            if (win)                        //
+            {                               //
+                Console.Clear();            //  Win
+                Console.ResetColor();       //
+                Console.Write("You Win!");  //
+                Console.ReadKey(true);      //
+            }                               //
             else if (player.isAlive() == false)                     //
             {                                                       //
                 Console.ReadKey(true);                              //

@@ -46,6 +46,7 @@
     <Compile Include="Constants.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="EnemyManager.cs" />
+    <Compile Include="Exit.cs" />
     <Compile Include="GameCharacter.cs" />
     <Compile Include="GameManager.cs" />
     <Compile Include="Goblin.cs" />

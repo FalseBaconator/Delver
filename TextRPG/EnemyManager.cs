@@ -16,13 +16,15 @@ namespace TextRPG
         private ItemManager itemManager;
         private Enemy lastAttacked;
         GameManager manager;
+        Exit exit;
 
-        public EnemyManager(Map map, Render rend, ItemManager itemManager, GameManager manager)
+        public EnemyManager(Map map, Render rend, ItemManager itemManager, GameManager manager, Exit exit)
         {
             this.map = map;
             this.rend = rend;
             this.itemManager = itemManager;
             this.manager = manager;
+            this.exit = exit;
         }
 
         public void GenerateEnemies(Player player)
@@ -32,9 +34,10 @@ namespace TextRPG
             int placedEnemies = 0;
             while(placedEnemies < Constants.EnemyAmount)
             {
+                //Console.WriteLine("Attempt(Enemy)");
                 tempX = random.Next(Constants.mapWidth * Constants.roomWidth);
                 tempY = random.Next(Constants.mapHeight * Constants.roomHeight);
-                if(Math.Abs(player.GetX() - tempX) > 5 && Math.Abs(player.GetY() - tempY) > 5 && map.isFloorAt(tempX, tempY) && itemManager.ItemAt(tempX, tempY) == null)
+                if((Math.Abs(player.GetX() - tempX) > 5 || Math.Abs(player.GetY() - tempY) > 5) && map.isFloorAt(tempX, tempY) && itemManager.ItemAt(tempX, tempY) == null && exit.isExitAt(tempX, tempY, false) == false && EnemyAt(tempX, tempY, false) == null)
                 {
                     switch (random.Next(5))
                     {

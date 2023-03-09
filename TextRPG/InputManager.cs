@@ -24,7 +24,7 @@ namespace TextRPG
             key = Console.ReadKey(true).Key;
             if (key == ConsoleKey.Escape)
             {
-                manager.EndGame();
+                manager.EndGame(false);
             }
         }
 
