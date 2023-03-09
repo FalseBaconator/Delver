@@ -52,8 +52,9 @@ namespace TextRPG
             {
                 x = targetX;
                 y = targetY;
-                moved = true;
             }
+            
+            moved = true;   // moved gets set to true regardless of if a move actually happened to avoid infinite while loops when surrounded
 
         }
 

@@ -61,6 +61,9 @@ namespace TextRPG
         public const int roomHeight = 7;
         public const int roomWidth = 7;
 
+        //Cam Settings
+        public const int camSize = 7;
+
         //Exit Settings
         public const char exitSprite = '¤';
         public const ConsoleColor exitColor = ConsoleColor.Yellow;

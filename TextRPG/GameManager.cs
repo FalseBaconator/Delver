@@ -29,6 +29,8 @@ namespace TextRPG
 
         static Exit exit;
 
+        static Camera cam;
+
         private string message;
 
         public GameManager()
@@ -38,11 +40,14 @@ namespace TextRPG
             itemManager = new ItemManager(map, render, this, exit);
             enemyManager = new EnemyManager(map, render, itemManager, this, exit);
             player = new Player((Constants.mapWidth/2) * Constants.roomWidth + (Constants.roomWidth/2), (Constants.mapHeight / 2) * Constants.roomHeight + (Constants.roomHeight / 2), map, enemyManager, render, this, inputManager, itemManager, exit);
-            hud = new Hud(player, enemyManager, 0, 36);
+            hud = new Hud(player, enemyManager, 0, 9);
+            cam = new Camera(player);
         }
 
         public void SetUp()                         //
         {                                           //
+            render.setCam(cam);                     //
+            cam.Update();                           //
             exit.PlaceExit(player);                 //  SetUp
             itemManager.GenerateItems(player);      // 
             enemyManager.GenerateEnemies(player);   //
@@ -64,6 +69,7 @@ namespace TextRPG
         {
             inputManager.Update();          //
             player.Update();                //  Update everything
+            cam.Update();                   //
             enemyManager.UpdateEnemies();   //
 
             if(player.isAlive() == false)   //
