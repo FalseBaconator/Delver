@@ -16,6 +16,7 @@ namespace TextRPG
 
         static MapGenerator mapGen = new MapGenerator();
         static Map map = new Map(mapGen.RandomizeMap(), render);
+        static MiniMap miniMap;
 
         static EnemyManager enemyManager;
 
@@ -40,17 +41,20 @@ namespace TextRPG
             itemManager = new ItemManager(map, render, this, exit);
             enemyManager = new EnemyManager(map, render, itemManager, this, exit);
             player = new Player((Constants.mapWidth/2) * Constants.roomWidth + (Constants.roomWidth/2), (Constants.mapHeight / 2) * Constants.roomHeight + (Constants.roomHeight / 2), map, enemyManager, render, this, inputManager, itemManager, exit);
-            hud = new Hud(player, enemyManager, 0, 9);
+            miniMap = new MiniMap(mapGen.makeMiniMap(), player);
+            hud = new Hud(player, enemyManager, 0, Constants.camSize + 2);
             cam = new Camera(player);
         }
 
         public void SetUp()                         //
         {                                           //
             render.setCam(cam);                     //
+            render.setMiniMap(miniMap);             //
             cam.Update();                           //
             exit.PlaceExit(player);                 //  SetUp
             itemManager.GenerateItems(player);      // 
             enemyManager.GenerateEnemies(player);   //
+            miniMap.Update();                       //
             Draw();                                 //
         }                                           //
 
@@ -71,7 +75,8 @@ namespace TextRPG
             player.Update();                //  Update everything
             cam.Update();                   //
             enemyManager.UpdateEnemies();   //
-
+            miniMap.Update();               //
+            
             if(player.isAlive() == false)   //
             {                               //  End game if player is dead
                 play = false;               //

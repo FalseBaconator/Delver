@@ -359,6 +359,7 @@ namespace TextRPG
         });
 
         private MapChunk[,] TempMap = new MapChunk[Constants.mapHeight, Constants.mapWidth];
+        private char[,] miniMap = new char[Constants.mapHeight,Constants.mapWidth];
 
         //private MapChunk[,] FinalRoomArrangement = new MapChunk[Constants.mapHeight, Constants.mapWidth];
 
@@ -1058,6 +1059,51 @@ namespace TextRPG
             return grid;
         }
 
+        
+        public char[,] makeMiniMap()
+        {
+            for (int i = 0; i < TempMap.GetLength(0); i++)
+            {
+                for (int j = 0; j < TempMap.GetLength(1); j++)
+                {
+                    if (B.Contains(TempMap[i, j]))
+                        miniMap[i, j] = '^';
+                    if (L.Contains(TempMap[i, j]))
+                        miniMap[i, j] = '>';
+                    if (R.Contains(TempMap[i, j]))
+                        miniMap[i, j] = '<';
+                    if (T.Contains(TempMap[i, j]))
+                        miniMap[i, j] = 'V';
+
+                    if (BL.Contains(TempMap[i, j]))
+                        miniMap[i, j] = '┐';
+                    if (BR.Contains(TempMap[i, j]))
+                        miniMap[i, j] = '┌';
+                    if (BT.Contains(TempMap[i, j]))
+                        miniMap[i, j] = '│';
+                    if (LR.Contains(TempMap[i, j]))
+                        miniMap[i, j] = '─';
+                    if (LT.Contains(TempMap[i, j]))
+                        miniMap[i, j] = '┘';
+                    if (RT.Contains(TempMap[i, j]))
+                        miniMap[i, j] = '└';
+
+                    if (BLR.Contains(TempMap[i, j]))
+                        miniMap[i, j] = '┬';
+                    if (BLT.Contains(TempMap[i, j]))
+                        miniMap[i, j] = '┤';
+                    if (BRT.Contains(TempMap[i, j]))
+                        miniMap[i, j] = '├';
+                    if (LRT.Contains(TempMap[i, j]))
+                        miniMap[i, j] = '┴';
+
+                    if (BLRT.Contains(TempMap[i, j]))
+                        miniMap[i, j] = '┼';
+                }
+            }
+
+            return miniMap;
+        }
 
     }
 }

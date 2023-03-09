@@ -30,8 +30,11 @@ namespace TextRPG
             {'╚','═','═','═','═','═','═','═','╝'}
         };
 
-        private char[,] printToScreenChars;
-        //private char[,] printToScreenColors;
+        private char[,] printToScreenChars = new char[Constants.camSize + 2, Constants.mapWidth + Constants.camSize + 2];
+        private ConsoleColor[,] printToScreenColors = new ConsoleColor[Constants.camSize + 2, Constants.mapWidth + Constants.camSize + 2];
+        private ConsoleColor[,] printToScreenBackgroundColors = new ConsoleColor[Constants.camSize + 2, Constants.mapWidth + Constants.camSize + 2];
+
+        private MiniMap mini;
 
 
         public void setCam(Camera camera)
@@ -39,41 +42,62 @@ namespace TextRPG
             cam = camera;
         }
 
+        public void setMiniMap(MiniMap miniMap)
+        {
+            mini = miniMap;
+        }
+
         public void DrawToScreen()  //Draws the map according to the arrays
         {
             Console.CursorVisible = false;
             int x = cam.x - (Constants.camSize / 2);
             int y = cam.y - (Constants.camSize / 2);
-            printToScreenChars = borderChars;
+
+
+            //Add Border
+            for (int i = 0; i < borderChars.GetLength(0); i++)
+            {
+                for (int j = 0; j < borderChars.GetLength(1); j++)
+                {
+                    printToScreenChars[i,j] = borderChars[i,j];
+                    printToScreenColors[i, j] = ConsoleColor.White;
+                    printToScreenBackgroundColors[i, j] = ConsoleColor.Black;
+                }
+            }
+
+            //Add Camera
             for (int i = 0; i < Constants.camSize; i++)
             {
                 for (int j = 0; j < Constants.camSize; j++)
                 {
-                    //Console.SetCursorPosition(j+1, i+1);                    //
-                    //Console.BackgroundColor = BackgroundColors[i+y, j+x];       //  Writes the char with the right background, color, and sprite
-                    //Console.ForegroundColor = ScreenColors[i+y, j+x];           //
-                    //Console.Write(ScreenChars[i+y, j+x]);                       //
 
                     printToScreenChars[i + 1, j + 1] = ScreenChars[i+y,j+x];
+                    printToScreenColors[i + 1, j + 1] = ScreenColors[i + y, j + x];
+                    printToScreenBackgroundColors[i + 1, j + 1] = BackgroundColors[i + y, j + x];
 
                 }
             }
 
-            for (int i = 0; i <= Constants.camSize + 1; i++)
+            //Add MiniMap
+            for (int i = 0; i < Constants.mapHeight; i++)
             {
-                for (int j = 0; j <= Constants.camSize + 1; j++)
+                for (int j = 0; j < Constants.mapWidth; j++)
+                {
+                    printToScreenChars[i, j + Constants.camSize + 2] = mini.revealedMap[i, j];
+                    printToScreenColors[i, j + Constants.camSize + 2] = mini.foregroundColors[i, j];
+                    printToScreenBackgroundColors[i, j + Constants.camSize + 2] = mini.backgroundColors[i, j];
+                }
+            }
+
+            //Print to Screen
+            for (int i = 0; i < printToScreenChars.GetLength(0); i++)
+            {
+                for (int j = 0; j < printToScreenChars.GetLength(1); j++)
                 {
                     Console.SetCursorPosition(j, i);
-                    if(i > 0 && i < Constants.camSize + 1 && j > 0 && j < Constants.camSize + 1)
-                    {
-                        Console.BackgroundColor = BackgroundColors[i + y - 1, j + x - 1];
-                        Console.ForegroundColor = ScreenColors[i + y - 1, j + x - 1];
-                    }
-                    else
-                    {
-                        Console.ResetColor();
-                    }
-                    Console.Write(printToScreenChars[i,j]);
+                    Console.BackgroundColor = printToScreenBackgroundColors[i, j];
+                    Console.ForegroundColor = printToScreenColors[i, j];
+                    Console.Write(printToScreenChars[i, j]);
 
                 }
             }
