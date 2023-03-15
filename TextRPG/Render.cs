@@ -17,7 +17,8 @@ namespace TextRPG
 
         private Camera cam;
 
-        private char[,] borderChars = new char[,]
+        //private char[,] borderChars = new char[Constants.camSize + 1, Constants.camSize + 1];
+        /*
         {
             {'╔','═','═','═','═','═','═','═','╗'},
             {'║',' ',' ',' ',' ',' ',' ',' ','║'},
@@ -28,7 +29,7 @@ namespace TextRPG
             {'║',' ',' ',' ',' ',' ',' ',' ','║'},
             {'║',' ',' ',' ',' ',' ',' ',' ','║'},
             {'╚','═','═','═','═','═','═','═','╝'}
-        };
+        };*/
 
         private char[,] printToScreenChars = new char[Constants.camSize + 2, Constants.mapWidth + Constants.camSize + 2];
         private ConsoleColor[,] printToScreenColors = new ConsoleColor[Constants.camSize + 2, Constants.mapWidth + Constants.camSize + 2];
@@ -53,13 +54,48 @@ namespace TextRPG
             int x = cam.x - (Constants.camSize / 2);
             int y = cam.y - (Constants.camSize / 2);
 
+            //fill with spaces (Temp Fix)
+            /*
+            for (int i = 0; i < printToScreenChars.GetLength(0); i++)
+            {
+                for (int j = 0; j < printToScreenChars.GetLength(1); j++)
+                {
+                    printToScreenChars[i, j] = ' ';
+                    printToScreenColors[i, j] = ConsoleColor.White;
+                    printToScreenBackgroundColors[i, j] = ConsoleColor.Black;
+                }
+            }*/
 
             //Add Border
-            for (int i = 0; i < borderChars.GetLength(0); i++)
+            for (int i = 0; i < Constants.camSize + 2; i++)
             {
-                for (int j = 0; j < borderChars.GetLength(1); j++)
+                for (int j = 0; j < Constants.camSize + 2; j++)
                 {
-                    printToScreenChars[i,j] = borderChars[i,j];
+                    if (i == 0)
+                    {
+                        if (j == 0)
+                            printToScreenChars[i, j] = '╔';
+                        else if (j == Constants.camSize + 1)
+                            printToScreenChars[i, j] = '╗';
+                        else
+                            printToScreenChars[i, j] = '═';
+                    }else if (i == Constants.camSize + 1)
+                    {
+                        if (j == 0)
+                            printToScreenChars[i, j] = '╚';
+                        else if (j == Constants.camSize + 1)
+                            printToScreenChars[i, j] = '╝';
+                        else
+                            printToScreenChars[i, j] = '═';
+                    }
+                    else
+                    {
+                        if (j == 0 || j == Constants.camSize + 1)
+                            printToScreenChars[i, j] = '║';
+                        else
+                            printToScreenChars[i, j] = ' ';
+                    }
+                    //printToScreenChars[i,j] = borderChars[i,j];
                     printToScreenColors[i, j] = ConsoleColor.White;
                     printToScreenBackgroundColors[i, j] = ConsoleColor.Black;
                 }

@@ -62,7 +62,7 @@ namespace TextRPG
         public const int roomWidth = 7;
 
         //Cam Settings
-        public const int camSize = 7;
+        public const int camSize = 9;
 
         //Exit Settings
         public const char exitSprite = '¤';

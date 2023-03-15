@@ -20,9 +20,9 @@ namespace TextRPG
 
         public void Update()
         {
-            if (player.GetX() >= Constants.roomWidth / 2 && player.GetX() < Constants.mapWidth * Constants.roomWidth - (Constants.roomWidth / 2))
+            if (player.GetX() >= Constants.camSize / 2 && player.GetX() < Constants.mapWidth * Constants.roomWidth - (Constants.camSize / 2))
                 x = player.GetX();
-            if (player.GetY() >= Constants.roomHeight / 2 && player.GetY() < Constants.mapHeight * Constants.roomHeight - (Constants.roomHeight / 2))
+            if (player.GetY() >= Constants.camSize / 2 && player.GetY() < Constants.mapHeight * Constants.roomHeight - (Constants.camSize / 2))
                 y = player.GetY();
         }
 
