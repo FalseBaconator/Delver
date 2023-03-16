@@ -64,6 +64,13 @@ namespace TextRPG
         //Cam Settings
         public const int camSize = 9;
 
+        //HUD Settings
+        public const int hudWidth = 21;
+        public const int messageBoxHeight = 4;
+        public const int statsHeight = 4;
+        public const string playerStatsList = "Player|HP: X|Shield: Y|ATK: Z";
+        public const string enemyStatsList = "HP: X|ATK: Z";
+
         //Exit Settings
         public const char exitSprite = '¤';
         public const ConsoleColor exitColor = ConsoleColor.Yellow;
