@@ -15,6 +15,8 @@ namespace TextRPG
 
         public ConsoleColor[,] BackgroundColors = new ConsoleColor[Constants.mapHeight * Constants.roomHeight, Constants.mapWidth * Constants.roomWidth];
 
+        private Hud hud;
+
         private Camera cam;
 
         //private char[,] borderChars = new char[Constants.camSize + 1, Constants.camSize + 1];
@@ -31,12 +33,17 @@ namespace TextRPG
             {'╚','═','═','═','═','═','═','═','╝'}
         };*/
 
-        private char[,] printToScreenChars = new char[Constants.camSize + 2, Constants.mapWidth + Constants.camSize + 2];
-        private ConsoleColor[,] printToScreenColors = new ConsoleColor[Constants.camSize + 2, Constants.mapWidth + Constants.camSize + 2];
-        private ConsoleColor[,] printToScreenBackgroundColors = new ConsoleColor[Constants.camSize + 2, Constants.mapWidth + Constants.camSize + 2];
-
+        private char[,] printToScreenChars = new char[Constants.camSize + 2 + Constants.messageBoxHeight + Constants.statsHeight + 2, Constants.hudWidth + 1];
+        private ConsoleColor[,] printToScreenColors = new ConsoleColor[Constants.camSize + 2 + Constants.messageBoxHeight + Constants.statsHeight + 2, Constants.hudWidth + 1];
+        private ConsoleColor[,] printToScreenBackgroundColors = new ConsoleColor[Constants.camSize + 2 + Constants.messageBoxHeight + Constants.statsHeight + 2, Constants.hudWidth + 1];
+        //[Constants.camSize + 2, Constants.mapWidth + Constants.camSize + 2]
         private MiniMap mini;
 
+
+        public void setHud(Hud hud)
+        {
+            this.hud = hud;
+        }
 
         public void setCam(Camera camera)
         {
@@ -122,6 +129,26 @@ namespace TextRPG
                     printToScreenChars[i, j + Constants.camSize + 2] = mini.revealedMap[i, j];
                     printToScreenColors[i, j + Constants.camSize + 2] = mini.foregroundColors[i, j];
                     printToScreenBackgroundColors[i, j + Constants.camSize + 2] = mini.backgroundColors[i, j];
+                }
+            }
+
+            //Add Hud
+            int hudOffset = 0;
+            if (Constants.camSize + 2 >= Constants.mapHeight)
+            {
+                hudOffset = Constants.camSize + 2;
+            }else
+            {
+                hudOffset = Constants.mapHeight;
+            }
+
+            for (int i = 0; i < hud.hudArray.GetLength(0); i++)
+            {
+                for (int j = 0; j < hud.hudArray.GetLength(1); j++)
+                {
+                    printToScreenChars[i + hudOffset, j] = hud.hudArray[i, j];
+                    printToScreenColors[i + hudOffset, j] = ConsoleColor.White;
+                    printToScreenBackgroundColors[i + hudOffset, j] = ConsoleColor.Black;
                 }
             }
 

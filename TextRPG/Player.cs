@@ -75,7 +75,7 @@ namespace TextRPG
         public void AttackEnemy(Enemy enemy) //Attacks the provided enemy and gives the interaction message
         {
             enemy.TakeDMG(ATK);
-            if (enemy.GetHealth() > 0) manager.setMessage("Player attacked " + enemy.GetName()  + "TESTESTESTESTESTESTESTEST");
+            if (enemy.GetHealth() > 0) manager.setMessage("Player attacked " + enemy.GetName());
             else manager.setMessage("Player killed " + enemy.GetName());
         }
 

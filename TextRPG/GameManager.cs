@@ -48,6 +48,7 @@ namespace TextRPG
 
         public void SetUp()                         //
         {                                           //
+            render.setHud(hud);                     //
             render.setCam(cam);                     //
             render.setMiniMap(miniMap);             //
             cam.Update();                           //
@@ -102,8 +103,8 @@ namespace TextRPG
             player.Draw();              //
             enemyManager.DrawEnemies(); //
             exit.Draw();                //
-            hud.draw();     //Draws HUD
-            render.DrawToScreen();    //Draws map and everything in
+            hud.draw();                 //
+            render.DrawToScreen();    //Adds to screen
         }
 
         public void EndGame(bool win)

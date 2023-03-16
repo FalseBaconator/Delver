@@ -15,7 +15,7 @@ namespace TextRPG
         private int x;
         private int y;
 
-        public char[,] hudArray = new char[Constants.messageBoxHeight + Constants.statsHeight + 1,Constants.hudWidth + 1];
+        public char[,] hudArray = new char[Constants.messageBoxHeight + Constants.statsHeight + 2,Constants.hudWidth + 1];
 
         public Hud(Player player, EnemyManager enemyManager, int x, int y)
         {
@@ -80,13 +80,13 @@ namespace TextRPG
             string enemyStatString = " ";
             if(enemy != null)
                 enemyStatString = enemy.GetName() + "|" + Constants.enemyStatsList;
-            for (int i = Constants.messageBoxHeight + 1; i <= Constants.statsHeight; i++)
+            for (int i = Constants.messageBoxHeight + 1; i <= Constants.messageBoxHeight + 1 + Constants.statsHeight; i++)
             {
                 playerNextLine = false;
                 enemyNextLine = false;
                 for (int j = 0; j <= Constants.hudWidth; j++)
                 {
-                    if (i == 0)
+                    if (i == Constants.messageBoxHeight + 1)
                     {
                         if (j == 0)
                             hudArray[i, j] = '╔';
@@ -97,16 +97,16 @@ namespace TextRPG
                         else
                             hudArray[i, j] = '═';
                     }
-                    else if (i == Constants.messageBoxHeight)
+                    else if (i == Constants.messageBoxHeight + 1 + Constants.statsHeight)
                     {
                         if (j == 0)
                             hudArray[i, j] = '╚';
                         else if (j == Constants.hudWidth)
                             hudArray[i, j] = '╝';
                         else if (j == Constants.hudWidth / 2)
-                            hudArray[i, j] = '╦';
-                        else
                             hudArray[i, j] = '╩';
+                        else
+                            hudArray[i, j] = '═';
                     }
                     else
                     {

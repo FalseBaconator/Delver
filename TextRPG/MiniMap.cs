@@ -53,8 +53,8 @@ namespace TextRPG
 
             if (revealedMap[x, y] == ' ')
                 revealedMap[x, y] = map[x, y];
-            backgroundColors[x, y] = ConsoleColor.DarkYellow;
-            foregroundColors[x, y] = ConsoleColor.Black;
+            //backgroundColors[x, y] = ConsoleColor.DarkYellow;
+            foregroundColors[x, y] = ConsoleColor.DarkYellow;
 
         }
 
