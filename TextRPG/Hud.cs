@@ -75,6 +75,7 @@ namespace TextRPG
             //Set Stat Boxes
             int playerStatIndex = 0;
             bool playerNextLine = false;
+            enemy = enemyManager.GetLastAttacked();
             int enemyStatIndex = 0;
             bool enemyNextLine = false;
             string enemyStatString = " ";
@@ -124,14 +125,35 @@ namespace TextRPG
                                 }
                                 else
                                 {
-                                    hudArray[i, j] = Constants.playerStatsList[playerStatIndex];
+                                    switch (Constants.playerStatsList[playerStatIndex])
+                                    {
+                                        case 'X':
+                                            hudArray[i, j] = player.GetHealth().ToString()[0];
+                                            if(player.GetHealth() >= 10)
+                                                hudArray[i,j+1] = player.GetHealth().ToString()[1];
+                                            break;
+                                        case 'Y':
+                                            hudArray[i, j] = player.GetShield().ToString()[0];
+                                            if (player.GetShield() >= 10)
+                                                hudArray[i, j + 1] = player.GetShield().ToString()[1];
+                                            break;
+                                        case 'Z':
+                                            hudArray[i, j] = player.GetATK().ToString()[0];
+                                            if (player.GetATK() >= 10)
+                                                hudArray[i, j + 1] = player.GetATK().ToString()[1];
+                                            break;
+                                        default:
+                                            hudArray[i, j] = Constants.playerStatsList[playerStatIndex];
+                                            break;
+                                    }
                                     playerStatIndex++;
+                                    
                                 }
                             }
                         }
                         else if (enemy != null)
                         {
-                            if (j < Constants.hudWidth / 2 && enemyNextLine != true)
+                            if (j > Constants.hudWidth / 2 && j < Constants.hudWidth && enemyNextLine != true)
                             {
                                 if (enemyStatIndex < enemyStatString.Length)
                                 {
@@ -143,7 +165,22 @@ namespace TextRPG
                                     }
                                     else
                                     {
-                                        hudArray[i, j] = enemyStatString[enemyStatIndex];
+                                        switch (enemyStatString[enemyStatIndex])
+                                        {
+                                            case 'X':
+                                                hudArray[i, j] = enemy.GetHealth().ToString()[0];
+                                                if (enemy.GetHealth() >= 10)
+                                                    hudArray[i, j + 1] = enemy.GetHealth().ToString()[1];
+                                                break;
+                                            case 'Z':
+                                                hudArray[i, j] = enemy.GetATK().ToString()[0];
+                                                if (enemy.GetATK() >= 10)
+                                                    hudArray[i, j + 1] = enemy.GetATK().ToString()[1];
+                                                break;
+                                            default:
+                                                hudArray[i, j] = enemyStatString[enemyStatIndex];
+                                                break;
+                                        }
                                         enemyStatIndex++;
                                     }
                                 }
