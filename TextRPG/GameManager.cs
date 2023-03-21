@@ -15,7 +15,7 @@ namespace TextRPG
         static Render render = new Render();
 
         static MapGenerator mapGen = new MapGenerator();
-        static Map map = new Map(mapGen.RandomizeMap(), render);
+        static Map map;
         static MiniMap miniMap;
 
         static EnemyManager enemyManager;
@@ -34,15 +34,18 @@ namespace TextRPG
 
         private string message;
 
+        static int currentFloor = 1;
+
         public GameManager()
         {
             inputManager = new InputManager(this);
+            map = new Map(mapGen.RandomizeMap(), render);
             exit = new Exit(this, render, map);
             itemManager = new ItemManager(map, render, this, exit);
             enemyManager = new EnemyManager(map, render, itemManager, this, exit);
             player = new Player((Constants.mapWidth/2) * Constants.roomWidth + (Constants.roomWidth/2), (Constants.mapHeight / 2) * Constants.roomHeight + (Constants.roomHeight / 2), map, enemyManager, render, this, inputManager, itemManager, exit);
             miniMap = new MiniMap(mapGen.makeMiniMap(), player);
-            hud = new Hud(player, enemyManager, 0, Constants.camSize + 2);
+            hud = new Hud(player, enemyManager, this);
             cam = new Camera(player);
         }
 
@@ -59,6 +62,21 @@ namespace TextRPG
             Draw();                                 //
         }                                           //
 
+        public void NextFloor()
+        {
+            currentFloor++;
+            map = new Map(mapGen.RandomizeMap(), render);
+            exit = new Exit(this, render, map);
+            itemManager = new ItemManager(map, render, this, exit);
+            enemyManager = new EnemyManager(map, render, itemManager, this, exit);
+            hud = new Hud(player, enemyManager, this);
+            player.placePlayer((Constants.mapWidth / 2) * Constants.roomWidth + (Constants.roomWidth / 2), (Constants.mapHeight / 2) * Constants.roomHeight + (Constants.roomHeight / 2));
+            player.SetForNextFloor(map, enemyManager, itemManager, exit);
+            miniMap = new MiniMap(mapGen.makeMiniMap(), player);
+            SetUp();
+        }
+
+
         public void setMessage(string message)
         {
             this.message = message; //save message
@@ -68,6 +86,11 @@ namespace TextRPG
         public string GetMessage()
         {
             return message;
+        }
+
+        public int getFloor()
+        {
+            return currentFloor;
         }
 
         public void Update()

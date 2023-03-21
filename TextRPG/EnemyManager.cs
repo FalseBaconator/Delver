@@ -31,6 +31,7 @@ namespace TextRPG
         {
             int tempX;
             int tempY;
+            Enemies.Clear();
             int placedEnemies = 0;
             while(placedEnemies < Constants.EnemyAmount)
             {

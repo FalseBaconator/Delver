@@ -12,17 +12,15 @@ namespace TextRPG
         private EnemyManager enemyManager;
         private Enemy enemy;
         private string message;
-        private int x;
-        private int y;
+        private GameManager manager;
 
         public char[,] hudArray = new char[Constants.messageBoxHeight + Constants.statsHeight + 2,Constants.hudWidth + 1];
 
-        public Hud(Player player, EnemyManager enemyManager, int x, int y)
+        public Hud(Player player, EnemyManager enemyManager, GameManager manager)
         {
             this.player = player;
             this.enemyManager = enemyManager;
-            this.x = x;
-            this.y = y;
+            this.manager = manager;
         }
 
         public void draw()
@@ -119,7 +117,7 @@ namespace TextRPG
                             {
                                 if (Constants.playerStatsList[playerStatIndex] == '|')
                                 {
-                                    hudArray[i, j] = ' ';
+                                    //hudArray[i, j] = ' ';
                                     playerNextLine = true;
                                     playerStatIndex++;
                                 }
@@ -141,6 +139,11 @@ namespace TextRPG
                                             hudArray[i, j] = player.GetATK().ToString()[0];
                                             if (player.GetATK() >= 10)
                                                 hudArray[i, j + 1] = player.GetATK().ToString()[1];
+                                            break;
+                                        case '$':
+                                            hudArray[i, j] = manager.getFloor().ToString()[0];
+                                            if (manager.getFloor() >= 10)
+                                                hudArray[i, j + 1] = manager.getFloor().ToString()[1];
                                             break;
                                         default:
                                             hudArray[i, j] = Constants.playerStatsList[playerStatIndex];
@@ -193,62 +196,6 @@ namespace TextRPG
                     }
                 }
             }
-
-
-
-            /*
-            Console.ResetColor();                                           //  Setup
-                                                                            //
-            Console.SetCursorPosition(x, y);                                //  //
-            for (int i = 0; i < 10; i++)                                    //  //
-            {                                                               //  //  Erase
-                Console.WriteLine("                                   ");   //  //
-            }                                                               //  //
-                                                                            //
-                                                                            //
-            Console.SetCursorPosition(x, y);                                //  //
-            Console.WriteLine("╔═════════════════════════════════╗");       //  //  Draw Message Box
-            Console.WriteLine("║                                 ║");       //  //
-            Console.WriteLine("╚═════════════════════════════════╝");       //  //
-                                                                            //
-                                                                            //
-            Console.SetCursorPosition(x, y+3);                              //  //
-            Console.WriteLine("╔════════════════╦════════════════╗");       //  //
-            for (int i = 0; i < 4; i++)                                     //  //
-            {                                                               //  //  Draw Stats
-                Console.WriteLine("║                ║                ║");   //  //
-            }                                                               //  //
-            Console.WriteLine("╚════════════════╩════════════════╝");       //  //
-
-
-            if (message != null)                            //
-            {                                               //
-                Console.SetCursorPosition(x + 1, y + 1);    //  Write Message/Interaction
-                Console.Write(message);                     //
-            }                                               //
-
-
-            Console.SetCursorPosition(x + 1, y + 4);                            //
-            Console.Write("Player");                                            //
-            Console.SetCursorPosition(x + 1, y + 5);                            //
-            Console.Write("HP: " + player.GetHealth() + "/" + player.GetMaxHealth());             //  Write Player Stats
-            Console.SetCursorPosition(x + 1, y + 6);                            //
-            Console.Write("Shield: " + player.GetShield() + "/" + player.GetMaxShield()); //
-            Console.SetCursorPosition(x + 1, y + 7);                            //
-            Console.Write("ATK: " + player.GetATK());                                //
-
-
-            if (enemyManager.GetLastAttacked() != null)                      //
-            {                                                           //
-                enemy = enemyManager.GetLastAttacked();                      //
-                Console.SetCursorPosition(x + 18, y + 4);               //
-                Console.Write(enemy.GetName());                              //  Write Stats of Last Attacked Enemy
-                Console.SetCursorPosition(x + 18, y + 5);               //
-                Console.Write("HP: " + enemy.GetHealth() + "/" + enemy.GetMaxHealth());   //
-                Console.SetCursorPosition(x + 18, y + 6);               //
-                Console.Write("ATK: " + enemy.GetATK());                     //
-            }                                                           //
-        */
         }
 
         public void SetMessage(string message)

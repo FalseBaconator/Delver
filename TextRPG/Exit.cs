@@ -53,7 +53,7 @@ namespace TextRPG
             if(x == this.x && y == this.y)
             {
                 if(win)
-                    manager.EndGame(win);
+                    manager.NextFloor();
                 return true;
             }
             else

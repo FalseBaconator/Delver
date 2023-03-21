@@ -71,8 +71,8 @@ namespace TextRPG
         //HUD Settings
         public const int hudWidth = 21;
         public const int messageBoxHeight = 4;
-        public const int statsHeight = 5;
-        public const string playerStatsList = "Player|HP: X|SHLD: Y|ATK: Z| FLOOR: $";
+        public const int statsHeight = 6;
+        public const string playerStatsList = "Player|HP: X|SHLD: Y|ATK: Z|FLOOR: $";
         public const string enemyStatsList = "HP: X|ATK: Z";
 
         //Exit Settings
