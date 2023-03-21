@@ -64,11 +64,15 @@ namespace TextRPG
         //Cam Settings
         public const int camSize = 9;
 
+        //Render Settings
+        public const int rendWidth = 25;
+        public const int rendHeight = 25;
+
         //HUD Settings
         public const int hudWidth = 21;
         public const int messageBoxHeight = 4;
         public const int statsHeight = 5;
-        public const string playerStatsList = "Player|HP: X|SHLD: Y|ATK: Z";
+        public const string playerStatsList = "Player|HP: X|SHLD: Y|ATK: Z| FLOOR: $";
         public const string enemyStatsList = "HP: X|ATK: Z";
 
         //Exit Settings
