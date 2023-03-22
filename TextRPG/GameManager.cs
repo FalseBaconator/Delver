@@ -117,16 +117,17 @@ namespace TextRPG
 
         public void Update()
         {
+            setMessage(" ");
+            if(player.isAlive() == false)   //
+            {                               //  End game if player is dead
+                play = false;               //
+            }                               //
+            
             inputManager.Update();          //
             player.Update();                //  Update everything
             cam.Update();                   //
             enemyManager.UpdateEnemies();   //
             miniMap.Update();               //
-            
-            if(player.isAlive() == false)   //
-            {                               //  End game if player is dead
-                play = false;               //
-            }                               //
         }
         
         public void Play()

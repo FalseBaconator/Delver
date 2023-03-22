@@ -77,7 +77,7 @@ namespace TextRPG
         public const int camSize = 9;
 
         //Render Settings
-        public const int rendWidth = 25;
+        public const int rendWidth = 22;
         public const int rendHeight = 25;
 
         //HUD Settings

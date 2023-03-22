@@ -68,7 +68,7 @@ namespace TextRPG
         {
             target.TakeDMG(ATK);
             if (target.GetHealth() <= 0) manager.setMessage(name + " killed Player");
-            else if (manager.GetMessage() == "") manager.setMessage(name + " attacked Player");
+            else if (manager.GetMessage() == " ") manager.setMessage(name + " attacked Player");
             else manager.setMessage("Player and " + name + " both attacked");
         }
 

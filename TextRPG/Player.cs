@@ -26,8 +26,6 @@ namespace TextRPG
 
         public void Update()
         {
-            manager.setMessage(" ");    //  Clears Interaction Message
-
             key = inputManager.GetKey();                                                                //
             targetX = x;                                                                                //
             targetY = y;                                                                                //
