@@ -40,8 +40,16 @@ namespace TextRPG
         public const ConsoleColor koboldColor = ConsoleColor.DarkRed;
         public const string koboldName = "Kobold";
 
+        //Boss Settings
+        public const int bossBaseHP = 200;
+        public const int bossBaseAttack = 3;
+        public const char bossSprite = 'M';
+        public const ConsoleColor bossColor = ConsoleColor.DarkRed;
+        public const string bossName = "Boss";
+
         //Item Settings
         public const int itemAmount = 50;
+        public const int bossItemAmount = 10;
         public const int healAmount = 3;
         public const int ATKBuffAmount = 1;
         public const int shieldRepairAmount = 3;
@@ -60,6 +68,10 @@ namespace TextRPG
         public const int mapWidth = 9;
         public const int roomHeight = 7;
         public const int roomWidth = 7;
+        public const int BossRoomWidth = 11;
+        public const int BossRoomHeight = 11;
+        public const int BossFloor = 3;
+        public const int RoomsPerCategory = 3;
 
         //Cam Settings
         public const int camSize = 9;
@@ -72,7 +84,7 @@ namespace TextRPG
         public const int hudWidth = 21;
         public const int messageBoxHeight = 4;
         public const int statsHeight = 6;
-        public const string playerStatsList = "Player|HP: X|SHLD: Y|ATK: Z|FLOOR: $";
+        public const string playerStatsList = "Player|HP: X|SHLD: Y|ATK: Z|FLR: $/^";
         public const string enemyStatsList = "HP: X|ATK: Z";
 
         //Exit Settings

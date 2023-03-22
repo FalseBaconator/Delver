@@ -127,23 +127,38 @@ namespace TextRPG
                                     {
                                         case 'X':
                                             hudArray[i, j] = player.GetHealth().ToString()[0];
-                                            if(player.GetHealth() >= 10)
-                                                hudArray[i,j+1] = player.GetHealth().ToString()[1];
+                                            if (player.GetHealth() >= 10)
+                                            {
+                                                hudArray[i, j + 1] = player.GetHealth().ToString()[1];
+                                                if(player.GetHealth() >= 100)
+                                                    hudArray[i, j+2] = player.GetHealth().ToString()[2];
+                                            }
                                             break;
                                         case 'Y':
                                             hudArray[i, j] = player.GetShield().ToString()[0];
                                             if (player.GetShield() >= 10)
+                                            {
                                                 hudArray[i, j + 1] = player.GetShield().ToString()[1];
+                                                if (player.GetShield() >= 100)
+                                                    hudArray[i, j + 2] = player.GetShield().ToString()[2];
+                                            }
                                             break;
                                         case 'Z':
                                             hudArray[i, j] = player.GetATK().ToString()[0];
                                             if (player.GetATK() >= 10)
+                                            {
                                                 hudArray[i, j + 1] = player.GetATK().ToString()[1];
+                                                if (player.GetATK() >= 100)
+                                                    hudArray[i, j + 2] = player.GetATK().ToString()[2];
+                                            }
                                             break;
                                         case '$':
                                             hudArray[i, j] = manager.getFloor().ToString()[0];
                                             if (manager.getFloor() >= 10)
                                                 hudArray[i, j + 1] = manager.getFloor().ToString()[1];
+                                            break;
+                                        case '^':
+                                            hudArray[i, j] = Constants.BossFloor.ToString()[0];
                                             break;
                                         default:
                                             hudArray[i, j] = Constants.playerStatsList[playerStatIndex];
@@ -162,7 +177,7 @@ namespace TextRPG
                                 {
                                     if (enemyStatString[enemyStatIndex] == '|')
                                     {
-                                        hudArray[i, j] = ' ';
+                                        //hudArray[i, j] = ' ';
                                         enemyNextLine = true;
                                         enemyStatIndex++;
                                     }
@@ -173,12 +188,34 @@ namespace TextRPG
                                             case 'X':
                                                 hudArray[i, j] = enemy.GetHealth().ToString()[0];
                                                 if (enemy.GetHealth() >= 10)
+                                                {
                                                     hudArray[i, j + 1] = enemy.GetHealth().ToString()[1];
+                                                    if (enemy.GetHealth() >= 100)
+                                                        hudArray[i, j + 2] = enemy.GetHealth().ToString()[2];
+                                                    else
+                                                        hudArray[i, j + 2] = ' ';
+                                                }
+                                                else
+                                                {
+                                                    hudArray[i, j + 1] = ' ';
+                                                    hudArray[i, j + 2] = ' ';
+                                                }
                                                 break;
                                             case 'Z':
                                                 hudArray[i, j] = enemy.GetATK().ToString()[0];
                                                 if (enemy.GetATK() >= 10)
+                                                {
                                                     hudArray[i, j + 1] = enemy.GetATK().ToString()[1];
+                                                    if (enemy.GetATK() >= 100)
+                                                        hudArray[i, j + 2] = enemy.GetATK().ToString()[2];
+                                                    else
+                                                        hudArray[i, j + 2] = ' ';
+                                                }
+                                                else
+                                                {
+                                                    hudArray[i, j + 1] = ' ';
+                                                    hudArray[i, j + 2] = ' ';
+                                                }
                                                 break;
                                             default:
                                                 hudArray[i, j] = enemyStatString[enemyStatIndex];

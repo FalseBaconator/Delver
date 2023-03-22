@@ -16,6 +16,7 @@ namespace TextRPG
         GameManager manager;
         Render rend;
         Map map;
+        bool toShow = false;
 
         public Exit(GameManager manager, Render rend, Map map)
         {
@@ -28,6 +29,7 @@ namespace TextRPG
         {
             Random rand = new Random();
             bool placed = false;
+            toShow = true;
 
             while (placed == false)
             {
@@ -44,8 +46,11 @@ namespace TextRPG
 
         public void Draw()
         {
-            rend.ScreenChars[y,x] = sprite;
-            rend.ScreenColors[y,x] = color;
+            if (toShow)
+            {
+                rend.ScreenChars[y, x] = sprite;
+                rend.ScreenColors[y, x] = color;
+            }
         }
 
         public bool isExitAt(int x, int y, bool win)

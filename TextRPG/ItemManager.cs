@@ -23,25 +23,47 @@ namespace TextRPG
 
         public void GenerateItems(Player player)
         {
-            while(items.Count < Constants.itemAmount)
+            if (gManager.getFloor() < Constants.BossFloor)
             {
-                int x = rand.Next(Constants.mapWidth * Constants.roomWidth);        //
-                int y = rand.Next(Constants.mapHeight * Constants.roomHeight);      //  Choses random map spot
-                if(ItemAt(x, y) == null && (Math.Abs(player.GetX() - x) > 5 || Math.Abs(player.GetY() - y) > 5) && map.isFloorAt(x,y) && exit.isExitAt(x,y,false) == false) //
-                {                                                                                                                                                           //
-                    switch (rand.Next(0, 3))                                                                                                                                //
-                    {                                                                                                                                                       //
-                        case 0:                                                                                                                                             //
-                            items.Add(new Item(Constants.healName, x, y, rend));                                                                                            //  Generates a random item if spot isn't occupied
-                            break;                                                                                                                                          //
-                        case 1:                                                                                                                                             //
-                            items.Add(new Item(Constants.ATKBuffName, x, y, rend));                                                                                         //
-                            break;                                                                                                                                          //
-                        case 2:                                                                                                                                             //
-                            items.Add(new Item(Constants.ShieldRepairName, x, y, rend));                                                                                    //
-                            break;                                                                                                                                          //
-                    }                                                                                                                                                       //
-                }                                                                                                                                                           //
+                while (items.Count < Constants.itemAmount)
+                {
+                    int x = rand.Next(Constants.mapWidth * Constants.roomWidth);        //
+                    int y = rand.Next(Constants.mapHeight * Constants.roomHeight);      //  Choses random map spot
+                    if (ItemAt(x, y) == null && (Math.Abs(player.GetX() - x) > 5 || Math.Abs(player.GetY() - y) > 5) && map.isFloorAt(x, y) && exit.isExitAt(x, y, false) == false) //
+                    {                                                                                                                                                           //
+                        switch (rand.Next(0, 3))                                                                                                                                //
+                        {                                                                                                                                                       //
+                            case 0:                                                                                                                                             //
+                                items.Add(new Item(Constants.healName, x, y, rend));                                                                                            //  Generates a random item if spot isn't occupied
+                                break;                                                                                                                                          //
+                            case 1:                                                                                                                                             //
+                                items.Add(new Item(Constants.ATKBuffName, x, y, rend));                                                                                         //
+                                break;                                                                                                                                          //
+                            case 2:                                                                                                                                             //
+                                items.Add(new Item(Constants.ShieldRepairName, x, y, rend));                                                                                    //
+                                break;                                                                                                                                          //
+                        }                                                                                                                                                       //
+                    }                                                                                                                                                           //
+                }
+            }else if(gManager.getFloor() == Constants.BossFloor)
+            {
+                while (items.Count < Constants.bossItemAmount)
+                {
+                    int x = rand.Next(Constants.BossRoomWidth);         //
+                    int y = rand.Next(Constants.BossRoomHeight);        //  Choses random map spot
+                    if (ItemAt(x, y) == null && (Math.Abs(player.GetX() - x) > 2 || Math.Abs(player.GetY() - y) > 2) && map.isFloorAt(x, y) && exit.isExitAt(x, y, false) == false) //
+                    {                                                                                                                                                           //
+                        switch (rand.Next(0, 2))                                                                                                                                //
+                        {                                                                                                                                                       //
+                            case 0:                                                                                                                                             //
+                                items.Add(new Item(Constants.healName, x, y, rend));                                                                                            //  Generates a random item if spot isn't occupied
+                                break;                                                                                                                                          //
+                            case 1:                                                                                                                                             //
+                                items.Add(new Item(Constants.ShieldRepairName, x, y, rend));                                                                                    //
+                                break;                                                                                                                                          //
+                        }                                                                                                                                                       //
+                    }                                                                                                                                                           //
+                }
             }
         }
 

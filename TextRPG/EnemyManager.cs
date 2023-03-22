@@ -61,6 +61,25 @@ namespace TextRPG
             }
         }
 
+        public void GenerateBoss(Player player)
+        {
+            int tempX;
+            int tempY;
+            Enemies.Clear();
+            bool placedBoss = false;
+            while (placedBoss == false)
+            {
+                //Console.WriteLine("Attempt(Enemy)");
+                tempX = random.Next(Constants.BossRoomWidth);
+                tempY = random.Next(Constants.BossRoomHeight);
+                if ((Math.Abs(player.GetX() - tempX) > 2 || Math.Abs(player.GetY() - tempY) > 2) && map.isFloorAt(tempX, tempY) && itemManager.ItemAt(tempX, tempY) == null && exit.isExitAt(tempX, tempY, false) == false && EnemyAt(tempX, tempY, false) == null)
+                {
+                    Enemies.Add(new Boss(tempX, tempY, map, player, this, itemManager, rend, manager));
+                    placedBoss = true;
+                }
+            }
+        }
+
         public void UpdateEnemies() //Move each enemy on every other turn
         {
             if (toMove)

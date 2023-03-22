@@ -1059,7 +1059,24 @@ namespace TextRPG
             return grid;
         }
 
-        
+        public char[,] BossRoom()
+        {
+            string[] tempBossRooms = File.ReadAllLines("MapChunkCategories/BossRooms.txt");
+            MapChunk[] BossRooms = new MapChunk[Constants.RoomsPerCategory];
+            for(int i = 0; i < Constants.RoomsPerCategory; i++)
+            {
+                BossRooms[i] = new MapChunk(new char[Constants.BossRoomHeight, Constants.BossRoomWidth]);
+                for (int j = 0; j < Constants.BossRoomHeight; j++)
+                {
+                    for (int k = 0; k < Constants.BossRoomWidth; k++)
+                    {
+                        BossRooms[i].tile[j, k] = tempBossRooms[j + (Constants.BossRoomHeight * i)][k];
+                    }
+                }
+            }
+            return BossRooms[rand.Next(BossRooms.Length)].tile;
+        }
+
         public char[,] makeMiniMap()
         {
             for (int i = 0; i < TempMap.GetLength(0); i++)

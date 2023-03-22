@@ -38,6 +38,7 @@ namespace TextRPG
 
         public GameManager()
         {
+            render.setGameManager(this);
             inputManager = new InputManager(this);
             map = new Map(mapGen.RandomizeMap(), render);
             exit = new Exit(this, render, map);
@@ -46,7 +47,7 @@ namespace TextRPG
             player = new Player((Constants.mapWidth/2) * Constants.roomWidth + (Constants.roomWidth/2), (Constants.mapHeight / 2) * Constants.roomHeight + (Constants.roomHeight / 2), map, enemyManager, render, this, inputManager, itemManager, exit);
             miniMap = new MiniMap(mapGen.makeMiniMap(), player);
             hud = new Hud(player, enemyManager, this);
-            cam = new Camera(player);
+            cam = new Camera(player, this);
         }
 
         public void SetUp()                         //
@@ -62,18 +63,39 @@ namespace TextRPG
             Draw();                                 //
         }                                           //
 
+        public void BossSetUp()
+        {
+            render.setHud(hud);
+            render.setCam(cam);
+            cam.Update();
+            itemManager.GenerateItems(player);
+            enemyManager.GenerateBoss(player);
+            Draw();
+        }
+
         public void NextFloor()
         {
             currentFloor++;
-            map = new Map(mapGen.RandomizeMap(), render);
+            if(currentFloor == Constants.BossFloor)
+            {
+                map = new Map(mapGen.BossRoom(), render);
+                player.placePlayer(Constants.BossRoomWidth/2, Constants.BossRoomHeight/2);
+            }
+            else
+            {
+                map = new Map(mapGen.RandomizeMap(), render);
+                player.placePlayer((Constants.mapWidth / 2) * Constants.roomWidth + (Constants.roomWidth / 2), (Constants.mapHeight / 2) * Constants.roomHeight + (Constants.roomHeight / 2));
+            }
             exit = new Exit(this, render, map);
             itemManager = new ItemManager(map, render, this, exit);
             enemyManager = new EnemyManager(map, render, itemManager, this, exit);
             hud = new Hud(player, enemyManager, this);
-            player.placePlayer((Constants.mapWidth / 2) * Constants.roomWidth + (Constants.roomWidth / 2), (Constants.mapHeight / 2) * Constants.roomHeight + (Constants.roomHeight / 2));
             player.SetForNextFloor(map, enemyManager, itemManager, exit);
             miniMap = new MiniMap(mapGen.makeMiniMap(), player);
-            SetUp();
+            if (currentFloor == Constants.BossFloor)
+                BossSetUp();
+            else
+                SetUp();
         }
 
 

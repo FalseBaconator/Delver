@@ -33,12 +33,19 @@ namespace TextRPG
             {'╚','═','═','═','═','═','═','═','╝'}
         };*/
 
+        private GameManager gManager;
+
         private char[,] printToScreenChars = new char[Constants.rendHeight, Constants.rendWidth];
         private ConsoleColor[,] printToScreenColors = new ConsoleColor[Constants.rendHeight, Constants.rendWidth];
         private ConsoleColor[,] printToScreenBackgroundColors = new ConsoleColor[Constants.rendHeight, Constants.rendWidth];
         //[Constants.camSize + 2, Constants.mapWidth + Constants.camSize + 2]
         private MiniMap mini;
 
+
+        public void setGameManager(GameManager gManager)
+        {
+            this.gManager = gManager;
+        }
 
         public void setHud(Hud hud)
         {
@@ -121,13 +128,16 @@ namespace TextRPG
             }
 
             //Add MiniMap
-            for (int i = 0; i < Constants.mapHeight; i++)
+            if (gManager.getFloor() < Constants.BossFloor)
             {
-                for (int j = 0; j < Constants.mapWidth; j++)
+                for (int i = 0; i < Constants.mapHeight; i++)
                 {
-                    printToScreenChars[i, j + Constants.camSize + 2] = mini.revealedMap[i, j];
-                    printToScreenColors[i, j + Constants.camSize + 2] = mini.foregroundColors[i, j];
-                    printToScreenBackgroundColors[i, j + Constants.camSize + 2] = mini.backgroundColors[i, j];
+                    for (int j = 0; j < Constants.mapWidth; j++)
+                    {
+                        printToScreenChars[i, j + Constants.camSize + 2] = mini.revealedMap[i, j];
+                        printToScreenColors[i, j + Constants.camSize + 2] = mini.foregroundColors[i, j];
+                        printToScreenBackgroundColors[i, j + Constants.camSize + 2] = mini.backgroundColors[i, j];
+                    }
                 }
             }
 
