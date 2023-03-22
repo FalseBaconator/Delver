@@ -21,7 +21,10 @@ namespace TextRPG
 
         public void Update()    //Gets a key
         {
+            ClearInputBuffer();
+
             key = Console.ReadKey(true).Key;
+
             if (key == ConsoleKey.Escape)
             {
                 manager.EndGame(false);
@@ -31,6 +34,14 @@ namespace TextRPG
         public ConsoleKey GetKey()  //Gets the saved key
         {
             return key;
+        }
+
+        public void ClearInputBuffer()
+        {
+            while (Console.KeyAvailable)
+            {
+                Console.ReadKey(true);
+            }
         }
     }
 }
