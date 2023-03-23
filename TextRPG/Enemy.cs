@@ -31,22 +31,55 @@ namespace TextRPG
         {
             targetX = x;
             targetY = y;
+            bool moved = false;
+            int checks = 0;
 
             int dir = random.Next(4);
-            switch (dir)
+
+            while (moved == false)
             {
-                case 0:
-                    targetY--;
-                    break;
-                case 1:
-                    targetY++;
-                    break;
-                case 2:
-                    targetX--;
-                    break;
-                case 3:
-                    targetX++;
-                    break;
+                checks++;
+                if (checks >= 4)
+                    moved = true;
+                switch (dir)
+                {
+                    case 0:
+                        if (IsSpaceAvailable(x, y - 1))
+                        {
+                            targetY--;
+                            moved = true;
+                        }
+                        else
+                            dir++;
+                        break;
+                    case 1:
+                        if (IsSpaceAvailable(x, y + 1))
+                        {
+                            targetY++;
+                            moved = true;
+                        }
+                        else
+                            dir++;
+                        break;
+                    case 2:
+                        if (IsSpaceAvailable(x - 1, y))
+                        {
+                            targetX--;
+                            moved = true;
+                        }
+                        else
+                            dir++;
+                        break;
+                    case 3:
+                        if (IsSpaceAvailable(x + 1, y))
+                        {
+                            targetX++;
+                            moved = true;
+                        }
+                        else
+                            dir = 0;
+                        break;
+                }
             }
             if(map.isFloorAt(targetX, targetY) && enemyManager.EnemyAt(targetX, targetY, false) == null && itemManager.ItemAt(targetX, targetY) == null && player.isPlayerAt(targetX, targetY) == false)
             {
