@@ -10,7 +10,7 @@ namespace TextRPG
     {
         protected Player player;
 
-        protected bool moved;
+        //protected bool moved;
 
         protected string name;
 
@@ -53,9 +53,6 @@ namespace TextRPG
                 x = targetX;
                 y = targetY;
             }
-            
-            moved = true;   // moved gets set to true regardless of if a move actually happened to avoid infinite while loops when surrounded
-
         }
 
         public override void TakeDMG(int DMG)
@@ -90,6 +87,22 @@ namespace TextRPG
             }
 
             return check;
+        }
+
+        public bool IsSpaceAvailable(int x, int y)
+        {
+            bool available = true;
+            if (map.isFloorAt(x, y) == false)
+                available = false;
+            if (enemyManager.EnemyAt(x, y, false) != null)
+                available = false;
+            if (itemManager.ItemAt(x, y) != null)
+                available = false;
+            if (player.isPlayerAt(x, y))
+                available = false;
+
+            return available;
+
         }
 
         public string GetName()

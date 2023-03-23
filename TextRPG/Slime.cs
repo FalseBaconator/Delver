@@ -18,15 +18,12 @@ namespace TextRPG
         {
             if (alive)
             {
-                moved = false;
 
                 if (player.isPlayerAt(x, y - 1) || player.isPlayerAt(x, y + 1) || player.isPlayerAt(x - 1, y) || player.isPlayerAt(x + 1, y))       //
                 {                                                                                                                                   //
                     AttackPlayer(player);                                                                                                           //  Enemy uses turn to attack player if they're adjacent
-                    moved = true;                                                                                                                   //
-                }
-
-                while(moved == false)   //
+                }                                                                                                                                   //
+                else                    //
                 {                       //  Move in a random direction if hasn't attacked
                     RandomMove(random); //
                 }                       //

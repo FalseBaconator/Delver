@@ -18,87 +18,140 @@ namespace TextRPG
         {
             if (alive)
             {
-                moved = false;
-
                 if (player.isPlayerAt(x, y - 1) || player.isPlayerAt(x, y + 1) || player.isPlayerAt(x - 1, y) || player.isPlayerAt(x + 1, y))       //
                 {                                                                                                                                   //
                     AttackPlayer(player);                                                                                                           //  Enemy uses turn to attack player if they're adjacent
-                    moved = true;                                                                                                                   //
-                }
+                }                                                                                                                                   //
+                else if(CanSeePlayer() == false)        //
+                {                                       //  Player too far away, move randomly
+                    RandomMove(random);                 //
+                }                                       //
+                else
+                {                                           //
+                    int deltaX = player.GetX() - x;         //
+                    int deltaY = player.GetY() - y;         //  Prepare to move
+                    targetX = x;                            //
+                    targetY = y;                            //
 
-                while (moved == false)
-                {
-                    if(CanSeePlayer() == false)     //
-                    {                               //  Player too far away, move randomly
-                        RandomMove(random);         //
-                    }                               //
-                    else
-                    {                                           //
-                        int deltaX = player.GetX() - x;         //
-                        int deltaY = player.GetY() - y;         //
-                        targetX = x;                            //
-                        targetY = y;                            //
-                                                                //
-                        if (deltaX >= 0 && deltaY >= 0)         //
-                        {                                       //
-                            if (deltaX >= deltaY)               //
-                            {                                   //
-                                targetX++;                      //
-                            }                                   //
-                            else                                //
-                            {                                   //
-                                targetY++;                      //
-                            }                                   //
-                        }                                       //
-                        else if (deltaX >= 0 && deltaY < 0)     //
-                        {                                       //
-                            if (deltaX >= deltaY * -1)          //
-                            {                                   //  Pick a direction to travel in based on player's position
-                                targetX++;                      //  Chase Player
-                            }                                   //
-                            else                                //
-                            {                                   //
-                                targetY--;                      //
-                            }                                   //
-                        }                                       //
-                        else if (deltaX < 0 && deltaY >= 0)     //
-                        {                                       //
-                            if (deltaX * -1 >= deltaY)          //
-                            {                                   //
-                                targetX--;                      //
-                            }                                   //
-                            else                                //
-                            {                                   //
-                                targetY++;                      //
-                            }                                   //
-                        }                                       //
-                        else if (deltaX < 0 && deltaY < 0)      //
-                        {                                       //
-                            if (deltaX * -1 >= deltaY * -1)     //
-                            {                                   //
-                                targetX--;                      //
-                            }                                   //
-                            else                                //
-                            {                                   //
-                                targetY--;                      //
-                            }                                   //
-                        }                                       //
-
-
-                        if(map.isFloorAt(targetX, targetY) && enemyManager.EnemyAt(targetX, targetY, false) == null && itemManager.ItemAt(targetX, targetY) == null && player.isPlayerAt(targetX, targetY) == false)
-                        {                   //
-                            moved = true;   //
-                            x = targetX;    //  Move if open space
-                            y = targetY;    //
-                        }                   //
-                        else                    //
-                        {                       //
-                            RandomMove(random); //  If targe space is blocked, just go random
-                        }                       //
-
+                    //---------------------------Chose a direction (chase)
+                    if (deltaX > 0 && deltaY > 0)
+                    {
+                        if (deltaX >= deltaY)
+                        {
+                            if (IsSpaceAvailable(x + 1, y))
+                                targetX++;
+                            else if (IsSpaceAvailable(x, y + 1))
+                                targetY++;
+                        }
+                        else
+                        {
+                            if (IsSpaceAvailable(x, y + 1))
+                                targetY++;
+                            else if (IsSpaceAvailable(x + 1, y))
+                                targetX++;
+                        }
                     }
-                }
+                    else if (deltaX > 0 && deltaY < 0)
+                    {
+                        if (deltaX >= deltaY * -1)
+                        {
+                            if (IsSpaceAvailable(x + 1, y))
+                                targetX++;
+                            else if (IsSpaceAvailable(x, y - 1))
+                                targetY--;
+                        }
+                        else
+                        {
+                            if (IsSpaceAvailable(x, y - 1))
+                                targetY--;
+                            else if (IsSpaceAvailable(x + 1, y))
+                                targetX++;
+                        }
+                    }
+                    else if (deltaX < 0 && deltaY > 0)
+                    {
+                        if (deltaX * -1 >= deltaY)
+                        {
+                            if (IsSpaceAvailable(x - 1, y))
+                                targetX--;
+                            else if (IsSpaceAvailable(x, y + 1))
+                                targetY++;
+                        }
+                        else
+                        {
+                            if (IsSpaceAvailable(x, y + 1))
+                                targetY++;
+                            else if (IsSpaceAvailable(x - 1, y))
+                                targetX--;
+                        }
+                    }
+                    else if (deltaX < 0 && deltaY < 0)
+                    {
+                        if (deltaX * -1 >= deltaY * -1)
+                        {
+                            if (IsSpaceAvailable(x - 1, y))
+                                targetX--;
+                            else if (IsSpaceAvailable(x, y - 1))
+                                targetY--;
+                        }
+                        else
+                        {
+                            if (IsSpaceAvailable(x, y - 1))
+                                targetY--;
+                            else if (IsSpaceAvailable(x - 1, y))
+                                targetX--;
+                        }
+                    }
+                    else if (deltaX == 0)
+                    {
+                        if (deltaY < 0)
+                        {
+                            if (IsSpaceAvailable(x, y - 1))
+                                targetY--;
+                            else if (IsSpaceAvailable(x + 1, y))
+                                targetX++;
+                            else
+                                targetX--;
+                        }
+                        else
+                        {
+                            if (IsSpaceAvailable(x, y + 1))
+                                targetY++;
+                            else if (IsSpaceAvailable(x + 1, y))
+                                targetX++;
+                            else
+                                targetX--;
+                        }
+                    }
+                    else if (deltaY == 0)
+                    {
+                        if (deltaX < 0)
+                        {
+                            if (IsSpaceAvailable(x - 1, y))
+                                targetX--;
+                            else if (IsSpaceAvailable(x, y + 1))
+                                targetY++;
+                            else
+                                targetY--;
+                        }
+                        else
+                        {
+                            if (IsSpaceAvailable(x + 1, y))
+                                targetX++;
+                            else if (IsSpaceAvailable(x, y + 1))
+                                targetY++;
+                            else
+                                targetY--;
+                        }
+                    }
+                    //---------------------------Direction Chosen (chase)
 
+                    if (IsSpaceAvailable(targetX, targetY))
+                    {                   //
+                        x = targetX;    //  Move if open space
+                        y = targetY;    //
+                    }                   //
+                }
             }
         }
 
