@@ -27,7 +27,7 @@ namespace TextRPG
 
         public void PlaceExit(Player player)
         {
-            Random rand = new Random();
+            Random rand = Constants.rand;
             bool placed = false;
             toShow = true;
 

@@ -13,7 +13,7 @@ namespace TextRPG
         // , = floor Grey
         // █ = door Brown
 
-        private Random rand;
+        private Random rand = Constants.rand;
 
         /*
         MapChunk[] TLCorners = new MapChunk[]
@@ -933,7 +933,6 @@ namespace TextRPG
 
         public char[,] RandomizeMap()
         {
-            rand = new Random();
             GetFiles();
 
             char[,] grid = new char[Constants.mapHeight * Constants.roomHeight, Constants.mapWidth * Constants.roomWidth];

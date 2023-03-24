@@ -6,7 +6,7 @@ namespace TextRPG
     internal class ItemManager
     {
         private List<Item> items = new List<Item>();
-        private Random rand = new Random();
+        private Random rand = Constants.rand;
 
         private Render rend;
         private Map map;

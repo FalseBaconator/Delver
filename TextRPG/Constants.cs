@@ -8,6 +8,9 @@ namespace TextRPG
 {
     static class Constants
     {
+        //Random
+        public static Random rand = new Random();
+
         //Player Settings
         public const int playerBaseHP = 5;
         public const int playerBaseShield = 5;

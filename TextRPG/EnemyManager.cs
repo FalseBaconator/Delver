@@ -10,7 +10,7 @@ namespace TextRPG
     {
         private List<Enemy> Enemies = new List<Enemy>();
         private Map map;
-        private Random random = new Random();
+        private Random random = Constants.rand;
         private bool toMove;
         private Render rend;
         private ItemManager itemManager;
@@ -86,7 +86,7 @@ namespace TextRPG
             {
                 foreach(Enemy enemy in Enemies)
                 {
-                    enemy.Update(random);
+                    enemy.Update();
                 }
             }
             toMove = !toMove;

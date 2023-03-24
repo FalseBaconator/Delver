@@ -14,7 +14,7 @@ namespace TextRPG
 
         }
 
-        public override void Update(Random random)
+        public override void Update()
         {
             if (alive)
             {
@@ -24,7 +24,7 @@ namespace TextRPG
                 }                                                                                                                                   //
                 else if(CanSeePlayer() == false)        //
                 {                                       //  Player too far away, move randomly
-                    RandomMove(random);                 //
+                    RandomMove();                       //
                 }                                       //
                 else
                 {                                           //

@@ -25,16 +25,16 @@ namespace TextRPG
             this.itemManager = itemManager;
         }
 
-        public abstract void Update(Random random);
+        public abstract void Update();
 
-        protected void RandomMove(Random random)
+        protected void RandomMove()
         {
             targetX = x;
             targetY = y;
             bool moved = false;
             int checks = 0;
 
-            int dir = random.Next(4);
+            int dir = Constants.rand.Next(4);
 
             while (moved == false)
             {

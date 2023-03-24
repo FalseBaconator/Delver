@@ -14,7 +14,7 @@ namespace TextRPG
 
         }
 
-        public override void Update(Random random)
+        public override void Update()
         {
             if (alive)
             {
@@ -23,10 +23,10 @@ namespace TextRPG
                 {                                                                                                                                   //
                     AttackPlayer(player);                                                                                                           //  Enemy uses turn to attack player if they're adjacent
                 }                                                                                                                                   //
-                else                    //
-                {                       //  Move in a random direction if hasn't attacked
-                    RandomMove(random); //
-                }                       //
+                else                //
+                {                   //  Move in a random direction if hasn't attacked
+                    RandomMove();   //
+                }                   //
 
             }
         }
