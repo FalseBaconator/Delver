@@ -9,10 +9,8 @@ namespace TextRPG
     internal class Exit
     {
 
-        int x;
-        int y;
-        char sprite = Constants.exitSprite;
-        ConsoleColor color = Constants.exitColor;
+        Position pos;
+        Tile sprite = Constants.exitSprite;
         GameManager manager;
         Render rend;
         Map map;
@@ -34,11 +32,10 @@ namespace TextRPG
             while (placed == false)
             {
                 //Console.WriteLine("Attempt(Exit)");
-                x = rand.Next(Constants.mapWidth * Constants.roomWidth);
-                y = rand.Next(Constants.mapHeight * Constants.roomHeight);
-                if (Math.Abs(player.GetX() - x) > (Constants.mapWidth * Constants.roomWidth) / 4 || Math.Abs(player.GetY() - y) > (Constants.mapHeight * Constants.roomHeight) / 4)
+                pos = new Position(rand.Next(Constants.mapWidth * Constants.roomWidth), rand.Next(Constants.mapHeight * Constants.roomHeight));
+                if (Math.Abs(player.GetPos().x - pos.x) > (Constants.mapWidth * Constants.roomWidth) / 4 || Math.Abs(player.GetPos().y - pos.y) > (Constants.mapHeight * Constants.roomHeight) / 4)
                 {
-                    if(map.isFloorAt(x, y))
+                    if(map.isFloorAt(pos))
                         placed = true;
                 }
             }
@@ -48,14 +45,13 @@ namespace TextRPG
         {
             if (toShow)
             {
-                rend.ScreenChars[y, x] = sprite;
-                rend.ScreenColors[y, x] = color;
+                rend.WholeMap[pos.y, pos.x] = sprite;
             }
         }
 
-        public bool isExitAt(int x, int y, bool win)
+        public bool isExitAt(Position pos, bool win)
         {
-            if(x == this.x && y == this.y)
+            if(pos == this.pos)
             {
                 if(win)
                     manager.NextFloor();

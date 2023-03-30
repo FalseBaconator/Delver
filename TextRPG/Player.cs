@@ -15,7 +15,7 @@ namespace TextRPG
         private ItemManager itemManager;
         private Exit exit;
 
-        public Player(int x, int y, Map map, EnemyManager enemyManager, Render rend, GameManager manager, InputManager inputManager, ItemManager itemManager, Exit exit) : base(x, y, Constants.playerBaseHP, Constants.playerBaseAttack, Constants.playerSprite, map, enemyManager, Constants.playerColor, rend, manager)
+        public Player(Position pos, Map map, EnemyManager enemyManager, Render rend, GameManager manager, InputManager inputManager, ItemManager itemManager, Exit exit) : base(pos, Constants.playerBaseHP, Constants.playerBaseAttack, Constants.playerSprite, map, enemyManager, rend, manager)
         {
             shield = Constants.playerBaseShield;
             maxShield = Constants.playerBaseShield;
@@ -27,53 +27,50 @@ namespace TextRPG
         public void Update()
         {
             key = inputManager.GetKey();                                                                //
-            targetX = x;                                                                                //
-            targetY = y;                                                                                //
+            targetPos = pos;
             switch (key)                                                                                //
             {                                                                                           //
                 case ConsoleKey.W:                                                                      //
                 case ConsoleKey.UpArrow:                                                                //
-                    targetY--;                                                                          //
+                    targetPos.y--;                                                                          //
                     break;                                                                              //
                 case ConsoleKey.S:                                                                      //
                 case ConsoleKey.DownArrow:                                                              //  Pick Direction
-                    targetY++;                                                                          //
+                    targetPos.y++;                                                                          //
                     break;                                                                              //
                 case ConsoleKey.A:                                                                      //
                 case ConsoleKey.LeftArrow:                                                              //
-                    targetX--;                                                                          //
+                    targetPos.x--;                                                                          //
                     break;                                                                              //
                 case ConsoleKey.D:                                                                      //
                 case ConsoleKey.RightArrow:                                                             //
-                    targetX++;                                                                          //
+                    targetPos.x++;                                                                          //
                     break;                                                                              //
             }                                                                                           //
-            if(map.isFloorAt(targetX, targetY) && enemyManager.EnemyAt(targetX, targetY, false) == null && itemManager.ItemAt(targetX, targetY) == null)    //
+            if(map.isFloorAt(targetPos) && enemyManager.EnemyAt(targetPos, false) == null && itemManager.ItemAt(targetPos) == null)    //
             {                                                                                                                                               //  Move if empty floor
-                x = targetX;                                                                                                                                //
-                y = targetY;                                                                                                                                //
-            }else if (enemyManager.EnemyAt(targetX, targetY, false) != null)    //
+                pos = targetPos;                                                                                                                            //
+            }else if (enemyManager.EnemyAt(targetPos, false) != null)    //
             {                                                                   //  Attack enemy in target space
-                AttackEnemy(enemyManager.EnemyAt(targetX, targetY, true));      //
-            }else if (itemManager.ItemAt(targetX, targetY) != null)                 //
+                AttackEnemy(enemyManager.EnemyAt(targetPos, true));      //
+            }else if (itemManager.ItemAt(targetPos) != null)                 //
             {                                                                       //  Pick Up item in target space
-                itemManager.PickUp(itemManager.ItemAt(targetX, targetY), this);     //
+                itemManager.PickUp(itemManager.ItemAt(targetPos), this);     //
             }                                                                       //
 
-            exit.isExitAt(x, y, true);
+            exit.isExitAt(targetPos, true);
         }
 
-        public bool isPlayerAt(int x, int y)   //returns true if the provided coordinates are the player's coordinates
+        public bool isPlayerAt(Position pos)   //returns true if the provided coordinates are the player's coordinates
         {
             bool check = false;
-            if (this.x == x && this.y == y) check = true;
+            if (this.pos == pos) check = true;
             return check;
         }
 
-        public void placePlayer(int x, int y)
+        public void placePlayer(Position pos)
         {
-            this.x = x;
-            this.y = y;
+            this.pos = pos;
         }
 
         public void SetForNextFloor(Map map, EnemyManager enemyManager, ItemManager itemManager, Exit exit)

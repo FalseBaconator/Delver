@@ -18,7 +18,7 @@ namespace TextRPG
 
         protected ItemManager itemManager;
 
-        public Enemy(int x, int y, int HP, int ATK, char sprite, string name, Map map, Player player, EnemyManager enemyManager, ConsoleColor color, ItemManager itemManager, Render rend, GameManager manager) : base(x, y, HP, ATK, sprite, map, enemyManager, color, rend, manager)
+        public Enemy(Position pos, int HP, int ATK, Tile sprite, string name, Map map, Player player, EnemyManager enemyManager, ItemManager itemManager, Render rend, GameManager manager) : base(pos, HP, ATK, sprite, map, enemyManager, rend, manager)
         {
             this.name = name;
             this.player = player;
@@ -29,8 +29,7 @@ namespace TextRPG
 
         protected void RandomMove()
         {
-            targetX = x;
-            targetY = y;
+            targetPos = pos;
             bool moved = false;
             int checks = 0;
 
@@ -44,36 +43,36 @@ namespace TextRPG
                 switch (dir)
                 {
                     case 0:
-                        if (IsSpaceAvailable(x, y - 1))
+                        if (IsSpaceAvailable(new Position(targetPos.x, targetPos.y - 1)))
                         {
-                            targetY--;
+                            targetPos.y--;
                             moved = true;
                         }
                         else
                             dir++;
                         break;
                     case 1:
-                        if (IsSpaceAvailable(x, y + 1))
+                        if (IsSpaceAvailable(new Position(targetPos.x, targetPos.y + 1)))
                         {
-                            targetY++;
+                            targetPos.y++;
                             moved = true;
                         }
                         else
                             dir++;
                         break;
                     case 2:
-                        if (IsSpaceAvailable(x - 1, y))
+                        if (IsSpaceAvailable(new Position(targetPos.x - 1, targetPos.y)))
                         {
-                            targetX--;
+                            targetPos.x--;
                             moved = true;
                         }
                         else
                             dir++;
                         break;
                     case 3:
-                        if (IsSpaceAvailable(x + 1, y))
+                        if (IsSpaceAvailable(new Position(targetPos.x + 1, targetPos.y)))
                         {
-                            targetX++;
+                            targetPos.x++;
                             moved = true;
                         }
                         else
@@ -81,10 +80,9 @@ namespace TextRPG
                         break;
                 }
             }
-            if(map.isFloorAt(targetX, targetY) && enemyManager.EnemyAt(targetX, targetY, false) == null && itemManager.ItemAt(targetX, targetY) == null && player.isPlayerAt(targetX, targetY) == false)
+            if(IsSpaceAvailable(targetPos))
             {
-                x = targetX;
-                y = targetY;
+                pos = targetPos;
             }
         }
 
@@ -106,10 +104,10 @@ namespace TextRPG
         {
             bool check = false;
 
-            int a2 = (player.GetX() - x);
+            int a2 = (player.GetPos().x - pos.x);
             a2 = a2 * a2;
 
-            int b2 = (player.GetY() - y);
+            int b2 = (player.GetPos().y - pos.y);
             b2 = b2 * b2;
 
             int c = (int)Math.Sqrt(a2+b2);
@@ -122,16 +120,16 @@ namespace TextRPG
             return check;
         }
 
-        public bool IsSpaceAvailable(int x, int y)
+        public bool IsSpaceAvailable(Position pos)
         {
             bool available = true;
-            if (map.isFloorAt(x, y) == false)
+            if (map.isFloorAt(pos) == false)
                 available = false;
-            if (enemyManager.EnemyAt(x, y, false) != null)
+            if (enemyManager.EnemyAt(pos, false) != null)
                 available = false;
-            if (itemManager.ItemAt(x, y) != null)
+            if (itemManager.ItemAt(pos) != null)
                 available = false;
-            if (player.isPlayerAt(x, y))
+            if (player.isPlayerAt(pos))
                 available = false;
 
             return available;

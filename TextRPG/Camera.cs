@@ -8,8 +8,10 @@ namespace TextRPG
 {
     internal class Camera
     {
-        public int x;
-        public int y;
+        //public int x;
+        //public int y;
+
+        public Position pos;
 
         private Player player;
         private GameManager gManager;
@@ -24,16 +26,16 @@ namespace TextRPG
         {
             if (gManager.getFloor() < Constants.BossFloor)
             {
-                if (player.GetX() >= Constants.camSize / 2 && player.GetX() < Constants.mapWidth * Constants.roomWidth - (Constants.camSize / 2))
-                    x = player.GetX();
-                if (player.GetY() >= Constants.camSize / 2 && player.GetY() < Constants.mapHeight * Constants.roomHeight - (Constants.camSize / 2))
-                    y = player.GetY();
+                if (player.GetPos().x >= Constants.camSize / 2 && player.GetPos().x < Constants.mapWidth * Constants.roomWidth - (Constants.camSize / 2))
+                    pos.x = player.GetPos().x;
+                if (player.GetPos().y >= Constants.camSize / 2 && player.GetPos().y < Constants.mapHeight * Constants.roomHeight - (Constants.camSize / 2))
+                    pos.y = player.GetPos().y;
             }else if (gManager.getFloor() == Constants.BossFloor)
             {
-                if (player.GetX() >= Constants.camSize / 2 && player.GetX() < Constants.BossRoomWidth - (Constants.camSize / 2))
-                    x = player.GetX();
-                if (player.GetY() >= Constants.camSize / 2 && player.GetY() < Constants.BossRoomHeight - (Constants.camSize / 2))
-                    y = player.GetY();
+                if (player.GetPos().x >= Constants.camSize / 2 && player.GetPos().x < Constants.BossRoomWidth - (Constants.camSize / 2))
+                    pos.x = player.GetPos().x;
+                if (player.GetPos().y >= Constants.camSize / 2 && player.GetPos().y < Constants.BossRoomHeight - (Constants.camSize / 2))
+                    pos.y = player.GetPos().y;
             }
         }
 

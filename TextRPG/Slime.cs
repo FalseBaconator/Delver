@@ -9,7 +9,7 @@ namespace TextRPG
     internal class Slime : Enemy
     {
 
-        public Slime(int x, int y, Map map, Player player, EnemyManager enemyManager, ItemManager itemManager, Render rend, GameManager gameManager) : base(x, y, Constants.slimeBaseHP, Constants.slimeBaseAttack, Constants.slimeSprite, Constants.slimeName, map, player, enemyManager, Constants.slimeColor, itemManager, rend, gameManager)
+        public Slime(Position pos, Map map, Player player, EnemyManager enemyManager, ItemManager itemManager, Render rend, GameManager gameManager) : base(pos, Constants.slimeBaseHP, Constants.slimeBaseAttack, Constants.slimeSprite, Constants.slimeName, map, player, enemyManager, itemManager, rend, gameManager)
         {
 
         }
@@ -19,7 +19,7 @@ namespace TextRPG
             if (alive)
             {
 
-                if (player.isPlayerAt(x, y - 1) || player.isPlayerAt(x, y + 1) || player.isPlayerAt(x - 1, y) || player.isPlayerAt(x + 1, y))       //
+                if (player.isPlayerAt(new Position(pos.x, pos.y - 1)) || player.isPlayerAt(new Position(pos.x, pos.y + 1)) || player.isPlayerAt(new Position(pos.x - 1, pos.y)) || player.isPlayerAt(new Position(pos.x + 1, pos.y)))       //
                 {                                                                                                                                   //
                     AttackPlayer(player);                                                                                                           //  Enemy uses turn to attack player if they're adjacent
                 }                                                                                                                                   //

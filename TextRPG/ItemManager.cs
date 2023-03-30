@@ -29,18 +29,19 @@ namespace TextRPG
                 {
                     int x = rand.Next(Constants.mapWidth * Constants.roomWidth);        //
                     int y = rand.Next(Constants.mapHeight * Constants.roomHeight);      //  Choses random map spot
-                    if (ItemAt(x, y) == null && (Math.Abs(player.GetX() - x) > 5 || Math.Abs(player.GetY() - y) > 5) && map.isFloorAt(x, y) && exit.isExitAt(x, y, false) == false) //
-                    {                                                                                                                                                           //
+                    if (ItemAt(new Position(x, y)) == null && (Math.Abs(player.GetPos().x - x) > 5 || Math.Abs(player.GetPos().y - y) > 5) && map.isFloorAt(new Position(x, y)) && exit.isExitAt(new Position(x,y), false) == false) //
+                    {
+                        Position pos = new Position(x, y);                                                                                                                      //
                         switch (rand.Next(0, 3))                                                                                                                                //
                         {                                                                                                                                                       //
                             case 0:                                                                                                                                             //
-                                items.Add(new Item(Constants.healName, x, y, rend));                                                                                            //  Generates a random item if spot isn't occupied
+                                items.Add(new Item(Constants.healName, pos, rend));                                                                                            //  Generates a random item if spot isn't occupied
                                 break;                                                                                                                                          //
                             case 1:                                                                                                                                             //
-                                items.Add(new Item(Constants.ATKBuffName, x, y, rend));                                                                                         //
+                                items.Add(new Item(Constants.ATKBuffName, pos, rend));                                                                                         //
                                 break;                                                                                                                                          //
                             case 2:                                                                                                                                             //
-                                items.Add(new Item(Constants.ShieldRepairName, x, y, rend));                                                                                    //
+                                items.Add(new Item(Constants.ShieldRepairName, pos, rend));                                                                                    //
                                 break;                                                                                                                                          //
                         }                                                                                                                                                       //
                     }                                                                                                                                                           //
@@ -51,15 +52,16 @@ namespace TextRPG
                 {
                     int x = rand.Next(Constants.BossRoomWidth);         //
                     int y = rand.Next(Constants.BossRoomHeight);        //  Choses random map spot
-                    if (ItemAt(x, y) == null && (Math.Abs(player.GetX() - x) > 2 || Math.Abs(player.GetY() - y) > 2) && map.isFloorAt(x, y) && exit.isExitAt(x, y, false) == false) //
-                    {                                                                                                                                                           //
+                    if (ItemAt(new Position(x,y)) == null && (Math.Abs(player.GetPos().x - x) > 2 || Math.Abs(player.GetPos().y - y) > 2) && map.isFloorAt(new Position(x, y)) && exit.isExitAt(new Position(x, y), false) == false) //
+                    {
+                        Position pos = new Position(x, y);                                                                                                                      //
                         switch (rand.Next(0, 2))                                                                                                                                //
                         {                                                                                                                                                       //
                             case 0:                                                                                                                                             //
-                                items.Add(new Item(Constants.healName, x, y, rend));                                                                                            //  Generates a random item if spot isn't occupied
+                                items.Add(new Item(Constants.healName, pos, rend));                                                                                            //  Generates a random item if spot isn't occupied
                                 break;                                                                                                                                          //
                             case 1:                                                                                                                                             //
-                                items.Add(new Item(Constants.ShieldRepairName, x, y, rend));                                                                                    //
+                                items.Add(new Item(Constants.ShieldRepairName, pos, rend));                                                                                    //
                                 break;                                                                                                                                          //
                         }                                                                                                                                                       //
                     }                                                                                                                                                           //
@@ -67,12 +69,12 @@ namespace TextRPG
             }
         }
 
-        public Item ItemAt(int x, int y)    //Returns item at provided coords
+        public Item ItemAt(Position pos)    //Returns item at provided coords
         {
             Item found = null;
             foreach(Item item in items)
             {
-                if (item.isItemAt(x, y))
+                if (item.isItemAt(pos))
                 {
                     found = item;
                 }

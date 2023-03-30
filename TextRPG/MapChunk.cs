@@ -8,16 +8,16 @@ namespace TextRPG
 {
     internal class MapChunk
     {
-        public char[,] tile;
+        public char[,] roomMap;
 
         public bool BOpen = false;  //doors. true if open
         public bool LOpen = false;
         public bool ROpen = false;
         public bool TOpen = false;
 
-        public MapChunk(char[,] tile)
+        public MapChunk(char[,] map)
         {
-            this.tile = tile;
+            this.roomMap = map;
         }
 
 

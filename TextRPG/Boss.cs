@@ -8,147 +8,146 @@ namespace TextRPG
 {
     internal class Boss : Enemy
     {
-        public Boss(int x, int y, Map map, Player player, EnemyManager enemyManager, ItemManager itemManager, Render rend, GameManager gameManager) : base(x, y, Constants.bossBaseHP, Constants.bossBaseAttack, Constants.bossSprite, Constants.bossName, map, player, enemyManager, Constants.bossColor, itemManager, rend, gameManager)
+        public Boss(Position pos, Map map, Player player, EnemyManager enemyManager, ItemManager itemManager, Render rend, GameManager gameManager) : base(pos, Constants.bossBaseHP, Constants.bossBaseAttack, Constants.bossSprite, Constants.bossName, map, player, enemyManager, itemManager, rend, gameManager)
         {
 
         }
+
 
         public override void Update()
         {
             if (alive)
             {
-                if (player.isPlayerAt(x, y - 1) || player.isPlayerAt(x, y + 1) || player.isPlayerAt(x - 1, y) || player.isPlayerAt(x + 1, y))       //
+                if (player.isPlayerAt(new Position(pos.x, pos.y - 1)) || player.isPlayerAt(new Position(pos.x, pos.y + 1)) || player.isPlayerAt(new Position(pos.x - 1, pos.y)) || player.isPlayerAt(new Position(pos.x + 1, pos.y - 1)))       //
                 {                                                                                                                                   //
                     AttackPlayer(player);                                                                                                           //  Enemy uses turn to attack player if they're adjacent
                 }                                                                                                                                   //
-                else if (CanSeePlayer() == false)   //
-                {                                   //  Player too far away, move randomly
-                    RandomMove();                   //
-                }                                   //
+                else if (CanSeePlayer() == false)        //
+                {                                       //  Player too far away, move randomly
+                    RandomMove();                       //
+                }                                       //
                 else
-                {                                           //
-                    int deltaX = player.GetX() - x;         //
-                    int deltaY = player.GetY() - y;         //  Prepare to move
-                    targetX = x;                            //
-                    targetY = y;                            //
+                {
+                    int deltaX = player.GetPos().x - pos.x;         //
+                    int deltaY = player.GetPos().y - pos.y;         //  Prepare to move
+                    targetPos = pos;
 
                     //---------------------------Chose a direction (chase)
                     if (deltaX > 0 && deltaY > 0)
                     {
                         if (deltaX >= deltaY)
                         {
-                            if (IsSpaceAvailable(x + 1, y))
-                                targetX++;
-                            else if (IsSpaceAvailable(x, y + 1))
-                                targetY++;
+                            if (IsSpaceAvailable(new Position(pos.x + 1, pos.y)))
+                                targetPos.x++;
+                            else if (IsSpaceAvailable(new Position(pos.x, pos.y + 1)))
+                                targetPos.y++;
                         }
                         else
                         {
-                            if (IsSpaceAvailable(x, y + 1))
-                                targetY++;
-                            else if (IsSpaceAvailable(x + 1, y))
-                                targetX++;
+                            if (IsSpaceAvailable(new Position(pos.x, pos.y + 1)))
+                                targetPos.y++;
+                            else if (IsSpaceAvailable(new Position(pos.x + 1, pos.y)))
+                                targetPos.x++;
                         }
                     }
                     else if (deltaX > 0 && deltaY < 0)
                     {
                         if (deltaX >= deltaY * -1)
                         {
-                            if (IsSpaceAvailable(x + 1, y))
-                                targetX++;
-                            else if (IsSpaceAvailable(x, y - 1))
-                                targetY--;
+                            if (IsSpaceAvailable(new Position(pos.x + 1, pos.y)))
+                                targetPos.x++;
+                            else if (IsSpaceAvailable(new Position(pos.x, pos.y - 1)))
+                                targetPos.y--;
                         }
                         else
                         {
-                            if (IsSpaceAvailable(x, y - 1))
-                                targetY--;
-                            else if (IsSpaceAvailable(x + 1, y))
-                                targetX++;
+                            if (IsSpaceAvailable(new Position(pos.x, pos.y - 1)))
+                                targetPos.y--;
+                            else if (IsSpaceAvailable(new Position(pos.x + 1, pos.y)))
+                                targetPos.x++;
                         }
                     }
                     else if (deltaX < 0 && deltaY > 0)
                     {
                         if (deltaX * -1 >= deltaY)
                         {
-                            if (IsSpaceAvailable(x - 1, y))
-                                targetX--;
-                            else if (IsSpaceAvailable(x, y + 1))
-                                targetY++;
+                            if (IsSpaceAvailable(new Position(pos.x - 1, pos.y)))
+                                targetPos.x--;
+                            else if (IsSpaceAvailable(new Position(pos.x, pos.y + 1)))
+                                targetPos.y++;
                         }
                         else
                         {
-                            if (IsSpaceAvailable(x, y + 1))
-                                targetY++;
-                            else if (IsSpaceAvailable(x - 1, y))
-                                targetX--;
+                            if (IsSpaceAvailable(new Position(pos.x, pos.y + 1)))
+                                targetPos.y++;
+                            else if (IsSpaceAvailable(new Position(pos.x - 1, pos.y)))
+                                targetPos.x--;
                         }
                     }
                     else if (deltaX < 0 && deltaY < 0)
                     {
                         if (deltaX * -1 >= deltaY * -1)
                         {
-                            if (IsSpaceAvailable(x - 1, y))
-                                targetX--;
-                            else if (IsSpaceAvailable(x, y - 1))
-                                targetY--;
+                            if (IsSpaceAvailable(new Position(pos.x - 1, pos.y)))
+                                targetPos.x--;
+                            else if (IsSpaceAvailable(new Position(pos.x, pos.y - 1)))
+                                targetPos.y--;
                         }
                         else
                         {
-                            if (IsSpaceAvailable(x, y - 1))
-                                targetY--;
-                            else if (IsSpaceAvailable(x - 1, y))
-                                targetX--;
+                            if (IsSpaceAvailable(new Position(pos.x, pos.y - 1)))
+                                targetPos.y--;
+                            else if (IsSpaceAvailable(new Position(pos.x - 1, pos.y)))
+                                targetPos.x--;
                         }
                     }
                     else if (deltaX == 0)
                     {
                         if (deltaY < 0)
                         {
-                            if (IsSpaceAvailable(x, y - 1))
-                                targetY--;
-                            else if (IsSpaceAvailable(x + 1, y))
-                                targetX++;
+                            if (IsSpaceAvailable(new Position(pos.x, pos.y - 1)))
+                                targetPos.y--;
+                            else if (IsSpaceAvailable(new Position(pos.x + 1, pos.y)))
+                                targetPos.x++;
                             else
-                                targetX--;
+                                targetPos.x--;
                         }
                         else
                         {
-                            if (IsSpaceAvailable(x, y + 1))
-                                targetY++;
-                            else if (IsSpaceAvailable(x + 1, y))
-                                targetX++;
+                            if (IsSpaceAvailable(new Position(pos.x, pos.y + 1)))
+                                targetPos.y++;
+                            else if (IsSpaceAvailable(new Position(pos.x + 1, pos.y)))
+                                targetPos.x++;
                             else
-                                targetX--;
+                                targetPos.x--;
                         }
                     }
                     else if (deltaY == 0)
                     {
                         if (deltaX < 0)
                         {
-                            if (IsSpaceAvailable(x - 1, y))
-                                targetX--;
-                            else if (IsSpaceAvailable(x, y + 1))
-                                targetY++;
+                            if (IsSpaceAvailable(new Position(pos.x - 1, pos.y)))
+                                targetPos.x--;
+                            else if (IsSpaceAvailable(new Position(pos.x, pos.y + 1)))
+                                targetPos.y++;
                             else
-                                targetY--;
+                                targetPos.y--;
                         }
                         else
                         {
-                            if (IsSpaceAvailable(x + 1, y))
-                                targetX++;
-                            else if (IsSpaceAvailable(x, y + 1))
-                                targetY++;
+                            if (IsSpaceAvailable(new Position(pos.x + 1, pos.y)))
+                                targetPos.x++;
+                            else if (IsSpaceAvailable(new Position(pos.x, pos.y + 1)))
+                                targetPos.y++;
                             else
-                                targetY--;
+                                targetPos.y--;
                         }
                     }
                     //---------------------------Direction Chosen (chase)
 
-                    if (IsSpaceAvailable(targetX, targetY))
+                    if (IsSpaceAvailable(targetPos))
                     {                   //
-                        x = targetX;    //  Move if open space
-                        y = targetY;    //
+                        pos = targetPos;
                     }                   //
                 }
             }

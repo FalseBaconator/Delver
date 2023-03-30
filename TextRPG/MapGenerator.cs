@@ -42,7 +42,7 @@ namespace TextRPG
         });
 
         private MapChunk[,] TempMap = new MapChunk[Constants.mapHeight, Constants.mapWidth];
-        private char[,] miniMap = new char[Constants.mapHeight,Constants.mapWidth];
+        private Tile[,] miniMap = new Tile[Constants.mapHeight,Constants.mapWidth];
 
         private void GetFiles()
         {
@@ -55,7 +55,7 @@ namespace TextRPG
                 {                                                   //                                      //
                     for (int k = 0; k < 7; k++)                     //                                      //
                     {                                               //                                      //
-                        B[i].tile[j, k] = tempB[j + (7 * i)][k];    //Gets chunk chars from file            //
+                        B[i].roomMap[j, k] = tempB[j + (7 * i)][k];    //Gets chunk chars from file            //
                     }                                               //                                      //
                 }                                                   //                                      //
             }                                                                                               //
@@ -69,7 +69,7 @@ namespace TextRPG
                 {
                     for (int k = 0; k < 7; k++)
                     {
-                        L[i].tile[j, k] = tempL[j + (7 * i)][k];
+                        L[i].roomMap[j, k] = tempL[j + (7 * i)][k];
                     }
                 }
             }
@@ -83,7 +83,7 @@ namespace TextRPG
                 {
                     for (int k = 0; k < 7; k++)
                     {
-                        R[i].tile[j, k] = tempR[j + (7 * i)][k];
+                        R[i].roomMap[j, k] = tempR[j + (7 * i)][k];
                     }
                 }
             }
@@ -97,7 +97,7 @@ namespace TextRPG
                 {
                     for (int k = 0; k < 7; k++)
                     {
-                        T[i].tile[j, k] = tempT[j + (7 * i)][k];
+                        T[i].roomMap[j, k] = tempT[j + (7 * i)][k];
                     }
                 }
             }
@@ -112,7 +112,7 @@ namespace TextRPG
                 {
                     for (int k = 0; k < 7; k++)
                     {
-                        BL[i].tile[j, k] = tempBL[j + (7 * i)][k];
+                        BL[i].roomMap[j, k] = tempBL[j + (7 * i)][k];
                     }
                 }
             }
@@ -127,7 +127,7 @@ namespace TextRPG
                 {
                     for (int k = 0; k < 7; k++)
                     {
-                        BR[i].tile[j, k] = tempBR[j + (7 * i)][k];
+                        BR[i].roomMap[j, k] = tempBR[j + (7 * i)][k];
                     }
                 }
             }
@@ -142,7 +142,7 @@ namespace TextRPG
                 {
                     for (int k = 0; k < 7; k++)
                     {
-                        BT[i].tile[j, k] = tempBT[j + (7 * i)][k];
+                        BT[i].roomMap[j, k] = tempBT[j + (7 * i)][k];
                     }
                 }
             }
@@ -157,7 +157,7 @@ namespace TextRPG
                 {
                     for (int k = 0; k < 7; k++)
                     {
-                        LR[i].tile[j, k] = tempLR[j + (7 * i)][k];
+                        LR[i].roomMap[j, k] = tempLR[j + (7 * i)][k];
                     }
                 }
             }
@@ -172,7 +172,7 @@ namespace TextRPG
                 {
                     for (int k = 0; k < 7; k++)
                     {
-                        LT[i].tile[j, k] = tempLT[j + (7 * i)][k];
+                        LT[i].roomMap[j, k] = tempLT[j + (7 * i)][k];
                     }
                 }
             }
@@ -187,7 +187,7 @@ namespace TextRPG
                 {
                     for (int k = 0; k < 7; k++)
                     {
-                        RT[i].tile[j, k] = tempRT[j + (7 * i)][k];
+                        RT[i].roomMap[j, k] = tempRT[j + (7 * i)][k];
                     }
                 }
             }
@@ -203,7 +203,7 @@ namespace TextRPG
                 {
                     for (int k = 0; k < 7; k++)
                     {
-                        BLR[i].tile[j, k] = tempBLR[j + (7 * i)][k];
+                        BLR[i].roomMap[j, k] = tempBLR[j + (7 * i)][k];
                     }
                 }
             }
@@ -219,7 +219,7 @@ namespace TextRPG
                 {
                     for (int k = 0; k < 7; k++)
                     {
-                        BLT[i].tile[j, k] = tempBLT[j + (7 * i)][k];
+                        BLT[i].roomMap[j, k] = tempBLT[j + (7 * i)][k];
                     }
                 }
             }
@@ -235,7 +235,7 @@ namespace TextRPG
                 {
                     for (int k = 0; k < 7; k++)
                     {
-                        BRT[i].tile[j, k] = tempBRT[j + (7 * i)][k];
+                        BRT[i].roomMap[j, k] = tempBRT[j + (7 * i)][k];
                     }
                 }
             }
@@ -251,7 +251,7 @@ namespace TextRPG
                 {
                     for (int k = 0; k < 7; k++)
                     {
-                        LRT[i].tile[j, k] = tempLRT[j + (7 * i)][k];
+                        LRT[i].roomMap[j, k] = tempLRT[j + (7 * i)][k];
                     }
                 }
             }
@@ -268,7 +268,7 @@ namespace TextRPG
                 {
                     for (int k = 0; k < 7; k++)
                     {
-                        BLRT[i].tile[j, k] = tempBLRT[j + (7 * i)][k];
+                        BLRT[i].roomMap[j, k] = tempBLRT[j + (7 * i)][k];
                     }
                 }
             }
@@ -730,7 +730,7 @@ namespace TextRPG
                     {                                                               //
                         for (int l = 0; l < Constants.roomWidth; l++)               //
                         {                                                           //
-                            grid[i * 7 + k, j * 7 + l] = TempMap[i, j].tile[k, l];  //  puts the chunks together in grid
+                            grid[i * 7 + k, j * 7 + l] = TempMap[i, j].roomMap[k, l];  //  puts the chunks together in grid
                         }                                                           //
                     }                                                               //
                 }                                                                   //
@@ -750,52 +750,52 @@ namespace TextRPG
                 {
                     for (int k = 0; k < Constants.BossRoomWidth; k++)
                     {
-                        BossRooms[i].tile[j, k] = tempBossRooms[j + (Constants.BossRoomHeight * i)][k];
+                        BossRooms[i].roomMap[j, k] = tempBossRooms[j + (Constants.BossRoomHeight * i)][k];
                     }
                 }
             }
-            return BossRooms[rand.Next(BossRooms.Length)].tile;
+            return BossRooms[rand.Next(BossRooms.Length)].roomMap;
         }
 
-        public char[,] makeMiniMap()
+        public Tile[,] makeMiniMap()
         {
             for (int i = 0; i < TempMap.GetLength(0); i++)
             {
                 for (int j = 0; j < TempMap.GetLength(1); j++)
                 {
                     if (B.Contains(TempMap[i, j]))
-                        miniMap[i, j] = '^';
+                        miniMap[i, j] = new Tile('^', ConsoleColor.White, ConsoleColor.Black);
                     if (L.Contains(TempMap[i, j]))
-                        miniMap[i, j] = '>';
+                        miniMap[i, j] = new Tile('>', ConsoleColor.White, ConsoleColor.Black);
                     if (R.Contains(TempMap[i, j]))
-                        miniMap[i, j] = '<';
+                        miniMap[i, j] = new Tile('<', ConsoleColor.White, ConsoleColor.Black);
                     if (T.Contains(TempMap[i, j]))
-                        miniMap[i, j] = 'V';
+                        miniMap[i, j] = new Tile('V', ConsoleColor.White, ConsoleColor.Black);
 
                     if (BL.Contains(TempMap[i, j]))
-                        miniMap[i, j] = '┐';
+                        miniMap[i, j] = new Tile('┐', ConsoleColor.White, ConsoleColor.Black);
                     if (BR.Contains(TempMap[i, j]))
-                        miniMap[i, j] = '┌';
+                        miniMap[i, j] = new Tile('┌', ConsoleColor.White, ConsoleColor.Black);
                     if (BT.Contains(TempMap[i, j]))
-                        miniMap[i, j] = '│';
+                        miniMap[i, j] = new Tile('│', ConsoleColor.White, ConsoleColor.Black);
                     if (LR.Contains(TempMap[i, j]))
-                        miniMap[i, j] = '─';
+                        miniMap[i, j] = new Tile('─', ConsoleColor.White, ConsoleColor.Black);
                     if (LT.Contains(TempMap[i, j]))
-                        miniMap[i, j] = '┘';
+                        miniMap[i, j] = new Tile('┘', ConsoleColor.White, ConsoleColor.Black);
                     if (RT.Contains(TempMap[i, j]))
-                        miniMap[i, j] = '└';
+                        miniMap[i, j] = new Tile('└', ConsoleColor.White, ConsoleColor.Black);
 
                     if (BLR.Contains(TempMap[i, j]))
-                        miniMap[i, j] = '┬';
+                        miniMap[i, j] = new Tile('┬', ConsoleColor.White, ConsoleColor.Black);
                     if (BLT.Contains(TempMap[i, j]))
-                        miniMap[i, j] = '┤';
+                        miniMap[i, j] = new Tile('┤', ConsoleColor.White, ConsoleColor.Black);
                     if (BRT.Contains(TempMap[i, j]))
-                        miniMap[i, j] = '├';
+                        miniMap[i, j] = new Tile('├', ConsoleColor.White, ConsoleColor.Black);
                     if (LRT.Contains(TempMap[i, j]))
-                        miniMap[i, j] = '┴';
+                        miniMap[i, j] = new Tile('┴', ConsoleColor.White, ConsoleColor.Black);
 
                     if (BLRT.Contains(TempMap[i, j]))
-                        miniMap[i, j] = '┼';
+                        miniMap[i, j] = new Tile('┼', ConsoleColor.White, ConsoleColor.Black);
                 }
             }
 

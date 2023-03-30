@@ -9,17 +9,14 @@ namespace TextRPG
     internal class GameCharacter
     {
 
-        protected int x;
-        protected int targetX;
-        protected int y;
-        protected int targetY;
+        protected Position pos;
+        protected Position targetPos;
         protected int HP;
         protected int maxHP;
         protected int ATK;
-        protected char sprite;
+        protected Tile sprite;
         protected Map map;
         protected EnemyManager enemyManager;
-        protected ConsoleColor color;
         protected Render rend;
         protected GameManager manager;
 
@@ -27,17 +24,15 @@ namespace TextRPG
 
         protected bool alive = true;
 
-        public GameCharacter(int x, int y, int HP, int ATK, char sprite, Map map, EnemyManager enemyManager, ConsoleColor color, Render rend, GameManager manager)
+        public GameCharacter(Position pos, int HP, int ATK, Tile sprite, Map map, EnemyManager enemyManager, Render rend, GameManager manager)
         {
-            this.x = x;
-            this.y = y;
+            this.pos = pos;
             this.HP = HP;
             this.maxHP = HP;
             this.ATK = ATK;
             this.sprite = sprite;
             this.map = map;
             this.enemyManager = enemyManager;
-            this.color = color;
             this.rend = rend;
             this.manager = manager;
         }
@@ -47,14 +42,13 @@ namespace TextRPG
             if (attacked)
             {
                 attacked = false;
-                rend.BackgroundColors[y, x] = ConsoleColor.Red;
+                sprite.backgroundColor = ConsoleColor.Red;
             }
-            else
+            else if(sprite.backgroundColor != Constants.BGColor)
             {
-                rend.BackgroundColors[y, x] = ConsoleColor.Black;
+                sprite.backgroundColor = Constants.BGColor;
             }
-            rend.ScreenColors[y, x] = color;
-            rend.ScreenChars[y, x] = sprite;
+            rend.WholeMap[pos.y, pos.x] = sprite;
         }
 
         public virtual void TakeDMG(int DMG)    //Takes DMG and may kill character
@@ -82,14 +76,9 @@ namespace TextRPG
             return ATK;
         }
 
-        public int GetX()
+        public Position GetPos()
         {
-            return x;
-        }
-
-        public int GetY()
-        {
-            return y;
+            return pos;
         }
 
         public bool isAlive()

@@ -24,23 +24,16 @@ namespace TextRPG
             {
                 for (int j = 0; j < map.GetLength(0); j++)
                 {
-                    if (map[j,i] == '▓' || map[j,i] == ',')
-                    {
-                        Console.ForegroundColor = ConsoleColor.DarkGray;
-                    }else if (map[j,i] == '█')
-                    {
-                        Console.ForegroundColor = ConsoleColor.DarkYellow;
-                    }
-                    rend.ScreenChars[j, i] = map[j, i];
-                    rend.ScreenColors[j, i] = Console.ForegroundColor;
+
+                    rend.WholeMap[j, i] = new Tile(map[j, i], Constants.mapColor, Constants.BGColor);
                 }
             }
         }
 
-        public bool isFloorAt(int x, int y) //returns true if the provided coords is a floor
+        public bool isFloorAt(Position pos) //returns true if the provided coords is a floor
         {
             bool isFloor = false;
-            if (map[y,x] == ',') isFloor = true;
+            if (map[pos.y,pos.x] == ',') isFloor = true;
             return isFloor;
         }
 

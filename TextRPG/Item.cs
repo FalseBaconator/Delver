@@ -9,35 +9,28 @@ namespace TextRPG
     internal class Item
     {
         private string name; //Healing Potion, ATK Buff, Shield Repair
-        private int x;
-        private int y;
+        private Position pos;
 
-        private char sprite;
-
-        private ConsoleColor color;
+        private Tile sprite;
 
         private Render rend;
 
 
-        public Item(string name, int x, int y, Render rend)
+        public Item(string name, Position pos, Render rend)
         {
             this.name = name;
-            this.x = x;
-            this.y = y;
+            this.pos = pos;
             this.rend = rend;
             switch (name)
             {
                 case Constants.healName:
                     sprite = Constants.healSprite;
-                    color = Constants.healColor;
                     break;
                 case Constants.ATKBuffName:
                     sprite = Constants.ATKSprite;
-                    color = Constants.ATKColor;
                     break;
                 case Constants.ShieldRepairName:
                     sprite = Constants.ShieldRepairSprite;
-                    color = Constants.ShieldRepairColor;
                     break;
             }
         }
@@ -58,10 +51,10 @@ namespace TextRPG
             }
         }
 
-        public bool isItemAt(int x, int y)     //Returns true if item is on provided coords
+        public bool isItemAt(Position pos)     //Returns true if item is on provided coords
         {
             bool check = false;
-            if(this.x == x && this.y == y){
+            if(this.pos == pos){
                 check = true;
             }
             return check;
@@ -69,8 +62,7 @@ namespace TextRPG
 
         public void Draw()  //Draws item on map
         {
-            rend.ScreenChars[y, x] = sprite;
-            rend.ScreenColors[y, x] = color;
+            rend.WholeMap[pos.y, pos.x] = sprite;
         }
 
         public string GetName()

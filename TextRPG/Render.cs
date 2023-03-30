@@ -9,11 +9,13 @@ namespace TextRPG
     internal class Render
     {
 
-        public char[,] ScreenChars = new char[Constants.mapHeight * Constants.roomHeight, Constants.mapWidth * Constants.roomWidth];
+        //public char[,] ScreenChars = new char[Constants.mapHeight * Constants.roomHeight, Constants.mapWidth * Constants.roomWidth];
 
-        public ConsoleColor[,] ScreenColors = new ConsoleColor[Constants.mapHeight * Constants.roomHeight, Constants.mapWidth * Constants.roomWidth];
+        //public ConsoleColor[,] ScreenColors = new ConsoleColor[Constants.mapHeight * Constants.roomHeight, Constants.mapWidth * Constants.roomWidth];
 
-        public ConsoleColor[,] BackgroundColors = new ConsoleColor[Constants.mapHeight * Constants.roomHeight, Constants.mapWidth * Constants.roomWidth];
+        //public ConsoleColor[,] BackgroundColors = new ConsoleColor[Constants.mapHeight * Constants.roomHeight, Constants.mapWidth * Constants.roomWidth];
+
+        public Tile[,] WholeMap = new Tile[Constants.mapHeight * Constants.roomHeight, Constants.mapWidth * Constants.roomWidth];
 
         private Hud hud;
 
@@ -35,13 +37,17 @@ namespace TextRPG
 
         private GameManager gManager;
 
-        private char[,] printToScreenCharsCur = new char[Constants.rendHeight, Constants.rendWidth];
-        private ConsoleColor[,] printToScreenColorsCur = new ConsoleColor[Constants.rendHeight, Constants.rendWidth];
-        private ConsoleColor[,] printToScreenBackgroundColorsCur = new ConsoleColor[Constants.rendHeight, Constants.rendWidth];
+        //private char[,] printToScreenCharsCur = new char[Constants.rendHeight, Constants.rendWidth];
+        //private ConsoleColor[,] printToScreenColorsCur = new ConsoleColor[Constants.rendHeight, Constants.rendWidth];
+        //private ConsoleColor[,] printToScreenBackgroundColorsCur = new ConsoleColor[Constants.rendHeight, Constants.rendWidth];
 
-        private char[,] printToScreenCharsPrev = new char[Constants.rendHeight, Constants.rendWidth];
-        private ConsoleColor[,] printToScreenColorsPrev = new ConsoleColor[Constants.rendHeight, Constants.rendWidth];
-        private ConsoleColor[,] printToScreenBackgroundColorsPrev = new ConsoleColor[Constants.rendHeight, Constants.rendWidth];
+        private Tile[,] toRend = new Tile[Constants.rendHeight, Constants.rendWidth];
+
+        //private char[,] printToScreenCharsPrev = new char[Constants.rendHeight, Constants.rendWidth];
+        //private ConsoleColor[,] printToScreenColorsPrev = new ConsoleColor[Constants.rendHeight, Constants.rendWidth];
+        //private ConsoleColor[,] printToScreenBackgroundColorsPrev = new ConsoleColor[Constants.rendHeight, Constants.rendWidth];
+
+        private Tile[,] prevRend = new Tile[Constants.rendHeight, Constants.rendWidth];
 
         //[Constants.camSize + 2, Constants.mapWidth + Constants.camSize + 2]
         private MiniMap mini;
@@ -70,17 +76,15 @@ namespace TextRPG
         public void DrawToScreen()  //Draws the map according to the arrays
         {
             Console.CursorVisible = false;
-            int x = cam.x - (Constants.camSize / 2);
-            int y = cam.y - (Constants.camSize / 2);
+            int x = cam.pos.x - (Constants.camSize / 2);
+            int y = cam.pos.y - (Constants.camSize / 2);
 
             //fill with space
-            for (int i = 0; i < printToScreenCharsCur.GetLength(0); i++)
+            for (int i = 0; i < toRend.GetLength(0); i++)
             {
-                for (int j = 0; j < printToScreenCharsCur.GetLength(1); j++)
+                for (int j = 0; j < toRend.GetLength(1); j++)
                 {
-                    printToScreenCharsCur[i, j] = ' ';
-                    printToScreenColorsCur[i, j] = ConsoleColor.White;
-                    printToScreenBackgroundColorsCur[i, j] = ConsoleColor.Black;
+                    toRend[i, j] = new Tile(' ', ConsoleColor.White, ConsoleColor.Black);
                 }
             }
 
@@ -92,30 +96,27 @@ namespace TextRPG
                     if (i == 0)
                     {
                         if (j == 0)
-                            printToScreenCharsCur[i, j] = '╔';
+                            toRend[i, j] = new Tile('╔', Constants.borderColor, Constants.BGColor);
                         else if (j == Constants.camSize + 1)
-                            printToScreenCharsCur[i, j] = '╗';
+                            toRend[i, j] = new Tile('╗', Constants.borderColor, Constants.BGColor);
                         else
-                            printToScreenCharsCur[i, j] = '═';
+                            toRend[i, j] = new Tile('═', Constants.borderColor, Constants.BGColor);
                     }else if (i == Constants.camSize + 1)
                     {
                         if (j == 0)
-                            printToScreenCharsCur[i, j] = '╚';
+                            toRend[i, j] = new Tile('╚', Constants.borderColor, Constants.BGColor);
                         else if (j == Constants.camSize + 1)
-                            printToScreenCharsCur[i, j] = '╝';
+                            toRend[i, j] = new Tile('╝', Constants.borderColor, Constants.BGColor);
                         else
-                            printToScreenCharsCur[i, j] = '═';
+                            toRend[i, j] = new Tile('═', Constants.borderColor, Constants.BGColor);
                     }
                     else
                     {
                         if (j == 0 || j == Constants.camSize + 1)
-                            printToScreenCharsCur[i, j] = '║';
+                            toRend[i, j] = new Tile('║', Constants.borderColor, Constants.BGColor);
                         else
-                            printToScreenCharsCur[i, j] = ' ';
+                            toRend[i, j] = new Tile(' ', Constants.borderColor, Constants.BGColor);
                     }
-                    //printToScreenChars[i,j] = borderChars[i,j];
-                    printToScreenColorsCur[i, j] = ConsoleColor.White;
-                    printToScreenBackgroundColorsCur[i, j] = ConsoleColor.Black;
                 }
             }
 
@@ -125,9 +126,7 @@ namespace TextRPG
                 for (int j = 0; j < Constants.camSize; j++)
                 {
 
-                    printToScreenCharsCur[i + 1, j + 1] = ScreenChars[i+y,j+x];
-                    printToScreenColorsCur[i + 1, j + 1] = ScreenColors[i + y, j + x];
-                    printToScreenBackgroundColorsCur[i + 1, j + 1] = BackgroundColors[i + y, j + x];
+                    toRend[i + 1, j + 1] = WholeMap[i+y,j+x];
 
                 }
             }
@@ -139,9 +138,7 @@ namespace TextRPG
                 {
                     for (int j = 0; j < Constants.mapWidth; j++)
                     {
-                        printToScreenCharsCur[i, j + Constants.camSize + 2] = mini.revealedMap[i, j];
-                        printToScreenColorsCur[i, j + Constants.camSize + 2] = mini.foregroundColors[i, j];
-                        printToScreenBackgroundColorsCur[i, j + Constants.camSize + 2] = mini.backgroundColors[i, j];
+                        toRend[i, j + Constants.camSize + 2] = mini.revealedMap[i, j];
                     }
                 }
             }
@@ -160,25 +157,23 @@ namespace TextRPG
             {
                 for (int j = 0; j < hud.hudArray.GetLength(1); j++)
                 {
-                    printToScreenCharsCur[i + hudOffset, j] = hud.hudArray[i, j];
-                    printToScreenColorsCur[i + hudOffset, j] = ConsoleColor.White;
-                    printToScreenBackgroundColorsCur[i + hudOffset, j] = ConsoleColor.Black;
+                    toRend[i + hudOffset, j] = hud.hudArray[i, j];
                 }
             }
 
             //Print to Screen
-            for (int i = 0; i < printToScreenCharsCur.GetLength(0); i++)
+            for (int i = 0; i < toRend.GetLength(0); i++)
             {
-                for (int j = 0; j < printToScreenCharsCur.GetLength(1); j++)
+                for (int j = 0; j < toRend.GetLength(1); j++)
                 {
                     if (j < Console.WindowWidth && i < Console.WindowHeight)
                     {
                         Console.SetCursorPosition(j, i);
-                        if (printToScreenBackgroundColorsCur[i, j] != printToScreenBackgroundColorsPrev[i, j] || printToScreenCharsCur[i, j] != printToScreenCharsPrev[i, j] || printToScreenColorsCur[i,j] != printToScreenColorsPrev[i, j])
+                        if (toRend[i,j] != prevRend[i,j])
                         {
-                            Console.BackgroundColor = printToScreenBackgroundColorsCur[i, j];
-                            Console.ForegroundColor = printToScreenColorsCur[i, j];
-                            Console.Write(printToScreenCharsCur[i, j]);
+                            //Console.BackgroundColor = toRend[i, j].backgroundColor;
+                            //Console.ForegroundColor = toRend[i, j].foregroundColor;
+                            Console.Write(toRend[i, j]);
                         }
                     }
 
@@ -195,9 +190,7 @@ namespace TextRPG
             {
                 for (int j = 0; j < Constants.rendWidth; j++)
                 {
-                    printToScreenBackgroundColorsPrev[i, j] = printToScreenBackgroundColorsCur[i, j];
-                    printToScreenColorsPrev[i, j] = printToScreenColorsCur[i, j];
-                    printToScreenCharsPrev[i, j] = printToScreenCharsCur[i, j];
+                    prevRend[i, j] = toRend[i, j];
                 }
             }
 
@@ -206,7 +199,7 @@ namespace TextRPG
             //printToScreenBackgroundColorsPrev = printToScreenBackgroundColorsCur;
         }
 
-        public void ResetBackgrounds()                                      //
+        /*public void ResetBackgrounds()                                      //
         {                                                                   //
             for (int i = 0; i < BackgroundColors.GetLength(1); i++)         //
             {                                                               //
@@ -215,7 +208,7 @@ namespace TextRPG
                     BackgroundColors[j, i] = ConsoleColor.Black;            //
                 }                                                           //
             }                                                               //
-        }                                                                   //
+        }                                                                   //*/
 
     }
 }

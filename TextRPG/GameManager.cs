@@ -44,7 +44,7 @@ namespace TextRPG
             exit = new Exit(this, render, map);
             itemManager = new ItemManager(map, render, this, exit);
             enemyManager = new EnemyManager(map, render, itemManager, this, exit);
-            player = new Player((Constants.mapWidth/2) * Constants.roomWidth + (Constants.roomWidth/2), (Constants.mapHeight / 2) * Constants.roomHeight + (Constants.roomHeight / 2), map, enemyManager, render, this, inputManager, itemManager, exit);
+            player = new Player(new Position((Constants.mapWidth/2) * Constants.roomWidth + (Constants.roomWidth/2), (Constants.mapHeight / 2) * Constants.roomHeight + (Constants.roomHeight / 2)), map, enemyManager, render, this, inputManager, itemManager, exit);
             miniMap = new MiniMap(mapGen.makeMiniMap(), player);
             hud = new Hud(player, enemyManager, this);
             cam = new Camera(player, this);
@@ -79,12 +79,12 @@ namespace TextRPG
             if(currentFloor == Constants.BossFloor)
             {
                 map = new Map(mapGen.BossRoom(), render);
-                player.placePlayer(Constants.BossRoomWidth/2, Constants.BossRoomHeight/2);
+                player.placePlayer(new Position(Constants.BossRoomWidth/2, Constants.BossRoomHeight/2));
             }
             else
             {
                 map = new Map(mapGen.RandomizeMap(), render);
-                player.placePlayer((Constants.mapWidth / 2) * Constants.roomWidth + (Constants.roomWidth / 2), (Constants.mapHeight / 2) * Constants.roomHeight + (Constants.roomHeight / 2));
+                player.placePlayer(new Position((Constants.mapWidth / 2) * Constants.roomWidth + (Constants.roomWidth / 2), (Constants.mapHeight / 2) * Constants.roomHeight + (Constants.roomHeight / 2)));
             }
             exit = new Exit(this, render, map);
             itemManager = new ItemManager(map, render, this, exit);
@@ -143,7 +143,7 @@ namespace TextRPG
 
         public void Draw()  //Draw Everything
         {
-            render.ResetBackgrounds();  //
+            //render.ResetBackgrounds();  //
             map.DrawMap();              //
             itemManager.Draw();         //  Set chars to arrays in rend
             player.Draw();              //

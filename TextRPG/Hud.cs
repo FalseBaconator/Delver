@@ -14,7 +14,7 @@ namespace TextRPG
         private string message;
         private GameManager manager;
 
-        public char[,] hudArray = new char[Constants.messageBoxHeight + Constants.statsHeight + 2,Constants.hudWidth + 1];
+        public Tile[,] hudArray = new Tile[Constants.messageBoxHeight + Constants.statsHeight + 2,Constants.hudWidth + 1];
 
         public Hud(Player player, EnemyManager enemyManager, GameManager manager)
         {
@@ -38,33 +38,33 @@ namespace TextRPG
                     if(i == 0)
                     {
                         if (j == 0)
-                            hudArray[i, j] = '╔';
+                            hudArray[i, j] = new Tile('╔', Constants.borderColor, Constants.BGColor);
                         else if (j == Constants.hudWidth)
-                            hudArray[i, j] = '╗';
+                            hudArray[i, j] = new Tile('╗', Constants.borderColor, Constants.BGColor);
                         else
-                            hudArray[i, j] = '═';
+                            hudArray[i, j] = new Tile('═', Constants.borderColor, Constants.BGColor);
                     }else if (i == Constants.messageBoxHeight)
                     {
                         if (j == 0)
-                            hudArray[i, j] = '╚';
+                            hudArray[i, j] = new Tile('╚', Constants.borderColor, Constants.BGColor);
                         else if (j == Constants.hudWidth)
-                            hudArray[i, j] = '╝';
+                            hudArray[i, j] = new Tile('╝', Constants.borderColor, Constants.BGColor);
                         else
-                            hudArray[i, j] = '═';
+                            hudArray[i, j] = new Tile('═', Constants.borderColor, Constants.BGColor);
                     }else
                     {
                         if (j == 0 || j == Constants.hudWidth)
-                            hudArray[i, j] = '║';
+                            hudArray[i, j] = new Tile('║', Constants.borderColor, Constants.BGColor);
                         else if (message != null)
                         {
-                            hudArray[i, j] = message[messageIndex];
+                            hudArray[i, j] = new Tile(message[messageIndex], Constants.borderColor, Constants.BGColor);
                             messageIndex++;
                             if (messageIndex == message.Length)
                                 message = null;
                         }
                         else
                         {
-                            hudArray[i, j] = ' ';
+                            hudArray[i, j] = new Tile(' ', Constants.borderColor, Constants.BGColor);
                         }
                     }
                 }
@@ -88,29 +88,29 @@ namespace TextRPG
                     if (i == Constants.messageBoxHeight + 1)
                     {
                         if (j == 0)
-                            hudArray[i, j] = '╔';
+                            hudArray[i, j] = new Tile('╔', Constants.borderColor, Constants.BGColor);
                         else if (j == Constants.hudWidth)
-                            hudArray[i, j] = '╗';
+                            hudArray[i, j] = new Tile('╗', Constants.borderColor, Constants.BGColor);
                         else if (j == Constants.hudWidth / 2)
-                            hudArray[i, j] = '╦';
+                            hudArray[i, j] = new Tile('╦', Constants.borderColor, Constants.BGColor);
                         else
-                            hudArray[i, j] = '═';
+                            hudArray[i, j] = new Tile('═', Constants.borderColor, Constants.BGColor);
                     }
                     else if (i == Constants.messageBoxHeight + 1 + Constants.statsHeight)
                     {
                         if (j == 0)
-                            hudArray[i, j] = '╚';
+                            hudArray[i, j] = new Tile('╚', Constants.borderColor, Constants.BGColor);
                         else if (j == Constants.hudWidth)
-                            hudArray[i, j] = '╝';
+                            hudArray[i, j] = new Tile('╝', Constants.borderColor, Constants.BGColor);
                         else if (j == Constants.hudWidth / 2)
-                            hudArray[i, j] = '╩';
+                            hudArray[i, j] = new Tile('╩', Constants.borderColor, Constants.BGColor);
                         else
-                            hudArray[i, j] = '═';
+                            hudArray[i, j] = new Tile('═', Constants.borderColor, Constants.BGColor);
                     }
                     else
                     {
                         if (j == 0 || j == Constants.hudWidth || j == Constants.hudWidth / 2)
-                            hudArray[i, j] = '║';
+                            hudArray[i, j] = new Tile('║', Constants.borderColor, Constants.BGColor);
                         else if (j < Constants.hudWidth / 2 && playerNextLine != true)
                         {
                             if (playerStatIndex < Constants.playerStatsList.Length)
@@ -126,42 +126,42 @@ namespace TextRPG
                                     switch (Constants.playerStatsList[playerStatIndex])
                                     {
                                         case 'X':
-                                            hudArray[i, j] = player.GetHealth().ToString()[0];
+                                            hudArray[i, j] = new Tile(player.GetHealth().ToString()[0], Constants.borderColor, Constants.BGColor);
                                             if (player.GetHealth() >= 10)
                                             {
-                                                hudArray[i, j + 1] = player.GetHealth().ToString()[1];
+                                                hudArray[i, j + 1] = new Tile(player.GetHealth().ToString()[1], Constants.borderColor, Constants.BGColor);
                                                 if(player.GetHealth() >= 100)
-                                                    hudArray[i, j+2] = player.GetHealth().ToString()[2];
+                                                    hudArray[i, j+2] = new Tile(player.GetHealth().ToString()[2], Constants.borderColor, Constants.BGColor);
                                             }
                                             break;
                                         case 'Y':
-                                            hudArray[i, j] = player.GetShield().ToString()[0];
+                                            hudArray[i, j] = new Tile(player.GetShield().ToString()[0], Constants.borderColor, Constants.BGColor);
                                             if (player.GetShield() >= 10)
                                             {
-                                                hudArray[i, j + 1] = player.GetShield().ToString()[1];
+                                                hudArray[i, j + 1] = new Tile(player.GetShield().ToString()[1], Constants.borderColor, Constants.BGColor);
                                                 if (player.GetShield() >= 100)
-                                                    hudArray[i, j + 2] = player.GetShield().ToString()[2];
+                                                    hudArray[i, j + 2] = new Tile(player.GetShield().ToString()[2], Constants.borderColor, Constants.BGColor);
                                             }
                                             break;
                                         case 'Z':
-                                            hudArray[i, j] = player.GetATK().ToString()[0];
+                                            hudArray[i, j] = new Tile(player.GetATK().ToString()[0], Constants.borderColor, Constants.BGColor);
                                             if (player.GetATK() >= 10)
                                             {
-                                                hudArray[i, j + 1] = player.GetATK().ToString()[1];
+                                                hudArray[i, j + 1] = new Tile(player.GetATK().ToString()[1], Constants.borderColor, Constants.BGColor);
                                                 if (player.GetATK() >= 100)
-                                                    hudArray[i, j + 2] = player.GetATK().ToString()[2];
+                                                    hudArray[i, j + 2] = new Tile(player.GetATK().ToString()[2], Constants.borderColor, Constants.BGColor);
                                             }
                                             break;
                                         case '$':
-                                            hudArray[i, j] = manager.getFloor().ToString()[0];
+                                            hudArray[i, j] = new Tile(manager.getFloor().ToString()[0], Constants.borderColor, Constants.BGColor);
                                             if (manager.getFloor() >= 10)
-                                                hudArray[i, j + 1] = manager.getFloor().ToString()[1];
+                                                hudArray[i, j + 1] = new Tile(manager.getFloor().ToString()[1], Constants.borderColor, Constants.BGColor);
                                             break;
                                         case '^':
-                                            hudArray[i, j] = Constants.BossFloor.ToString()[0];
+                                            hudArray[i, j] = new Tile(Constants.BossFloor.ToString()[0], Constants.borderColor, Constants.BGColor);
                                             break;
                                         default:
-                                            hudArray[i, j] = Constants.playerStatsList[playerStatIndex];
+                                            hudArray[i, j] = new Tile(Constants.playerStatsList[playerStatIndex], Constants.borderColor, Constants.BGColor);
                                             break;
                                     }
                                     playerStatIndex++;
@@ -186,39 +186,39 @@ namespace TextRPG
                                         switch (enemyStatString[enemyStatIndex])
                                         {
                                             case 'X':
-                                                hudArray[i, j] = enemy.GetHealth().ToString()[0];
+                                                hudArray[i, j] = new Tile(enemy.GetHealth().ToString()[0], Constants.borderColor, Constants.BGColor);
                                                 if (enemy.GetHealth() >= 10)
                                                 {
-                                                    hudArray[i, j + 1] = enemy.GetHealth().ToString()[1];
+                                                    hudArray[i, j + 1] = new Tile(enemy.GetHealth().ToString()[1], Constants.borderColor, Constants.BGColor);
                                                     if (enemy.GetHealth() >= 100)
-                                                        hudArray[i, j + 2] = enemy.GetHealth().ToString()[2];
+                                                        hudArray[i, j + 2] = new Tile(enemy.GetHealth().ToString()[2], Constants.borderColor, Constants.BGColor);
                                                     else
-                                                        hudArray[i, j + 2] = ' ';
+                                                        hudArray[i, j + 2] = new Tile(' ', Constants.borderColor, Constants.BGColor);
                                                 }
                                                 else
                                                 {
-                                                    hudArray[i, j + 1] = ' ';
-                                                    hudArray[i, j + 2] = ' ';
+                                                    hudArray[i, j + 1] = new Tile(' ', Constants.borderColor, Constants.BGColor);
+                                                    hudArray[i, j + 2] = new Tile(' ', Constants.borderColor, Constants.BGColor);
                                                 }
                                                 break;
                                             case 'Z':
-                                                hudArray[i, j] = enemy.GetATK().ToString()[0];
+                                                hudArray[i, j] = new Tile(enemy.GetATK().ToString()[0], Constants.borderColor, Constants.BGColor);
                                                 if (enemy.GetATK() >= 10)
                                                 {
-                                                    hudArray[i, j + 1] = enemy.GetATK().ToString()[1];
+                                                    hudArray[i, j + 1] = new Tile(enemy.GetATK().ToString()[1], Constants.borderColor, Constants.BGColor);
                                                     if (enemy.GetATK() >= 100)
-                                                        hudArray[i, j + 2] = enemy.GetATK().ToString()[2];
+                                                        hudArray[i, j + 2] = new Tile(enemy.GetATK().ToString()[2], Constants.borderColor, Constants.BGColor);
                                                     else
-                                                        hudArray[i, j + 2] = ' ';
+                                                        hudArray[i, j + 2] = new Tile(' ', Constants.borderColor, Constants.BGColor);
                                                 }
                                                 else
                                                 {
-                                                    hudArray[i, j + 1] = ' ';
-                                                    hudArray[i, j + 2] = ' ';
+                                                    hudArray[i, j + 1] = new Tile(' ', Constants.borderColor, Constants.BGColor);
+                                                    hudArray[i, j + 2] = new Tile(' ', Constants.borderColor, Constants.BGColor);
                                                 }
                                                 break;
                                             default:
-                                                hudArray[i, j] = enemyStatString[enemyStatIndex];
+                                                hudArray[i, j] = new Tile(enemyStatString[enemyStatIndex], Constants.borderColor, Constants.BGColor);
                                                 break;
                                         }
                                         enemyStatIndex++;
@@ -228,7 +228,7 @@ namespace TextRPG
                         }
                         else
                         {
-                            hudArray[i, j] = ' ';
+                            hudArray[i, j] = new Tile(' ', Constants.borderColor, Constants.BGColor);
                         }
                     }
                 }

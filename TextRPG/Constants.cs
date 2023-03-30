@@ -15,8 +15,7 @@ namespace TextRPG
         public const int playerBaseHP = 5;
         public const int playerBaseShield = 5;
         public const int playerBaseAttack = 2;
-        public const char playerSprite = '@';
-        public const ConsoleColor playerColor = ConsoleColor.White;
+        public static Tile playerSprite = new Tile('@', ConsoleColor.White, ConsoleColor.Black);
 
         //Enemy Settings
         public const int EnemySightRange = 5;
@@ -25,29 +24,25 @@ namespace TextRPG
         //Slime Settings
         public const int slimeBaseHP = 1;
         public const int slimeBaseAttack = 1;
-        public const char slimeSprite = 'O';
-        public const ConsoleColor slimeColor = ConsoleColor.Cyan;
+        public static Tile slimeSprite = new Tile('O', ConsoleColor.Cyan, ConsoleColor.Black);
         public const string slimeName = "Slime";
 
         //Goblin Settings
         public const int goblinBaseHP = 5;
         public const int goblinBaseAttack = 2;
-        public const char goblinSprite = 'X';
-        public const ConsoleColor goblinColor = ConsoleColor.DarkGreen;
+        public static Tile goblinSprite = new Tile('X', ConsoleColor.DarkGreen, ConsoleColor.Black);
         public const string goblinName = "Goblin";
 
         //Kobold Settings
         public const int koboldBaseHP = 3;
         public const int koboldBaseAttack = 1;
-        public const char koboldSprite = 'X';
-        public const ConsoleColor koboldColor = ConsoleColor.DarkRed;
+        public static Tile koboldSprite = new Tile('X', ConsoleColor.DarkRed, ConsoleColor.Black);
         public const string koboldName = "Kobold";
 
         //Boss Settings
         public const int bossBaseHP = 200;
         public const int bossBaseAttack = 3;
-        public const char bossSprite = 'M';
-        public const ConsoleColor bossColor = ConsoleColor.DarkRed;
+        public static Tile bossSprite = new Tile('M', ConsoleColor.DarkRed, ConsoleColor.Black);
         public const string bossName = "Boss";
 
         //Item Settings
@@ -56,17 +51,15 @@ namespace TextRPG
         public const int healAmount = 3;
         public const int ATKBuffAmount = 1;
         public const int shieldRepairAmount = 3;
-        public const char healSprite = '+';
-        public const char ATKSprite = '*';
-        public const char ShieldRepairSprite = '#';
-        public const ConsoleColor healColor = ConsoleColor.Green;
-        public const ConsoleColor ATKColor = ConsoleColor.Red;
-        public const ConsoleColor ShieldRepairColor = ConsoleColor.Blue;
+        public static Tile healSprite = new Tile('+', ConsoleColor.Green, ConsoleColor.Black);
+        public static Tile ATKSprite = new Tile('*', ConsoleColor.Red, ConsoleColor.Black);
+        public static Tile ShieldRepairSprite = new Tile('#', ConsoleColor.Blue, ConsoleColor.Black);
         public const string healName = "Health Potion";
         public const string ATKBuffName = "ATK Buff";
         public const string ShieldRepairName = "Shield Repair";
 
         //Map Settings
+        public const ConsoleColor mapColor = ConsoleColor.DarkGray;
         public const int mapHeight = 9;
         public const int mapWidth = 9;
         public const int roomHeight = 7;
@@ -82,6 +75,8 @@ namespace TextRPG
         //Render Settings
         public const int rendWidth = 22;
         public const int rendHeight = 25;
+        public const ConsoleColor borderColor = ConsoleColor.White;
+        public const ConsoleColor BGColor = ConsoleColor.Black;
 
         //HUD Settings
         public const int hudWidth = 21;
@@ -91,8 +86,7 @@ namespace TextRPG
         public const string enemyStatsList = "HP: X|ATK: Z";
 
         //Exit Settings
-        public const char exitSprite = '¤';
-        public const ConsoleColor exitColor = ConsoleColor.Yellow;
+        public static Tile exitSprite = new Tile('¤', ConsoleColor.Yellow, ConsoleColor.Black);
 
     }
 }
