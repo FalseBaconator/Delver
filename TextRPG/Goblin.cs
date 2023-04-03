@@ -18,7 +18,7 @@ namespace TextRPG
         {
             if (alive)
             {
-                if (player.isPlayerAt(new Position(pos.x, pos.y - 1)) || player.isPlayerAt(new Position(pos.x, pos.y + 1)) || player.isPlayerAt(new Position(pos.x - 1, pos.y)) || player.isPlayerAt(new Position(pos.x + 1, pos.y - 1)))       //
+                if (player.isPlayerAt(new Position(pos.x, pos.y - 1)) || player.isPlayerAt(new Position(pos.x, pos.y + 1)) || player.isPlayerAt(new Position(pos.x - 1, pos.y)) || player.isPlayerAt(new Position(pos.x + 1, pos.y)))       //
                 {                                                                                                                                   //
                     AttackPlayer(player);                                                                                                           //  Enemy uses turn to attack player if they're adjacent
                 }                                                                                                                                   //
