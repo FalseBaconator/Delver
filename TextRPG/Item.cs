@@ -60,6 +60,11 @@ namespace TextRPG
             return check;
         }
 
+        public Position GetPos()
+        {
+            return pos;
+        }
+
         public void Draw()  //Draws item on map
         {
             rend.WholeMap[pos.y, pos.x] = sprite;

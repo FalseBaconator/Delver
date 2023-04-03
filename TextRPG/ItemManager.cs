@@ -6,6 +6,7 @@ namespace TextRPG
     internal class ItemManager
     {
         private List<Item> items = new List<Item>();
+        private Item[,] itemMap = new Item[Constants.mapHeight * Constants.roomHeight, Constants.mapWidth * Constants.roomWidth];
         private Random rand = Constants.rand;
 
         private Render rend;
@@ -67,20 +68,15 @@ namespace TextRPG
                     }                                                                                                                                                           //
                 }
             }
+            foreach (Item item in items)
+            {
+                itemMap[item.GetPos().x, item.GetPos().y] = item;
+            }
         }
 
         public Item ItemAt(Position pos)    //Returns item at provided coords
         {
-            Item found = null;
-            foreach(Item item in items)
-            {
-                if (item.isItemAt(pos))
-                {
-                    found = item;
-                }
-            }
-
-            return found;
+            return itemMap[pos.x, pos.y];
         }
 
         public void PickUp(Item item, Player player)   //Uses provided item
@@ -89,6 +85,7 @@ namespace TextRPG
             {
                 item.PickUp(player);
                 items.Remove(item);
+                itemMap[item.GetPos().x, item.GetPos().y] = null;
                 gManager.setMessage("Player found " + item.GetName());
             }
         }
