@@ -18,11 +18,14 @@ namespace TextRPG
 
         protected ItemManager itemManager;
 
-        public Enemy(Position pos, int HP, int ATK, Tile sprite, string name, Map map, Player player, EnemyManager enemyManager, ItemManager itemManager, Render rend, GameManager manager) : base(pos, HP, ATK, sprite, map, enemyManager, rend, manager)
+        protected Hud hud;
+
+        public Enemy(Position pos, int HP, int ATK, Tile sprite, string name, Map map, Player player, EnemyManager enemyManager, ItemManager itemManager, Render rend, GameManager manager, Hud hud) : base(pos, HP, ATK, sprite, map, enemyManager, rend, manager)
         {
             this.name = name;
             this.player = player;
             this.itemManager = itemManager;
+            this.hud = hud;
         }
 
         public abstract void Update();
@@ -95,9 +98,9 @@ namespace TextRPG
         public void AttackPlayer(Player target)
         {
             target.TakeDMG(ATK);
-            if (target.GetHealth() <= 0) manager.setMessage(name + " killed Player");
-            else if (manager.GetMessage() == " ") manager.setMessage(name + " attacked Player");
-            else manager.setMessage("Player and " + name + " both attacked");
+            if (target.GetHealth() <= 0) hud.SetMessage(name + " killed Player");
+            else if (hud.GetMessage() == " ") hud.SetMessage(name + " attacked Player");
+            else hud.SetMessage("Player and " + name + " both attacked");
         }
 
         public bool CanSeePlayer()

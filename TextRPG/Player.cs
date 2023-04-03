@@ -14,6 +14,7 @@ namespace TextRPG
         private InputManager inputManager;
         private ItemManager itemManager;
         private Exit exit;
+        private Hud hud;
 
         public Player(Position pos, Map map, EnemyManager enemyManager, Render rend, GameManager manager, InputManager inputManager, ItemManager itemManager, Exit exit) : base(pos, Constants.playerBaseHP, Constants.playerBaseAttack, Constants.playerSprite, map, enemyManager, rend, manager)
         {
@@ -76,8 +77,8 @@ namespace TextRPG
         public void AttackEnemy(Enemy enemy) //Attacks the provided enemy and gives the interaction message
         {
             enemy.TakeDMG(ATK);
-            if (enemy.GetHealth() > 0) manager.setMessage("Player attacked " + enemy.GetName());
-            else manager.setMessage("Player killed " + enemy.GetName());
+            if (enemy.GetHealth() > 0) hud.SetMessage("Player attacked " + enemy.GetName());
+            else hud.SetMessage("Player killed " + enemy.GetName());
         }
 
         public override void TakeDMG(int DMG)
@@ -128,7 +129,10 @@ namespace TextRPG
             return maxShield;
         }
 
-        
+        public void SetHud(Hud hud)
+        {
+            this.hud = hud;
+        }
 
     }
 }

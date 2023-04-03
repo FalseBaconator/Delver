@@ -125,9 +125,7 @@ namespace TextRPG
             {
                 for (int j = 0; j < Constants.camSize; j++)
                 {
-
                     toRend[i + 1, j + 1] = WholeMap[i+y,j+x];
-
                 }
             }
 

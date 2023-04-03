@@ -32,7 +32,7 @@ namespace TextRPG
 
         static Camera cam;
 
-        private string message;
+        //private string message;
 
         public LoadManager loadManager;
 
@@ -48,27 +48,15 @@ namespace TextRPG
             enemyManager = new EnemyManager(map, render, itemManager, this, exit);
             player = new Player(new Position((Constants.mapWidth/2) * Constants.roomWidth + (Constants.roomWidth/2), (Constants.mapHeight / 2) * Constants.roomHeight + (Constants.roomHeight / 2)), map, enemyManager, render, this, inputManager, itemManager, exit);
             miniMap = new MiniMap(mapGen.makeMiniMap(), player);
-            hud = new Hud(player, enemyManager, this);
+            hud = new Hud(player, enemyManager, itemManager, this);
             cam = new Camera(player, this);
             loadManager = new LoadManager(this, render, cam, exit, itemManager, enemyManager, miniMap, player, hud, map, mapGen);
             
         }
 
-
-        public void setMessage(string message)
-        {
-            this.message = message; //save message
-            hud.SetMessage(message);    //set message in hud
-        }
-
-        public string GetMessage()
-        {
-            return message;
-        }
-
         public void Update()
         {
-            setMessage(" ");
+            hud.SetMessage(" ");
             if(player.isAlive() == false)   //
             {                               //  End game if player is dead
                 play = false;               //

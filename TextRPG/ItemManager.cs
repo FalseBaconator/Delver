@@ -13,6 +13,12 @@ namespace TextRPG
         private Map map;
         private GameManager gManager;
         private Exit exit;
+        private Hud hud;
+
+        public void SetHud(Hud hud)
+        {
+            this.hud = hud;
+        }
 
         public ItemManager(Map map, Render rend, GameManager gManager, Exit exit)
         {
@@ -89,7 +95,7 @@ namespace TextRPG
                 item.PickUp(player);
                 items.Remove(item);
                 itemMap[item.GetPos().x, item.GetPos().y] = null;
-                gManager.setMessage("Player found " + item.GetName());
+                hud.SetMessage("Player found " + item.GetName());
             }
         }
 

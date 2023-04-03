@@ -16,10 +16,13 @@ namespace TextRPG
 
         public Tile[,] hudArray = new Tile[Constants.messageBoxHeight + Constants.statsHeight + 2,Constants.hudWidth + 1];
 
-        public Hud(Player player, EnemyManager enemyManager, GameManager manager)
+        public Hud(Player player, EnemyManager enemyManager, ItemManager itemManager, GameManager manager)
         {
             this.player = player;
+            this.player.SetHud(this);
             this.enemyManager = enemyManager;
+            this.enemyManager.SetHud(this);
+            itemManager.SetHud(this);
             this.manager = manager;
         }
 
@@ -240,6 +243,10 @@ namespace TextRPG
             this.message = message;
         }
 
+        public string GetMessage()
+        {
+            return message;
+        }
 
     }
 }

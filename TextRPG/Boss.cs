@@ -8,7 +8,7 @@ namespace TextRPG
 {
     internal class Boss : Enemy
     {
-        public Boss(Position pos, Map map, Player player, EnemyManager enemyManager, ItemManager itemManager, Render rend, GameManager gameManager) : base(pos, Constants.bossBaseHP, Constants.bossBaseAttack, Constants.bossSprite, Constants.bossName, map, player, enemyManager, itemManager, rend, gameManager)
+        public Boss(Position pos, Map map, Player player, EnemyManager enemyManager, ItemManager itemManager, Render rend, GameManager gameManager, Hud hud) : base(pos, Constants.bossBaseHP, Constants.bossBaseAttack, Constants.bossSprite, Constants.bossName, map, player, enemyManager, itemManager, rend, gameManager, hud)
         {
 
         }
