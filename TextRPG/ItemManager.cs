@@ -24,6 +24,8 @@ namespace TextRPG
 
         public void GenerateItems(Player player)
         {
+            items = new List<Item>();
+            itemMap = new Item[Constants.mapHeight * Constants.roomHeight, Constants.mapWidth * Constants.roomWidth];
             if (gManager.getFloor() < Constants.BossFloor)
             {
                 while (items.Count < Constants.itemAmount)
@@ -37,12 +39,15 @@ namespace TextRPG
                         {                                                                                                                                                       //
                             case 0:                                                                                                                                             //
                                 items.Add(new Item(Constants.healName, pos, rend));                                                                                            //  Generates a random item if spot isn't occupied
+                                itemMap[x, y] = items[items.Count - 1];
                                 break;                                                                                                                                          //
                             case 1:                                                                                                                                             //
                                 items.Add(new Item(Constants.ATKBuffName, pos, rend));                                                                                         //
+                                itemMap[x, y] = items[items.Count - 1];
                                 break;                                                                                                                                          //
                             case 2:                                                                                                                                             //
                                 items.Add(new Item(Constants.ShieldRepairName, pos, rend));                                                                                    //
+                                itemMap[x, y] = items[items.Count - 1];
                                 break;                                                                                                                                          //
                         }                                                                                                                                                       //
                     }                                                                                                                                                           //
@@ -60,17 +65,15 @@ namespace TextRPG
                         {                                                                                                                                                       //
                             case 0:                                                                                                                                             //
                                 items.Add(new Item(Constants.healName, pos, rend));                                                                                            //  Generates a random item if spot isn't occupied
+                                itemMap[x, y] = items[items.Count - 1];
                                 break;                                                                                                                                          //
                             case 1:                                                                                                                                             //
                                 items.Add(new Item(Constants.ShieldRepairName, pos, rend));                                                                                    //
+                                itemMap[x, y] = items[items.Count - 1];
                                 break;                                                                                                                                          //
                         }                                                                                                                                                       //
                     }                                                                                                                                                           //
                 }
-            }
-            foreach (Item item in items)
-            {
-                itemMap[item.GetPos().x, item.GetPos().y] = item;
             }
         }
 

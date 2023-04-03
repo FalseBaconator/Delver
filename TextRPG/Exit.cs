@@ -54,7 +54,7 @@ namespace TextRPG
             if(pos == this.pos)
             {
                 if(win)
-                    manager.NextFloor();
+                    manager.loadManager.NextFloor();
                 return true;
             }
             else

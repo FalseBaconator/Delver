@@ -73,14 +73,6 @@ namespace TextRPG
             this.pos = pos;
         }
 
-        public void SetForNextFloor(Map map, EnemyManager enemyManager, ItemManager itemManager, Exit exit)
-        {
-            this.map = map;
-            this.enemyManager = enemyManager;
-            this.itemManager = itemManager;
-            this.exit = exit;
-        }
-
         public void AttackEnemy(Enemy enemy) //Attacks the provided enemy and gives the interaction message
         {
             enemy.TakeDMG(ATK);

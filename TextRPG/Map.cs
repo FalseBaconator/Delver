@@ -30,6 +30,11 @@ namespace TextRPG
             }
         }
 
+        public void NewMap(char[,] grid)
+        {
+            map = grid;
+        }
+
         public bool isFloorAt(Position pos) //returns true if the provided coords is a floor
         {
             bool isFloor = false;

@@ -59,6 +59,16 @@ namespace TextRPG
 
         }
 
+        public void Refresh(Tile[,] map)
+        {
+            for (int i = 0; i < revealedMap.GetLength(0); i++)
+            {
+                for (int j = 0; j < revealedMap.GetLength(1); j++)
+                {
+                    revealedMap[i, j] = new Tile(' ', Constants.borderColor, Constants.BGColor);
+                }
+            }
+        }
 
     }
 }

@@ -14,27 +14,29 @@ namespace TextRPG
         //Define Objects
         static Render render;
 
-        static MapGenerator mapGen;
-        static Map map;
-        static MiniMap miniMap;
+        public static MapGenerator mapGen;
+        public static Map map;
+        public static MiniMap miniMap;
 
-        static EnemyManager enemyManager;
+        public static EnemyManager enemyManager;
 
         static Player player;
 
-        static ItemManager itemManager;
+        public static ItemManager itemManager;
 
         static InputManager inputManager;
 
-        static Hud hud;
+        public static Hud hud;
 
-        static Exit exit;
+        public static Exit exit;
 
         static Camera cam;
 
         private string message;
 
-        static int currentFloor;
+        public int currentFloor;
+
+        public LoadManager loadManager;
 
         public GameManager()
         {
@@ -51,54 +53,8 @@ namespace TextRPG
             miniMap = new MiniMap(mapGen.makeMiniMap(), player);
             hud = new Hud(player, enemyManager, this);
             cam = new Camera(player, this);
-        }
-
-        public void FloorSetUp()                    //
-        {                                           //
-            render.setHud(hud);                     //
-            render.setCam(cam);                     //
-            render.setMiniMap(miniMap);             //
-            cam.Update();                           //
-            exit.PlaceExit(player);                 //  SetUp
-            itemManager.GenerateItems(player);      // 
-            enemyManager.GenerateEnemies(player);   //
-            miniMap.Update();                       //
-            Draw();                                 //
-        }                                           //
-
-        public void BossSetUp()
-        {
-            render.setHud(hud);
-            render.setCam(cam);
-            cam.Update();
-            itemManager.GenerateItems(player);
-            enemyManager.GenerateBoss(player);
-            Draw();
-        }
-
-        public void NextFloor()
-        {
-            currentFloor++;
-            if(currentFloor == Constants.BossFloor)
-            {
-                map = new Map(mapGen.BossRoom(), render);
-                player.placePlayer(new Position(Constants.BossRoomWidth/2, Constants.BossRoomHeight/2));
-            }
-            else
-            {
-                map = new Map(mapGen.RandomizeMap(), render);
-                player.placePlayer(new Position((Constants.mapWidth / 2) * Constants.roomWidth + (Constants.roomWidth / 2), (Constants.mapHeight / 2) * Constants.roomHeight + (Constants.roomHeight / 2)));
-            }
-            exit = new Exit(this, render, map);
-            itemManager = new ItemManager(map, render, this, exit);
-            enemyManager = new EnemyManager(map, render, itemManager, this, exit);
-            hud = new Hud(player, enemyManager, this);
-            player.SetForNextFloor(map, enemyManager, itemManager, exit);
-            miniMap = new MiniMap(mapGen.makeMiniMap(), player);
-            if (currentFloor == Constants.BossFloor)
-                BossSetUp();
-            else
-                FloorSetUp();
+            loadManager = new LoadManager(this, render, cam, exit, itemManager, enemyManager, miniMap, player, hud, map, mapGen);
+            
         }
 
 
@@ -135,7 +91,7 @@ namespace TextRPG
         
         public void Play()
         {
-            FloorSetUp();
+            loadManager.FloorSetUp();
             while(play == true)
             {
                 Update();

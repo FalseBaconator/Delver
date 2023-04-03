@@ -31,7 +31,7 @@ namespace TextRPG
         public void GenerateEnemies(Player player)
         {
             Position tempPos;
-            enemies.Clear();
+            ClearEnemies();
             int placedEnemies = 0;
             while(placedEnemies < Constants.EnemyAmount)
             {
@@ -45,23 +45,21 @@ namespace TextRPG
                         case 1:
                             enemies.Add(new Slime(tempPos, map, player, this, itemManager, rend, manager));
                             placedEnemies++;
+                            enemyMap[tempPos.x, tempPos.y] = enemies[placedEnemies - 1];
                             break;
                         case 2:
                         case 3:
                             enemies.Add(new Kobold(tempPos, map, player, this, itemManager, rend, manager));
                             placedEnemies++;
+                            enemyMap[tempPos.x, tempPos.y] = enemies[placedEnemies - 1];
                             break;
                         case 4:
                             enemies.Add(new Goblin(tempPos, map, player, this, itemManager, rend, manager));
                             placedEnemies++;
+                            enemyMap[tempPos.x, tempPos.y] = enemies[placedEnemies - 1];
                             break;
                     }
                 }
-            }
-
-            foreach (Enemy enemy in enemies)
-            {
-                enemyMap[enemy.GetPos().x, enemy.GetPos().y] = enemy;
             }
 
         }
@@ -69,7 +67,7 @@ namespace TextRPG
         public void GenerateBoss(Player player)
         {
             Position tempPos;
-            enemies.Clear();
+            ClearEnemies();
             bool placedBoss = false;
             while (placedBoss == false)
             {
@@ -79,6 +77,7 @@ namespace TextRPG
                 {
                     enemies.Add(new Boss(tempPos, map, player, this, itemManager, rend, manager));
                     placedBoss = true;
+                    enemyMap[tempPos.x, tempPos.y] = enemies[0];
                 }
             }
         }
@@ -129,6 +128,15 @@ namespace TextRPG
         public Enemy GetLastAttacked()
         {
             return lastAttacked;
+        }
+
+        public void ClearEnemies()
+        {
+            foreach (Enemy enemy in enemies)
+            {
+                enemyMap[enemy.GetPos().x, enemy.GetPos().y] = null;
+            }
+            enemies.Clear();
         }
 
     }
