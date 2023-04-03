@@ -9,6 +9,7 @@ namespace TextRPG
     internal class EnemyManager
     {
         private List<Enemy> Enemies = new List<Enemy>();
+        private Enemy[,] EnemyMap = new Enemy[Constants.mapHeight * Constants.roomHeight, Constants.mapWidth * Constants.roomWidth];
         private Map map;
         private Random random = Constants.rand;
         private bool toMove;
@@ -57,6 +58,12 @@ namespace TextRPG
                     }
                 }
             }
+
+            foreach (Enemy enemy in Enemies)
+            {
+                EnemyMap[enemy.GetPos().x, enemy.GetPos().y] = enemy;
+            }
+
         }
 
         public void GenerateBoss(Player player)
@@ -82,7 +89,9 @@ namespace TextRPG
             {
                 foreach(Enemy enemy in Enemies)
                 {
+                    EnemyMap[enemy.GetPos().x, enemy.GetPos().y] = null;
                     enemy.Update();
+                    EnemyMap[enemy.GetPos().x, enemy.GetPos().y] = enemy;
                 }
             }
             toMove = !toMove;
@@ -90,15 +99,8 @@ namespace TextRPG
 
         public Enemy EnemyAt(Position pos, bool isAttack)    //Returns the enemy at the provided coords. Saves lastAttacked enemy if attacking
         {
-            Enemy foundEnemy = null;
-            foreach(Enemy enemy in Enemies)
-            {
-                if(enemy.GetPos() == pos)
-                {
-                    foundEnemy = enemy;
-                }
-            }
-            if (isAttack) lastAttacked = foundEnemy;
+            Enemy foundEnemy = EnemyMap[pos.x, pos.y];
+            if (isAttack && foundEnemy != null) lastAttacked = foundEnemy;
             return foundEnemy;
         }
 
@@ -115,6 +117,7 @@ namespace TextRPG
             if (Enemies.Contains(enemy))
             {
                 Enemies.Remove(enemy);
+                EnemyMap[enemy.GetPos().x, enemy.GetPos().y] = null;
             }
         }
 

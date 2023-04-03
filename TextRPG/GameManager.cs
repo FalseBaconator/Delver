@@ -12,9 +12,9 @@ namespace TextRPG
         private bool win = false;
 
         //Define Objects
-        static Render render = new Render();
+        static Render render;
 
-        static MapGenerator mapGen = new MapGenerator();
+        static MapGenerator mapGen;
         static Map map;
         static MiniMap miniMap;
 
@@ -34,10 +34,13 @@ namespace TextRPG
 
         private string message;
 
-        static int currentFloor = 1;
+        static int currentFloor;
 
         public GameManager()
         {
+            render = new Render();
+            mapGen = new MapGenerator();
+            currentFloor = 1;
             render.setGameManager(this);
             inputManager = new InputManager(this);
             map = new Map(mapGen.RandomizeMap(), render);
@@ -50,7 +53,7 @@ namespace TextRPG
             cam = new Camera(player, this);
         }
 
-        public void SetUp()                         //
+        public void FloorSetUp()                    //
         {                                           //
             render.setHud(hud);                     //
             render.setCam(cam);                     //
@@ -95,7 +98,7 @@ namespace TextRPG
             if (currentFloor == Constants.BossFloor)
                 BossSetUp();
             else
-                SetUp();
+                FloorSetUp();
         }
 
 
@@ -132,7 +135,7 @@ namespace TextRPG
         
         public void Play()
         {
-            SetUp();
+            FloorSetUp();
             while(play == true)
             {
                 Update();
