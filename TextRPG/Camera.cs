@@ -24,13 +24,13 @@ namespace TextRPG
 
         public void Update()
         {
-            if (gManager.getFloor() < Constants.BossFloor)
+            if (Globals.currentFloor < Constants.BossFloor)
             {
                 if (player.GetPos().x >= Constants.camSize / 2 && player.GetPos().x < Constants.mapWidth * Constants.roomWidth - (Constants.camSize / 2))
                     pos.x = player.GetPos().x;
                 if (player.GetPos().y >= Constants.camSize / 2 && player.GetPos().y < Constants.mapHeight * Constants.roomHeight - (Constants.camSize / 2))
                     pos.y = player.GetPos().y;
-            }else if (gManager.getFloor() == Constants.BossFloor)
+            }else if (Globals.currentFloor == Constants.BossFloor)
             {
                 if (player.GetPos().x >= Constants.camSize / 2 && player.GetPos().x < Constants.BossRoomWidth - (Constants.camSize / 2))
                     pos.x = player.GetPos().x;

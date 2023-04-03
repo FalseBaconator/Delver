@@ -34,15 +34,12 @@ namespace TextRPG
 
         private string message;
 
-        public int currentFloor;
-
         public LoadManager loadManager;
 
         public GameManager()
         {
             render = new Render();
             mapGen = new MapGenerator();
-            currentFloor = 1;
             render.setGameManager(this);
             inputManager = new InputManager(this);
             map = new Map(mapGen.RandomizeMap(), render);
@@ -67,11 +64,6 @@ namespace TextRPG
         public string GetMessage()
         {
             return message;
-        }
-
-        public int getFloor()
-        {
-            return currentFloor;
         }
 
         public void Update()

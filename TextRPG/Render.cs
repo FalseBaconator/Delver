@@ -132,7 +132,7 @@ namespace TextRPG
             }
 
             //Add MiniMap
-            if (gManager.getFloor() < Constants.BossFloor)
+            if (Globals.currentFloor < Constants.BossFloor)
             {
                 for (int i = 0; i < Constants.mapHeight; i++)
                 {

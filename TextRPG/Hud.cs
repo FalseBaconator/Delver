@@ -153,9 +153,9 @@ namespace TextRPG
                                             }
                                             break;
                                         case '$':
-                                            hudArray[i, j] = new Tile(manager.getFloor().ToString()[0], Constants.borderColor, Constants.BGColor);
-                                            if (manager.getFloor() >= 10)
-                                                hudArray[i, j + 1] = new Tile(manager.getFloor().ToString()[1], Constants.borderColor, Constants.BGColor);
+                                            hudArray[i, j] = new Tile(Globals.currentFloor.ToString()[0], Constants.borderColor, Constants.BGColor);
+                                            if (Globals.currentFloor >= 10)
+                                                hudArray[i, j + 1] = new Tile(Globals.currentFloor.ToString()[1], Constants.borderColor, Constants.BGColor);
                                             break;
                                         case '^':
                                             hudArray[i, j] = new Tile(Constants.BossFloor.ToString()[0], Constants.borderColor, Constants.BGColor);

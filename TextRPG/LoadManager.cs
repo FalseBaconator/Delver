@@ -43,6 +43,7 @@ namespace TextRPG
             this.hud = hud;
             this.map = map;
             this.mapGen = mapGen;
+            Globals.currentFloor = 1;
         }
 
         public void FloorSetUp()                    //
@@ -52,7 +53,7 @@ namespace TextRPG
             render.setMiniMap(miniMap);             //
             cam.Update();                           //
             exit.PlaceExit(player);                 //  SetUp
-            itemManager.GenerateItems(player);
+            itemManager.GenerateItems(player);      //
             enemyManager.GenerateEnemies(player);   //
             miniMap.Update();                       //
             gManager.Draw();                        //
@@ -70,8 +71,8 @@ namespace TextRPG
 
         public void NextFloor()
         {
-            gManager.currentFloor++;
-            if (gManager.currentFloor == Constants.BossFloor)
+            Globals.currentFloor++;
+            if (Globals.currentFloor == Constants.BossFloor)
             {
                 map.NewMap(mapGen.BossRoom());
                 player.placePlayer(new Position(Constants.BossRoomWidth / 2, Constants.BossRoomHeight / 2));
@@ -82,7 +83,7 @@ namespace TextRPG
                 player.placePlayer(new Position((Constants.mapWidth / 2) * Constants.roomWidth + (Constants.roomWidth / 2), (Constants.mapHeight / 2) * Constants.roomHeight + (Constants.roomHeight / 2)));
             }
             miniMap.Refresh(mapGen.makeMiniMap());
-            if (gManager.currentFloor == Constants.BossFloor)
+            if (Globals.currentFloor == Constants.BossFloor)
                 BossSetUp();
             else
                 FloorSetUp();

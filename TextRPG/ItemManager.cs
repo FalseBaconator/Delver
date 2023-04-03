@@ -26,7 +26,7 @@ namespace TextRPG
         {
             items = new List<Item>();
             itemMap = new Item[Constants.mapHeight * Constants.roomHeight, Constants.mapWidth * Constants.roomWidth];
-            if (gManager.getFloor() < Constants.BossFloor)
+            if (Globals.currentFloor < Constants.BossFloor)
             {
                 while (items.Count < Constants.itemAmount)
                 {
@@ -52,7 +52,7 @@ namespace TextRPG
                         }                                                                                                                                                       //
                     }                                                                                                                                                           //
                 }
-            }else if(gManager.getFloor() == Constants.BossFloor)
+            }else if(Globals.currentFloor == Constants.BossFloor)
             {
                 while (items.Count < Constants.bossItemAmount)
                 {
