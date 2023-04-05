@@ -60,26 +60,26 @@ namespace TextRPG
 
         //Map Settings
         public const ConsoleColor mapColor = ConsoleColor.DarkGray;
-        public const int mapHeight = 9;
-        public const int mapWidth = 9;
-        public const int roomHeight = 7;
-        public const int roomWidth = 7;
-        public const int BossRoomWidth = 11;
-        public const int BossRoomHeight = 11;
+        public const int mapHeight = 5;
+        public const int mapWidth = 5;
+        public const int roomHeight = 13;
+        public const int roomWidth = 13;
+        public const int BossRoomWidth = 15;
+        public const int BossRoomHeight = 15;
         public const int BossFloor = 3;
-        public const int RoomsPerCategory = 3;
+        public const int RoomsPerCategory = 4;
 
         //Cam Settings
-        public const int camSize = 9;
+        public const int camSize = 15;
 
         //Render Settings
-        public const int rendWidth = 22;
-        public const int rendHeight = 25;
+        public const int rendWidth = 35;
+        public const int rendHeight = 50;
         public const ConsoleColor borderColor = ConsoleColor.White;
         public const ConsoleColor BGColor = ConsoleColor.Black;
 
         //HUD Settings
-        public const int hudWidth = 21;
+        public const int hudWidth = 33;
         public const int messageBoxHeight = 4;
         public const int statsHeight = 6;
         public const string playerStatsList = "Player|HP: X|SHLD: Y|ATK: Z|FLR: $/^";

@@ -14,12 +14,12 @@ namespace TextRPG
         public Position pos;
 
         private Player player;
-        private GameManager gManager;
+        //private GameManager gManager;
 
         public Camera(Player player, GameManager gManager)
         {
             this.player = player;
-            this.gManager = gManager;
+            //this.gManager = gManager;
         }
 
         public void Update()

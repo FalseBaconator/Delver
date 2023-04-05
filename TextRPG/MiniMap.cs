@@ -12,15 +12,12 @@ namespace TextRPG
 
         private Player player;
 
-        private int x;
-        private int y;
+        private int rx;
+        private int ry;
 
-        //public char[,] revealedMap = new char[Constants.mapHeight, Constants.mapWidth];
+        public Tile[,] revealedMap = new Tile[Constants.mapHeight * 3, Constants.mapWidth * 3];
 
-        //public ConsoleColor[,] foregroundColors = new ConsoleColor[Constants.mapHeight, Constants.mapWidth];
-        //public ConsoleColor[,] backgroundColors = new ConsoleColor[Constants.mapHeight, Constants.mapWidth];
-
-        public Tile[,] revealedMap = new Tile[Constants.mapHeight, Constants.mapWidth];
+        private bool[,] isRevealed = new bool[Constants.mapHeight, Constants.mapWidth];
 
         public MiniMap(Tile[,] map, Player player)
         {
@@ -33,29 +30,208 @@ namespace TextRPG
             }
             this.map = map;
             this.player = player;
+            for (int i = 0; i < isRevealed.GetLength(0); i++)
+            {
+                for (int j = 0; j < isRevealed.GetLength(1); j++)
+                {
+                    isRevealed[i, j] = false;
+                }
+            }
         }
 
-        public void resetColors()
+        public void reset()
         {
-            for (int i = 0; i < Constants.mapHeight; i++)
+            for (int i = 0; i < revealedMap.GetLength(0); i++)
             {
-                for (int j = 0; j < Constants.mapWidth; j++)
+                for (int j = 0; j < revealedMap.GetLength(1); j++)
                 {
-                    revealedMap[i, j].foregroundColor = ConsoleColor.White;
-                    revealedMap[i, j].backgroundColor = ConsoleColor.Black;
+                    if (revealedMap[i, j].sprite == Constants.playerSprite.sprite)
+                        revealedMap[i, j] = new Tile(' ', ConsoleColor.White, ConsoleColor.Black);
                 }
             }
         }
 
         public void Update()
         {
-            resetColors();
-            y = player.GetPos().x / Constants.roomWidth;
-            x = player.GetPos().y / Constants.roomHeight;
+            reset();
+            ry = ((player.GetPos().x / Constants.roomWidth) * 3) + 1;
+            rx = ((player.GetPos().y/ Constants.roomHeight) * 3) + 1;
+            int x = player.GetPos().y / Constants.roomWidth;
+            int y = player.GetPos().x / Constants.roomWidth;
 
-            if (revealedMap[x, y].sprite == ' ')
-                revealedMap[x, y] = map[x, y];
-            revealedMap[x, y].foregroundColor = ConsoleColor.DarkYellow;
+
+            if (isRevealed[x,y] == false)
+            {
+                isRevealed[x, y] = true;
+                switch(map[x,y].sprite){
+                    case '^':
+                        revealedMap[rx - 1, ry - 1] = new Tile('┌', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx - 1, ry] = new Tile('─', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx - 1, ry + 1] = new Tile('┐', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx , ry - 1] = new Tile('│', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx , ry] = new Tile(' ', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx , ry + 1] = new Tile('│', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx + 1, ry - 1] = new Tile('│', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx + 1, ry] = new Tile(' ', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx + 1, ry + 1] = new Tile('│', ConsoleColor.White, ConsoleColor.Black);
+                        break;
+                    case '>':
+                        revealedMap[rx - 1, ry - 1] = new Tile('─', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx - 1, ry] = new Tile('─', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx - 1, ry + 1] = new Tile('┐', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx, ry - 1] = new Tile(' ', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx, ry] = new Tile(' ', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx, ry + 1] = new Tile('│', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx + 1, ry - 1] = new Tile('─', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx + 1, ry] = new Tile('─', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx + 1, ry + 1] = new Tile('┘', ConsoleColor.White, ConsoleColor.Black);
+                        break;
+                    case 'V':
+                        revealedMap[rx - 1, ry - 1] = new Tile('│', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx - 1, ry] = new Tile(' ', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx - 1, ry + 1] = new Tile('│', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx, ry - 1] = new Tile('│', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx, ry] = new Tile(' ', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx, ry + 1] = new Tile('│', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx + 1, ry - 1] = new Tile('└', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx + 1, ry] = new Tile('─', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx + 1, ry + 1] = new Tile('┘', ConsoleColor.White, ConsoleColor.Black);
+                        break;
+                    case '<':
+                        revealedMap[rx - 1, ry - 1] = new Tile('┌', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx - 1, ry] = new Tile('─', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx - 1, ry + 1] = new Tile('─', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx, ry - 1] = new Tile('│', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx, ry] = new Tile(' ', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx, ry + 1] = new Tile(' ', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx + 1, ry - 1] = new Tile('└', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx + 1, ry] = new Tile('─', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx + 1, ry + 1] = new Tile('─', ConsoleColor.White, ConsoleColor.Black);
+                        break;
+                    case '┐':
+                        revealedMap[rx - 1, ry - 1] = new Tile('─', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx - 1, ry] = new Tile('─', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx - 1, ry + 1] = new Tile('┐', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx, ry - 1] = new Tile(' ', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx, ry] = new Tile(' ', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx, ry + 1] = new Tile('│', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx + 1, ry - 1] = new Tile('┐', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx + 1, ry] = new Tile(' ', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx + 1, ry + 1] = new Tile('│', ConsoleColor.White, ConsoleColor.Black);
+                        break;
+                    case '┌':
+                        revealedMap[rx - 1, ry - 1] = new Tile('┌', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx - 1, ry] = new Tile('─', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx - 1, ry + 1] = new Tile('─', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx, ry - 1] = new Tile('│', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx, ry] = new Tile(' ', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx, ry + 1] = new Tile(' ', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx + 1, ry - 1] = new Tile('│', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx + 1, ry] = new Tile(' ', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx + 1, ry + 1] = new Tile('┌', ConsoleColor.White, ConsoleColor.Black);
+                        break;
+                    case '│':
+                        revealedMap[rx - 1, ry - 1] = new Tile('│', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx - 1, ry] = new Tile(' ', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx - 1, ry + 1] = new Tile('│', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx, ry - 1] = new Tile('│', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx, ry] = new Tile(' ', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx, ry + 1] = new Tile('│', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx + 1, ry - 1] = new Tile('│', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx + 1, ry] = new Tile(' ', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx + 1, ry + 1] = new Tile('│', ConsoleColor.White, ConsoleColor.Black);
+                        break;
+                    case '─':
+                        revealedMap[rx - 1, ry - 1] = new Tile('─', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx - 1, ry] = new Tile('─', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx - 1, ry + 1] = new Tile('─', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx, ry - 1] = new Tile(' ', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx, ry] = new Tile(' ', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx, ry + 1] = new Tile(' ', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx + 1, ry - 1] = new Tile('─', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx + 1, ry] = new Tile('─', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx + 1, ry + 1] = new Tile('─', ConsoleColor.White, ConsoleColor.Black);
+                        break;
+                    case '┘':
+                        revealedMap[rx - 1, ry - 1] = new Tile('┘', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx - 1, ry] = new Tile(' ', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx - 1, ry + 1] = new Tile('│', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx, ry - 1] = new Tile(' ', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx, ry] = new Tile(' ', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx, ry + 1] = new Tile('│', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx + 1, ry - 1] = new Tile('─', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx + 1, ry] = new Tile('─', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx + 1, ry + 1] = new Tile('┘', ConsoleColor.White, ConsoleColor.Black);
+                        break;
+                    case '└':
+                        revealedMap[rx - 1, ry - 1] = new Tile('│', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx - 1, ry] = new Tile(' ', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx - 1, ry + 1] = new Tile('└', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx, ry - 1] = new Tile('│', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx, ry] = new Tile(' ', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx, ry + 1] = new Tile(' ', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx + 1, ry - 1] = new Tile('└', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx + 1, ry] = new Tile('─', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx + 1, ry + 1] = new Tile('─', ConsoleColor.White, ConsoleColor.Black);
+                        break;
+                    case '┬':
+                        revealedMap[rx - 1, ry - 1] = new Tile('─', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx - 1, ry] = new Tile('─', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx - 1, ry + 1] = new Tile('─', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx, ry - 1] = new Tile(' ', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx, ry] = new Tile(' ', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx, ry + 1] = new Tile(' ', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx + 1, ry - 1] = new Tile('┐', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx + 1, ry] = new Tile(' ', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx + 1, ry + 1] = new Tile('┌', ConsoleColor.White, ConsoleColor.Black);
+                        break;
+                    case '┤':
+                        revealedMap[rx - 1, ry - 1] = new Tile('┘', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx - 1, ry] = new Tile(' ', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx - 1, ry + 1] = new Tile('│', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx, ry - 1] = new Tile(' ', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx, ry] = new Tile(' ', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx, ry + 1] = new Tile('│', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx + 1, ry - 1] = new Tile('┐', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx + 1, ry] = new Tile(' ', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx + 1, ry + 1] = new Tile('│', ConsoleColor.White, ConsoleColor.Black);
+                        break;
+                    case '├':
+                        revealedMap[rx - 1, ry - 1] = new Tile('│', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx - 1, ry] = new Tile(' ', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx - 1, ry + 1] = new Tile('└', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx, ry - 1] = new Tile('│', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx, ry] = new Tile(' ', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx, ry + 1] = new Tile(' ', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx + 1, ry - 1] = new Tile('│', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx + 1, ry] = new Tile(' ', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx + 1, ry + 1] = new Tile('┌', ConsoleColor.White, ConsoleColor.Black);
+                        break;
+                    case '┴':
+                        revealedMap[rx - 1, ry - 1] = new Tile('┘', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx - 1, ry] = new Tile(' ', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx - 1, ry + 1] = new Tile('└', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx, ry - 1] = new Tile(' ', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx, ry] = new Tile(' ', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx, ry + 1] = new Tile(' ', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx + 1, ry - 1] = new Tile('─', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx + 1, ry] = new Tile('─', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx + 1, ry + 1] = new Tile('─', ConsoleColor.White, ConsoleColor.Black);
+                        break;
+                    case '┼':
+                        revealedMap[rx - 1, ry - 1] = new Tile('┘', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx - 1, ry] = new Tile(' ', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx - 1, ry + 1] = new Tile('└', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx, ry - 1] = new Tile(' ', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx, ry] = new Tile(' ', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx, ry + 1] = new Tile(' ', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx + 1, ry - 1] = new Tile('┐', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx + 1, ry] = new Tile(' ', ConsoleColor.White, ConsoleColor.Black);
+                        revealedMap[rx + 1, ry + 1] = new Tile('┌', ConsoleColor.White, ConsoleColor.Black);
+                        break;
+                }
+            }
+            revealedMap[rx, ry] = new Tile(Constants.playerSprite.sprite, ConsoleColor.White, ConsoleColor.Black);
 
         }
 
@@ -66,6 +242,13 @@ namespace TextRPG
                 for (int j = 0; j < revealedMap.GetLength(1); j++)
                 {
                     revealedMap[i, j] = new Tile(' ', Constants.borderColor, Constants.BGColor);
+                }
+            }
+            for (int i = 0; i < isRevealed.GetLength(0); i++)
+            {
+                for (int j = 0; j < isRevealed.GetLength(1); j++)
+                {
+                    isRevealed[i, j] = false;
                 }
             }
         }

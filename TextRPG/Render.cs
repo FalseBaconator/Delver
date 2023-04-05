@@ -91,31 +91,57 @@ namespace TextRPG
             //Add Border
             for (int i = 0; i < Constants.camSize + 2; i++)
             {
-                for (int j = 0; j < Constants.camSize + 2; j++)
+                for (int j = 0; j < Constants.hudWidth + 1; j++)
                 {
-                    if (i == 0)
+                    switch (i)
                     {
-                        if (j == 0)
-                            toRend[i, j] = new Tile('╔', Constants.borderColor, Constants.BGColor);
-                        else if (j == Constants.camSize + 1)
-                            toRend[i, j] = new Tile('╗', Constants.borderColor, Constants.BGColor);
-                        else
-                            toRend[i, j] = new Tile('═', Constants.borderColor, Constants.BGColor);
-                    }else if (i == Constants.camSize + 1)
-                    {
-                        if (j == 0)
-                            toRend[i, j] = new Tile('╚', Constants.borderColor, Constants.BGColor);
-                        else if (j == Constants.camSize + 1)
-                            toRend[i, j] = new Tile('╝', Constants.borderColor, Constants.BGColor);
-                        else
-                            toRend[i, j] = new Tile('═', Constants.borderColor, Constants.BGColor);
-                    }
-                    else
-                    {
-                        if (j == 0 || j == Constants.camSize + 1)
-                            toRend[i, j] = new Tile('║', Constants.borderColor, Constants.BGColor);
-                        else
-                            toRend[i, j] = new Tile(' ', Constants.borderColor, Constants.BGColor);
+                        case 0:
+                            switch (j)
+                            {
+                                case 0:
+                                    toRend[i, j] = new Tile('╔', Constants.borderColor, Constants.BGColor);
+                                    break;
+                                case Constants.hudWidth / 2:
+                                    toRend[i, j] = new Tile('╦', Constants.borderColor, Constants.BGColor);
+                                    break;
+                                case Constants.hudWidth:
+                                    toRend[i, j] = new Tile('╗', Constants.borderColor, Constants.BGColor);
+                                    break;
+                                default:
+                                    toRend[i, j] = new Tile('═', Constants.borderColor, Constants.BGColor);
+                                    break;
+                            }
+                            break;
+                        case Constants.camSize + 1:
+                            switch (j)
+                            {
+                                case 0:
+                                    toRend[i, j] = new Tile('╚', Constants.borderColor, Constants.BGColor);
+                                    break;
+                                case Constants.hudWidth / 2:
+                                    toRend[i, j] = new Tile('╩', Constants.borderColor, Constants.BGColor);
+                                    break;
+                                case Constants.hudWidth:
+                                    toRend[i, j] = new Tile('╝', Constants.borderColor, Constants.BGColor);
+                                    break;
+                                default:
+                                    toRend[i, j] = new Tile('═', Constants.borderColor, Constants.BGColor);
+                                    break;
+                            }
+                            break;
+                        default:
+                            switch (j)
+                            {
+                                case 0:
+                                case Constants.hudWidth / 2:
+                                case Constants.hudWidth:
+                                    toRend[i, j] = new Tile('║', Constants.borderColor, Constants.BGColor);
+                                    break;
+                                default:
+                                    toRend[i, j] = new Tile(' ', Constants.borderColor, Constants.BGColor);
+                                    break;
+                            }
+                            break;
                     }
                 }
             }
@@ -132,11 +158,11 @@ namespace TextRPG
             //Add MiniMap
             if (Globals.currentFloor < Constants.BossFloor)
             {
-                for (int i = 0; i < Constants.mapHeight; i++)
+                for (int i = 0; i < mini.revealedMap.GetLength(0); i++)
                 {
-                    for (int j = 0; j < Constants.mapWidth; j++)
+                    for (int j = 0; j < mini.revealedMap.GetLength(1); j++)
                     {
-                        toRend[i, j + Constants.camSize + 2] = mini.revealedMap[i, j];
+                        toRend[i+1, j + Constants.camSize + 2] = mini.revealedMap[i, j];
                     }
                 }
             }
