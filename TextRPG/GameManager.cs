@@ -36,6 +36,10 @@ namespace TextRPG
 
         public LoadManager loadManager;
 
+        public StartScreen startScreen = new StartScreen();
+
+        public EndScreen endScreen = new EndScreen();
+
         public GameManager()
         {
             render = new Render();
@@ -71,13 +75,14 @@ namespace TextRPG
         
         public void Play()
         {
+            startScreen.Display();
             loadManager.FloorSetUp();
             while(play == true)
             {
                 Update();
                 Draw();
             }
-            Conclusion();
+            Conclusion(win);
         }
 
         public void Draw()  //Draw Everything
@@ -98,37 +103,16 @@ namespace TextRPG
             play = false;
         }
 
-        public void Conclusion()
+        public void Conclusion(bool win)
         {
-            if (win)                        //
-            {                               //
-                Console.Clear();            //  Win
-                Console.ResetColor();       //
-                Console.Write("You Win!");  //
-                Console.ReadKey(true);      //
-            }                               //
-            else if (player.isAlive() == false)                     //
-            {                                                       //
-                Console.ReadKey(true);                              //
-                Console.Clear();                                    //  Lose
-                Console.ResetColor();                               //
-                Console.Write("You are dead, no big surprise");     //
-                Console.ReadKey(true);                              //
-            }                                                       //
-            else if(inputManager.GetKey() == ConsoleKey.Escape) //
-            {                                                   //
-                Console.Clear();                                //
-                Console.ResetColor();                           //  Quit
-                Console.Write("Hope to see you again!");        //
-                Console.ReadKey(true);                          //
-            }                                                   //
-            else                                                                                                                                //
-            {                                                                                                                                   //
-                Console.Clear();                                                                                                                //
-                Console.ResetColor();                                                                                                           //  Shouldn't be possible
-                Console.Write("I don't know how you saw this message, but contact RWohler and tell them what caused your playthrough to end."); //
-                Console.ReadKey(true);                                                                                                          //
-            }                                                                                                                                   //
+            if (win)
+            {
+                endScreen.Display(EndScreen.EndCon.Win);
+            }
+            else
+            {
+                endScreen.Display(EndScreen.EndCon.Lose);
+            }
         }
 
     }

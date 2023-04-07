@@ -46,6 +46,7 @@
     <Compile Include="Boss.cs" />
     <Compile Include="Camera.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="EndScreen.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="EnemyManager.cs" />
     <Compile Include="Exit.cs" />
@@ -61,6 +62,7 @@
     <Compile Include="LoadManager.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="MapChunk.cs" />
+    <Compile Include="StartScreen.cs" />
     <Compile Include="MapGenerator.cs" />
     <Compile Include="MiniMap.cs" />
     <Compile Include="Player.cs" />

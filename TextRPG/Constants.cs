@@ -25,25 +25,25 @@ namespace TextRPG
         public const int slimeBaseHP = 1;
         public const int slimeBaseAttack = 1;
         public static Tile slimeSprite = new Tile('O', ConsoleColor.Cyan, ConsoleColor.Black);
-        public const string slimeName = "Slime";
+        public const string slimeName = "Slime    ";
 
         //Goblin Settings
         public const int goblinBaseHP = 5;
         public const int goblinBaseAttack = 2;
         public static Tile goblinSprite = new Tile('X', ConsoleColor.DarkGreen, ConsoleColor.Black);
-        public const string goblinName = "Goblin";
+        public const string goblinName = "Goblin    ";
 
         //Kobold Settings
         public const int koboldBaseHP = 3;
         public const int koboldBaseAttack = 1;
         public static Tile koboldSprite = new Tile('X', ConsoleColor.DarkRed, ConsoleColor.Black);
-        public const string koboldName = "Kobold";
+        public const string koboldName = "Kobold   ";
 
         //Boss Settings
         public const int bossBaseHP = 200;
         public const int bossBaseAttack = 3;
         public static Tile bossSprite = new Tile('M', ConsoleColor.DarkRed, ConsoleColor.Black);
-        public const string bossName = "Boss";
+        public const string bossName = "Boss     ";
 
         //Item Settings
         public const int itemAmount = 50;
