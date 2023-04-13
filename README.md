@@ -16,7 +16,7 @@ Exit: Esc
 
 # Objective:
 
-Find the exit/macguffin that lets you win the game. (might become a staircase that leads to more floors or boss battle)
+Find the stairs on each floor until you defeat the boss monster.
 
 # Items:
 
@@ -25,3 +25,13 @@ Red *: Attack Boost
 Green +: Health Restore
 
 Blue #: Shield Restore
+
+# Monsters:
+
+Cyan O: Slime, moves randomly
+
+Dark Green X: Goblin, chases player after they get too close
+
+Dark Red X: Kobold, runs from player after they get too close
+
+Dark Red M: Boss Monster, chases player
