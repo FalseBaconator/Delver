@@ -64,6 +64,7 @@ namespace TextRPG
             render.setHud(hud);
             render.setCam(cam);
             cam.Update();
+            exit.hide();
             itemManager.GenerateItems(player);
             enemyManager.GenerateBoss(player);
             gManager.Draw();

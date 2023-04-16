@@ -41,6 +41,11 @@ namespace TextRPG
             }
         }
 
+        public void hide()
+        {
+            pos = new Position(Constants.mapHeight * Constants.roomHeight - 1, Constants.mapWidth * Constants.roomWidth - 1);
+        }
+
         public void Draw()
         {
             if (toShow)
