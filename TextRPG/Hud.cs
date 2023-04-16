@@ -30,6 +30,13 @@ namespace TextRPG
         {
             Console.ResetColor();
 
+            for (int i = 0; i < hudArray.GetLength(0); i++)
+            {
+                for (int j = 0; j < hudArray.GetLength(1); j++)
+                {
+                    hudArray[i, j] = new Tile(' ', ConsoleColor.White, ConsoleColor.Black);
+                }
+            }
 
 
             //Set Message Box
