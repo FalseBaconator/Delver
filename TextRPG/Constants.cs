@@ -18,7 +18,7 @@ namespace TextRPG
         public static Tile playerSprite = new Tile('@', ConsoleColor.White, ConsoleColor.Black);
 
         //Enemy Settings
-        public const int EnemySightRange = 5;
+        public const int EnemySightRange = 7;
         public const int EnemyAmount = 50;
 
         //Slime Settings
