@@ -87,12 +87,15 @@ namespace TextRPG
             int enemyStatIndex = 0;
             bool enemyNextLine = false;
             string enemyStatString = " ";
+            int playerTextOffset = 0;
+            int enemyTextOffset = 0;
             if(enemy != null)
                 enemyStatString = enemy.GetName() + "|" + Constants.enemyStatsList;
             for (int i = Constants.messageBoxHeight + 1; i <= Constants.messageBoxHeight + 1 + Constants.statsHeight; i++)
             {
                 playerNextLine = false;
                 enemyNextLine = false;
+                playerTextOffset = 0;
                 for (int j = 0; j <= Constants.hudWidth; j++)
                 {
                     if (i == Constants.messageBoxHeight + 1)
@@ -135,43 +138,123 @@ namespace TextRPG
                                 {
                                     switch (Constants.playerStatsList[playerStatIndex])
                                     {
-                                        case 'X':
-                                            hudArray[i, j] = new Tile(player.GetHealth().ToString()[0], Constants.borderColor, Constants.BGColor);
+                                        case '1':
+                                            hudArray[i, j + playerTextOffset] = new Tile(player.GetHealth().ToString()[0], Constants.borderColor, Constants.BGColor);
                                             if (player.GetHealth() >= 10)
                                             {
-                                                hudArray[i, j + 1] = new Tile(player.GetHealth().ToString()[1], Constants.borderColor, Constants.BGColor);
+                                                playerTextOffset++;
+                                                hudArray[i, j + playerTextOffset] = new Tile(player.GetHealth().ToString()[1], Constants.borderColor, Constants.BGColor);
                                                 if(player.GetHealth() >= 100)
-                                                    hudArray[i, j+2] = new Tile(player.GetHealth().ToString()[2], Constants.borderColor, Constants.BGColor);
+                                                {
+                                                    playerTextOffset++;
+                                                    hudArray[i, j + playerTextOffset] = new Tile(player.GetHealth().ToString()[2], Constants.borderColor, Constants.BGColor);
+                                                }
                                             }
                                             break;
-                                        case 'Y':
-                                            hudArray[i, j] = new Tile(player.GetShield().ToString()[0], Constants.borderColor, Constants.BGColor);
+                                        case '2':
+                                            hudArray[i, j + playerTextOffset] = new Tile(player.GetMaxHealth().ToString()[0], Constants.borderColor, Constants.BGColor);
+                                            if (player.GetMaxHealth() >= 10)
+                                            {
+                                                playerTextOffset++;
+                                                hudArray[i, j + playerTextOffset] = new Tile(player.GetMaxHealth().ToString()[1], Constants.borderColor, Constants.BGColor);
+                                                if (player.GetMaxHealth() >= 100)
+                                                {
+                                                    playerTextOffset++;
+                                                    hudArray[i, j + playerTextOffset] = new Tile(player.GetMaxHealth().ToString()[2], Constants.borderColor, Constants.BGColor);
+                                                }
+                                            }
+                                            break;
+                                        case '3':
+                                            hudArray[i, j + playerTextOffset] = new Tile(player.GetShield().ToString()[0], Constants.borderColor, Constants.BGColor);
                                             if (player.GetShield() >= 10)
                                             {
-                                                hudArray[i, j + 1] = new Tile(player.GetShield().ToString()[1], Constants.borderColor, Constants.BGColor);
+                                                playerTextOffset++;
+                                                hudArray[i, j + playerTextOffset] = new Tile(player.GetShield().ToString()[1], Constants.borderColor, Constants.BGColor);
                                                 if (player.GetShield() >= 100)
-                                                    hudArray[i, j + 2] = new Tile(player.GetShield().ToString()[2], Constants.borderColor, Constants.BGColor);
+                                                {
+                                                    playerTextOffset++;
+                                                    hudArray[i, j + playerTextOffset] = new Tile(player.GetShield().ToString()[2], Constants.borderColor, Constants.BGColor);
+                                                }
                                             }
                                             break;
-                                        case 'Z':
-                                            hudArray[i, j] = new Tile(player.GetATK().ToString()[0], Constants.borderColor, Constants.BGColor);
+                                        case '4':
+                                            hudArray[i, j + playerTextOffset] = new Tile(player.GetMaxShield().ToString()[0], Constants.borderColor, Constants.BGColor);
+                                            if (player.GetMaxShield() >= 10)
+                                            {
+                                                playerTextOffset++;
+                                                hudArray[i, j + playerTextOffset] = new Tile(player.GetMaxShield().ToString()[1], Constants.borderColor, Constants.BGColor);
+                                                if (player.GetMaxShield() >= 100)
+                                                {
+                                                    playerTextOffset++;
+                                                    hudArray[i, j + playerTextOffset] = new Tile(player.GetMaxShield().ToString()[2], Constants.borderColor, Constants.BGColor);
+                                                }
+                                            }
+                                            break;
+                                        case '5':
+                                            hudArray[i, j + playerTextOffset] = new Tile(player.GetATK().ToString()[0], Constants.borderColor, Constants.BGColor);
                                             if (player.GetATK() >= 10)
                                             {
-                                                hudArray[i, j + 1] = new Tile(player.GetATK().ToString()[1], Constants.borderColor, Constants.BGColor);
+                                                playerTextOffset++;
+                                                hudArray[i, j + playerTextOffset] = new Tile(player.GetATK().ToString()[1], Constants.borderColor, Constants.BGColor);
                                                 if (player.GetATK() >= 100)
-                                                    hudArray[i, j + 2] = new Tile(player.GetATK().ToString()[2], Constants.borderColor, Constants.BGColor);
+                                                {
+                                                    playerTextOffset++;
+                                                    hudArray[i, j + playerTextOffset] = new Tile(player.GetATK().ToString()[2], Constants.borderColor, Constants.BGColor);
+                                                }
                                             }
                                             break;
-                                        case '$':
-                                            hudArray[i, j] = new Tile(Globals.currentFloor.ToString()[0], Constants.borderColor, Constants.BGColor);
-                                            if (Globals.currentFloor >= 10)
-                                                hudArray[i, j + 1] = new Tile(Globals.currentFloor.ToString()[1], Constants.borderColor, Constants.BGColor);
+                                        case '6':
+                                            hudArray[i, j + playerTextOffset] = new Tile(player.GetLevel().ToString()[0], Constants.borderColor, Constants.BGColor);
+                                            if (player.GetLevel() >= 10)
+                                            {
+                                                playerTextOffset++;
+                                                hudArray[i, j + playerTextOffset] = new Tile(player.GetLevel().ToString()[1], Constants.borderColor, Constants.BGColor);
+                                                if (player.GetLevel() >= 100)
+                                                {
+                                                    playerTextOffset++;
+                                                    hudArray[i, j + playerTextOffset] = new Tile(player.GetLevel().ToString()[2], Constants.borderColor, Constants.BGColor);
+                                                }
+                                            }
                                             break;
-                                        case '^':
-                                            hudArray[i, j] = new Tile(Constants.BossFloor.ToString()[0], Constants.borderColor, Constants.BGColor);
+                                        case '7':
+                                            hudArray[i, j + playerTextOffset] = new Tile(player.GetXP().ToString()[0], Constants.borderColor, Constants.BGColor);
+                                            if (player.GetXP() >= 10)
+                                            {
+                                                playerTextOffset++;
+                                                hudArray[i, j + playerTextOffset] = new Tile(player.GetXP().ToString()[1], Constants.borderColor, Constants.BGColor);
+                                                if (player.GetXP() >= 100)
+                                                {
+                                                    playerTextOffset++;
+                                                    hudArray[i, j + playerTextOffset] = new Tile(player.GetXP().ToString()[2], Constants.borderColor, Constants.BGColor);
+                                                }
+                                            }
+                                            break;
+                                        case '8':
+                                            hudArray[i, j + playerTextOffset] = new Tile(Constants.playerXPThreshold.ToString()[0], Constants.borderColor, Constants.BGColor);
+                                            if (Constants.playerXPThreshold >= 10)
+                                            {
+                                                playerTextOffset++;
+                                                hudArray[i, j + playerTextOffset] = new Tile(Constants.playerXPThreshold.ToString()[1], Constants.borderColor, Constants.BGColor);
+                                                if (Constants.playerXPThreshold >= 100)
+                                                {
+                                                    playerTextOffset++;
+                                                    hudArray[i, j + playerTextOffset] = new Tile(Constants.playerXPThreshold.ToString()[2], Constants.borderColor, Constants.BGColor);
+                                                }
+                                            }
+                                            break;
+                                        case '9':
+                                            hudArray[i, j + playerTextOffset] = new Tile(Globals.currentFloor.ToString()[0], Constants.borderColor, Constants.BGColor);
+                                            if (Globals.currentFloor >= 10)
+                                            {
+                                                playerTextOffset++;
+                                                hudArray[i, j + playerTextOffset] = new Tile(Globals.currentFloor.ToString()[1], Constants.borderColor, Constants.BGColor);
+                                            }
+                                            break;
+                                        case '0':
+                                            hudArray[i, j + playerTextOffset] = new Tile(Constants.BossFloor.ToString()[0], Constants.borderColor, Constants.BGColor);
                                             break;
                                         default:
-                                            hudArray[i, j] = new Tile(Constants.playerStatsList[playerStatIndex], Constants.borderColor, Constants.BGColor);
+                                            hudArray[i, j + playerTextOffset] = new Tile(Constants.playerStatsList[playerStatIndex], Constants.borderColor, Constants.BGColor);
                                             break;
                                     }
                                     playerStatIndex++;
@@ -195,7 +278,7 @@ namespace TextRPG
                                     {
                                         switch (enemyStatString[enemyStatIndex])
                                         {
-                                            case 'X':
+                                            case '1':
                                                 hudArray[i, j] = new Tile(enemy.GetHealth().ToString()[0], Constants.borderColor, Constants.BGColor);
                                                 if (enemy.GetHealth() >= 10)
                                                 {
@@ -211,13 +294,29 @@ namespace TextRPG
                                                     hudArray[i, j + 2] = new Tile(' ', Constants.borderColor, Constants.BGColor);
                                                 }
                                                 break;
-                                            case 'Z':
+                                            case '2':
                                                 hudArray[i, j] = new Tile(enemy.GetATK().ToString()[0], Constants.borderColor, Constants.BGColor);
                                                 if (enemy.GetATK() >= 10)
                                                 {
                                                     hudArray[i, j + 1] = new Tile(enemy.GetATK().ToString()[1], Constants.borderColor, Constants.BGColor);
                                                     if (enemy.GetATK() >= 100)
                                                         hudArray[i, j + 2] = new Tile(enemy.GetATK().ToString()[2], Constants.borderColor, Constants.BGColor);
+                                                    else
+                                                        hudArray[i, j + 2] = new Tile(' ', Constants.borderColor, Constants.BGColor);
+                                                }
+                                                else
+                                                {
+                                                    hudArray[i, j + 1] = new Tile(' ', Constants.borderColor, Constants.BGColor);
+                                                    hudArray[i, j + 2] = new Tile(' ', Constants.borderColor, Constants.BGColor);
+                                                }
+                                                break;
+                                            case '3':
+                                                hudArray[i, j] = new Tile(enemy.GetXP().ToString()[0], Constants.borderColor, Constants.BGColor);
+                                                if (enemy.GetATK() >= 10)
+                                                {
+                                                    hudArray[i, j + 1] = new Tile(enemy.GetXP().ToString()[1], Constants.borderColor, Constants.BGColor);
+                                                    if (enemy.GetATK() >= 100)
+                                                        hudArray[i, j + 2] = new Tile(enemy.GetXP().ToString()[2], Constants.borderColor, Constants.BGColor);
                                                     else
                                                         hudArray[i, j + 2] = new Tile(' ', Constants.borderColor, Constants.BGColor);
                                                 }

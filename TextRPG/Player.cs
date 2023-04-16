@@ -9,17 +9,17 @@ namespace TextRPG
     internal class Player : GameCharacter
     {
         private ConsoleKey key;
-        private int shield;
-        private int maxShield;
+        private int shield = Constants.playerBaseShield;
+        private int maxShield = Constants.playerBaseShield;
         private InputManager inputManager;
         private ItemManager itemManager;
         private Exit exit;
         private Hud hud;
+        private int XP = 0;
+        private int LVL = 1;
 
         public Player(Position pos, Map map, EnemyManager enemyManager, Render rend, GameManager manager, InputManager inputManager, ItemManager itemManager, Exit exit) : base(pos, Constants.playerBaseHP, Constants.playerBaseAttack, Constants.playerSprite, map, enemyManager, rend, manager)
         {
-            shield = Constants.playerBaseShield;
-            maxShield = Constants.playerBaseShield;
             this.inputManager = inputManager;
             this.itemManager = itemManager;
             this.exit = exit;
@@ -77,8 +77,13 @@ namespace TextRPG
         public void AttackEnemy(Enemy enemy) //Attacks the provided enemy and gives the interaction message
         {
             enemy.TakeDMG(ATK);
-            if (enemy.GetHealth() > 0) hud.SetMessage("Player attacked " + enemy.GetName());
-            else hud.SetMessage("Player killed " + enemy.GetName());
+            if (enemy.GetHealth() > 0) hud.SetMessage("You attacked " + enemy.GetName());
+            else hud.SetMessage("You killed " + enemy.GetName());
+            if (XP >= Constants.playerXPThreshold)
+            {
+                XP -= Constants.playerXPThreshold;
+                LevelUp();
+            }
         }
 
         public override void TakeDMG(int DMG)
@@ -119,6 +124,11 @@ namespace TextRPG
             ATK += raise;
         }
 
+        public int GetMaxHP()
+        {
+            return maxHP;
+        }
+
         public int GetShield()
         {
             return shield;
@@ -127,6 +137,31 @@ namespace TextRPG
         public int GetMaxShield()
         {
             return maxShield;
+        }
+
+        public int GetLevel()
+        {
+            return LVL;
+        }
+
+        public int GetXP()
+        {
+            return XP;
+        }
+
+        private void LevelUp()
+        {
+            hud.SetMessage("Player Leveled Up!");
+            LVL++;
+            maxHP++;
+            maxShield++;
+            HP++;
+            shield++;
+        }
+
+        public void giveXP(int reward)
+        {
+            XP += reward;
         }
 
         public void SetHud(Hud hud)

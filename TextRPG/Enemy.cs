@@ -22,13 +22,16 @@ namespace TextRPG
 
         protected Exit exit;
 
-        public Enemy(Position pos, int HP, int ATK, Tile sprite, string name, Map map, Player player, EnemyManager enemyManager, ItemManager itemManager, Render rend, GameManager manager, Hud hud, Exit exit) : base(pos, HP, ATK, sprite, map, enemyManager, rend, manager)
+        protected int XPReward;
+
+        public Enemy(Position pos, int HP, int ATK, Tile sprite, string name, Map map, Player player, EnemyManager enemyManager, ItemManager itemManager, Render rend, GameManager manager, Hud hud, Exit exit, int XPReward) : base(pos, HP, ATK, sprite, map, enemyManager, rend, manager)
         {
             this.name = name;
             this.player = player;
             this.itemManager = itemManager;
             this.hud = hud;
             this.exit = exit;
+            this.XPReward = XPReward;
         }
 
         public abstract void Update();
@@ -95,7 +98,11 @@ namespace TextRPG
         public override void TakeDMG(int DMG)
         {
             base.TakeDMG(DMG);
-            if (HP <= 0) enemyManager.RemoveEnemy(this);
+            if (HP <= 0)
+            {
+                enemyManager.RemoveEnemy(this);
+                player.giveXP(XPReward);
+            }
         }
 
         public void AttackPlayer(Player target)
@@ -124,6 +131,11 @@ namespace TextRPG
             }
 
             return check;
+        }
+
+        public int GetXP()
+        {
+            return XPReward;
         }
 
         public bool IsSpaceAvailable(Position pos)

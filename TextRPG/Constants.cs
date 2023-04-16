@@ -15,6 +15,7 @@ namespace TextRPG
         public const int playerBaseHP = 5;
         public const int playerBaseShield = 5;
         public const int playerBaseAttack = 2;
+        public const int playerXPThreshold = 25;
         public static Tile playerSprite = new Tile('@', ConsoleColor.White, ConsoleColor.Black);
 
         //Enemy Settings
@@ -24,18 +25,21 @@ namespace TextRPG
         //Slime Settings
         public const int slimeBaseHP = 1;
         public const int slimeBaseAttack = 1;
+        public const int slimeXP = 1;
         public static Tile slimeSprite = new Tile('O', ConsoleColor.Cyan, ConsoleColor.Black);
         public const string slimeName = "Slime";
 
         //Goblin Settings
         public const int goblinBaseHP = 5;
         public const int goblinBaseAttack = 2;
+        public const int goblinXP = 5;
         public static Tile goblinSprite = new Tile('X', ConsoleColor.DarkGreen, ConsoleColor.Black);
         public const string goblinName = "Goblin";
 
         //Kobold Settings
         public const int koboldBaseHP = 3;
         public const int koboldBaseAttack = 1;
+        public const int koboldXP = 2;
         public static Tile koboldSprite = new Tile('X', ConsoleColor.DarkRed, ConsoleColor.Black);
         public const string koboldName = "Kobold";
 
@@ -80,10 +84,10 @@ namespace TextRPG
 
         //HUD Settings
         public const int hudWidth = 33;
-        public const int messageBoxHeight = 4;
-        public const int statsHeight = 6;
-        public const string playerStatsList = "Player|HP: X|SHLD: Y|ATK: Z|FLOOR: $/^";
-        public const string enemyStatsList = "HP: X|ATK: Z";
+        public const int messageBoxHeight = 3;
+        public const int statsHeight = 8;
+        public const string playerStatsList = "Player|HP: 1/2|SHLD: 3/4|ATK: 5|LVL: 6|XP: 7/8|FLOOR: 9/0";
+        public const string enemyStatsList = "HP: 1|ATK: 2|XP: 3";
 
         //Exit Settings
         public static Tile exitSprite = new Tile('¤', ConsoleColor.Yellow, ConsoleColor.Black);
