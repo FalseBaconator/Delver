@@ -44,7 +44,7 @@ namespace TextRPG
         public const string koboldName = "Kobold";
 
         //Boss Settings
-        public const int bossBaseHP = 200;
+        public const int bossBaseHP = 150;
         public const int bossBaseAttack = 3;
         public static Tile bossSprite = new Tile('M', ConsoleColor.DarkRed, ConsoleColor.Black);
         public const string bossName = "Boss";

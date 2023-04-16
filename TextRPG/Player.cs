@@ -157,6 +157,7 @@ namespace TextRPG
             maxShield++;
             HP++;
             shield++;
+            ATK++;
         }
 
         public void giveXP(int reward)

@@ -41,18 +41,18 @@ namespace TextRPG
                     if (ItemAt(new Position(x, y)) == null && (Math.Abs(player.GetPos().x - x) > 5 || Math.Abs(player.GetPos().y - y) > 5) && map.isFloorAt(new Position(x, y)) && exit.isExitAt(new Position(x,y), false) == false) //
                     {
                         Position pos = new Position(x, y);                                                                                                                      //
-                        switch (rand.Next(0, 3))                                                                                                                                //
+                        switch (rand.Next(0, 2))                                                                                                                                //
                         {                                                                                                                                                       //
                             case 0:                                                                                                                                             //
                                 items.Add(new Item(Constants.healName, pos, rend));                                                                                            //  Generates a random item if spot isn't occupied
                                 itemMap[x, y] = items[items.Count - 1];
                                 break;                                                                                                                                          //
                             case 1:                                                                                                                                             //
-                                items.Add(new Item(Constants.ATKBuffName, pos, rend));                                                                                         //
+                                items.Add(new Item(Constants.ShieldRepairName, pos, rend));                                                                                         //
                                 itemMap[x, y] = items[items.Count - 1];
                                 break;                                                                                                                                          //
                             case 2:                                                                                                                                             //
-                                items.Add(new Item(Constants.ShieldRepairName, pos, rend));                                                                                    //
+                                items.Add(new Item(Constants.ATKBuffName, pos, rend));                                                                                    //
                                 itemMap[x, y] = items[items.Count - 1];
                                 break;                                                                                                                                          //
                         }                                                                                                                                                       //
