@@ -20,12 +20,15 @@ namespace TextRPG
 
         protected Hud hud;
 
-        public Enemy(Position pos, int HP, int ATK, Tile sprite, string name, Map map, Player player, EnemyManager enemyManager, ItemManager itemManager, Render rend, GameManager manager, Hud hud) : base(pos, HP, ATK, sprite, map, enemyManager, rend, manager)
+        protected Exit exit;
+
+        public Enemy(Position pos, int HP, int ATK, Tile sprite, string name, Map map, Player player, EnemyManager enemyManager, ItemManager itemManager, Render rend, GameManager manager, Hud hud, Exit exit) : base(pos, HP, ATK, sprite, map, enemyManager, rend, manager)
         {
             this.name = name;
             this.player = player;
             this.itemManager = itemManager;
             this.hud = hud;
+            this.exit = exit;
         }
 
         public abstract void Update();
@@ -133,6 +136,8 @@ namespace TextRPG
             if (itemManager.ItemAt(pos) != null)
                 available = false;
             if (player.isPlayerAt(pos))
+                available = false;
+            if(exit.isExitAt(pos, false))
                 available = false;
 
             return available;

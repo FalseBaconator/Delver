@@ -9,7 +9,7 @@ namespace TextRPG
     internal class Kobold : Enemy
     {
 
-        public Kobold(Position pos, Map map, Player player, EnemyManager enemyManager, ItemManager itemManager, Render rend, GameManager gameManager, Hud hud) : base(pos, Constants.koboldBaseHP, Constants.koboldBaseAttack, Constants.koboldSprite, Constants.koboldName, map, player, enemyManager, itemManager, rend, gameManager, hud)
+        public Kobold(Position pos, Map map, Player player, EnemyManager enemyManager, ItemManager itemManager, Render rend, GameManager gameManager, Hud hud, Exit exit) : base(pos, Constants.koboldBaseHP, Constants.koboldBaseAttack, Constants.koboldSprite, Constants.koboldName, map, player, enemyManager, itemManager, rend, gameManager, hud, exit)
         {
 
         }
