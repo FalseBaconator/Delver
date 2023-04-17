@@ -14,18 +14,20 @@ namespace TextRPG
         private GameManager gManager;
         private Exit exit;
         private Hud hud;
+        private SoundManager soundManager;
 
         public void SetHud(Hud hud)
         {
             this.hud = hud;
         }
 
-        public ItemManager(Map map, Render rend, GameManager gManager, Exit exit)
+        public ItemManager(Map map, Render rend, GameManager gManager, Exit exit, SoundManager soundManager)
         {
             this.rend = rend;
             this.map = map;
             this.gManager = gManager;
             this.exit = exit;
+            this.soundManager = soundManager;
         }
 
         public void GenerateItems(Player player)
@@ -44,17 +46,13 @@ namespace TextRPG
                         switch (rand.Next(0, 2))                                                                                                                                //
                         {                                                                                                                                                       //
                             case 0:                                                                                                                                             //
-                                items.Add(new Item(Constants.healName, pos, rend));                                                                                            //  Generates a random item if spot isn't occupied
+                                items.Add(new Item(Constants.healName, pos, rend, soundManager));                                                                                            //  Generates a random item if spot isn't occupied
                                 itemMap[x, y] = items[items.Count - 1];
                                 break;                                                                                                                                          //
                             case 1:                                                                                                                                             //
-                                items.Add(new Item(Constants.ShieldRepairName, pos, rend));                                                                                         //
+                                items.Add(new Item(Constants.ShieldRepairName, pos, rend, soundManager));                                                                                         //
                                 itemMap[x, y] = items[items.Count - 1];
-                                break;                                                                                                                                          //
-                            case 2:                                                                                                                                             //
-                                items.Add(new Item(Constants.ATKBuffName, pos, rend));                                                                                    //
-                                itemMap[x, y] = items[items.Count - 1];
-                                break;                                                                                                                                          //
+                                break;                                                                                                                                   //
                         }                                                                                                                                                       //
                     }                                                                                                                                                           //
                 }
@@ -70,11 +68,11 @@ namespace TextRPG
                         switch (rand.Next(0, 2))                                                                                                                                //
                         {                                                                                                                                                       //
                             case 0:                                                                                                                                             //
-                                items.Add(new Item(Constants.healName, pos, rend));                                                                                            //  Generates a random item if spot isn't occupied
+                                items.Add(new Item(Constants.healName, pos, rend, soundManager));                                                                                            //  Generates a random item if spot isn't occupied
                                 itemMap[x, y] = items[items.Count - 1];
                                 break;                                                                                                                                          //
                             case 1:                                                                                                                                             //
-                                items.Add(new Item(Constants.ShieldRepairName, pos, rend));                                                                                    //
+                                items.Add(new Item(Constants.ShieldRepairName, pos, rend, soundManager));                                                                                    //
                                 itemMap[x, y] = items[items.Count - 1];
                                 break;                                                                                                                                          //
                         }                                                                                                                                                       //

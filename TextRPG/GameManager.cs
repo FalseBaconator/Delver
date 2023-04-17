@@ -38,19 +38,23 @@ namespace TextRPG
 
         public StartScreen startScreen = new StartScreen();
 
-        public EndScreen endScreen = new EndScreen();
+        public EndScreen endScreen;
+
+        public SoundManager soundManager = new SoundManager();
+
 
         public GameManager()
         {
+            endScreen = new EndScreen(soundManager);
             render = new Render();
             mapGen = new MapGenerator();
             render.setGameManager(this);
             inputManager = new InputManager(this);
             map = new Map(mapGen.RandomizeMap(), render);
             exit = new Exit(this, render, map);
-            itemManager = new ItemManager(map, render, this, exit);
-            enemyManager = new EnemyManager(map, render, itemManager, this, exit);
-            player = new Player(new Position((Constants.mapWidth/2) * Constants.roomWidth + (Constants.roomWidth/2), (Constants.mapHeight / 2) * Constants.roomHeight + (Constants.roomHeight / 2)), map, enemyManager, render, this, inputManager, itemManager, exit);
+            itemManager = new ItemManager(map, render, this, exit, soundManager);
+            enemyManager = new EnemyManager(map, render, itemManager, this, exit, soundManager);
+            player = new Player(new Position((Constants.mapWidth/2) * Constants.roomWidth + (Constants.roomWidth/2), (Constants.mapHeight / 2) * Constants.roomHeight + (Constants.roomHeight / 2)), map, enemyManager, render, this, inputManager, itemManager, exit, soundManager);
             miniMap = new MiniMap(mapGen.makeMiniMap(), player);
             hud = new Hud(player, enemyManager, itemManager, this);
             cam = new Camera(player, this);

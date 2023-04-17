@@ -18,7 +18,7 @@ namespace TextRPG
         private int XP = 0;
         private int LVL = 1;
 
-        public Player(Position pos, Map map, EnemyManager enemyManager, Render rend, GameManager manager, InputManager inputManager, ItemManager itemManager, Exit exit) : base(pos, Constants.playerBaseHP, Constants.playerBaseAttack, Constants.playerSprite, map, enemyManager, rend, manager)
+        public Player(Position pos, Map map, EnemyManager enemyManager, Render rend, GameManager manager, InputManager inputManager, ItemManager itemManager, Exit exit, SoundManager soundManager) : base(pos, Constants.playerBaseHP, Constants.playerBaseAttack, Constants.playerSprite, map, enemyManager, rend, manager, soundManager)
         {
             this.inputManager = inputManager;
             this.itemManager = itemManager;

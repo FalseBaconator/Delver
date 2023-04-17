@@ -19,12 +19,13 @@ namespace TextRPG
         protected EnemyManager enemyManager;
         protected Render rend;
         protected GameManager manager;
+        protected SoundManager soundManager;
 
         protected bool attacked = false;
 
         protected bool alive = true;
 
-        public GameCharacter(Position pos, int HP, int ATK, Tile sprite, Map map, EnemyManager enemyManager, Render rend, GameManager manager)
+        public GameCharacter(Position pos, int HP, int ATK, Tile sprite, Map map, EnemyManager enemyManager, Render rend, GameManager manager, SoundManager soundManager)
         {
             this.pos = pos;
             this.HP = HP;
@@ -35,6 +36,7 @@ namespace TextRPG
             this.enemyManager = enemyManager;
             this.rend = rend;
             this.manager = manager;
+            this.soundManager = soundManager;
         }
 
         public virtual void Draw()  //Assigns proper properties to rend arrays
@@ -53,6 +55,7 @@ namespace TextRPG
 
         public virtual void TakeDMG(int DMG)    //Takes DMG and may kill character
         {
+            soundManager.Play(SoundManager.Noise.hit);
             HP -= DMG;
             attacked = true;
             if (HP <= 0)

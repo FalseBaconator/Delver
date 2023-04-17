@@ -62,6 +62,7 @@
     <Compile Include="LoadManager.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="MapChunk.cs" />
+    <Compile Include="SoundManager.cs" />
     <Compile Include="StartScreen.cs" />
     <Compile Include="MapGenerator.cs" />
     <Compile Include="MiniMap.cs" />
@@ -76,6 +77,18 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Audio\hitHurt.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Audio\Loss.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Audio\pickUp.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Audio\Victory.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="MapChunkCategories\B.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -15,12 +15,15 @@ namespace TextRPG
 
         private Render rend;
 
+        private SoundManager soundManager;
 
-        public Item(string name, Position pos, Render rend)
+
+        public Item(string name, Position pos, Render rend, SoundManager soundManager)
         {
             this.name = name;
             this.pos = pos;
             this.rend = rend;
+            this.soundManager = soundManager;
             switch (name)
             {
                 case Constants.healName:
@@ -33,10 +36,12 @@ namespace TextRPG
                     sprite = Constants.ShieldRepairSprite;
                     break;
             }
+
         }
 
         public void PickUp(Player player)    //Has the appropriate effect based on item
         {
+            soundManager.Play(SoundManager.Noise.pickUp);
             switch (name)
             {
                 case Constants.healName:

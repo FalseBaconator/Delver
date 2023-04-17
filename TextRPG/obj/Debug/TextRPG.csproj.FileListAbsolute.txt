@@ -67,3 +67,7 @@ C:\Users\ryanw\Desktop\TextRPG\TextRPG\obj\Debug\TextRPG.csprojAssemblyReference
 C:\Users\ryanw\Desktop\TextRPG\TextRPG\obj\Debug\TextRPG.csproj.CoreCompileInputs.cache
 C:\Users\ryanw\Desktop\TextRPG\TextRPG\obj\Debug\TextRPG.exe
 C:\Users\ryanw\Desktop\TextRPG\TextRPG\obj\Debug\TextRPG.pdb
+C:\Users\w0460451\Documents\OOP\TextRPG\TextRPG\bin\Debug\Audio\hitHurt.wav
+C:\Users\w0460451\Documents\OOP\TextRPG\TextRPG\bin\Debug\Audio\pickUp.wav
+C:\Users\w0460451\Documents\OOP\TextRPG\TextRPG\bin\Debug\Audio\Loss.wav
+C:\Users\w0460451\Documents\OOP\TextRPG\TextRPG\bin\Debug\Audio\Victory.wav
