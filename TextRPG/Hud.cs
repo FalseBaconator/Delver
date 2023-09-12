@@ -13,15 +13,18 @@ namespace TextRPG
         private Enemy enemy;
         private string message;
         private GameManager manager;
+        private Shop shop;
 
         public Tile[,] hudArray = new Tile[Constants.messageBoxHeight + Constants.statsHeight + 2,Constants.hudWidth + 1];
 
-        public Hud(Player player, EnemyManager enemyManager, ItemManager itemManager, GameManager manager)
+        public Hud(Player player, EnemyManager enemyManager, ItemManager itemManager, GameManager manager, Shop shop)
         {
             this.player = player;
             this.player.SetHud(this);
             this.enemyManager = enemyManager;
             this.enemyManager.SetHud(this);
+            this.shop = shop;
+            this.shop.SetHud(this);
             itemManager.SetHud(this);
             this.manager = manager;
         }
@@ -253,6 +256,19 @@ namespace TextRPG
                                         case '0':
                                             hudArray[i, j + playerTextOffset] = new Tile(Constants.BossFloor.ToString()[0], Constants.borderColor, Constants.BGColor);
                                             break;
+                                        case '$':
+                                            hudArray[i, j + playerTextOffset] = new Tile(player.GetGold().ToString()[0], Constants.borderColor, Constants.BGColor);
+                                            if (player.GetGold() >= 10)
+                                            {
+                                                playerTextOffset++;
+                                                hudArray[i, j + playerTextOffset] = new Tile(player.GetGold().ToString()[1], Constants.borderColor, Constants.BGColor);
+                                                if (player.GetGold() >= 100)
+                                                {
+                                                    playerTextOffset++;
+                                                    hudArray[i, j + playerTextOffset] = new Tile(player.GetGold().ToString()[2], Constants.borderColor, Constants.BGColor);
+                                                }
+                                            }
+                                            break;
                                         default:
                                             hudArray[i, j + playerTextOffset] = new Tile(Constants.playerStatsList[playerStatIndex], Constants.borderColor, Constants.BGColor);
                                             break;
@@ -312,11 +328,27 @@ namespace TextRPG
                                                 break;
                                             case '3':
                                                 hudArray[i, j] = new Tile(enemy.GetXP().ToString()[0], Constants.borderColor, Constants.BGColor);
-                                                if (enemy.GetATK() >= 10)
+                                                if (enemy.GetXP() >= 10)
                                                 {
                                                     hudArray[i, j + 1] = new Tile(enemy.GetXP().ToString()[1], Constants.borderColor, Constants.BGColor);
-                                                    if (enemy.GetATK() >= 100)
+                                                    if (enemy.GetXP() >= 100)
                                                         hudArray[i, j + 2] = new Tile(enemy.GetXP().ToString()[2], Constants.borderColor, Constants.BGColor);
+                                                    else
+                                                        hudArray[i, j + 2] = new Tile(' ', Constants.borderColor, Constants.BGColor);
+                                                }
+                                                else
+                                                {
+                                                    hudArray[i, j + 1] = new Tile(' ', Constants.borderColor, Constants.BGColor);
+                                                    hudArray[i, j + 2] = new Tile(' ', Constants.borderColor, Constants.BGColor);
+                                                }
+                                                break;
+                                            case '4':
+                                                hudArray[i, j] = new Tile(enemy.GetGold().ToString()[0], Constants.borderColor, Constants.BGColor);
+                                                if (enemy.GetGold() >= 10)
+                                                {
+                                                    hudArray[i, j + 1] = new Tile(enemy.GetGold().ToString()[1], Constants.borderColor, Constants.BGColor);
+                                                    if (enemy.GetGold() >= 100)
+                                                        hudArray[i, j + 2] = new Tile(enemy.GetGold().ToString()[2], Constants.borderColor, Constants.BGColor);
                                                     else
                                                         hudArray[i, j + 2] = new Tile(' ', Constants.borderColor, Constants.BGColor);
                                                 }
@@ -354,5 +386,9 @@ namespace TextRPG
             return message;
         }
 
+        public void OpenShopMenu()
+        {
+
+        }
     }
 }

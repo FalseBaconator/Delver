@@ -20,6 +20,8 @@ namespace TextRPG
 
         public static EnemyManager enemyManager;
 
+        public static ShopKeepManager shopKeepManager;
+
         static Player player;
 
         public static ItemManager itemManager;
@@ -31,6 +33,8 @@ namespace TextRPG
         public static Exit exit;
 
         static Camera cam;
+
+        public static Shop shop;
 
         //private string message;
 
@@ -50,30 +54,35 @@ namespace TextRPG
             mapGen = new MapGenerator();
             render.setGameManager(this);
             inputManager = new InputManager(this);
+            shop = new Shop(inputManager);
             map = new Map(mapGen.RandomizeMap(), render);
             exit = new Exit(this, render, map);
             itemManager = new ItemManager(map, render, this, exit, soundManager);
             enemyManager = new EnemyManager(map, render, itemManager, this, exit, soundManager);
-            player = new Player(new Position((Constants.mapWidth/2) * Constants.roomWidth + (Constants.roomWidth/2), (Constants.mapHeight / 2) * Constants.roomHeight + (Constants.roomHeight / 2)), map, enemyManager, render, this, inputManager, itemManager, exit, soundManager);
+            shopKeepManager = new ShopKeepManager(map, render, itemManager, this, exit, soundManager, enemyManager);
+            player = new Player(new Position((Constants.mapWidth/2) * Constants.roomWidth + (Constants.roomWidth/2), (Constants.mapHeight / 2) * Constants.roomHeight + (Constants.roomHeight / 2)), map, enemyManager, render, this, inputManager, itemManager, shopKeepManager, exit, soundManager, shop);
             miniMap = new MiniMap(mapGen.makeMiniMap(), player);
-            hud = new Hud(player, enemyManager, itemManager, this);
+            hud = new Hud(player, enemyManager, itemManager, this, shop);
             cam = new Camera(player, this);
-            loadManager = new LoadManager(this, render, cam, exit, itemManager, enemyManager, miniMap, player, hud, map, mapGen);
+            loadManager = new LoadManager(this, render, cam, exit, itemManager, enemyManager, shopKeepManager, miniMap, player, hud, map, mapGen);
             
         }
 
         public void Update()
         {
+            inputManager.Update();          //
+            shop.Update();
+            if (Globals.shopping) return;
             hud.SetMessage(" ");
             if(player.isAlive() == false)   //
             {                               //  End game if player is dead
                 play = false;               //
             }                               //
             
-            inputManager.Update();          //
             player.Update();                //  Update everything
             cam.Update();                   //
             enemyManager.UpdateEnemies();   //
+            shopKeepManager.UpdateShopKeeps();
             miniMap.Update();               //
         }
         
@@ -96,6 +105,7 @@ namespace TextRPG
             itemManager.Draw();         //  Set chars to arrays in rend
             player.Draw();              //
             enemyManager.DrawEnemies(); //
+            shopKeepManager.DrawShopKeeps();
             exit.Draw();                //
             hud.draw();                 //
             render.DrawToScreen();    //Adds to screen

@@ -13,16 +13,21 @@ namespace TextRPG
         private int maxShield = Constants.playerBaseShield;
         private InputManager inputManager;
         private ItemManager itemManager;
+        private ShopKeepManager shopKeepManager;
+        private Shop shop;
         private Exit exit;
         private Hud hud;
         private int XP = 0;
         private int LVL = 1;
+        private int gold = 0;
 
-        public Player(Position pos, Map map, EnemyManager enemyManager, Render rend, GameManager manager, InputManager inputManager, ItemManager itemManager, Exit exit, SoundManager soundManager) : base(pos, Constants.playerBaseHP, Constants.playerBaseAttack, Constants.playerSprite, map, enemyManager, rend, manager, soundManager)
+        public Player(Position pos, Map map, EnemyManager enemyManager, Render rend, GameManager manager, InputManager inputManager, ItemManager itemManager, ShopKeepManager shopKeepManager, Exit exit, SoundManager soundManager, Shop shop) : base(pos, Constants.playerBaseHP, Constants.playerBaseAttack, Constants.playerSprite, map, enemyManager, rend, manager, soundManager)
         {
             this.inputManager = inputManager;
             this.itemManager = itemManager;
+            this.shopKeepManager = shopKeepManager;
             this.exit = exit;
+            this.shop = shop;
         }
 
         public void Update()
@@ -48,7 +53,7 @@ namespace TextRPG
                     targetPos.x++;                                                                          //
                     break;                                                                              //
             }                                                                                           //
-            if(map.isFloorAt(targetPos) && enemyManager.EnemyAt(targetPos, false) == null && itemManager.ItemAt(targetPos) == null)    //
+            if(map.isFloorAt(targetPos) && enemyManager.EnemyAt(targetPos, false) == null && itemManager.ItemAt(targetPos) == null && shopKeepManager.ShopKeepAt(targetPos) == null)    //
             {                                                                                                                                               //  Move if empty floor
                 pos = targetPos;                                                                                                                            //
             }else if (enemyManager.EnemyAt(targetPos, false) != null)    //
@@ -57,7 +62,11 @@ namespace TextRPG
             }else if (itemManager.ItemAt(targetPos) != null)                 //
             {                                                                       //  Pick Up item in target space
                 itemManager.PickUp(itemManager.ItemAt(targetPos), this);     //
-            }                                                                       //
+            }else if (shopKeepManager.ShopKeepAt(targetPos) != null)
+            {
+                shop.StartShop();
+            }
+
 
             exit.isExitAt(targetPos, true);
         }
@@ -149,6 +158,11 @@ namespace TextRPG
             return XP;
         }
 
+        public int GetGold()
+        {
+            return gold;
+        }
+
         private void LevelUp()
         {
             hud.SetMessage("Player Leveled Up!");
@@ -165,10 +179,14 @@ namespace TextRPG
             XP += reward;
         }
 
+        public void giveGold(int reward)
+        {
+            gold += reward;
+        }
+
         public void SetHud(Hud hud)
         {
             this.hud = hud;
         }
-
     }
 }

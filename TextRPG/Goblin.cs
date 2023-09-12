@@ -9,7 +9,7 @@ namespace TextRPG
     internal class Goblin : Enemy
     {
 
-        public Goblin(Position pos, Map map, Player player, EnemyManager enemyManager, ItemManager itemManager, Render rend, GameManager gameManager, Hud hud, Exit exit, SoundManager soundManager) : base(pos, Constants.goblinBaseHP, Constants.goblinBaseAttack, Constants.goblinSprite, Constants.goblinName, map, player, enemyManager, itemManager, rend, gameManager, hud, exit, Constants.goblinXP, soundManager)
+        public Goblin(Position pos, Map map, Player player, EnemyManager enemyManager, ItemManager itemManager, Render rend, GameManager gameManager, Hud hud, Exit exit, SoundManager soundManager) : base(pos, Constants.goblinBaseHP, Constants.goblinBaseAttack, Constants.goblinSprite, Constants.goblinName, map, player, enemyManager, itemManager, rend, gameManager, hud, exit, Constants.goblinXP, Constants.goblinGold, soundManager)
         {
 
         }
