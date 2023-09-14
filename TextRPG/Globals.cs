@@ -10,5 +10,7 @@ namespace TextRPG
     {
         public static bool shopping;
         public static int currentFloor;
+        public static bool questCompleted;
+        public static string questString;
     }
 }

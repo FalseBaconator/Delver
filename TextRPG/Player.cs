@@ -20,14 +20,14 @@ namespace TextRPG
         private int XP = 0;
         private int LVL = 1;
         private int gold = 0;
+        public EventHandler ShieldLost;
 
-        public Player(Position pos, Map map, EnemyManager enemyManager, Render rend, GameManager manager, InputManager inputManager, ItemManager itemManager, ShopKeepManager shopKeepManager, Exit exit, SoundManager soundManager, Shop shop) : base(pos, Constants.playerBaseHP, Constants.playerBaseAttack, Constants.playerSprite, map, enemyManager, rend, manager, soundManager)
+        public Player(Position pos, Map map, EnemyManager enemyManager, Render rend, GameManager manager, InputManager inputManager, ItemManager itemManager, ShopKeepManager shopKeepManager, Exit exit, SoundManager soundManager) : base(pos, Constants.playerBaseHP, Constants.playerBaseAttack, Constants.playerSprite, map, enemyManager, rend, manager, soundManager)
         {
             this.inputManager = inputManager;
             this.itemManager = itemManager;
             this.shopKeepManager = shopKeepManager;
             this.exit = exit;
-            this.shop = shop;
         }
 
         public void Update()
@@ -71,6 +71,11 @@ namespace TextRPG
             exit.isExitAt(targetPos, true);
         }
 
+        public void SetShop(Shop shop)
+        {
+            this.shop = shop;
+        }
+
         public bool isPlayerAt(Position pos)   //returns true if the provided coordinates are the player's coordinates
         {
             bool check = false;
@@ -106,6 +111,7 @@ namespace TextRPG
             {                           //
                 DMG -= shield;          //  Shield reduces dmg (if it isn't 0 already), before being destroyed and applying dmg normally
                 shield = 0;             //
+                OnShieldLost();         //
                 base.TakeDMG(DMG);      //
             }                           //
         }
@@ -187,6 +193,12 @@ namespace TextRPG
         public void SetHud(Hud hud)
         {
             this.hud = hud;
+        }
+
+        protected virtual void OnShieldLost()
+        {
+            if (ShieldLost != null)
+                ShieldLost(this, EventArgs.Empty);
         }
     }
 }

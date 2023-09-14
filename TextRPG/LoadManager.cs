@@ -32,7 +32,9 @@ namespace TextRPG
 
         private MapGenerator mapGen;
 
-        public LoadManager(GameManager gManager, Render render, Camera cam, Exit exit, ItemManager itemManager, EnemyManager enemyManager, ShopKeepManager shopKeepManager, MiniMap miniMap, Player player, Hud hud, Map map, MapGenerator mapGen)
+        private Quests quests;
+
+        public LoadManager(GameManager gManager, Render render, Camera cam, Exit exit, ItemManager itemManager, EnemyManager enemyManager, ShopKeepManager shopKeepManager, MiniMap miniMap, Player player, Hud hud, Map map, MapGenerator mapGen, Quests quests)
         {
             this.gManager = gManager;
             this.render = render;
@@ -46,6 +48,7 @@ namespace TextRPG
             this.hud = hud;
             this.map = map;
             this.mapGen = mapGen;
+            this.quests = quests;
             Globals.currentFloor = 1;
         }
 
@@ -59,6 +62,7 @@ namespace TextRPG
             itemManager.GenerateItems(player);      //
             enemyManager.GenerateEnemies(player);   //
             shopKeepManager.GenerateShopKeeps(player);
+            quests.GrantQuest();                    //
             miniMap.Update();                       //
             gManager.Draw();                        //
         }                                           //

@@ -23,11 +23,16 @@ namespace TextRPG
         public const int EnemyAmount = 50;
 
         //ShopKeep Settings
-        public const int ShopKeepAmount = 10;
+        public const int ShopKeepAmount = 2;
         public const int shopKeepBaseHP = 10;
         public const int shopKeepBaseAttack = 5;
         public static Tile shopKeepSprite = new Tile('¢', ConsoleColor.DarkYellow, ConsoleColor.Black);
         public const string shopKeepName = "Shop Keep";
+
+        //Shop Price Settings
+        public const int healthPotionCost = 8;
+        public const int shieldRepairCost = 4;
+        public const int ATKBuffCost = 12;
 
         //Slime Settings
         public const int slimeBaseHP = 1;
@@ -98,10 +103,20 @@ namespace TextRPG
         public const int statsHeight = 9;
         public const string playerStatsList = "Player|HP: 1/2|SHLD: 3/4|ATK: 5|LVL: 6|XP: 7/8|FLOOR: 9/0|GOLD: $";
         public const string enemyStatsList = "HP: 1|ATK: 2|XP: 3|GOLD: 4";
-        public const string shopList = "1: Health Boost 8g|";
+        public const string shopList = "1: HP Potion !g|2: Shield @g|3: ATK Buff #g|E key to leave";
 
         //Exit Settings
         public static Tile exitSprite = new Tile('¤', ConsoleColor.Yellow, ConsoleColor.Black);
 
+        //Quest Strings
+        public const string killEnemiesString = "kill 10 enemies";
+        public const string loseShieldString = "lose your shield";
+        public const string killBossString = "kill the boss";
+        public const string buyFromShopString = "buy from shop";
+        public const string pickUpItemsString = "get 10 items";
+
+        //Quest Conditions
+        public const int enemiesToKill = 10;
+        public const int itemsToGet = 10;
     }
 }

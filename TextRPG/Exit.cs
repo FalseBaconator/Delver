@@ -14,6 +14,7 @@ namespace TextRPG
         GameManager manager;
         Render rend;
         Map map;
+        Hud hud;
         bool toShow = false;
 
         public Exit(GameManager manager, Render rend, Map map)
@@ -58,6 +59,12 @@ namespace TextRPG
         {
             if(pos == this.pos)
             {
+                if (!Globals.questCompleted)
+                {
+                    hud.SetMessage("Complete quest: " + Globals.questString);
+                    return true;
+                }
+
                 if(win)
                     manager.loadManager.NextFloor();
                 return true;
@@ -68,5 +75,9 @@ namespace TextRPG
             }
         }
 
+        public void SetHud(Hud hud)
+        {
+            this.hud = hud;
+        }
     }
 }

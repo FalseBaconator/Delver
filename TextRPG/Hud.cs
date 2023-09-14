@@ -17,7 +17,7 @@ namespace TextRPG
 
         public Tile[,] hudArray = new Tile[Constants.messageBoxHeight + Constants.statsHeight + 2,Constants.hudWidth + 1];
 
-        public Hud(Player player, EnemyManager enemyManager, ItemManager itemManager, GameManager manager, Shop shop)
+        public Hud(Player player, EnemyManager enemyManager, ItemManager itemManager, GameManager manager, Shop shop, Exit exit)
         {
             this.player = player;
             this.player.SetHud(this);
@@ -27,6 +27,7 @@ namespace TextRPG
             this.shop.SetHud(this);
             itemManager.SetHud(this);
             this.manager = manager;
+            exit.SetHud(this);
         }
 
         public void draw()
@@ -90,15 +91,20 @@ namespace TextRPG
             int enemyStatIndex = 0;
             bool enemyNextLine = false;
             string enemyStatString = " ";
+            int shopStatIndex = 0;
+            bool shopNextLine = false;
             int playerTextOffset = 0;
             int enemyTextOffset = 0;
+            int shopTextOffset = 0;
             if(enemy != null)
                 enemyStatString = enemy.GetName() + "|" + Constants.enemyStatsList;
             for (int i = Constants.messageBoxHeight + 1; i <= Constants.messageBoxHeight + 1 + Constants.statsHeight; i++)
             {
                 playerNextLine = false;
                 enemyNextLine = false;
+                shopNextLine = false;
                 playerTextOffset = 0;
+                shopTextOffset = 0;
                 for (int j = 0; j <= Constants.hudWidth; j++)
                 {
                     if (i == Constants.messageBoxHeight + 1)
@@ -278,7 +284,7 @@ namespace TextRPG
                                 }
                             }
                         }
-                        else if (enemy != null)
+                        else if (enemy != null && !Globals.shopping)
                         {
                             if (j > Constants.hudWidth / 2 && j < Constants.hudWidth && enemyNextLine != true)
                             {
@@ -367,6 +373,70 @@ namespace TextRPG
                                 }
                             }
                         }
+                        else if (Globals.shopping)
+                        {
+                            if (j > Constants.hudWidth / 2 && j < Constants.hudWidth && shopNextLine != true)
+                            {
+                                if (shopStatIndex < Constants.shopList.Length)
+                                {
+                                    if (Constants.shopList[shopStatIndex] == '|')
+                                    {
+                                        //hudArray[i, j] = ' ';
+                                        shopNextLine = true;
+                                        shopStatIndex++;
+                                    }
+                                    else
+                                    {
+                                        switch (Constants.shopList[shopStatIndex])
+                                        {
+                                            case '!':
+                                                hudArray[i, j + shopTextOffset] = new Tile(Constants.healthPotionCost.ToString()[0], Constants.borderColor, Constants.BGColor);
+                                                if (Constants.healthPotionCost >= 10)
+                                                {
+                                                    shopTextOffset++;
+                                                    hudArray[i, j + shopTextOffset] = new Tile(Constants.healthPotionCost.ToString()[1], Constants.borderColor, Constants.BGColor);
+                                                    if (Constants.healthPotionCost >= 100)
+                                                    {
+                                                        shopTextOffset++;
+                                                        hudArray[i, j + shopTextOffset] = new Tile(Constants.healthPotionCost.ToString()[2], Constants.borderColor, Constants.BGColor);
+                                                    }
+                                                }
+                                                break;
+                                            case '@':
+                                                hudArray[i, j + shopTextOffset] = new Tile(Constants.shieldRepairCost.ToString()[0], Constants.borderColor, Constants.BGColor);
+                                                if (Constants.shieldRepairCost >= 10)
+                                                {
+                                                    shopTextOffset++;
+                                                    hudArray[i, j + shopTextOffset] = new Tile(Constants.shieldRepairCost.ToString()[1], Constants.borderColor, Constants.BGColor);
+                                                    if (Constants.shieldRepairCost >= 100)
+                                                    {
+                                                        shopTextOffset++;
+                                                        hudArray[i, j + shopTextOffset] = new Tile(Constants.shieldRepairCost.ToString()[2], Constants.borderColor, Constants.BGColor);
+                                                    }
+                                                }
+                                                break;
+                                            case '#':
+                                                hudArray[i, j + shopTextOffset] = new Tile(Constants.ATKBuffCost.ToString()[0], Constants.borderColor, Constants.BGColor);
+                                                if (Constants.ATKBuffCost >= 10)
+                                                {
+                                                    shopTextOffset++;
+                                                    hudArray[i, j + shopTextOffset] = new Tile(Constants.ATKBuffCost.ToString()[1], Constants.borderColor, Constants.BGColor);
+                                                    if (Constants.ATKBuffCost >= 100)
+                                                    {
+                                                        shopTextOffset++;
+                                                        hudArray[i, j + shopTextOffset] = new Tile(Constants.ATKBuffCost.ToString()[2], Constants.borderColor, Constants.BGColor);
+                                                    }
+                                                }
+                                                break;
+                                            default:
+                                                hudArray[i, j + shopTextOffset] = new Tile(Constants.shopList[shopStatIndex], Constants.borderColor, Constants.BGColor);
+                                                break;
+                                        }
+                                        shopStatIndex++;
+                                    }
+                                }
+                            }
+                        }
                         else
                         {
                             hudArray[i, j] = new Tile(' ', Constants.borderColor, Constants.BGColor);
@@ -384,11 +454,6 @@ namespace TextRPG
         public string GetMessage()
         {
             return message;
-        }
-
-        public void OpenShopMenu()
-        {
-
         }
     }
 }

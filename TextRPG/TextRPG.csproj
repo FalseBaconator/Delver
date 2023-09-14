@@ -62,6 +62,7 @@
     <Compile Include="LoadManager.cs" />
     <Compile Include="Map.cs" />
     <Compile Include="MapChunk.cs" />
+    <Compile Include="Quests.cs" />
     <Compile Include="Shop.cs" />
     <Compile Include="ShopKeep.cs" />
     <Compile Include="ShopKeepManager.cs" />

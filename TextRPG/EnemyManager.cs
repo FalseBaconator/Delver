@@ -20,7 +20,8 @@ namespace TextRPG
         Exit exit;
         private Hud hud;
         private SoundManager soundManager;
-
+        public event EventHandler<KilledEnemyEventArgs> EnemyKilled;
+        private int enemiesKilled;
 
         public void SetHud(Hud hud)
         {
@@ -39,14 +40,15 @@ namespace TextRPG
 
         public void GenerateEnemies(Player player)
         {
+            enemiesKilled = 0;
             Position tempPos;
             ClearEnemies();
             int placedEnemies = 0;
-            while(placedEnemies < Constants.EnemyAmount)
+            while (placedEnemies < Constants.EnemyAmount)
             {
                 //Console.WriteLine("Attempt(Enemy)");
                 tempPos = new Position(random.Next(Constants.mapWidth * Constants.roomWidth), random.Next(Constants.mapHeight * Constants.roomHeight));
-                if((Math.Abs(player.GetPos().x - tempPos.x) > 5 || Math.Abs(player.GetPos().y - tempPos.y) > 5) && map.isFloorAt(tempPos) && itemManager.ItemAt(tempPos) == null && exit.isExitAt(tempPos, false) == false && EnemyAt(tempPos, false) == null)
+                if ((Math.Abs(player.GetPos().x - tempPos.x) > 5 || Math.Abs(player.GetPos().y - tempPos.y) > 5) && map.isFloorAt(tempPos) && itemManager.ItemAt(tempPos) == null && exit.isExitAt(tempPos, false) == false && EnemyAt(tempPos, false) == null)
                 {
                     switch (random.Next(5))
                     {
@@ -95,7 +97,7 @@ namespace TextRPG
         {
             if (toMove)
             {
-                foreach(Enemy enemy in enemies)
+                foreach (Enemy enemy in enemies)
                 {
                     enemyMap[enemy.GetPos().x, enemy.GetPos().y] = null;
                     enemy.Update();
@@ -126,6 +128,7 @@ namespace TextRPG
             {
                 enemies.Remove(enemy);
                 enemyMap[enemy.GetPos().x, enemy.GetPos().y] = null;
+                OnEnemyKilled();
             }
         }
 
@@ -148,5 +151,16 @@ namespace TextRPG
             enemies.Clear();
         }
 
+        protected virtual void OnEnemyKilled()
+        {
+            enemiesKilled++;
+            if (EnemyKilled != null)
+                EnemyKilled(this, new KilledEnemyEventArgs() { enemiesKilled = this.enemiesKilled});
+        }
+    }
+
+    internal class KilledEnemyEventArgs : EventArgs
+    {
+        public int enemiesKilled;
     }
 }

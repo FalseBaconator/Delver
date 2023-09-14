@@ -15,6 +15,8 @@ namespace TextRPG
         private Exit exit;
         private Hud hud;
         private SoundManager soundManager;
+        private EventHandler<ItemPickedUpEventArgs> ItemPickedUp;
+        private int itemsPickedUp;
 
         public void SetHud(Hud hud)
         {
@@ -32,6 +34,7 @@ namespace TextRPG
 
         public void GenerateItems(Player player)
         {
+            itemsPickedUp = 0;
             items = new List<Item>();
             itemMap = new Item[Constants.mapHeight * Constants.roomHeight, Constants.mapWidth * Constants.roomWidth];
             if (Globals.currentFloor < Constants.BossFloor)
@@ -105,5 +108,16 @@ namespace TextRPG
             }
         }
 
+        protected virtual void OnItemPickedUp()
+        {
+            itemsPickedUp++;
+            if (ItemPickedUp != null)
+                ItemPickedUp(this, new ItemPickedUpEventArgs() { itemsPickedUp = this.itemsPickedUp });
+        }
+    }
+
+    internal class ItemPickedUpEventArgs : EventArgs
+    {
+        public int itemsPickedUp;
     }
 }

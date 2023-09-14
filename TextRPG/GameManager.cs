@@ -46,6 +46,8 @@ namespace TextRPG
 
         public SoundManager soundManager = new SoundManager();
 
+        public Quests quests;
+
 
         public GameManager()
         {
@@ -54,17 +56,18 @@ namespace TextRPG
             mapGen = new MapGenerator();
             render.setGameManager(this);
             inputManager = new InputManager(this);
-            shop = new Shop(inputManager);
             map = new Map(mapGen.RandomizeMap(), render);
             exit = new Exit(this, render, map);
             itemManager = new ItemManager(map, render, this, exit, soundManager);
             enemyManager = new EnemyManager(map, render, itemManager, this, exit, soundManager);
             shopKeepManager = new ShopKeepManager(map, render, itemManager, this, exit, soundManager, enemyManager);
-            player = new Player(new Position((Constants.mapWidth/2) * Constants.roomWidth + (Constants.roomWidth/2), (Constants.mapHeight / 2) * Constants.roomHeight + (Constants.roomHeight / 2)), map, enemyManager, render, this, inputManager, itemManager, shopKeepManager, exit, soundManager, shop);
+            player = new Player(new Position((Constants.mapWidth/2) * Constants.roomWidth + (Constants.roomWidth/2), (Constants.mapHeight / 2) * Constants.roomHeight + (Constants.roomHeight / 2)), map, enemyManager, render, this, inputManager, itemManager, shopKeepManager, exit, soundManager);
             miniMap = new MiniMap(mapGen.makeMiniMap(), player);
-            hud = new Hud(player, enemyManager, itemManager, this, shop);
+            shop = new Shop(inputManager, player);
+            hud = new Hud(player, enemyManager, itemManager, this, shop, exit);
             cam = new Camera(player, this);
-            loadManager = new LoadManager(this, render, cam, exit, itemManager, enemyManager, shopKeepManager, miniMap, player, hud, map, mapGen);
+            quests = new Quests(hud);
+            loadManager = new LoadManager(this, render, cam, exit, itemManager, enemyManager, shopKeepManager, miniMap, player, hud, map, mapGen, quests);
             
         }
 
