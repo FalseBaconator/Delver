@@ -48,7 +48,6 @@ namespace TextRPG
 
         public Quests quests;
 
-
         public GameManager()
         {
             endScreen = new EndScreen(soundManager);
@@ -68,7 +67,10 @@ namespace TextRPG
             cam = new Camera(player, this);
             quests = new Quests(hud);
             loadManager = new LoadManager(this, render, cam, exit, itemManager, enemyManager, shopKeepManager, miniMap, player, hud, map, mapGen, quests);
-            
+
+            //subscriptions
+            enemyManager.EnemyKilled += quests.OnEnemyKilled;
+            itemManager.
         }
 
         public void Update()
