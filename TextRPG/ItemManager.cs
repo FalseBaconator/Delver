@@ -15,7 +15,7 @@ namespace TextRPG
         private Exit exit;
         private Hud hud;
         private SoundManager soundManager;
-        private EventHandler<ItemPickedUpEventArgs> ItemPickedUp;
+        public event EventHandler<ItemPickedUpEventArgs> ItemPickedUp;
         private int itemsPickedUp;
 
         public void SetHud(Hud hud)
