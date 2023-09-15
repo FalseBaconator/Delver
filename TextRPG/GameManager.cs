@@ -70,7 +70,9 @@ namespace TextRPG
 
             //subscriptions
             enemyManager.EnemyKilled += quests.OnEnemyKilled;
-            itemManager.
+            itemManager.ItemPickedUp += quests.OnItemPickedUp;
+            shop.ItemBought += quests.OnItemBought;
+            player.ShieldLost += quests.OnShieldLost;
         }
 
         public void Update()

@@ -20,7 +20,7 @@ namespace TextRPG
         private int XP = 0;
         private int LVL = 1;
         private int gold = 0;
-        public EventHandler ShieldLost;
+        public event EventHandler ShieldLost;
 
         public Player(Position pos, Map map, EnemyManager enemyManager, Render rend, GameManager manager, InputManager inputManager, ItemManager itemManager, ShopKeepManager shopKeepManager, Exit exit, SoundManager soundManager) : base(pos, Constants.playerBaseHP, Constants.playerBaseAttack, Constants.playerSprite, map, enemyManager, rend, manager, soundManager)
         {

@@ -11,9 +11,10 @@ namespace TextRPG
         private Player player;
         private EnemyManager enemyManager;
         private Enemy enemy;
-        private string message;
+        private string message = null;
         private GameManager manager;
         private Shop shop;
+        private bool isMessageImportant;
 
         public Tile[,] hudArray = new Tile[Constants.messageBoxHeight + Constants.statsHeight + 2,Constants.hudWidth + 1];
 
@@ -444,11 +445,14 @@ namespace TextRPG
                     }
                 }
             }
+            isMessageImportant = false;
         }
 
-        public void SetMessage(string message)
+        public void SetMessage(string message, bool important = false)
         {
+            if (isMessageImportant) return;
             this.message = message;
+            isMessageImportant = important;
         }
 
         public string GetMessage()

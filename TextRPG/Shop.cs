@@ -11,7 +11,7 @@ namespace TextRPG
         private Hud hud;
         InputManager inputManager;
         private Player player;
-        public EventHandler ItemBought;
+        public event EventHandler ItemBought;
 
         public Shop(InputManager inputManager, Player player) 
         {
@@ -56,18 +56,21 @@ namespace TextRPG
             if (player.GetGold() < Constants.healthPotionCost) return;
             player.giveGold(-Constants.healthPotionCost);
             player.Heal(Constants.healAmount);
+            OnItemBought();
         }
         private void BuySHLDRepair()
         {
             if (player.GetGold() < Constants.shieldRepairCost) return;
             player.giveGold(-Constants.shieldRepairCost);
             player.RestoreShield(Constants.shieldRepairAmount);
+            OnItemBought();
         }
         private void BuyATKBuff()
         {
             if (player.GetGold() < Constants.ATKBuffCost) return;
             player.giveGold(-Constants.ATKBuffCost);
             player.RaiseATK(Constants.ATKBuffAmount);
+            OnItemBought();
         }
 
         protected virtual void OnItemBought()

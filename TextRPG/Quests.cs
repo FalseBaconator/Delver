@@ -39,28 +39,30 @@ namespace TextRPG
             }
 
             Random random = new Random();
-            while (currentQuest != QuestList.killBoss)
+            do
             {
                 Array values = Enum.GetValues(typeof(QuestList));
                 QuestList randomQuest = (QuestList)values.GetValue(random.Next(values.Length));
                 currentQuest = randomQuest;
-                switch (currentQuest)
-                {
-                    case QuestList.killEnemies:
-                        Globals.questString = Constants.killEnemiesString;
-                        break;
-                    case QuestList.buyFromShop:
-                        Globals.questString = Constants.buyFromShopString;
-                        break;
-                    case QuestList.pickUpItems:
-                        Globals.questString = Constants.pickUpItemsString;
-                        break;
-                    case QuestList.loseShield:
-                        Globals.questString = Constants.loseShieldString;
-                        break;
-                }
-                hud.SetMessage("Quest granted: " + Globals.questString + "!");
             }
+            while (currentQuest == QuestList.killBoss);
+
+            switch (currentQuest)
+            {
+                case QuestList.killEnemies:
+                    Globals.questString = Constants.killEnemiesString;
+                    break;
+                case QuestList.buyFromShop:
+                    Globals.questString = Constants.buyFromShopString;
+                    break;
+                case QuestList.pickUpItems:
+                    Globals.questString = Constants.pickUpItemsString;
+                    break;
+                case QuestList.loseShield:
+                    Globals.questString = Constants.loseShieldString;
+                    break;
+            }
+            hud.SetMessage("Quest granted: " + Globals.questString + "!");
         }
 
         //Event subscribers
@@ -72,7 +74,7 @@ namespace TextRPG
             if (e.enemiesKilled >= Constants.enemiesToKill)
             {
                 Globals.questCompleted = true;
-                hud.SetMessage("Quest completed!");
+                hud.SetMessage("Quest completed!", true);
             }
         }
         public void OnItemPickedUp(object source, ItemPickedUpEventArgs e)
@@ -82,7 +84,7 @@ namespace TextRPG
             if (e.itemsPickedUp >= Constants.itemsToGet)
             {
                 Globals.questCompleted = true;
-                hud.SetMessage("Quest completed!");
+                hud.SetMessage("Quest completed!", true);
             }
         }
         public void OnItemBought(object source, EventArgs e)
@@ -90,14 +92,14 @@ namespace TextRPG
             if (Globals.questCompleted || currentQuest != QuestList.buyFromShop) return;
 
             Globals.questCompleted = true;
-            hud.SetMessage("Quest completed!");
+            hud.SetMessage("Quest completed!", true);
         }
         public void OnShieldLost(object source, EventArgs e)
         {
             if (Globals.questCompleted || currentQuest != QuestList.loseShield) return;
 
             Globals.questCompleted = true;
-            hud.SetMessage("Quest completed!");
+            hud.SetMessage("Quest completed!", true);
         }
     }
 }

@@ -53,7 +53,8 @@ namespace TextRPG
         }
 
         public void FloorSetUp()                    //
-        {                                           //
+        {
+            quests.GrantQuest();                                //
             render.setHud(hud);                     //
             render.setCam(cam);                     //
             render.setMiniMap(miniMap);             //
@@ -62,13 +63,13 @@ namespace TextRPG
             itemManager.GenerateItems(player);      //
             enemyManager.GenerateEnemies(player);   //
             shopKeepManager.GenerateShopKeeps(player);
-            quests.GrantQuest();                    //
             miniMap.Update();                       //
             gManager.Draw();                        //
         }                                           //
 
         public void BossSetUp()
         {
+            quests.GrantQuest(true);
             render.setHud(hud);
             render.setCam(cam);
             cam.Update();
@@ -97,8 +98,5 @@ namespace TextRPG
             else
                 FloorSetUp();
         }
-
-
-
     }
 }
