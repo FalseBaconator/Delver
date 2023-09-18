@@ -56,12 +56,12 @@ namespace TextRPG
             if(map.isFloorAt(targetPos) && enemyManager.EnemyAt(targetPos, false) == null && itemManager.ItemAt(targetPos) == null && shopKeepManager.ShopKeepAt(targetPos) == null)    //
             {                                                                                                                                               //  Move if empty floor
                 pos = targetPos;                                                                                                                            //
-            }else if (enemyManager.EnemyAt(targetPos, false) != null)    //
+            }else if (enemyManager.EnemyAt(targetPos, false) != null)           //
             {                                                                   //  Attack enemy in target space
-                AttackEnemy(enemyManager.EnemyAt(targetPos, true));      //
-            }else if (itemManager.ItemAt(targetPos) != null)                 //
+                AttackEnemy(enemyManager.EnemyAt(targetPos, true));             //
+            }else if (itemManager.ItemAt(targetPos) != null)                        //
             {                                                                       //  Pick Up item in target space
-                itemManager.PickUp(itemManager.ItemAt(targetPos), this);     //
+                itemManager.PickUp(itemManager.ItemAt(targetPos), this);            //
             }else if (shopKeepManager.ShopKeepAt(targetPos) != null)
             {
                 shop.StartShop();

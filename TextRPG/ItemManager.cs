@@ -97,6 +97,7 @@ namespace TextRPG
                 items.Remove(item);
                 itemMap[item.GetPos().x, item.GetPos().y] = null;
                 hud.SetMessage("You found " + item.GetName());
+                OnItemPickedUp();
             }
         }
 

@@ -98,3 +98,4 @@ C:\Users\w0460435\VisualStudio\TextRPG-RoMod\TextRPG\obj\Debug\TextRPG.csproj.As
 C:\Users\w0460435\VisualStudio\TextRPG-RoMod\TextRPG\obj\Debug\TextRPG.csproj.CoreCompileInputs.cache
 C:\Users\w0460435\VisualStudio\TextRPG-RoMod\TextRPG\obj\Debug\TextRPG.exe
 C:\Users\w0460435\VisualStudio\TextRPG-RoMod\TextRPG\obj\Debug\TextRPG.pdb
+C:\Users\w0460435\VisualStudio\TextRPG-RoMod\TextRPG\bin\Debug\Audio\questComplete.wav

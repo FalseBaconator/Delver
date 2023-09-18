@@ -59,14 +59,15 @@ namespace TextRPG
         {
             if(pos == this.pos)
             {
-                if (!Globals.questCompleted)
-                {
-                    hud.SetMessage("Complete quest: " + Globals.questString);
-                    return true;
-                }
-
                 if(win)
+                {
+                    if (!Globals.questCompleted)
+                    {
+                        hud.SetMessage("Complete quest: " + Globals.questString);
+                        return true;
+                    }
                     manager.loadManager.NextFloor();
+                }
                 return true;
             }
             else

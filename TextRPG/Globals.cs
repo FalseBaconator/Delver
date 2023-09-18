@@ -12,5 +12,6 @@ namespace TextRPG
         public static int currentFloor;
         public static bool questCompleted;
         public static string questString;
+        public static int round;
     }
 }

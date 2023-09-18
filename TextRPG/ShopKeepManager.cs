@@ -41,6 +41,7 @@ namespace TextRPG
 
         public void GenerateShopKeeps(Player player)
         {
+            if (Globals.currentFloor == Constants.BossFloor) return;
             Position tempPos;
             ClearShopKeeps();
             int placedShopKeeps = 0;

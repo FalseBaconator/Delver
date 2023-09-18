@@ -54,7 +54,7 @@ namespace TextRPG
 
         public void FloorSetUp()                    //
         {
-            quests.GrantQuest();                                //
+            Globals.round = 0;
             render.setHud(hud);                     //
             render.setCam(cam);                     //
             render.setMiniMap(miniMap);             //
@@ -69,7 +69,8 @@ namespace TextRPG
 
         public void BossSetUp()
         {
-            quests.GrantQuest(true);
+            Globals.round = 0;
+            shopKeepManager.ClearShopKeeps();
             render.setHud(hud);
             render.setCam(cam);
             cam.Update();

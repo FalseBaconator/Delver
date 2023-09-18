@@ -65,7 +65,7 @@ namespace TextRPG
             shop = new Shop(inputManager, player);
             hud = new Hud(player, enemyManager, itemManager, this, shop, exit);
             cam = new Camera(player, this);
-            quests = new Quests(hud);
+            quests = new Quests(hud, soundManager);
             loadManager = new LoadManager(this, render, cam, exit, itemManager, enemyManager, shopKeepManager, miniMap, player, hud, map, mapGen, quests);
 
             //subscriptions
@@ -77,11 +77,24 @@ namespace TextRPG
 
         public void Update()
         {
+            Globals.round++;
+
+            if (Globals.round == 1)
+            {
+                quests.GrantQuest();
+                Draw();
+            }
+
             inputManager.Update();          //
+
             shop.Update();
+
             if (Globals.shopping) return;
+
             hud.SetMessage(" ");
-            if(player.isAlive() == false)   //
+
+
+            if (player.isAlive() == false)   //
             {                               //  End game if player is dead
                 play = false;               //
             }                               //

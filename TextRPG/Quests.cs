@@ -9,10 +9,12 @@ namespace TextRPG
     internal class Quests
     {
         Hud hud;
+        SoundManager soundManager;
 
-        public Quests(Hud hud)
+        public Quests(Hud hud, SoundManager soundManager)
         {
             this.hud = hud;
+            this.soundManager = soundManager;
         }
 
         public enum QuestList
@@ -26,15 +28,15 @@ namespace TextRPG
 
         private QuestList currentQuest;
 
-        public void GrantQuest(bool isBossFloor = false)
+        public void GrantQuest()
         {
             Globals.questCompleted = false;
 
-            if (isBossFloor)
+            if (Globals.currentFloor == Constants.BossFloor)
             {
                 currentQuest = QuestList.killBoss;
                 Globals.questString = Constants.killBossString;
-                hud.SetMessage("Quest granted: " + Constants.killBossString + "!");
+                hud.SetMessage("Quest granted: " + Constants.killBossString + "!", true);
                 return;
             }
 
@@ -62,7 +64,7 @@ namespace TextRPG
                     Globals.questString = Constants.loseShieldString;
                     break;
             }
-            hud.SetMessage("Quest granted: " + Globals.questString + "!");
+            hud.SetMessage("Quest granted: " + Globals.questString + "!", true);
         }
 
         //Event subscribers
@@ -74,6 +76,7 @@ namespace TextRPG
             if (e.enemiesKilled >= Constants.enemiesToKill)
             {
                 Globals.questCompleted = true;
+                soundManager.Play(SoundManager.Noise.quest);
                 hud.SetMessage("Quest completed!", true);
             }
         }
@@ -84,6 +87,7 @@ namespace TextRPG
             if (e.itemsPickedUp >= Constants.itemsToGet)
             {
                 Globals.questCompleted = true;
+                soundManager.Play(SoundManager.Noise.quest);
                 hud.SetMessage("Quest completed!", true);
             }
         }
@@ -92,6 +96,7 @@ namespace TextRPG
             if (Globals.questCompleted || currentQuest != QuestList.buyFromShop) return;
 
             Globals.questCompleted = true;
+            soundManager.Play(SoundManager.Noise.quest);
             hud.SetMessage("Quest completed!", true);
         }
         public void OnShieldLost(object source, EventArgs e)
@@ -99,6 +104,7 @@ namespace TextRPG
             if (Globals.questCompleted || currentQuest != QuestList.loseShield) return;
 
             Globals.questCompleted = true;
+            soundManager.Play(SoundManager.Noise.quest);
             hud.SetMessage("Quest completed!", true);
         }
     }

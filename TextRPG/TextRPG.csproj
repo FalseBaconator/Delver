@@ -90,6 +90,9 @@
     <Content Include="Audio\pickUp.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Audio\questComplete.wav">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Audio\Victory.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
