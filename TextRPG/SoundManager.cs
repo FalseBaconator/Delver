@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Media;
 using System.Runtime.InteropServices;
+using System.Threading;
 
 namespace TextRPG
 {
@@ -53,13 +54,13 @@ namespace TextRPG
 
         static void PlaySound(string soundFileName)
         {
-            string command = $"open \"{soundFileName}\" type waveaudio alias {soundFileName}";
+            string command = $"close {soundFileName}";
+            mciSendString(command, null, 0, IntPtr.Zero);
+
+            command = $"open \"{soundFileName}\" type waveaudio alias {soundFileName}";
             mciSendString(command, null, 0, IntPtr.Zero);
 
             command = $"play {soundFileName}";
-            mciSendString(command, null, 0, IntPtr.Zero);
-
-            command = $"close {soundFileName}";
             mciSendString(command, null, 0, IntPtr.Zero);
         }
 
