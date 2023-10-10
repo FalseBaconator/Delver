@@ -20,6 +20,8 @@ namespace TextRPG
 
         private EnemyManager enemyManager;
 
+        private ShopKeepManager shopKeepManager;
+
         private MiniMap miniMap;
 
         private Player player;
@@ -30,7 +32,9 @@ namespace TextRPG
 
         private MapGenerator mapGen;
 
-        public LoadManager(GameManager gManager, Render render, Camera cam, Exit exit, ItemManager itemManager, EnemyManager enemyManager, MiniMap miniMap, Player player, Hud hud, Map map, MapGenerator mapGen)
+        private Quests quests;
+
+        public LoadManager(GameManager gManager, Render render, Camera cam, Exit exit, ItemManager itemManager, EnemyManager enemyManager, ShopKeepManager shopKeepManager, MiniMap miniMap, Player player, Hud hud, Map map, MapGenerator mapGen, Quests quests)
         {
             this.gManager = gManager;
             this.render = render;
@@ -38,16 +42,19 @@ namespace TextRPG
             this.exit = exit;
             this.itemManager = itemManager;
             this.enemyManager = enemyManager;
+            this.shopKeepManager = shopKeepManager;
             this.miniMap = miniMap;
             this.player = player;
             this.hud = hud;
             this.map = map;
             this.mapGen = mapGen;
+            this.quests = quests;
             Globals.currentFloor = 1;
         }
 
         public void FloorSetUp()                    //
-        {                                           //
+        {
+            Globals.round = 0;
             render.setHud(hud);                     //
             render.setCam(cam);                     //
             render.setMiniMap(miniMap);             //
@@ -55,12 +62,15 @@ namespace TextRPG
             exit.PlaceExit(player);                 //  SetUp
             itemManager.GenerateItems(player);      //
             enemyManager.GenerateEnemies(player);   //
+            shopKeepManager.GenerateShopKeeps(player);
             miniMap.Update();                       //
             gManager.Draw();                        //
         }                                           //
 
         public void BossSetUp()
         {
+            Globals.round = 0;
+            shopKeepManager.ClearShopKeeps();
             render.setHud(hud);
             render.setCam(cam);
             cam.Update();
@@ -89,8 +99,5 @@ namespace TextRPG
             else
                 FloorSetUp();
         }
-
-
-
     }
 }

@@ -22,10 +22,23 @@ namespace TextRPG
         public const int EnemySightRange = 7;
         public const int EnemyAmount = 50;
 
+        //ShopKeep Settings
+        public const int ShopKeepAmount = 2;
+        public const int shopKeepBaseHP = 10;
+        public const int shopKeepBaseAttack = 5;
+        public static Tile shopKeepSprite = new Tile('¢', ConsoleColor.DarkYellow, ConsoleColor.Black);
+        public const string shopKeepName = "Shop Keep";
+
+        //Shop Price Settings
+        public const int healthPotionCost = 8;
+        public const int shieldRepairCost = 4;
+        public const int ATKBuffCost = 12;
+
         //Slime Settings
         public const int slimeBaseHP = 1;
         public const int slimeBaseAttack = 1;
         public const int slimeXP = 1;
+        public const int slimeGold = 1;
         public static Tile slimeSprite = new Tile('O', ConsoleColor.Cyan, ConsoleColor.Black);
         public const string slimeName = "Slime";
 
@@ -33,6 +46,7 @@ namespace TextRPG
         public const int goblinBaseHP = 5;
         public const int goblinBaseAttack = 2;
         public const int goblinXP = 5;
+        public const int goblinGold = 5;
         public static Tile goblinSprite = new Tile('X', ConsoleColor.DarkGreen, ConsoleColor.Black);
         public const string goblinName = "Goblin";
 
@@ -40,6 +54,7 @@ namespace TextRPG
         public const int koboldBaseHP = 3;
         public const int koboldBaseAttack = 1;
         public const int koboldXP = 2;
+        public const int koboldGold = 3;
         public static Tile koboldSprite = new Tile('X', ConsoleColor.DarkRed, ConsoleColor.Black);
         public const string koboldName = "Kobold";
 
@@ -85,12 +100,23 @@ namespace TextRPG
         //HUD Settings
         public const int hudWidth = 33;
         public const int messageBoxHeight = 2;
-        public const int statsHeight = 8;
-        public const string playerStatsList = "Player|HP: 1/2|SHLD: 3/4|ATK: 5|LVL: 6|XP: 7/8|FLOOR: 9/0";
-        public const string enemyStatsList = "HP: 1|ATK: 2|XP: 3";
+        public const int statsHeight = 9;
+        public const string playerStatsList = "Player|HP: 1/2|SHLD: 3/4|ATK: 5|LVL: 6|XP: 7/8|FLOOR: 9/0|GOLD: $";
+        public const string enemyStatsList = "HP: 1|ATK: 2|XP: 3|GOLD: 4";
+        public const string shopList = "1: HP Potion !g|2: Shield @g|3: ATK Buff #g|E key to leave";
 
         //Exit Settings
         public static Tile exitSprite = new Tile('¤', ConsoleColor.Yellow, ConsoleColor.Black);
 
+        //Quest Strings
+        public const string killEnemiesString = "kill 10 enemies";
+        public const string loseShieldString = "lose your shield";
+        public const string killBossString = "kill the boss";
+        public const string buyFromShopString = "buy from shop";
+        public const string pickUpItemsString = "get 10 items";
+
+        //Quest Conditions
+        public const int enemiesToKill = 10;
+        public const int itemsToGet = 10;
     }
 }

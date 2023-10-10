@@ -11,19 +11,24 @@ namespace TextRPG
         private Player player;
         private EnemyManager enemyManager;
         private Enemy enemy;
-        private string message;
+        private string message = null;
         private GameManager manager;
+        private Shop shop;
+        private bool isMessageImportant;
 
         public Tile[,] hudArray = new Tile[Constants.messageBoxHeight + Constants.statsHeight + 2,Constants.hudWidth + 1];
 
-        public Hud(Player player, EnemyManager enemyManager, ItemManager itemManager, GameManager manager)
+        public Hud(Player player, EnemyManager enemyManager, ItemManager itemManager, GameManager manager, Shop shop, Exit exit)
         {
             this.player = player;
             this.player.SetHud(this);
             this.enemyManager = enemyManager;
             this.enemyManager.SetHud(this);
+            this.shop = shop;
+            this.shop.SetHud(this);
             itemManager.SetHud(this);
             this.manager = manager;
+            exit.SetHud(this);
         }
 
         public void draw()
@@ -87,15 +92,20 @@ namespace TextRPG
             int enemyStatIndex = 0;
             bool enemyNextLine = false;
             string enemyStatString = " ";
+            int shopStatIndex = 0;
+            bool shopNextLine = false;
             int playerTextOffset = 0;
             int enemyTextOffset = 0;
+            int shopTextOffset = 0;
             if(enemy != null)
                 enemyStatString = enemy.GetName() + "|" + Constants.enemyStatsList;
             for (int i = Constants.messageBoxHeight + 1; i <= Constants.messageBoxHeight + 1 + Constants.statsHeight; i++)
             {
                 playerNextLine = false;
                 enemyNextLine = false;
+                shopNextLine = false;
                 playerTextOffset = 0;
+                shopTextOffset = 0;
                 for (int j = 0; j <= Constants.hudWidth; j++)
                 {
                     if (i == Constants.messageBoxHeight + 1)
@@ -253,6 +263,19 @@ namespace TextRPG
                                         case '0':
                                             hudArray[i, j + playerTextOffset] = new Tile(Constants.BossFloor.ToString()[0], Constants.borderColor, Constants.BGColor);
                                             break;
+                                        case '$':
+                                            hudArray[i, j + playerTextOffset] = new Tile(player.GetGold().ToString()[0], Constants.borderColor, Constants.BGColor);
+                                            if (player.GetGold() >= 10)
+                                            {
+                                                playerTextOffset++;
+                                                hudArray[i, j + playerTextOffset] = new Tile(player.GetGold().ToString()[1], Constants.borderColor, Constants.BGColor);
+                                                if (player.GetGold() >= 100)
+                                                {
+                                                    playerTextOffset++;
+                                                    hudArray[i, j + playerTextOffset] = new Tile(player.GetGold().ToString()[2], Constants.borderColor, Constants.BGColor);
+                                                }
+                                            }
+                                            break;
                                         default:
                                             hudArray[i, j + playerTextOffset] = new Tile(Constants.playerStatsList[playerStatIndex], Constants.borderColor, Constants.BGColor);
                                             break;
@@ -262,7 +285,7 @@ namespace TextRPG
                                 }
                             }
                         }
-                        else if (enemy != null)
+                        else if (enemy != null && !Globals.shopping)
                         {
                             if (j > Constants.hudWidth / 2 && j < Constants.hudWidth && enemyNextLine != true)
                             {
@@ -312,11 +335,27 @@ namespace TextRPG
                                                 break;
                                             case '3':
                                                 hudArray[i, j] = new Tile(enemy.GetXP().ToString()[0], Constants.borderColor, Constants.BGColor);
-                                                if (enemy.GetATK() >= 10)
+                                                if (enemy.GetXP() >= 10)
                                                 {
                                                     hudArray[i, j + 1] = new Tile(enemy.GetXP().ToString()[1], Constants.borderColor, Constants.BGColor);
-                                                    if (enemy.GetATK() >= 100)
+                                                    if (enemy.GetXP() >= 100)
                                                         hudArray[i, j + 2] = new Tile(enemy.GetXP().ToString()[2], Constants.borderColor, Constants.BGColor);
+                                                    else
+                                                        hudArray[i, j + 2] = new Tile(' ', Constants.borderColor, Constants.BGColor);
+                                                }
+                                                else
+                                                {
+                                                    hudArray[i, j + 1] = new Tile(' ', Constants.borderColor, Constants.BGColor);
+                                                    hudArray[i, j + 2] = new Tile(' ', Constants.borderColor, Constants.BGColor);
+                                                }
+                                                break;
+                                            case '4':
+                                                hudArray[i, j] = new Tile(enemy.GetGold().ToString()[0], Constants.borderColor, Constants.BGColor);
+                                                if (enemy.GetGold() >= 10)
+                                                {
+                                                    hudArray[i, j + 1] = new Tile(enemy.GetGold().ToString()[1], Constants.borderColor, Constants.BGColor);
+                                                    if (enemy.GetGold() >= 100)
+                                                        hudArray[i, j + 2] = new Tile(enemy.GetGold().ToString()[2], Constants.borderColor, Constants.BGColor);
                                                     else
                                                         hudArray[i, j + 2] = new Tile(' ', Constants.borderColor, Constants.BGColor);
                                                 }
@@ -335,6 +374,70 @@ namespace TextRPG
                                 }
                             }
                         }
+                        else if (Globals.shopping)
+                        {
+                            if (j > Constants.hudWidth / 2 && j < Constants.hudWidth && shopNextLine != true)
+                            {
+                                if (shopStatIndex < Constants.shopList.Length)
+                                {
+                                    if (Constants.shopList[shopStatIndex] == '|')
+                                    {
+                                        //hudArray[i, j] = ' ';
+                                        shopNextLine = true;
+                                        shopStatIndex++;
+                                    }
+                                    else
+                                    {
+                                        switch (Constants.shopList[shopStatIndex])
+                                        {
+                                            case '!':
+                                                hudArray[i, j + shopTextOffset] = new Tile(Constants.healthPotionCost.ToString()[0], Constants.borderColor, Constants.BGColor);
+                                                if (Constants.healthPotionCost >= 10)
+                                                {
+                                                    shopTextOffset++;
+                                                    hudArray[i, j + shopTextOffset] = new Tile(Constants.healthPotionCost.ToString()[1], Constants.borderColor, Constants.BGColor);
+                                                    if (Constants.healthPotionCost >= 100)
+                                                    {
+                                                        shopTextOffset++;
+                                                        hudArray[i, j + shopTextOffset] = new Tile(Constants.healthPotionCost.ToString()[2], Constants.borderColor, Constants.BGColor);
+                                                    }
+                                                }
+                                                break;
+                                            case '@':
+                                                hudArray[i, j + shopTextOffset] = new Tile(Constants.shieldRepairCost.ToString()[0], Constants.borderColor, Constants.BGColor);
+                                                if (Constants.shieldRepairCost >= 10)
+                                                {
+                                                    shopTextOffset++;
+                                                    hudArray[i, j + shopTextOffset] = new Tile(Constants.shieldRepairCost.ToString()[1], Constants.borderColor, Constants.BGColor);
+                                                    if (Constants.shieldRepairCost >= 100)
+                                                    {
+                                                        shopTextOffset++;
+                                                        hudArray[i, j + shopTextOffset] = new Tile(Constants.shieldRepairCost.ToString()[2], Constants.borderColor, Constants.BGColor);
+                                                    }
+                                                }
+                                                break;
+                                            case '#':
+                                                hudArray[i, j + shopTextOffset] = new Tile(Constants.ATKBuffCost.ToString()[0], Constants.borderColor, Constants.BGColor);
+                                                if (Constants.ATKBuffCost >= 10)
+                                                {
+                                                    shopTextOffset++;
+                                                    hudArray[i, j + shopTextOffset] = new Tile(Constants.ATKBuffCost.ToString()[1], Constants.borderColor, Constants.BGColor);
+                                                    if (Constants.ATKBuffCost >= 100)
+                                                    {
+                                                        shopTextOffset++;
+                                                        hudArray[i, j + shopTextOffset] = new Tile(Constants.ATKBuffCost.ToString()[2], Constants.borderColor, Constants.BGColor);
+                                                    }
+                                                }
+                                                break;
+                                            default:
+                                                hudArray[i, j + shopTextOffset] = new Tile(Constants.shopList[shopStatIndex], Constants.borderColor, Constants.BGColor);
+                                                break;
+                                        }
+                                        shopStatIndex++;
+                                    }
+                                }
+                            }
+                        }
                         else
                         {
                             hudArray[i, j] = new Tile(' ', Constants.borderColor, Constants.BGColor);
@@ -342,17 +445,19 @@ namespace TextRPG
                     }
                 }
             }
+            isMessageImportant = false;
         }
 
-        public void SetMessage(string message)
+        public void SetMessage(string message, bool important = false)
         {
+            if (isMessageImportant) return;
             this.message = message;
+            isMessageImportant = important;
         }
 
         public string GetMessage()
         {
             return message;
         }
-
     }
 }

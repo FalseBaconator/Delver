@@ -20,6 +20,8 @@ namespace TextRPG
 
         public static EnemyManager enemyManager;
 
+        public static ShopKeepManager shopKeepManager;
+
         static Player player;
 
         public static ItemManager itemManager;
@@ -32,6 +34,8 @@ namespace TextRPG
 
         static Camera cam;
 
+        public static Shop shop;
+
         //private string message;
 
         public LoadManager loadManager;
@@ -42,6 +46,7 @@ namespace TextRPG
 
         public SoundManager soundManager = new SoundManager();
 
+        public Quests quests;
 
         public GameManager()
         {
@@ -54,26 +59,50 @@ namespace TextRPG
             exit = new Exit(this, render, map);
             itemManager = new ItemManager(map, render, this, exit, soundManager);
             enemyManager = new EnemyManager(map, render, itemManager, this, exit, soundManager);
-            player = new Player(new Position((Constants.mapWidth/2) * Constants.roomWidth + (Constants.roomWidth/2), (Constants.mapHeight / 2) * Constants.roomHeight + (Constants.roomHeight / 2)), map, enemyManager, render, this, inputManager, itemManager, exit, soundManager);
+            shopKeepManager = new ShopKeepManager(map, render, itemManager, this, exit, soundManager, enemyManager);
+            player = new Player(new Position((Constants.mapWidth/2) * Constants.roomWidth + (Constants.roomWidth/2), (Constants.mapHeight / 2) * Constants.roomHeight + (Constants.roomHeight / 2)), map, enemyManager, render, this, inputManager, itemManager, shopKeepManager, exit, soundManager);
             miniMap = new MiniMap(mapGen.makeMiniMap(), player);
-            hud = new Hud(player, enemyManager, itemManager, this);
+            shop = new Shop(inputManager, player);
+            hud = new Hud(player, enemyManager, itemManager, this, shop, exit);
             cam = new Camera(player, this);
-            loadManager = new LoadManager(this, render, cam, exit, itemManager, enemyManager, miniMap, player, hud, map, mapGen);
-            
+            quests = new Quests(hud, soundManager);
+            loadManager = new LoadManager(this, render, cam, exit, itemManager, enemyManager, shopKeepManager, miniMap, player, hud, map, mapGen, quests);
+
+            //subscriptions
+            enemyManager.EnemyKilled += quests.OnEnemyKilled;
+            itemManager.ItemPickedUp += quests.OnItemPickedUp;
+            shop.ItemBought += quests.OnItemBought;
+            player.ShieldLost += quests.OnShieldLost;
         }
 
         public void Update()
         {
+            Globals.round++;
+
+            if (Globals.round == 1)
+            {
+                quests.GrantQuest();
+                Draw();
+            }
+
+            inputManager.Update();          //
+
+            shop.Update();
+
+            if (Globals.shopping) return;
+
             hud.SetMessage(" ");
-            if(player.isAlive() == false)   //
+
+
+            if (player.isAlive() == false)   //
             {                               //  End game if player is dead
                 play = false;               //
             }                               //
             
-            inputManager.Update();          //
             player.Update();                //  Update everything
             cam.Update();                   //
             enemyManager.UpdateEnemies();   //
+            shopKeepManager.UpdateShopKeeps();
             miniMap.Update();               //
         }
         
@@ -96,6 +125,7 @@ namespace TextRPG
             itemManager.Draw();         //  Set chars to arrays in rend
             player.Draw();              //
             enemyManager.DrawEnemies(); //
+            shopKeepManager.DrawShopKeeps();
             exit.Draw();                //
             hud.draw();                 //
             render.DrawToScreen();    //Adds to screen

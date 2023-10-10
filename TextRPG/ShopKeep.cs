@@ -6,15 +6,11 @@ using System.Threading.Tasks;
 
 namespace TextRPG
 {
-    abstract class Enemy : GameCharacter
+    internal class ShopKeep : GameCharacter
     {
         protected Player player;
 
-        //protected bool moved;
-
         protected string name;
-
-        protected int sightRange = Constants.EnemySightRange;
 
         protected ItemManager itemManager;
 
@@ -22,22 +18,17 @@ namespace TextRPG
 
         protected Exit exit;
 
-        protected int XPReward;
+        protected ShopKeepManager shopKeepManager;
 
-        protected int GoldReward;
-
-        public Enemy(Position pos, int HP, int ATK, Tile sprite, string name, Map map, Player player, EnemyManager enemyManager, ItemManager itemManager, Render rend, GameManager manager, Hud hud, Exit exit, int XPReward, int GoldReward, SoundManager soundManager) : base(pos, HP, ATK, sprite, map, enemyManager, rend, manager, soundManager)
+        public ShopKeep(Position pos, Map map, Player player, EnemyManager enemyManager, ItemManager itemManager, Render rend, GameManager manager, Hud hud, Exit exit,  SoundManager soundManager, ShopKeepManager shopKeepManager) : base(pos, Constants.shopKeepBaseHP, Constants.shopKeepBaseAttack, Constants.shopKeepSprite, map, enemyManager, rend, manager, soundManager)
         {
             this.name = name;
             this.player = player;
             this.itemManager = itemManager;
             this.hud = hud;
             this.exit = exit;
-            this.XPReward = XPReward;
-            this.GoldReward = GoldReward;
+            this.shopKeepManager = shopKeepManager;
         }
-
-        public abstract void Update();
 
         protected void RandomMove()
         {
@@ -92,59 +83,10 @@ namespace TextRPG
                         break;
                 }
             }
-            if(IsSpaceAvailable(targetPos))
+            if (IsSpaceAvailable(targetPos))
             {
                 pos = targetPos;
             }
-        }
-
-        public override void TakeDMG(int DMG)
-        {
-            base.TakeDMG(DMG);
-            if (HP <= 0)
-            {
-                enemyManager.RemoveEnemy(this);
-                player.giveXP(XPReward);
-                player.giveGold(GoldReward);
-            }
-        }
-
-        public void AttackPlayer(Player target)
-        {
-            target.TakeDMG(ATK);
-            if (target.GetHealth() <= 0) hud.SetMessage(name + " killed Player");
-            else if (hud.GetMessage() == " ") hud.SetMessage(name + " attacked Player");
-            else hud.SetMessage("Player and " + name + " both attacked");
-        }
-
-        public bool CanSeePlayer()
-        {
-            bool check = false;
-
-            int a2 = (player.GetPos().x - pos.x);
-            a2 = a2 * a2;
-
-            int b2 = (player.GetPos().y - pos.y);
-            b2 = b2 * b2;
-
-            int c = (int)Math.Sqrt(a2+b2);
-
-            if (c <= sightRange)
-            {
-                check = true;
-            }
-
-            return check;
-        }
-
-        public int GetXP()
-        {
-            return XPReward;
-        }
-
-        public int GetGold()
-        {
-            return GoldReward;
         }
 
         public bool IsSpaceAvailable(Position pos)
@@ -158,17 +100,26 @@ namespace TextRPG
                 available = false;
             if (player.isPlayerAt(pos))
                 available = false;
-            if(exit.isExitAt(pos, false))
+            if (exit.isExitAt(pos, false))
                 available = false;
 
             return available;
-
         }
 
-        public string GetName()
+        public void Update()
         {
-            return name;
-        }
+            if (alive)
+            {
 
+                if (player.isPlayerAt(new Position(pos.x, pos.y - 1)) || player.isPlayerAt(new Position(pos.x, pos.y + 1)) || player.isPlayerAt(new Position(pos.x - 1, pos.y)) || player.isPlayerAt(new Position(pos.x + 1, pos.y)))       //
+                {                                                                                                                                   //
+                    //AttackPlayer(player);                                                                                                           //  Enemy uses turn to attack player if they're adjacent
+                }                                                                                                                                   //
+                else                //
+                {                   //  Move in a random direction if hasn't attacked
+                    RandomMove();   //
+                }                   //
+            }
+        }
     }
 }

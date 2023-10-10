@@ -8,6 +8,10 @@ namespace TextRPG
 {
     internal class Globals
     {
+        public static bool shopping;
         public static int currentFloor;
+        public static bool questCompleted;
+        public static string questString;
+        public static int round;
     }
 }
