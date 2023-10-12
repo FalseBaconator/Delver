@@ -1,0 +1,91 @@
+﻿Player Base HP: 5
+Player Base Shield: 5
+Player Base Attack: 1
+Player XP Threshold: 25
+Player Tile |@|White|Black|
+
+Enemy Sight Range: 7
+Enemy Amount: 50
+
+Shopkeeper Amount: 2
+Shopkeeper Base HP: 10
+Shopkeeper Base Attack: 5
+Shopkeep Tile |¢|DarkYellow|Black|
+Shopkeep Name "Shop Keep"
+
+Health Potion Cost: 8
+Shield Repair Cost: 4
+Attack Buff Cost: 12
+
+Slime Base HP: 1
+Slime Base Attack: 1
+Slime XP: 1
+Slime Gold: 1
+Slime Tile |O|Cyan|Black|
+Slime Name "Slime"
+
+Goblin Base HP: 5
+Goblin Base Attack: 2
+Goblin XP: 5
+Goblin Gold: 5
+Goblin Tile |X|DarkGreen|Black|
+Goblin Name "Goblin"
+
+Kobold Base HP: 3
+Kobold Base Attack: 1
+Kobold XP: 2
+Kobold Gold: 3
+Kobold Tile |X|DarkRed|Black|
+Kobold Name "Kobold"
+
+Boss Base HP: 150
+Boss Base Attack: 3
+Boss Tile |M|DarkRed|Black|
+Boss Name "Boss"
+
+Item Amount: 50
+Boss Item Amount: 10
+Heal Worth: 3
+Attack Buff Worth: 1
+Shield Repair Worth: 3
+Health Potion Tile |+|Green|Black|
+Attack Buff Tile |*|Red|Black|
+Shield Repair Tile |#|Blue|Black
+Health Potion Name "Health Potion"
+Attack Buff Name "ATK Buff"
+Shield Repair Name "Shield Repair"
+
+Map Color = <DarkGray>
+Map Height In Rooms: 5
+Map Width in Rooms: 5
+Room Height: 13
+Room Width: 13
+Boss Room Height: 15
+Boss Room Width: 15
+Boss Floor: 3
+Rooms Per Category: 4
+
+Camera Size: 15
+
+Render Width: 35
+Render Height: 50
+Border Colour <White>
+Background Colour <Black>
+
+Hud Width: 33
+Message Box Height: 2
+Stats Height: 9
+Player Stats List "Player|HP: 1/2|SHLD: 3/4|ATK: 5|LVL: 6|XP: 7/8|FLOOR: 9/0|GOLD: $"
+Enemy Stats List "HP: 1|ATK: 2|XP: 3|GOLD: 4"
+Shop List "1: HP Potion !g|2: Shield @g|3: ATK Buff #g|E key to leave"
+
+Exit Tile |¤|Yellow|Black|
+
+Kill Enemy Quest "Kill 10 Enemies"
+Lose Shield Quest "Lose Your Shield"
+Kill Boss Quest "Kill The Boss"
+Buy Shop Quest "Buy From Shop"
+Pick Up Items Quest "Get 10 Items"
+
+Enemy Kill Amount: 10
+Items Pick Up Amount: 10

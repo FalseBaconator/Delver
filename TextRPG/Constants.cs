@@ -83,8 +83,8 @@ namespace TextRPG
         public const int mapWidth = 5;
         public const int roomHeight = 13;
         public const int roomWidth = 13;
-        public const int BossRoomWidth = 15;
         public const int BossRoomHeight = 15;
+        public const int BossRoomWidth = 15;
         public const int BossFloor = 3;
         public const int RoomsPerCategory = 4;
 
