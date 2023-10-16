@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.Remoting.Messaging;
@@ -14,112 +15,112 @@ namespace TextRPG
         public readonly Random rand = new Random();
 
         //Player Settings
-        public readonly int playerBaseHP = 5;
-        public readonly int playerBaseShield = 5;
-        public readonly int playerBaseAttack = 2;
-        public readonly int playerXPThreshold = 25;
-        public readonly Tile playerSprite = new Tile('@', ConsoleColor.White, ConsoleColor.Black);
+        public readonly int playerBaseHP;
+        public readonly int playerBaseShield;
+        public readonly int playerBaseAttack;
+        public readonly int playerXPThreshold;
+        public readonly Tile playerSprite;
 
         //Enemy Settings
-        public readonly int EnemySightRange = 7;
-        public readonly int EnemyAmount = 50;
+        public readonly int EnemySightRange;
+        public readonly int EnemyAmount;
 
         //ShopKeep Settings
-        public readonly int ShopKeepAmount = 2;
-        public readonly int shopKeepBaseHP = 10;
-        public readonly int shopKeepBaseAttack = 5;
-        public readonly Tile shopKeepSprite = new Tile('¢', ConsoleColor.DarkYellow, ConsoleColor.Black);
-        public readonly string shopKeepName = "Shop Keep";
+        public readonly int ShopKeepAmount;
+        public readonly int shopKeepBaseHP;
+        public readonly int shopKeepBaseAttack;
+        public readonly Tile shopKeepSprite;
+        public readonly string shopKeepName;
 
         //Shop Price Settings
-        public readonly int healthPotionCost = 8;
-        public readonly int shieldRepairCost = 4;
-        public readonly int ATKBuffCost = 12;
+        public readonly int healthPotionCost;
+        public readonly int shieldRepairCost;
+        public readonly int ATKBuffCost;
 
         //Slime Settings
-        public readonly int slimeBaseHP = 1;
-        public readonly int slimeBaseAttack = 1;
-        public readonly int slimeXP = 1;
-        public readonly int slimeGold = 1;
-        public readonly Tile slimeSprite = new Tile('O', ConsoleColor.Cyan, ConsoleColor.Black);
-        public readonly string slimeName = "Slime";
+        public readonly int slimeBaseHP;
+        public readonly int slimeBaseAttack;
+        public readonly int slimeXP;
+        public readonly int slimeGold;
+        public readonly Tile slimeSprite;
+        public readonly string slimeName;
 
         //Goblin Settings
-        public readonly int goblinBaseHP = 5;
-        public readonly int goblinBaseAttack = 2;
-        public readonly int goblinXP = 5;
-        public readonly int goblinGold = 5;
-        public readonly Tile goblinSprite = new Tile('X', ConsoleColor.DarkGreen, ConsoleColor.Black);
-        public readonly string goblinName = "Goblin";
+        public readonly int goblinBaseHP;
+        public readonly int goblinBaseAttack;
+        public readonly int goblinXP;
+        public readonly int goblinGold;
+        public readonly Tile goblinSprite;
+        public readonly string goblinName;
 
         //Kobold Settings
-        public readonly int koboldBaseHP = 3;
-        public readonly int koboldBaseAttack = 1;
-        public readonly int koboldXP = 2;
-        public readonly int koboldGold = 3;
-        public readonly Tile koboldSprite = new Tile('X', ConsoleColor.DarkRed, ConsoleColor.Black);
-        public readonly string koboldName = "Kobold";
+        public readonly int koboldBaseHP;
+        public readonly int koboldBaseAttack;
+        public readonly int koboldXP;
+        public readonly int koboldGold;
+        public readonly Tile koboldSprite;
+        public readonly string koboldName;
 
         //Boss Settings
-        public readonly int bossBaseHP = 150;
-        public readonly int bossBaseAttack = 3;
-        public readonly Tile bossSprite = new Tile('M', ConsoleColor.DarkRed, ConsoleColor.Black);
-        public readonly string bossName = "Boss";
+        public readonly int bossBaseHP;
+        public readonly int bossBaseAttack;
+        public readonly Tile bossSprite;
+        public readonly string bossName;
 
         //Item Settings
-        public readonly int itemAmount = 50;
-        public readonly int bossItemAmount = 10;
-        public readonly int healAmount = 3;
-        public readonly int ATKBuffAmount = 1;
-        public readonly int shieldRepairAmount = 3;
-        public readonly Tile healSprite = new Tile('+', ConsoleColor.Green, ConsoleColor.Black);
-        public readonly Tile ATKSprite = new Tile('*', ConsoleColor.Red, ConsoleColor.Black);
-        public readonly Tile ShieldRepairSprite = new Tile('#', ConsoleColor.Blue, ConsoleColor.Black);
-        public readonly string healName = "Health Potion";
-        public readonly string ATKBuffName = "ATK Buff";
-        public readonly string ShieldRepairName = "Shield Repair";
+        public readonly int itemAmount;
+        public readonly int bossItemAmount;
+        public readonly int healAmount;
+        public readonly int ATKBuffAmount;
+        public readonly int shieldRepairAmount;
+        public readonly Tile healSprite;
+        public readonly Tile ATKSprite;
+        public readonly Tile ShieldRepairSprite;
+        public readonly string healName;
+        public readonly string ATKBuffName;
+        public readonly string ShieldRepairName;
 
         //Map Settings
-        public readonly ConsoleColor mapColor = ConsoleColor.DarkGray;
-        public readonly int mapHeight = 5;
-        public readonly int mapWidth = 5;
-        public readonly int roomHeight = 13;
-        public readonly int roomWidth = 13;
-        public readonly int BossRoomHeight = 15;
-        public readonly int BossRoomWidth = 15;
-        public readonly int BossFloor = 3;
-        public readonly int RoomsPerCategory = 4;
+        public readonly ConsoleColor mapColor;
+        public readonly int mapHeight;
+        public readonly int mapWidth;
+        public readonly int roomHeight;
+        public readonly int roomWidth;
+        public readonly int BossRoomHeight;
+        public readonly int BossRoomWidth;
+        public readonly int BossFloor;
+        public readonly int RoomsPerCategory;
 
         //Cam Settings
-        public readonly int camSize = 15;
+        public readonly int camSize;
 
         //Render Settings
-        public readonly int rendWidth = 35;
-        public readonly int rendHeight = 50;
-        public readonly ConsoleColor borderColor = ConsoleColor.White;
-        public readonly ConsoleColor BGColor = ConsoleColor.Black;
+        public readonly int rendWidth;
+        public readonly int rendHeight;
+        public readonly ConsoleColor borderColor;
+        public readonly ConsoleColor BGColor;
 
         //HUD Settings
-        public readonly int hudWidth = 33;
-        public readonly int messageBoxHeight = 2;
-        public readonly int statsHeight = 9;
-        public readonly string playerStatsList = "Player|HP: 1/2|SHLD: 3/4|ATK: 5|LVL: 6|XP: 7/8|FLOOR: 9/0|GOLD: $";
-        public readonly string enemyStatsList = "HP: 1|ATK: 2|XP: 3|GOLD: 4";
-        public readonly string shopList = "1: HP Potion !g|2: Shield @g|3: ATK Buff #g|E key to leave";
+        public readonly int hudWidth;
+        public readonly int messageBoxHeight;
+        public readonly int statsHeight;
+        public readonly string playerStatsList;
+        public readonly string enemyStatsList;
+        public readonly string shopList;
 
         //Exit Settings
-        public readonly Tile exitSprite = new Tile('¤', ConsoleColor.Yellow, ConsoleColor.Black);
+        public readonly Tile exitSprite;
 
         //Quest Strings
-        public readonly string killEnemiesString = "kill 10 enemies";
-        public readonly string loseShieldString = "lose your shield";
-        public readonly string killBossString = "kill the boss";
-        public readonly string buyFromShopString = "buy from shop";
-        public readonly string pickUpItemsString = "get 10 items";
+        public readonly string killEnemiesString;
+        public readonly string loseShieldString;
+        public readonly string killBossString;
+        public readonly string buyFromShopString;
+        public readonly string pickUpItemsString;
 
         //Quest Conditions
-        public readonly int enemiesToKill = 10;
-        public readonly int itemsToGet = 10;
+        public readonly int enemiesToKill;
+        public readonly int itemsToGet;
 
         public Constants()
         {
@@ -182,6 +183,41 @@ namespace TextRPG
             ATKBuffName = GetString(lines[54]);
             ShieldRepairName = GetString(lines[55]);
 
+            mapColor = GetColor(lines[57]);
+            mapHeight = GetInt(lines[58]);
+            mapWidth = GetInt(lines[59]);
+            roomHeight = GetInt(lines[60]);
+            roomWidth = GetInt(lines[61]);
+            BossRoomHeight = GetInt(lines[62]);
+            BossRoomWidth = GetInt(lines[63]);
+            BossFloor = GetInt(lines[64]);
+            RoomsPerCategory = GetInt(lines[65]);
+
+            camSize = GetInt(lines[67]);
+
+            rendWidth = GetInt(lines[69]);
+            rendHeight = GetInt(lines[70]);
+            borderColor = GetColor(lines[71]);
+            BGColor = GetColor(lines[72]);
+
+            hudWidth = GetInt(lines[74]);
+            messageBoxHeight = GetInt(lines[75]);
+            statsHeight = GetInt(lines[76]);
+            playerStatsList = GetString(lines[77]);
+            enemyStatsList = GetString(lines[78]);
+            shopList = GetString(lines[79]);
+
+            exitSprite = GetTile(lines[81]);
+
+            killEnemiesString = GetString(lines[83]);
+            loseShieldString = GetString(lines[84]);
+            killBossString = GetString(lines[85]);
+            buyFromShopString = GetString(lines[86]);
+            pickUpItemsString = GetString(lines[87]);
+
+            enemiesToKill = GetInt(lines[89]);
+            itemsToGet = GetInt(lines[90]);
+
         }
 
         private int GetInt(string line)
@@ -205,7 +241,7 @@ namespace TextRPG
 
         private ConsoleColor GetColor(string line)
         {
-            string result = line;
+            string result = line.Split('!')[1];
 
             ConsoleColor color;
 

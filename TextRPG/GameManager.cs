@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +15,7 @@ namespace TextRPG
         //Define Objects
         static Render render;
 
-        public static Constants constants = new Constants();
+        public static Constants constants;
 
         public static MapGenerator mapGen;
         public static Map map;
@@ -42,16 +43,19 @@ namespace TextRPG
 
         public LoadManager loadManager;
 
-        public StartScreen startScreen = new StartScreen();
+        public StartScreen startScreen;
 
         public EndScreen endScreen;
 
-        public SoundManager soundManager = new SoundManager();
+        public SoundManager soundManager;
 
         public Quests quests;
 
         public GameManager()
         {
+            constants = new Constants();
+            startScreen = new StartScreen();
+            soundManager = new SoundManager();
             endScreen = new EndScreen(soundManager);
             render = new Render();
             mapGen = new MapGenerator();
@@ -111,7 +115,9 @@ namespace TextRPG
         public void Play()
         {
             startScreen.Display();
+            Console.WriteLine("A");
             loadManager.FloorSetUp();
+            Console.WriteLine("B");
             while(play == true)
             {
                 Update();
