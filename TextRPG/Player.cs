@@ -9,8 +9,8 @@ namespace TextRPG
     internal class Player : GameCharacter
     {
         private ConsoleKey key;
-        private int shield = Constants.playerBaseShield;
-        private int maxShield = Constants.playerBaseShield;
+        private int shield = GameManager.constants.playerBaseShield;
+        private int maxShield = GameManager.constants.playerBaseShield;
         private InputManager inputManager;
         private ItemManager itemManager;
         private ShopKeepManager shopKeepManager;
@@ -22,7 +22,7 @@ namespace TextRPG
         private int gold = 0;
         public event EventHandler ShieldLost;
 
-        public Player(Position pos, Map map, EnemyManager enemyManager, Render rend, GameManager manager, InputManager inputManager, ItemManager itemManager, ShopKeepManager shopKeepManager, Exit exit, SoundManager soundManager) : base(pos, Constants.playerBaseHP, Constants.playerBaseAttack, Constants.playerSprite, map, enemyManager, rend, manager, soundManager)
+        public Player(Position pos, Map map, EnemyManager enemyManager, Render rend, GameManager manager, InputManager inputManager, ItemManager itemManager, ShopKeepManager shopKeepManager, Exit exit, SoundManager soundManager) : base(pos, GameManager.constants.playerBaseHP, GameManager.constants.playerBaseAttack, GameManager.constants.playerSprite, map, enemyManager, rend, manager, soundManager)
         {
             this.inputManager = inputManager;
             this.itemManager = itemManager;
@@ -93,9 +93,9 @@ namespace TextRPG
             enemy.TakeDMG(ATK);
             if (enemy.GetHealth() > 0) hud.SetMessage("You attacked " + enemy.GetName());
             else hud.SetMessage("You killed " + enemy.GetName());
-            if (XP >= Constants.playerXPThreshold)
+            if (XP >= GameManager.constants.playerXPThreshold)
             {
-                XP -= Constants.playerXPThreshold;
+                XP -= GameManager.constants.playerXPThreshold;
                 LevelUp();
             }
         }

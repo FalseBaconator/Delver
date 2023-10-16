@@ -32,11 +32,11 @@ namespace TextRPG
         {
             Globals.questCompleted = false;
 
-            if (Globals.currentFloor == Constants.BossFloor)
+            if (Globals.currentFloor == GameManager.constants.BossFloor)
             {
                 currentQuest = QuestList.killBoss;
-                Globals.questString = Constants.killBossString;
-                hud.SetMessage("Quest granted: " + Constants.killBossString + "!", true);
+                Globals.questString = GameManager.constants.killBossString;
+                hud.SetMessage("Quest granted: " + GameManager.constants.killBossString + "!", true);
                 return;
             }
 
@@ -52,16 +52,16 @@ namespace TextRPG
             switch (currentQuest)
             {
                 case QuestList.killEnemies:
-                    Globals.questString = Constants.killEnemiesString;
+                    Globals.questString = GameManager.constants.killEnemiesString;
                     break;
                 case QuestList.buyFromShop:
-                    Globals.questString = Constants.buyFromShopString;
+                    Globals.questString = GameManager.constants.buyFromShopString;
                     break;
                 case QuestList.pickUpItems:
-                    Globals.questString = Constants.pickUpItemsString;
+                    Globals.questString = GameManager.constants.pickUpItemsString;
                     break;
                 case QuestList.loseShield:
-                    Globals.questString = Constants.loseShieldString;
+                    Globals.questString = GameManager.constants.loseShieldString;
                     break;
             }
             hud.SetMessage("Quest granted: " + Globals.questString + "!", true);
@@ -73,7 +73,7 @@ namespace TextRPG
         {
             if (Globals.questCompleted || currentQuest != QuestList.killEnemies) return;
 
-            if (e.enemiesKilled >= Constants.enemiesToKill)
+            if (e.enemiesKilled >= GameManager.constants.enemiesToKill)
             {
                 Globals.questCompleted = true;
                 soundManager.Play(SoundManager.Noise.quest);
@@ -84,7 +84,7 @@ namespace TextRPG
         {
             if (Globals.questCompleted || currentQuest != QuestList.pickUpItems) return;
 
-            if (e.itemsPickedUp >= Constants.itemsToGet)
+            if (e.itemsPickedUp >= GameManager.constants.itemsToGet)
             {
                 Globals.questCompleted = true;
                 soundManager.Play(SoundManager.Noise.quest);

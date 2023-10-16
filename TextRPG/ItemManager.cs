@@ -6,8 +6,8 @@ namespace TextRPG
     internal class ItemManager
     {
         private List<Item> items = new List<Item>();
-        private Item[,] itemMap = new Item[Constants.mapHeight * Constants.roomHeight, Constants.mapWidth * Constants.roomWidth];
-        private Random rand = Constants.rand;
+        private Item[,] itemMap = new Item[GameManager.constants.mapHeight * GameManager.constants.roomHeight, GameManager.constants.mapWidth * GameManager.constants.roomWidth];
+        private Random rand = GameManager.constants.rand;
 
         private Render rend;
         private Map map;
@@ -36,46 +36,46 @@ namespace TextRPG
         {
             itemsPickedUp = 0;
             items = new List<Item>();
-            itemMap = new Item[Constants.mapHeight * Constants.roomHeight, Constants.mapWidth * Constants.roomWidth];
-            if (Globals.currentFloor < Constants.BossFloor)
+            itemMap = new Item[GameManager.constants.mapHeight * GameManager.constants.roomHeight, GameManager.constants.mapWidth * GameManager.constants.roomWidth];
+            if (Globals.currentFloor < GameManager.constants.BossFloor)
             {
-                while (items.Count < Constants.itemAmount)
+                while (items.Count < GameManager.constants.itemAmount)
                 {
-                    int x = rand.Next(Constants.mapWidth * Constants.roomWidth);        //
-                    int y = rand.Next(Constants.mapHeight * Constants.roomHeight);      //  Choses random map spot
+                    int x = rand.Next(GameManager.constants.mapWidth * GameManager.constants.roomWidth);        //
+                    int y = rand.Next(GameManager.constants.mapHeight * GameManager.constants.roomHeight);      //  Choses random map spot
                     if (ItemAt(new Position(x, y)) == null && (Math.Abs(player.GetPos().x - x) > 5 || Math.Abs(player.GetPos().y - y) > 5) && map.isFloorAt(new Position(x, y)) && exit.isExitAt(new Position(x,y), false) == false) //
                     {
                         Position pos = new Position(x, y);                                                                                                                      //
                         switch (rand.Next(0, 2))                                                                                                                                //
                         {                                                                                                                                                       //
                             case 0:                                                                                                                                             //
-                                items.Add(new Item(Constants.healName, pos, rend, soundManager));                                                                                            //  Generates a random item if spot isn't occupied
+                                items.Add(new Item(GameManager.constants.healName, pos, rend, soundManager));                                                                                            //  Generates a random item if spot isn't occupied
                                 itemMap[x, y] = items[items.Count - 1];
                                 break;                                                                                                                                          //
                             case 1:                                                                                                                                             //
-                                items.Add(new Item(Constants.ShieldRepairName, pos, rend, soundManager));                                                                                         //
+                                items.Add(new Item(GameManager.constants.ShieldRepairName, pos, rend, soundManager));                                                                                         //
                                 itemMap[x, y] = items[items.Count - 1];
                                 break;                                                                                                                                   //
                         }                                                                                                                                                       //
                     }                                                                                                                                                           //
                 }
-            }else if(Globals.currentFloor == Constants.BossFloor)
+            }else if(Globals.currentFloor == GameManager.constants.BossFloor)
             {
-                while (items.Count < Constants.bossItemAmount)
+                while (items.Count < GameManager.constants.bossItemAmount)
                 {
-                    int x = rand.Next(Constants.BossRoomWidth);         //
-                    int y = rand.Next(Constants.BossRoomHeight);        //  Choses random map spot
+                    int x = rand.Next(GameManager.constants.BossRoomWidth);         //
+                    int y = rand.Next(GameManager.constants.BossRoomHeight);        //  Choses random map spot
                     if (ItemAt(new Position(x,y)) == null && (Math.Abs(player.GetPos().x - x) > 2 || Math.Abs(player.GetPos().y - y) > 2) && map.isFloorAt(new Position(x, y)) && exit.isExitAt(new Position(x, y), false) == false) //
                     {
                         Position pos = new Position(x, y);                                                                                                                      //
                         switch (rand.Next(0, 2))                                                                                                                                //
                         {                                                                                                                                                       //
                             case 0:                                                                                                                                             //
-                                items.Add(new Item(Constants.healName, pos, rend, soundManager));                                                                                            //  Generates a random item if spot isn't occupied
+                                items.Add(new Item(GameManager.constants.healName, pos, rend, soundManager));                                                                                            //  Generates a random item if spot isn't occupied
                                 itemMap[x, y] = items[items.Count - 1];
                                 break;                                                                                                                                          //
                             case 1:                                                                                                                                             //
-                                items.Add(new Item(Constants.ShieldRepairName, pos, rend, soundManager));                                                                                    //
+                                items.Add(new Item(GameManager.constants.ShieldRepairName, pos, rend, soundManager));                                                                                    //
                                 itemMap[x, y] = items[items.Count - 1];
                                 break;                                                                                                                                          //
                         }                                                                                                                                                       //

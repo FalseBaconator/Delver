@@ -8,16 +8,16 @@ namespace TextRPG
 {
     internal class MiniMap
     {
-        private Tile[,] map = new Tile[Constants.mapHeight, Constants.mapWidth];
+        private Tile[,] map = new Tile[GameManager.constants.mapHeight, GameManager.constants.mapWidth];
 
         private Player player;
 
         private int rx;
         private int ry;
 
-        public Tile[,] revealedMap = new Tile[Constants.mapHeight * 3, Constants.mapWidth * 3];
+        public Tile[,] revealedMap = new Tile[GameManager.constants.mapHeight * 3, GameManager.constants.mapWidth * 3];
 
-        private bool[,] isRevealed = new bool[Constants.mapHeight, Constants.mapWidth];
+        private bool[,] isRevealed = new bool[GameManager.constants.mapHeight, GameManager.constants.mapWidth];
 
         public MiniMap(Tile[,] map, Player player)
         {
@@ -25,7 +25,7 @@ namespace TextRPG
             {
                 for (int j = 0; j < revealedMap.GetLength(1); j++)
                 {
-                    revealedMap[i, j] = new Tile(' ', Constants.borderColor, Constants.BGColor);
+                    revealedMap[i, j] = new Tile(' ', GameManager.constants.borderColor, GameManager.constants.BGColor);
                 }
             }
             this.map = map;
@@ -45,7 +45,7 @@ namespace TextRPG
             {
                 for (int j = 0; j < revealedMap.GetLength(1); j++)
                 {
-                    if (revealedMap[i, j].sprite == Constants.playerSprite.sprite)
+                    if (revealedMap[i, j].sprite == GameManager.constants.playerSprite.sprite)
                         revealedMap[i, j] = new Tile(' ', ConsoleColor.White, ConsoleColor.Black);
                 }
             }
@@ -54,10 +54,10 @@ namespace TextRPG
         public void Update()
         {
             reset();
-            ry = ((player.GetPos().x / Constants.roomWidth) * 3) + 1;
-            rx = ((player.GetPos().y/ Constants.roomHeight) * 3) + 1;
-            int x = player.GetPos().y / Constants.roomWidth;
-            int y = player.GetPos().x / Constants.roomWidth;
+            ry = ((player.GetPos().x / GameManager.constants.roomWidth) * 3) + 1;
+            rx = ((player.GetPos().y/ GameManager.constants.roomHeight) * 3) + 1;
+            int x = player.GetPos().y / GameManager.constants.roomWidth;
+            int y = player.GetPos().x / GameManager.constants.roomWidth;
 
 
             if (isRevealed[x,y] == false)
@@ -231,7 +231,7 @@ namespace TextRPG
                         break;
                 }
             }
-            revealedMap[rx, ry] = new Tile(Constants.playerSprite.sprite, ConsoleColor.White, ConsoleColor.Black);
+            revealedMap[rx, ry] = new Tile(GameManager.constants.playerSprite.sprite, ConsoleColor.White, ConsoleColor.Black);
 
         }
 
@@ -241,7 +241,7 @@ namespace TextRPG
             {
                 for (int j = 0; j < revealedMap.GetLength(1); j++)
                 {
-                    revealedMap[i, j] = new Tile(' ', Constants.borderColor, Constants.BGColor);
+                    revealedMap[i, j] = new Tile(' ', GameManager.constants.borderColor, GameManager.constants.BGColor);
                 }
             }
             for (int i = 0; i < isRevealed.GetLength(0); i++)

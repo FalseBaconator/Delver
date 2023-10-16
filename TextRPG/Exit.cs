@@ -10,7 +10,7 @@ namespace TextRPG
     {
 
         Position pos;
-        Tile sprite = Constants.exitSprite;
+        Tile sprite = GameManager.constants.exitSprite;
         GameManager manager;
         Render rend;
         Map map;
@@ -26,15 +26,15 @@ namespace TextRPG
 
         public void PlaceExit(Player player)
         {
-            Random rand = Constants.rand;
+            Random rand = GameManager.constants.rand;
             bool placed = false;
             toShow = true;
 
             while (placed == false)
             {
                 //Console.WriteLine("Attempt(Exit)");
-                pos = new Position(rand.Next(Constants.mapWidth * Constants.roomWidth), rand.Next(Constants.mapHeight * Constants.roomHeight));
-                if (Math.Abs(player.GetPos().x - pos.x) > (Constants.mapWidth * Constants.roomWidth) / 4 || Math.Abs(player.GetPos().y - pos.y) > (Constants.mapHeight * Constants.roomHeight) / 4)
+                pos = new Position(rand.Next(GameManager.constants.mapWidth * GameManager.constants.roomWidth), rand.Next(GameManager.constants.mapHeight * GameManager.constants.roomHeight));
+                if (Math.Abs(player.GetPos().x - pos.x) > (GameManager.constants.mapWidth * GameManager.constants.roomWidth) / 4 || Math.Abs(player.GetPos().y - pos.y) > (GameManager.constants.mapHeight * GameManager.constants.roomHeight) / 4)
                 {
                     if(map.isFloorAt(pos))
                         placed = true;
@@ -44,7 +44,7 @@ namespace TextRPG
 
         public void hide()
         {
-            pos = new Position(Constants.mapHeight * Constants.roomHeight - 1, Constants.mapWidth * Constants.roomWidth - 1);
+            pos = new Position(GameManager.constants.mapHeight * GameManager.constants.roomHeight - 1, GameManager.constants.mapWidth * GameManager.constants.roomWidth - 1);
         }
 
         public void Draw()

@@ -83,18 +83,18 @@ namespace TextRPG
         public void NextFloor()
         {
             Globals.currentFloor++;
-            if (Globals.currentFloor == Constants.BossFloor)
+            if (Globals.currentFloor == GameManager.constants.BossFloor)
             {
                 map.NewMap(mapGen.BossRoom());
-                player.placePlayer(new Position(Constants.BossRoomWidth / 2, Constants.BossRoomHeight / 2));
+                player.placePlayer(new Position(GameManager.constants.BossRoomWidth / 2, GameManager.constants.BossRoomHeight / 2));
             }
             else
             {
                 map.NewMap(mapGen.RandomizeMap());
-                player.placePlayer(new Position((Constants.mapWidth / 2) * Constants.roomWidth + (Constants.roomWidth / 2), (Constants.mapHeight / 2) * Constants.roomHeight + (Constants.roomHeight / 2)));
+                player.placePlayer(new Position((GameManager.constants.mapWidth / 2) * GameManager.constants.roomWidth + (GameManager.constants.roomWidth / 2), (GameManager.constants.mapHeight / 2) * GameManager.constants.roomHeight + (GameManager.constants.roomHeight / 2)));
             }
             miniMap.Refresh(mapGen.makeMiniMap());
-            if (Globals.currentFloor == Constants.BossFloor)
+            if (Globals.currentFloor == GameManager.constants.BossFloor)
                 BossSetUp();
             else
                 FloorSetUp();

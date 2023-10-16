@@ -13,268 +13,262 @@ namespace TextRPG
         // , = floor Grey
         // █ = door Brown
 
-        private Random rand = Constants.rand;
+        private Random rand = GameManager.constants.rand;
 
-        private MapChunk[] B = new MapChunk[Constants.RoomsPerCategory];       //0
-        private MapChunk[] L = new MapChunk[Constants.RoomsPerCategory];       //1
-        private MapChunk[] R = new MapChunk[Constants.RoomsPerCategory];       //2
-        private MapChunk[] T = new MapChunk[Constants.RoomsPerCategory];       //3
-        private MapChunk[] BL = new MapChunk[Constants.RoomsPerCategory];      //4
-        private MapChunk[] BR = new MapChunk[Constants.RoomsPerCategory];      //5
-        private MapChunk[] BT = new MapChunk[Constants.RoomsPerCategory];      //6
-        private MapChunk[] LR = new MapChunk[Constants.RoomsPerCategory];      //7
-        private MapChunk[] LT = new MapChunk[Constants.RoomsPerCategory];      //8
-        private MapChunk[] RT = new MapChunk[Constants.RoomsPerCategory];      //9
-        private MapChunk[] BLR = new MapChunk[Constants.RoomsPerCategory];     //10
-        private MapChunk[] BLT = new MapChunk[Constants.RoomsPerCategory];     //11
-        private MapChunk[] BRT = new MapChunk[Constants.RoomsPerCategory];     //12
-        private MapChunk[] LRT = new MapChunk[Constants.RoomsPerCategory];     //13
-        private MapChunk[] BLRT = new MapChunk[Constants.RoomsPerCategory];    //14
-        private MapChunk Empty = new MapChunk(new char[Constants.roomHeight, Constants.roomWidth]
-        {
-            {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
-            {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
-            {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
-            {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
-            {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
-            {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
-            {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
-            {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
-            {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
-            {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
-            {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
-            {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
-            {' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' ',' '},
-        });
+        private MapChunk[] B = new MapChunk[GameManager.constants.RoomsPerCategory];       //0
+        private MapChunk[] L = new MapChunk[GameManager.constants.RoomsPerCategory];       //1
+        private MapChunk[] R = new MapChunk[GameManager.constants.RoomsPerCategory];       //2
+        private MapChunk[] T = new MapChunk[GameManager.constants.RoomsPerCategory];       //3
+        private MapChunk[] BL = new MapChunk[GameManager.constants.RoomsPerCategory];      //4
+        private MapChunk[] BR = new MapChunk[GameManager.constants.RoomsPerCategory];      //5
+        private MapChunk[] BT = new MapChunk[GameManager.constants.RoomsPerCategory];      //6
+        private MapChunk[] LR = new MapChunk[GameManager.constants.RoomsPerCategory];      //7
+        private MapChunk[] LT = new MapChunk[GameManager.constants.RoomsPerCategory];      //8
+        private MapChunk[] RT = new MapChunk[GameManager.constants.RoomsPerCategory];      //9
+        private MapChunk[] BLR = new MapChunk[GameManager.constants.RoomsPerCategory];     //10
+        private MapChunk[] BLT = new MapChunk[GameManager.constants.RoomsPerCategory];     //11
+        private MapChunk[] BRT = new MapChunk[GameManager.constants.RoomsPerCategory];     //12
+        private MapChunk[] LRT = new MapChunk[GameManager.constants.RoomsPerCategory];     //13
+        private MapChunk[] BLRT = new MapChunk[GameManager.constants.RoomsPerCategory];    //14
+        private MapChunk Empty = new MapChunk(new char[GameManager.constants.roomHeight, GameManager.constants.roomWidth]);
 
-        private MapChunk[,] TempMap = new MapChunk[Constants.mapHeight, Constants.mapWidth];
-        private Tile[,] miniMap = new Tile[Constants.mapHeight,Constants.mapWidth];
+        private MapChunk[,] TempMap = new MapChunk[GameManager.constants.mapHeight, GameManager.constants.mapWidth];
+        private Tile[,] miniMap = new Tile[GameManager.constants.mapHeight,GameManager.constants.mapWidth];
 
         private void GetFiles()
         {
+
+            for (int i = 0; i < Empty.roomMap.GetLength(0); i++)
+            {
+                for (int j = 0; j < Empty.roomMap.GetLength(1); j++)
+                {
+                    Empty.roomMap[i, j] = ' ';
+                }
+            }
+
             string[] tempB = File.ReadAllLines("MapChunkCategories/B.txt"); //Grab appropriate text file    //
-            for (int i = 0; i < Constants.RoomsPerCategory; i++)                                                                     //
+            for (int i = 0; i < GameManager.constants.RoomsPerCategory; i++)                                                                     //
             {                                                                                               //
-                B[i] = new MapChunk(new char[Constants.roomHeight, Constants.roomWidth]); //makes new chunk                                       //
+                B[i] = new MapChunk(new char[GameManager.constants.roomHeight, GameManager.constants.roomWidth]); //makes new chunk                                       //
                 B[i].BOpen = true;  //sets chunk's appropriate door bools to true                           //
-                for (int j = 0; j < Constants.roomHeight; j++)                         //                                      //  Repeat for every chunk category
+                for (int j = 0; j < GameManager.constants.roomHeight; j++)                         //                                      //  Repeat for every chunk category
                 {                                                   //                                      //
-                    for (int k = 0; k < Constants.roomWidth; k++)                     //                                      //
+                    for (int k = 0; k < GameManager.constants.roomWidth; k++)                     //                                      //
                     {                                               //                                      //
-                        B[i].roomMap[j, k] = tempB[j + (Constants.roomHeight * i)][k];    //Gets chunk chars from file            //
+                        B[i].roomMap[j, k] = tempB[j + (GameManager.constants.roomHeight * i)][k];    //Gets chunk chars from file            //
                     }                                               //                                      //
                 }                                                   //                                      //
             }                                                                                               //
 
             string[] tempL = File.ReadAllLines("MapChunkCategories/L.txt");
-            for (int i = 0; i < Constants.RoomsPerCategory; i++)
+            for (int i = 0; i < GameManager.constants.RoomsPerCategory; i++)
             {
-                L[i] = new MapChunk(new char[Constants.roomHeight, Constants.roomWidth]);
+                L[i] = new MapChunk(new char[GameManager.constants.roomHeight, GameManager.constants.roomWidth]);
                 L[i].LOpen = true;
-                for (int j = 0; j < Constants.roomHeight; j++)
+                for (int j = 0; j < GameManager.constants.roomHeight; j++)
                 {
-                    for (int k = 0; k < Constants.roomWidth; k++)
+                    for (int k = 0; k < GameManager.constants.roomWidth; k++)
                     {
-                        L[i].roomMap[j, k] = tempL[j + (Constants.roomHeight * i)][k];
+                        L[i].roomMap[j, k] = tempL[j + (GameManager.constants.roomHeight * i)][k];
                     }
                 }
             }
 
             string[] tempR = File.ReadAllLines("MapChunkCategories/R.txt");
-            for (int i = 0; i < Constants.RoomsPerCategory; i++)
+            for (int i = 0; i < GameManager.constants.RoomsPerCategory; i++)
             {
-                R[i] = new MapChunk(new char[Constants.roomHeight, Constants.roomWidth]);
+                R[i] = new MapChunk(new char[GameManager.constants.roomHeight, GameManager.constants.roomWidth]);
                 R[i].ROpen = true;
-                for (int j = 0; j < Constants.roomHeight; j++)
+                for (int j = 0; j < GameManager.constants.roomHeight; j++)
                 {
-                    for (int k = 0; k < Constants.roomWidth; k++)
+                    for (int k = 0; k < GameManager.constants.roomWidth; k++)
                     {
-                        R[i].roomMap[j, k] = tempR[j + (Constants.roomHeight * i)][k];
+                        R[i].roomMap[j, k] = tempR[j + (GameManager.constants.roomHeight * i)][k];
                     }
                 }
             }
 
             string[] tempT = File.ReadAllLines("MapChunkCategories/T.txt");
-            for (int i = 0; i < Constants.RoomsPerCategory; i++)
+            for (int i = 0; i < GameManager.constants.RoomsPerCategory; i++)
             {
-                T[i] = new MapChunk(new char[Constants.roomHeight, Constants.roomWidth]);
+                T[i] = new MapChunk(new char[GameManager.constants.roomHeight, GameManager.constants.roomWidth]);
                 T[i].TOpen = true;
-                for (int j = 0; j < Constants.roomHeight; j++)
+                for (int j = 0; j < GameManager.constants.roomHeight; j++)
                 {
-                    for (int k = 0; k < Constants.roomWidth; k++)
+                    for (int k = 0; k < GameManager.constants.roomWidth; k++)
                     {
-                        T[i].roomMap[j, k] = tempT[j + (Constants.roomHeight * i)][k];
+                        T[i].roomMap[j, k] = tempT[j + (GameManager.constants.roomHeight * i)][k];
                     }
                 }
             }
 
             string[] tempBL = File.ReadAllLines("MapChunkCategories/BL.txt");
-            for (int i = 0; i < Constants.RoomsPerCategory; i++)
+            for (int i = 0; i < GameManager.constants.RoomsPerCategory; i++)
             {
-                BL[i] = new MapChunk(new char[Constants.roomHeight, Constants.roomWidth]);
+                BL[i] = new MapChunk(new char[GameManager.constants.roomHeight, GameManager.constants.roomWidth]);
                 BL[i].BOpen = true;
                 BL[i].LOpen = true;
-                for (int j = 0; j < Constants.roomHeight; j++)
+                for (int j = 0; j < GameManager.constants.roomHeight; j++)
                 {
-                    for (int k = 0; k < Constants.roomWidth; k++)
+                    for (int k = 0; k < GameManager.constants.roomWidth; k++)
                     {
-                        BL[i].roomMap[j, k] = tempBL[j + (Constants.roomHeight * i)][k];
+                        BL[i].roomMap[j, k] = tempBL[j + (GameManager.constants.roomHeight * i)][k];
                     }
                 }
             }
 
             string[] tempBR = File.ReadAllLines("MapChunkCategories/BR.txt");
-            for (int i = 0; i < Constants.RoomsPerCategory; i++)
+            for (int i = 0; i < GameManager.constants.RoomsPerCategory; i++)
             {
-                BR[i] = new MapChunk(new char[Constants.roomHeight, Constants.roomWidth]);
+                BR[i] = new MapChunk(new char[GameManager.constants.roomHeight, GameManager.constants.roomWidth]);
                 BR[i].BOpen = true;
                 BR[i].ROpen = true;
-                for (int j = 0; j < Constants.roomHeight; j++)
+                for (int j = 0; j < GameManager.constants.roomHeight; j++)
                 {
-                    for (int k = 0; k < Constants.roomWidth; k++)
+                    for (int k = 0; k < GameManager.constants.roomWidth; k++)
                     {
-                        BR[i].roomMap[j, k] = tempBR[j + (Constants.roomHeight * i)][k];
+                        BR[i].roomMap[j, k] = tempBR[j + (GameManager.constants.roomHeight * i)][k];
                     }
                 }
             }
 
             string[] tempBT = File.ReadAllLines("MapChunkCategories/BT.txt");
-            for (int i = 0; i < Constants.RoomsPerCategory; i++)
+            for (int i = 0; i < GameManager.constants.RoomsPerCategory; i++)
             {
-                BT[i] = new MapChunk(new char[Constants.roomHeight, Constants.roomWidth]);
+                BT[i] = new MapChunk(new char[GameManager.constants.roomHeight, GameManager.constants.roomWidth]);
                 BT[i].BOpen = true;
                 BT[i].TOpen = true;
-                for (int j = 0; j < Constants.roomHeight; j++)
+                for (int j = 0; j < GameManager.constants.roomHeight; j++)
                 {
-                    for (int k = 0; k < Constants.roomWidth; k++)
+                    for (int k = 0; k < GameManager.constants.roomWidth; k++)
                     {
-                        BT[i].roomMap[j, k] = tempBT[j + (Constants.roomHeight * i)][k];
+                        BT[i].roomMap[j, k] = tempBT[j + (GameManager.constants.roomHeight * i)][k];
                     }
                 }
             }
 
             string[] tempLR = File.ReadAllLines("MapChunkCategories/LR.txt");
-            for (int i = 0; i < Constants.RoomsPerCategory; i++)
+            for (int i = 0; i < GameManager.constants.RoomsPerCategory; i++)
             {
-                LR[i] = new MapChunk(new char[Constants.roomHeight, Constants.roomWidth]);
+                LR[i] = new MapChunk(new char[GameManager.constants.roomHeight, GameManager.constants.roomWidth]);
                 LR[i].LOpen = true;
                 LR[i].ROpen = true;
-                for (int j = 0; j < Constants.roomHeight; j++)
+                for (int j = 0; j < GameManager.constants.roomHeight; j++)
                 {
-                    for (int k = 0; k < Constants.roomWidth; k++)
+                    for (int k = 0; k < GameManager.constants.roomWidth; k++)
                     {
-                        LR[i].roomMap[j, k] = tempLR[j + (Constants.roomHeight * i)][k];
+                        LR[i].roomMap[j, k] = tempLR[j + (GameManager.constants.roomHeight * i)][k];
                     }
                 }
             }
 
             string[] tempLT = File.ReadAllLines("MapChunkCategories/LT.txt");
-            for (int i = 0; i < Constants.RoomsPerCategory; i++)
+            for (int i = 0; i < GameManager.constants.RoomsPerCategory; i++)
             {
-                LT[i] = new MapChunk(new char[Constants.roomHeight, Constants.roomWidth]);
+                LT[i] = new MapChunk(new char[GameManager.constants.roomHeight, GameManager.constants.roomWidth]);
                 LT[i].LOpen = true;
                 LT[i].TOpen = true;
-                for (int j = 0; j < Constants.roomHeight; j++)
+                for (int j = 0; j < GameManager.constants.roomHeight; j++)
                 {
-                    for (int k = 0; k < Constants.roomWidth; k++)
+                    for (int k = 0; k < GameManager.constants.roomWidth; k++)
                     {
-                        LT[i].roomMap[j, k] = tempLT[j + (Constants.roomHeight * i)][k];
+                        LT[i].roomMap[j, k] = tempLT[j + (GameManager.constants.roomHeight * i)][k];
                     }
                 }
             }
 
             string[] tempRT = File.ReadAllLines("MapChunkCategories/RT.txt");
-            for (int i = 0; i < Constants.RoomsPerCategory; i++)
+            for (int i = 0; i < GameManager.constants.RoomsPerCategory; i++)
             {
-                RT[i] = new MapChunk(new char[Constants.roomHeight, Constants.roomWidth]);
+                RT[i] = new MapChunk(new char[GameManager.constants.roomHeight, GameManager.constants.roomWidth]);
                 RT[i].ROpen = true;
                 RT[i].TOpen = true;
-                for (int j = 0; j < Constants.roomHeight; j++)
+                for (int j = 0; j < GameManager.constants.roomHeight; j++)
                 {
-                    for (int k = 0; k < Constants.roomWidth; k++)
+                    for (int k = 0; k < GameManager.constants.roomWidth; k++)
                     {
-                        RT[i].roomMap[j, k] = tempRT[j + (Constants.roomHeight * i)][k];
+                        RT[i].roomMap[j, k] = tempRT[j + (GameManager.constants.roomHeight * i)][k];
                     }
                 }
             }
 
             string[] tempBLR = File.ReadAllLines("MapChunkCategories/BLR.txt");
-            for (int i = 0; i < Constants.RoomsPerCategory; i++)
+            for (int i = 0; i < GameManager.constants.RoomsPerCategory; i++)
             {
-                BLR[i] = new MapChunk(new char[Constants.roomHeight, Constants.roomWidth]);
+                BLR[i] = new MapChunk(new char[GameManager.constants.roomHeight, GameManager.constants.roomWidth]);
                 BLR[i].BOpen = true;
                 BLR[i].LOpen = true;
                 BLR[i].ROpen = true;
-                for (int j = 0; j < Constants.roomHeight; j++)
+                for (int j = 0; j < GameManager.constants.roomHeight; j++)
                 {
-                    for (int k = 0; k < Constants.roomWidth; k++)
+                    for (int k = 0; k < GameManager.constants.roomWidth; k++)
                     {
-                        BLR[i].roomMap[j, k] = tempBLR[j + (Constants.roomHeight * i)][k];
+                        BLR[i].roomMap[j, k] = tempBLR[j + (GameManager.constants.roomHeight * i)][k];
                     }
                 }
             }
 
             string[] tempBLT = File.ReadAllLines("MapChunkCategories/BLT.txt");
-            for (int i = 0; i < Constants.RoomsPerCategory; i++)
+            for (int i = 0; i < GameManager.constants.RoomsPerCategory; i++)
             {
-                BLT[i] = new MapChunk(new char[Constants.roomHeight, Constants.roomWidth]);
+                BLT[i] = new MapChunk(new char[GameManager.constants.roomHeight, GameManager.constants.roomWidth]);
                 BLT[i].BOpen = true;
                 BLT[i].LOpen = true;
                 BLT[i].TOpen = true;
-                for (int j = 0; j < Constants.roomHeight; j++)
+                for (int j = 0; j < GameManager.constants.roomHeight; j++)
                 {
-                    for (int k = 0; k < Constants.roomWidth; k++)
+                    for (int k = 0; k < GameManager.constants.roomWidth; k++)
                     {
-                        BLT[i].roomMap[j, k] = tempBLT[j + (Constants.roomHeight * i)][k];
+                        BLT[i].roomMap[j, k] = tempBLT[j + (GameManager.constants.roomHeight * i)][k];
                     }
                 }
             }
 
             string[] tempBRT = File.ReadAllLines("MapChunkCategories/BRT.txt");
-            for (int i = 0; i < Constants.RoomsPerCategory; i++)
+            for (int i = 0; i < GameManager.constants.RoomsPerCategory; i++)
             {
-                BRT[i] = new MapChunk(new char[Constants.roomHeight, Constants.roomWidth]);
+                BRT[i] = new MapChunk(new char[GameManager.constants.roomHeight, GameManager.constants.roomWidth]);
                 BRT[i].BOpen = true;
                 BRT[i].ROpen = true;
                 BRT[i].TOpen = true;
-                for (int j = 0; j < Constants.roomHeight; j++)
+                for (int j = 0; j < GameManager.constants.roomHeight; j++)
                 {
-                    for (int k = 0; k < Constants.roomWidth; k++)
+                    for (int k = 0; k < GameManager.constants.roomWidth; k++)
                     {
-                        BRT[i].roomMap[j, k] = tempBRT[j + (Constants.roomHeight * i)][k];
+                        BRT[i].roomMap[j, k] = tempBRT[j + (GameManager.constants.roomHeight * i)][k];
                     }
                 }
             }
 
             string[] tempLRT = File.ReadAllLines("MapChunkCategories/LRT.txt");
-            for (int i = 0; i < Constants.RoomsPerCategory; i++)
+            for (int i = 0; i < GameManager.constants.RoomsPerCategory; i++)
             {
-                LRT[i] = new MapChunk(new char[Constants.roomHeight, Constants.roomWidth]);
+                LRT[i] = new MapChunk(new char[GameManager.constants.roomHeight, GameManager.constants.roomWidth]);
                 LRT[i].LOpen = true;
                 LRT[i].ROpen = true;
                 LRT[i].TOpen = true;
-                for (int j = 0; j < Constants.roomHeight; j++)
+                for (int j = 0; j < GameManager.constants.roomHeight; j++)
                 {
-                    for (int k = 0; k < Constants.roomWidth; k++)
+                    for (int k = 0; k < GameManager.constants.roomWidth; k++)
                     {
-                        LRT[i].roomMap[j, k] = tempLRT[j + (Constants.roomHeight * i)][k];
+                        LRT[i].roomMap[j, k] = tempLRT[j + (GameManager.constants.roomHeight * i)][k];
                     }
                 }
             }
 
             string[] tempBLRT = File.ReadAllLines("MapChunkCategories/BLRT.txt");
-            for (int i = 0; i < Constants.RoomsPerCategory; i++)
+            for (int i = 0; i < GameManager.constants.RoomsPerCategory; i++)
             {
-                BLRT[i] = new MapChunk(new char[Constants.roomHeight, Constants.roomWidth]);
+                BLRT[i] = new MapChunk(new char[GameManager.constants.roomHeight, GameManager.constants.roomWidth]);
                 BLRT[i].BOpen = true;
                 BLRT[i].LOpen = true;
                 BLRT[i].ROpen = true;
                 BLRT[i].TOpen = true;
-                for (int j = 0; j < Constants.roomHeight; j++)
+                for (int j = 0; j < GameManager.constants.roomHeight; j++)
                 {
-                    for (int k = 0; k < Constants.roomWidth; k++)
+                    for (int k = 0; k < GameManager.constants.roomWidth; k++)
                     {
-                        BLRT[i].roomMap[j, k] = tempBLRT[j + (Constants.roomHeight * i)][k];
+                        BLRT[i].roomMap[j, k] = tempBLRT[j + (GameManager.constants.roomHeight * i)][k];
                     }
                 }
             }
@@ -547,7 +541,7 @@ namespace TextRPG
         private void MapChecker()
         {
             List<Tuple<int, int>> checkedCoords = new List<Tuple<int, int>>();
-            checkedCoords.Add(Tuple.Create(Constants.mapHeight/2, Constants.mapWidth/2));
+            checkedCoords.Add(Tuple.Create(GameManager.constants.mapHeight/2, GameManager.constants.mapWidth/2));
             bool done = false;
             while (done == false)
             {
@@ -564,7 +558,7 @@ namespace TextRPG
                             toAdd.Add(Tuple.Create(coords.Item1 - 1, coords.Item2));
                         }
                     }
-                    if (coords.Item1 < Constants.mapWidth -1 && TempMap[coords.Item1, coords.Item2].BOpen)
+                    if (coords.Item1 < GameManager.constants.mapWidth -1 && TempMap[coords.Item1, coords.Item2].BOpen)
                     {
                         if (checkedCoords.Contains(Tuple.Create(coords.Item1 + 1, coords.Item2)) == false)
                         {
@@ -580,7 +574,7 @@ namespace TextRPG
                             toAdd.Add(Tuple.Create(coords.Item1, coords.Item2 - 1));
                         }
                     }
-                    if (coords.Item2 < Constants.mapHeight - 1 && TempMap[coords.Item1, coords.Item2].ROpen)
+                    if (coords.Item2 < GameManager.constants.mapHeight - 1 && TempMap[coords.Item1, coords.Item2].ROpen)
                     {
                         if (checkedCoords.Contains(Tuple.Create(coords.Item1, coords.Item2 + 1)) == false)
                         {
@@ -603,9 +597,9 @@ namespace TextRPG
 
             }
 
-            for (int i = 0; i < Constants.mapWidth; i++)
+            for (int i = 0; i < GameManager.constants.mapWidth; i++)
             {
-                for (int j = 0; j < Constants.mapHeight; j++)
+                for (int j = 0; j < GameManager.constants.mapHeight; j++)
                 {
 
                     if (checkedCoords.Contains(Tuple.Create(i, j)) != true)
@@ -622,16 +616,16 @@ namespace TextRPG
         {
             GetFiles();
 
-            char[,] grid = new char[Constants.mapHeight * Constants.roomHeight, Constants.mapWidth * Constants.roomWidth];
+            char[,] grid = new char[GameManager.constants.mapHeight * GameManager.constants.roomHeight, GameManager.constants.mapWidth * GameManager.constants.roomWidth];
 
-            for (int i = 0; i < Constants.mapHeight; i++)
+            for (int i = 0; i < GameManager.constants.mapHeight; i++)
             {
-                for (int j = 0; j < Constants.mapWidth; j++)
+                for (int j = 0; j < GameManager.constants.mapWidth; j++)
                 {
                     if((i+j)%2 == 0)
                     {
                         MapChunk[][] roomArrays;
-                        if(i > 0 && i < Constants.mapHeight - 1 && j > 0 && j < Constants.mapWidth - 1)
+                        if(i > 0 && i < GameManager.constants.mapHeight - 1 && j > 0 && j < GameManager.constants.mapWidth - 1)
                         {
                             roomArrays = new MapChunk[][]
                             {
@@ -641,7 +635,7 @@ namespace TextRPG
                         }
                         else if (i == 0)
                         {
-                            if(j > 0 && j < Constants.mapWidth - 1)
+                            if(j > 0 && j < GameManager.constants.mapWidth - 1)
                             {
                                 roomArrays = new MapChunk[][]
                                 {
@@ -657,7 +651,7 @@ namespace TextRPG
                                 };
                                 TempMap[i, j] = RandomizeTile(roomArrays[rand.Next(roomArrays.Length)]);
                             }
-                            else if(j == Constants.mapWidth - 1)
+                            else if(j == GameManager.constants.mapWidth - 1)
                             {
                                 roomArrays = new MapChunk[][]
                                 {
@@ -665,9 +659,9 @@ namespace TextRPG
                                 };
                                 TempMap[i, j] = RandomizeTile(roomArrays[rand.Next(roomArrays.Length)]);
                             }
-                        }else if (i == Constants.mapHeight - 1)
+                        }else if (i == GameManager.constants.mapHeight - 1)
                         {
-                            if (j > 0 && j < Constants.mapWidth - 1)
+                            if (j > 0 && j < GameManager.constants.mapWidth - 1)
                             {
                                 roomArrays = new MapChunk[][]
                                 {
@@ -683,7 +677,7 @@ namespace TextRPG
                                 };
                                 TempMap[i, j] = RandomizeTile(roomArrays[rand.Next(roomArrays.Length)]);
                             }
-                            else if (j == Constants.mapWidth - 1)
+                            else if (j == GameManager.constants.mapWidth - 1)
                             {
                                 roomArrays = new MapChunk[][]
                                 {
@@ -702,7 +696,7 @@ namespace TextRPG
                                 };
                                 TempMap[i, j] = RandomizeTile(roomArrays[rand.Next(roomArrays.Length)]);
                             }
-                            else if (j == Constants.mapWidth - 1)
+                            else if (j == GameManager.constants.mapWidth - 1)
                             {
                                 roomArrays = new MapChunk[][]
                                 {
@@ -715,9 +709,9 @@ namespace TextRPG
                 }
             }
 
-            for (int i = 0; i < Constants.mapHeight; i++)
+            for (int i = 0; i < GameManager.constants.mapHeight; i++)
             {
-                for (int j = 0; j < Constants.mapWidth; j++)
+                for (int j = 0; j < GameManager.constants.mapWidth; j++)
                 {
                     if((i+j)%2 != 0)
                     {
@@ -728,15 +722,15 @@ namespace TextRPG
 
             MapChecker();
 
-            for (int i = 0; i < Constants.mapHeight; i++)                           //
+            for (int i = 0; i < GameManager.constants.mapHeight; i++)                           //
             {                                                                       //
-                for (int j = 0; j < Constants.mapWidth; j++)                        //
+                for (int j = 0; j < GameManager.constants.mapWidth; j++)                        //
                 {                                                                   //
-                    for (int k = 0; k < Constants.roomHeight; k++)                  //
+                    for (int k = 0; k < GameManager.constants.roomHeight; k++)                  //
                     {                                                               //
-                        for (int l = 0; l < Constants.roomWidth; l++)               //
+                        for (int l = 0; l < GameManager.constants.roomWidth; l++)               //
                         {                                                           //
-                            grid[i * Constants.roomHeight + k, j * Constants.roomWidth + l] = TempMap[i, j].roomMap[k, l];  //  puts the chunks together in grid
+                            grid[i * GameManager.constants.roomHeight + k, j * GameManager.constants.roomWidth + l] = TempMap[i, j].roomMap[k, l];  //  puts the chunks together in grid
                         }                                                           //
                     }                                                               //
                 }                                                                   //
@@ -748,15 +742,15 @@ namespace TextRPG
         public char[,] BossRoom()
         {
             string[] tempBossRooms = File.ReadAllLines("MapChunkCategories/BossRooms.txt");
-            MapChunk[] BossRooms = new MapChunk[Constants.RoomsPerCategory];
-            for(int i = 0; i < Constants.RoomsPerCategory; i++)
+            MapChunk[] BossRooms = new MapChunk[GameManager.constants.RoomsPerCategory];
+            for(int i = 0; i < GameManager.constants.RoomsPerCategory; i++)
             {
-                BossRooms[i] = new MapChunk(new char[Constants.BossRoomHeight, Constants.BossRoomWidth]);
-                for (int j = 0; j < Constants.BossRoomHeight; j++)
+                BossRooms[i] = new MapChunk(new char[GameManager.constants.BossRoomHeight, GameManager.constants.BossRoomWidth]);
+                for (int j = 0; j < GameManager.constants.BossRoomHeight; j++)
                 {
-                    for (int k = 0; k < Constants.BossRoomWidth; k++)
+                    for (int k = 0; k < GameManager.constants.BossRoomWidth; k++)
                     {
-                        BossRooms[i].roomMap[j, k] = tempBossRooms[j + (Constants.BossRoomHeight * i)][k];
+                        BossRooms[i].roomMap[j, k] = tempBossRooms[j + (GameManager.constants.BossRoomHeight * i)][k];
                     }
                 }
             }

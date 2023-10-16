@@ -3,25 +3,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace TextRPG
 {
     internal class Render
     {
 
-        //public char[,] ScreenChars = new char[Constants.mapHeight * Constants.roomHeight, Constants.mapWidth * Constants.roomWidth];
+        //public char[,] ScreenChars = new char[GameManager.constants.mapHeight * GameManager.constants.roomHeight, GameManager.constants.mapWidth * GameManager.constants.roomWidth];
 
-        //public ConsoleColor[,] ScreenColors = new ConsoleColor[Constants.mapHeight * Constants.roomHeight, Constants.mapWidth * Constants.roomWidth];
+        //public ConsoleColor[,] ScreenColors = new ConsoleColor[GameManager.constants.mapHeight * GameManager.constants.roomHeight, GameManager.constants.mapWidth * GameManager.constants.roomWidth];
 
-        //public ConsoleColor[,] BackgroundColors = new ConsoleColor[Constants.mapHeight * Constants.roomHeight, Constants.mapWidth * Constants.roomWidth];
+        //public ConsoleColor[,] BackgroundColors = new ConsoleColor[GameManager.constants.mapHeight * GameManager.constants.roomHeight, GameManager.constants.mapWidth * GameManager.constants.roomWidth];
 
-        public Tile[,] WholeMap = new Tile[Constants.mapHeight * Constants.roomHeight, Constants.mapWidth * Constants.roomWidth];
+        public Tile[,] WholeMap = new Tile[GameManager.constants.mapHeight * GameManager.constants.roomHeight, GameManager.constants.mapWidth * GameManager.constants.roomWidth];
 
         private Hud hud;
 
         private Camera cam;
 
-        //private char[,] borderChars = new char[Constants.camSize + 1, Constants.camSize + 1];
+        //private char[,] borderChars = new char[GameManager.constants.camSize + 1, GameManager.constants.camSize + 1];
         /*
         {
             {'╔','═','═','═','═','═','═','═','╗'},
@@ -37,19 +38,19 @@ namespace TextRPG
 
         private GameManager gManager;
 
-        //private char[,] printToScreenCharsCur = new char[Constants.rendHeight, Constants.rendWidth];
-        //private ConsoleColor[,] printToScreenColorsCur = new ConsoleColor[Constants.rendHeight, Constants.rendWidth];
-        //private ConsoleColor[,] printToScreenBackgroundColorsCur = new ConsoleColor[Constants.rendHeight, Constants.rendWidth];
+        //private char[,] printToScreenCharsCur = new char[GameManager.constants.rendHeight, GameManager.constants.rendWidth];
+        //private ConsoleColor[,] printToScreenColorsCur = new ConsoleColor[GameManager.constants.rendHeight, GameManager.constants.rendWidth];
+        //private ConsoleColor[,] printToScreenBackgroundColorsCur = new ConsoleColor[GameManager.constants.rendHeight, GameManager.constants.rendWidth];
 
-        private Tile[,] toRend = new Tile[Constants.rendHeight, Constants.rendWidth];
+        private Tile[,] toRend = new Tile[GameManager.constants.rendHeight, GameManager.constants.rendWidth];
 
-        //private char[,] printToScreenCharsPrev = new char[Constants.rendHeight, Constants.rendWidth];
-        //private ConsoleColor[,] printToScreenColorsPrev = new ConsoleColor[Constants.rendHeight, Constants.rendWidth];
-        //private ConsoleColor[,] printToScreenBackgroundColorsPrev = new ConsoleColor[Constants.rendHeight, Constants.rendWidth];
+        //private char[,] printToScreenCharsPrev = new char[GameManager.constants.rendHeight, GameManager.constants.rendWidth];
+        //private ConsoleColor[,] printToScreenColorsPrev = new ConsoleColor[GameManager.constants.rendHeight, GameManager.constants.rendWidth];
+        //private ConsoleColor[,] printToScreenBackgroundColorsPrev = new ConsoleColor[GameManager.constants.rendHeight, GameManager.constants.rendWidth];
 
-        private Tile[,] prevRend = new Tile[Constants.rendHeight, Constants.rendWidth];
+        private Tile[,] prevRend = new Tile[GameManager.constants.rendHeight, GameManager.constants.rendWidth];
 
-        //[Constants.camSize + 2, Constants.mapWidth + Constants.camSize + 2]
+        //[GameManager.constants.camSize + 2, GameManager.constants.mapWidth + GameManager.constants.camSize + 2]
         private MiniMap mini;
 
 
@@ -76,8 +77,8 @@ namespace TextRPG
         public void DrawToScreen()  //Draws the map according to the arrays
         {
             Console.CursorVisible = false;
-            int x = cam.pos.x - (Constants.camSize / 2);
-            int y = cam.pos.y - (Constants.camSize / 2);
+            int x = cam.pos.x - (GameManager.constants.camSize / 2);
+            int y = cam.pos.y - (GameManager.constants.camSize / 2);
 
             //fill with space
             for (int i = 0; i < toRend.GetLength(0); i++)
@@ -89,9 +90,9 @@ namespace TextRPG
             }
 
             //Add Border
-            for (int i = 0; i < Constants.camSize + 2; i++)
+            for (int i = 0; i < GameManager.constants.camSize + 2; i++)
             {
-                for (int j = 0; j < Constants.hudWidth + 1; j++)
+                for (int j = 0; j < GameManager.constants.hudWidth + 1; j++)
                 {
                     switch (i)
                     {
@@ -99,33 +100,33 @@ namespace TextRPG
                             switch (j)
                             {
                                 case 0:
-                                    toRend[i, j] = new Tile('╔', Constants.borderColor, Constants.BGColor);
+                                    toRend[i, j] = new Tile('╔', GameManager.constants.borderColor, GameManager.constants.BGColor);
                                     break;
-                                case Constants.hudWidth / 2:
-                                    toRend[i, j] = new Tile('╦', Constants.borderColor, Constants.BGColor);
+                                case var _ when j == GameManager.constants.hudWidth / 2:
+                                    toRend[i, j] = new Tile('╦', GameManager.constants.borderColor, GameManager.constants.BGColor);
                                     break;
-                                case Constants.hudWidth:
-                                    toRend[i, j] = new Tile('╗', Constants.borderColor, Constants.BGColor);
+                                case var _ when j == GameManager.constants.hudWidth:
+                                    toRend[i, j] = new Tile('╗', GameManager.constants.borderColor, GameManager.constants.BGColor);
                                     break;
                                 default:
-                                    toRend[i, j] = new Tile('═', Constants.borderColor, Constants.BGColor);
+                                    toRend[i, j] = new Tile('═', GameManager.constants.borderColor, GameManager.constants.BGColor);
                                     break;
                             }
                             break;
-                        case Constants.camSize + 1:
+                        case var _ when i == GameManager.constants.camSize + 1:
                             switch (j)
                             {
                                 case 0:
-                                    toRend[i, j] = new Tile('╚', Constants.borderColor, Constants.BGColor);
+                                    toRend[i, j] = new Tile('╚', GameManager.constants.borderColor, GameManager.constants.BGColor);
                                     break;
-                                case Constants.hudWidth / 2:
-                                    toRend[i, j] = new Tile('╩', Constants.borderColor, Constants.BGColor);
+                                case var _ when j == GameManager.constants.hudWidth / 2:
+                                    toRend[i, j] = new Tile('╩', GameManager.constants.borderColor, GameManager.constants.BGColor);
                                     break;
-                                case Constants.hudWidth:
-                                    toRend[i, j] = new Tile('╝', Constants.borderColor, Constants.BGColor);
+                                case var _ when j == GameManager.constants.hudWidth:
+                                    toRend[i, j] = new Tile('╝', GameManager.constants.borderColor, GameManager.constants.BGColor);
                                     break;
                                 default:
-                                    toRend[i, j] = new Tile('═', Constants.borderColor, Constants.BGColor);
+                                    toRend[i, j] = new Tile('═', GameManager.constants.borderColor, GameManager.constants.BGColor);
                                     break;
                             }
                             break;
@@ -133,12 +134,12 @@ namespace TextRPG
                             switch (j)
                             {
                                 case 0:
-                                case Constants.hudWidth / 2:
-                                case Constants.hudWidth:
-                                    toRend[i, j] = new Tile('║', Constants.borderColor, Constants.BGColor);
+                                case var _ when j == GameManager.constants.hudWidth / 2:
+                                case var _ when j == GameManager.constants.hudWidth:
+                                    toRend[i, j] = new Tile('║', GameManager.constants.borderColor, GameManager.constants.BGColor);
                                     break;
                                 default:
-                                    toRend[i, j] = new Tile(' ', Constants.borderColor, Constants.BGColor);
+                                    toRend[i, j] = new Tile(' ', GameManager.constants.borderColor, GameManager.constants.BGColor);
                                     break;
                             }
                             break;
@@ -147,34 +148,34 @@ namespace TextRPG
             }
 
             //Add Camera
-            for (int i = 0; i < Constants.camSize; i++)
+            for (int i = 0; i < GameManager.constants.camSize; i++)
             {
-                for (int j = 0; j < Constants.camSize; j++)
+                for (int j = 0; j < GameManager.constants.camSize; j++)
                 {
                     toRend[i + 1, j + 1] = WholeMap[i+y,j+x];
                 }
             }
 
             //Add MiniMap
-            if (Globals.currentFloor < Constants.BossFloor)
+            if (Globals.currentFloor < GameManager.constants.BossFloor)
             {
                 for (int i = 0; i < mini.revealedMap.GetLength(0); i++)
                 {
                     for (int j = 0; j < mini.revealedMap.GetLength(1); j++)
                     {
-                        toRend[i+1, j + Constants.camSize + 2] = mini.revealedMap[i, j];
+                        toRend[i+1, j + GameManager.constants.camSize + 2] = mini.revealedMap[i, j];
                     }
                 }
             }
 
             //Add Hud
             int hudOffset = 0;
-            if (Constants.camSize + 2 >= Constants.mapHeight)
+            if (GameManager.constants.camSize + 2 >= GameManager.constants.mapHeight)
             {
-                hudOffset = Constants.camSize + 2;
+                hudOffset = GameManager.constants.camSize + 2;
             }else
             {
-                hudOffset = Constants.mapHeight;
+                hudOffset = GameManager.constants.mapHeight;
             }
 
             for (int i = 0; i < hud.hudArray.GetLength(0); i++)
@@ -210,9 +211,9 @@ namespace TextRPG
 
         public void MatchBuffers()
         {
-            for (int i = 0; i < Constants.rendHeight; i++)
+            for (int i = 0; i < GameManager.constants.rendHeight; i++)
             {
-                for (int j = 0; j < Constants.rendWidth; j++)
+                for (int j = 0; j < GameManager.constants.rendWidth; j++)
                 {
                     prevRend[i, j] = toRend[i, j];
                 }

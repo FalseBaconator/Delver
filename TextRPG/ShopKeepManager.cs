@@ -9,9 +9,9 @@ namespace TextRPG
     internal class ShopKeepManager
     {
         private List<ShopKeep> shopKeeps = new List<ShopKeep>();
-        private ShopKeep[,] shopKeepMap = new ShopKeep[Constants.mapHeight * Constants.roomHeight, Constants.mapWidth * Constants.roomWidth];
+        private ShopKeep[,] shopKeepMap = new ShopKeep[GameManager.constants.mapHeight * GameManager.constants.roomHeight, GameManager.constants.mapWidth * GameManager.constants.roomWidth];
         private Map map;
-        private Random random = Constants.rand;
+        private Random random = GameManager.constants.rand;
         private bool toMove;
         private Render rend;
         private ItemManager itemManager;
@@ -41,13 +41,13 @@ namespace TextRPG
 
         public void GenerateShopKeeps(Player player)
         {
-            if (Globals.currentFloor == Constants.BossFloor) return;
+            if (Globals.currentFloor == GameManager.constants.BossFloor) return;
             Position tempPos;
             ClearShopKeeps();
             int placedShopKeeps = 0;
-            while (placedShopKeeps < Constants.ShopKeepAmount)
+            while (placedShopKeeps < GameManager.constants.ShopKeepAmount)
             {
-                tempPos = new Position(random.Next(Constants.mapWidth * Constants.roomWidth), random.Next(Constants.mapHeight * Constants.roomHeight));
+                tempPos = new Position(random.Next(GameManager.constants.mapWidth * GameManager.constants.roomWidth), random.Next(GameManager.constants.mapHeight * GameManager.constants.roomHeight));
                 if ((Math.Abs(player.GetPos().x - tempPos.x) > 5 || Math.Abs(player.GetPos().y - tempPos.y) > 5) && map.isFloorAt(tempPos) && itemManager.ItemAt(tempPos) == null && exit.isExitAt(tempPos, false) == false && ShopKeepAt(tempPos) == null)
                 {
                     shopKeeps.Add(new ShopKeep(tempPos, map, player, enemyManager, itemManager, rend, manager, hud, exit, soundManager, this));

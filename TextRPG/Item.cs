@@ -26,14 +26,14 @@ namespace TextRPG
             this.soundManager = soundManager;
             switch (name)
             {
-                case Constants.healName:
-                    sprite = Constants.healSprite;
+                case var _ when name == GameManager.constants.healName:
+                    sprite = GameManager.constants.healSprite;
                     break;
-                case Constants.ATKBuffName:
-                    sprite = Constants.ATKSprite;
+                case var _ when name == GameManager.constants.ATKBuffName:
+                    sprite = GameManager.constants.ATKSprite;
                     break;
-                case Constants.ShieldRepairName:
-                    sprite = Constants.ShieldRepairSprite;
+                case var _ when name == GameManager.constants.ShieldRepairName:
+                    sprite = GameManager.constants.ShieldRepairSprite;
                     break;
             }
 
@@ -44,14 +44,14 @@ namespace TextRPG
             soundManager.Play(SoundManager.Noise.pickUp);
             switch (name)
             {
-                case Constants.healName:
-                    player.Heal(Constants.healAmount);
+                case var _ when name == GameManager.constants.healName:
+                    player.Heal(GameManager.constants.healAmount);
                     break;
-                case Constants.ATKBuffName:
-                    player.RaiseATK(Constants.ATKBuffAmount);
+                case var _ when name == GameManager.constants.ATKBuffName:
+                    player.RaiseATK(GameManager.constants.ATKBuffAmount);
                     break;
-                case Constants.ShieldRepairName:
-                    player.RestoreShield(Constants.shieldRepairAmount);
+                case var _ when name == GameManager.constants.ShieldRepairName:
+                    player.RestoreShield(GameManager.constants.shieldRepairAmount);
                     break;
             }
         }

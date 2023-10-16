@@ -53,23 +53,23 @@ namespace TextRPG
 
         private void BuyHPPotion()
         {
-            if (player.GetGold() < Constants.healthPotionCost) return;
-            player.giveGold(-Constants.healthPotionCost);
-            player.Heal(Constants.healAmount);
+            if (player.GetGold() < GameManager.constants.healthPotionCost) return;
+            player.giveGold(-GameManager.constants.healthPotionCost);
+            player.Heal(GameManager.constants.healAmount);
             OnItemBought();
         }
         private void BuySHLDRepair()
         {
-            if (player.GetGold() < Constants.shieldRepairCost) return;
-            player.giveGold(-Constants.shieldRepairCost);
-            player.RestoreShield(Constants.shieldRepairAmount);
+            if (player.GetGold() < GameManager.constants.shieldRepairCost) return;
+            player.giveGold(-GameManager.constants.shieldRepairCost);
+            player.RestoreShield(GameManager.constants.shieldRepairAmount);
             OnItemBought();
         }
         private void BuyATKBuff()
         {
-            if (player.GetGold() < Constants.ATKBuffCost) return;
-            player.giveGold(-Constants.ATKBuffCost);
-            player.RaiseATK(Constants.ATKBuffAmount);
+            if (player.GetGold() < GameManager.constants.ATKBuffCost) return;
+            player.giveGold(-GameManager.constants.ATKBuffCost);
+            player.RaiseATK(GameManager.constants.ATKBuffAmount);
             OnItemBought();
         }
 

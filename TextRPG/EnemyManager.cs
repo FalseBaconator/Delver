@@ -9,9 +9,9 @@ namespace TextRPG
     internal class EnemyManager
     {
         private List<Enemy> enemies = new List<Enemy>();
-        private Enemy[,] enemyMap = new Enemy[Constants.mapHeight * Constants.roomHeight, Constants.mapWidth * Constants.roomWidth];
+        private Enemy[,] enemyMap = new Enemy[GameManager.constants.mapHeight * GameManager.constants.roomHeight, GameManager.constants.mapWidth * GameManager.constants.roomWidth];
         private Map map;
-        private Random random = Constants.rand;
+        private Random random = GameManager.constants.rand;
         private bool toMove;
         private Render rend;
         private ItemManager itemManager;
@@ -44,10 +44,10 @@ namespace TextRPG
             Position tempPos;
             ClearEnemies();
             int placedEnemies = 0;
-            while (placedEnemies < Constants.EnemyAmount)
+            while (placedEnemies < GameManager.constants.EnemyAmount)
             {
                 //Console.WriteLine("Attempt(Enemy)");
-                tempPos = new Position(random.Next(Constants.mapWidth * Constants.roomWidth), random.Next(Constants.mapHeight * Constants.roomHeight));
+                tempPos = new Position(random.Next(GameManager.constants.mapWidth * GameManager.constants.roomWidth), random.Next(GameManager.constants.mapHeight * GameManager.constants.roomHeight));
                 if ((Math.Abs(player.GetPos().x - tempPos.x) > 5 || Math.Abs(player.GetPos().y - tempPos.y) > 5) && map.isFloorAt(tempPos) && itemManager.ItemAt(tempPos) == null && exit.isExitAt(tempPos, false) == false && EnemyAt(tempPos, false) == null)
                 {
                     switch (random.Next(5))
@@ -83,7 +83,7 @@ namespace TextRPG
             while (placedBoss == false)
             {
                 //Console.WriteLine("Attempt(Enemy)");\
-                tempPos = new Position(random.Next(Constants.BossRoomWidth), random.Next(Constants.BossRoomHeight));
+                tempPos = new Position(random.Next(GameManager.constants.BossRoomWidth), random.Next(GameManager.constants.BossRoomHeight));
                 if ((Math.Abs(player.GetPos().x - tempPos.x) > 2 || Math.Abs(player.GetPos().y - tempPos.y) > 2) && map.isFloorAt(tempPos) && itemManager.ItemAt(tempPos) == null && exit.isExitAt(tempPos, false) == false && EnemyAt(tempPos, false) == null)
                 {
                     enemies.Add(new Boss(tempPos, map, player, this, itemManager, rend, manager, hud, exit, soundManager));

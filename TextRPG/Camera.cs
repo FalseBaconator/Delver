@@ -24,17 +24,17 @@ namespace TextRPG
 
         public void Update()
         {
-            if (Globals.currentFloor < Constants.BossFloor)
+            if (Globals.currentFloor < GameManager.constants.BossFloor)
             {
-                if (player.GetPos().x >= Constants.camSize / 2 && player.GetPos().x < Constants.mapWidth * Constants.roomWidth - (Constants.camSize / 2))
+                if (player.GetPos().x >= GameManager.constants.camSize / 2 && player.GetPos().x < GameManager.constants.mapWidth * GameManager.constants.roomWidth - (GameManager.constants.camSize / 2))
                     pos.x = player.GetPos().x;
-                if (player.GetPos().y >= Constants.camSize / 2 && player.GetPos().y < Constants.mapHeight * Constants.roomHeight - (Constants.camSize / 2))
+                if (player.GetPos().y >= GameManager.constants.camSize / 2 && player.GetPos().y < GameManager.constants.mapHeight * GameManager.constants.roomHeight - (GameManager.constants.camSize / 2))
                     pos.y = player.GetPos().y;
-            }else if (Globals.currentFloor == Constants.BossFloor)
+            }else if (Globals.currentFloor == GameManager.constants.BossFloor)
             {
-                if (player.GetPos().x >= Constants.camSize / 2 && player.GetPos().x < Constants.BossRoomWidth - (Constants.camSize / 2))
+                if (player.GetPos().x >= GameManager.constants.camSize / 2 && player.GetPos().x < GameManager.constants.BossRoomWidth - (GameManager.constants.camSize / 2))
                     pos.x = player.GetPos().x;
-                if (player.GetPos().y >= Constants.camSize / 2 && player.GetPos().y < Constants.BossRoomHeight - (Constants.camSize / 2))
+                if (player.GetPos().y >= GameManager.constants.camSize / 2 && player.GetPos().y < GameManager.constants.BossRoomHeight - (GameManager.constants.camSize / 2))
                     pos.y = player.GetPos().y;
             }
         }

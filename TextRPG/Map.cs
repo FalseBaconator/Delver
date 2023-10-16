@@ -25,7 +25,7 @@ namespace TextRPG
                 for (int j = 0; j < map.GetLength(0); j++)
                 {
 
-                    rend.WholeMap[j, i] = new Tile(map[j, i], Constants.mapColor, Constants.BGColor);
+                    rend.WholeMap[j, i] = new Tile(map[j, i], GameManager.constants.mapColor, GameManager.constants.BGColor);
                 }
             }
         }

@@ -14,6 +14,8 @@ namespace TextRPG
         //Define Objects
         static Render render;
 
+        public static Constants constants = new Constants();
+
         public static MapGenerator mapGen;
         public static Map map;
         public static MiniMap miniMap;
@@ -60,7 +62,7 @@ namespace TextRPG
             itemManager = new ItemManager(map, render, this, exit, soundManager);
             enemyManager = new EnemyManager(map, render, itemManager, this, exit, soundManager);
             shopKeepManager = new ShopKeepManager(map, render, itemManager, this, exit, soundManager, enemyManager);
-            player = new Player(new Position((Constants.mapWidth/2) * Constants.roomWidth + (Constants.roomWidth/2), (Constants.mapHeight / 2) * Constants.roomHeight + (Constants.roomHeight / 2)), map, enemyManager, render, this, inputManager, itemManager, shopKeepManager, exit, soundManager);
+            player = new Player(new Position((GameManager.constants.mapWidth/2) * GameManager.constants.roomWidth + (GameManager.constants.roomWidth/2), (GameManager.constants.mapHeight / 2) * GameManager.constants.roomHeight + (GameManager.constants.roomHeight / 2)), map, enemyManager, render, this, inputManager, itemManager, shopKeepManager, exit, soundManager);
             miniMap = new MiniMap(mapGen.makeMiniMap(), player);
             shop = new Shop(inputManager, player);
             hud = new Hud(player, enemyManager, itemManager, this, shop, exit);

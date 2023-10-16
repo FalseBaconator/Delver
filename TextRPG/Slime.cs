@@ -9,7 +9,7 @@ namespace TextRPG
     internal class Slime : Enemy
     {
 
-        public Slime(Position pos, Map map, Player player, EnemyManager enemyManager, ItemManager itemManager, Render rend, GameManager gameManager, Hud hud, Exit exit, SoundManager soundManager) : base(pos, Constants.slimeBaseHP, Constants.slimeBaseAttack, Constants.slimeSprite, Constants.slimeName, map, player, enemyManager, itemManager, rend, gameManager, hud, exit, Constants.slimeXP, Constants.slimeGold, soundManager)
+        public Slime(Position pos, Map map, Player player, EnemyManager enemyManager, ItemManager itemManager, Render rend, GameManager gameManager, Hud hud, Exit exit, SoundManager soundManager) : base(pos, GameManager.constants.slimeBaseHP, GameManager.constants.slimeBaseAttack, GameManager.constants.slimeSprite, GameManager.constants.slimeName, map, player, enemyManager, itemManager, rend, gameManager, hud, exit, GameManager.constants.slimeXP, GameManager.constants.slimeGold, soundManager)
         {
 
         }

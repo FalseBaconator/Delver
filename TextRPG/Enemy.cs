@@ -14,7 +14,7 @@ namespace TextRPG
 
         protected string name;
 
-        protected int sightRange = Constants.EnemySightRange;
+        protected int sightRange = GameManager.constants.EnemySightRange;
 
         protected ItemManager itemManager;
 
@@ -45,7 +45,7 @@ namespace TextRPG
             bool moved = false;
             int checks = 0;
 
-            int dir = Constants.rand.Next(4);
+            int dir = GameManager.constants.rand.Next(4);
 
             while (moved == false)
             {

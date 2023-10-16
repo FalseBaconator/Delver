@@ -46,9 +46,9 @@ namespace TextRPG
                 attacked = false;
                 sprite.backgroundColor = ConsoleColor.Red;
             }
-            else if(sprite.backgroundColor != Constants.BGColor)
+            else if(sprite.backgroundColor != GameManager.constants.BGColor)
             {
-                sprite.backgroundColor = Constants.BGColor;
+                sprite.backgroundColor = GameManager.constants.BGColor;
             }
             rend.WholeMap[pos.y, pos.x] = sprite;
         }

@@ -96,7 +96,9 @@
     <Content Include="Audio\Victory.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Data\Data.txt" />
+    <Content Include="Data\Data.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="MapChunkCategories\B.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

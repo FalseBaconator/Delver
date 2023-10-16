@@ -20,7 +20,7 @@ namespace TextRPG
 
         protected ShopKeepManager shopKeepManager;
 
-        public ShopKeep(Position pos, Map map, Player player, EnemyManager enemyManager, ItemManager itemManager, Render rend, GameManager manager, Hud hud, Exit exit,  SoundManager soundManager, ShopKeepManager shopKeepManager) : base(pos, Constants.shopKeepBaseHP, Constants.shopKeepBaseAttack, Constants.shopKeepSprite, map, enemyManager, rend, manager, soundManager)
+        public ShopKeep(Position pos, Map map, Player player, EnemyManager enemyManager, ItemManager itemManager, Render rend, GameManager manager, Hud hud, Exit exit,  SoundManager soundManager, ShopKeepManager shopKeepManager) : base(pos, GameManager.constants.shopKeepBaseHP, GameManager.constants.shopKeepBaseAttack, GameManager.constants.shopKeepSprite, map, enemyManager, rend, manager, soundManager)
         {
             this.name = name;
             this.player = player;
@@ -36,7 +36,7 @@ namespace TextRPG
             bool moved = false;
             int checks = 0;
 
-            int dir = Constants.rand.Next(4);
+            int dir = GameManager.constants.rand.Next(4);
 
             while (moved == false)
             {
