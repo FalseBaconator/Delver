@@ -5,7 +5,7 @@ Boss XP:15
 Boss Gold:15
 Boss Behavior ^Chase
 Boss Sprite |M|!<DarkRed>|!<Black>|
-2 Name "Boss 2"
+2 Name "Wizzo"
 2 Attack:5
 2 HP:100
 2 XP:15
