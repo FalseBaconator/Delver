@@ -54,21 +54,21 @@ namespace TextRPG
 
         public void FloorSetUp()                    //
         {
-            Console.WriteLine("A");
+            //Console.WriteLine("A");
             Globals.round = 0;
             render.setHud(hud);                     //
             render.setCam(cam);                     //
             render.setMiniMap(miniMap);             //
-            Console.WriteLine("B");
+            //Console.WriteLine("B");
             cam.Update();                           //
             exit.PlaceExit(player);                 //  SetUp
-            Console.WriteLine("C");
             itemManager.GenerateItems(player);      //
+            //Console.WriteLine("C");
             enemyManager.GenerateEnemies(player);   //
             shopKeepManager.GenerateShopKeeps(player);
             miniMap.Update();                       //
             gManager.Draw();                        //
-            Console.WriteLine("D");
+            //Console.WriteLine("D");
         }                                           //
 
         public void BossSetUp()

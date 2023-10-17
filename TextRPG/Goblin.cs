@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace TextRPG
 {
-    internal class Goblin : Enemy
+    internal class Goblin// : Enemy
     {
 
-        public Goblin(Position pos, Map map, Player player, EnemyManager enemyManager, ItemManager itemManager, Render rend, GameManager gameManager, Hud hud, Exit exit, SoundManager soundManager) : base(pos, GameManager.constants.goblinBaseHP, GameManager.constants.goblinBaseAttack, GameManager.constants.goblinSprite, GameManager.constants.goblinName, map, player, enemyManager, itemManager, rend, gameManager, hud, exit, GameManager.constants.goblinXP, GameManager.constants.goblinGold, soundManager)
+        public Goblin(Position pos, Map map, Player player, EnemyManager enemyManager, ItemManager itemManager, Render rend, GameManager gameManager, Hud hud, Exit exit, SoundManager soundManager)// : base(pos, GameManager.constants.goblinBaseHP, GameManager.constants.goblinBaseAttack, GameManager.constants.goblinSprite, GameManager.constants.goblinName, map, player, enemyManager, itemManager, rend, gameManager, hud, exit, GameManager.constants.goblinXP, GameManager.constants.goblinGold, soundManager)
         {
 
         }
 
-        public override void Update()
+        /*public override void Update()
         {
             if (alive)
             {
@@ -151,7 +151,7 @@ namespace TextRPG
                     }                   //
                 }
             }
-        }
+        }*/
 
     }
 }

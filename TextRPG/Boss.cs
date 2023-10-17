@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace TextRPG
 {
-    internal class Boss : Enemy
+    internal class Boss// : Enemy
     {
-        public Boss(Position pos, Map map, Player player, EnemyManager enemyManager, ItemManager itemManager, Render rend, GameManager gameManager, Hud hud, Exit exit, SoundManager soundManager) : base(pos, GameManager.constants.bossBaseHP, GameManager.constants.bossBaseAttack, GameManager.constants.bossSprite, GameManager.constants.bossName, map, player, enemyManager, itemManager, rend, gameManager, hud, exit, 0, 0, soundManager)
+        public Boss(Position pos, Map map, Player player, EnemyManager enemyManager, ItemManager itemManager, Render rend, GameManager gameManager, Hud hud, Exit exit, SoundManager soundManager)// : base(pos, GameManager.constants.bossBaseHP, GameManager.constants.bossBaseAttack, GameManager.constants.bossSprite, GameManager.constants.bossName, map, player, enemyManager, itemManager, rend, gameManager, hud, exit, 0, 0, soundManager)
         {
 
         }
 
 
-        public override void Update()
+        /*public override void Update()
         {
             if (alive)
             {
@@ -147,16 +147,16 @@ namespace TextRPG
                     }                   //
                 }
             }
-        }
+        }*/
 
-        public override void TakeDMG(int DMG)
+        /*public override void TakeDMG(int DMG)
         {
             base.TakeDMG(DMG);
             if(GetHealth() <= 0)
             {
                 manager.EndGame(true);
             }
-        }
+        }*/
 
     }
 }

@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace TextRPG
 {
-    internal class Kobold : Enemy
+    internal class Kobold// : Enemy
     {
 
-        public Kobold(Position pos, Map map, Player player, EnemyManager enemyManager, ItemManager itemManager, Render rend, GameManager gameManager, Hud hud, Exit exit, SoundManager soundManager) : base(pos, GameManager.constants.koboldBaseHP, GameManager.constants.koboldBaseAttack, GameManager.constants.koboldSprite, GameManager.constants.koboldName, map, player, enemyManager, itemManager, rend, gameManager, hud, exit, GameManager.constants.koboldXP, GameManager.constants.koboldGold, soundManager)
+        public Kobold(Position pos, Map map, Player player, EnemyManager enemyManager, ItemManager itemManager, Render rend, GameManager gameManager, Hud hud, Exit exit, SoundManager soundManager)// : base(pos, GameManager.constants.koboldBaseHP, GameManager.constants.koboldBaseAttack, GameManager.constants.koboldSprite, GameManager.constants.koboldName, map, player, enemyManager, itemManager, rend, gameManager, hud, exit, GameManager.constants.koboldXP, GameManager.constants.koboldGold, soundManager)
         {
 
         }
 
-        public override void Update()
+        /*public override void Update()
         {
             if (alive)
             {
@@ -152,7 +152,7 @@ namespace TextRPG
                     }                   //
                 }
             }
-        }
+        }*/
 
     }
 }

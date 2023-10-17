@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TextRPG
 {
-    abstract class Enemy : GameCharacter
+    internal class Enemy : GameCharacter
     {
         protected Player player;
 
@@ -26,7 +26,12 @@ namespace TextRPG
 
         protected int GoldReward;
 
-        public Enemy(Position pos, int HP, int ATK, Tile sprite, string name, Map map, Player player, EnemyManager enemyManager, ItemManager itemManager, Render rend, GameManager manager, Hud hud, Exit exit, int XPReward, int GoldReward, SoundManager soundManager) : base(pos, HP, ATK, sprite, map, enemyManager, rend, manager, soundManager)
+        public enum Behavior { Random, Flee, Chase }
+        public Behavior behavior;
+
+        public bool isFinalBoss;
+
+        public Enemy(Position pos, int HP, int ATK, Tile sprite, string name, Behavior behavior, bool boss, Map map, Player player, EnemyManager enemyManager, ItemManager itemManager, Render rend, GameManager manager, Hud hud, Exit exit, int XPReward, int GoldReward, SoundManager soundManager) : base(pos, HP, ATK, sprite, map, enemyManager, rend, manager, soundManager)
         {
             this.name = name;
             this.player = player;
@@ -35,9 +40,290 @@ namespace TextRPG
             this.exit = exit;
             this.XPReward = XPReward;
             this.GoldReward = GoldReward;
+            this.behavior = behavior;
+            isFinalBoss = boss;
         }
 
-        public abstract void Update();
+        public void Update()
+        {
+            if (!alive) return;
+
+            //Attacks player if adjacent
+            if (player.isPlayerAt(new Position(pos.x, pos.y - 1)) || player.isPlayerAt(new Position(pos.x, pos.y + 1)) || player.isPlayerAt(new Position(pos.x - 1, pos.y)) || player.isPlayerAt(new Position(pos.x + 1, pos.y)))
+            {
+                AttackPlayer(player);
+            }
+            else
+            {  //Moves
+                switch (behavior)
+                {
+                    case Behavior.Random:
+                        RandomMove();
+                        break;
+                    case Behavior.Flee:
+                        if (!CanSeePlayer())
+                        {
+                            RandomMove();
+                        }
+                        else
+                        {
+                            int deltaX = player.GetPos().x - pos.x;         //
+                            int deltaY = player.GetPos().y - pos.y;         //  Prepare to Move
+                            targetPos = pos;
+
+                            //---------------------------Chose a direction (run)
+                            if (deltaX > 0 && deltaY > 0)
+                            {
+                                if (deltaX >= deltaY)
+                                {
+                                    if (IsSpaceAvailable(new Position(pos.x - 1, pos.y)))
+                                        targetPos.x--;
+                                    else if (IsSpaceAvailable(new Position(pos.x, pos.y - 1)))
+                                        targetPos.y--;
+                                }
+                                else
+                                {
+                                    if (IsSpaceAvailable(new Position(pos.x, pos.y - 1)))
+                                        targetPos.y--;
+                                    else if (IsSpaceAvailable(new Position(pos.x - 1, pos.y)))
+                                        targetPos.x--;
+                                }
+                            }
+                            else if (deltaX > 0 && deltaY < 0)
+                            {
+                                if (deltaX >= deltaY * -1)
+                                {
+                                    if (IsSpaceAvailable(new Position(pos.x - 1, pos.y)))
+                                        targetPos.x--;
+                                    else if (IsSpaceAvailable(new Position(pos.x, pos.y + 1)))
+                                        targetPos.y++;
+                                }
+                                else
+                                {
+                                    if (IsSpaceAvailable(new Position(pos.x, pos.y + 1)))
+                                        targetPos.y++;
+                                    else if (IsSpaceAvailable(new Position(pos.x - 1, pos.y)))
+                                        targetPos.x--;
+                                }
+                            }
+                            else if (deltaX < 0 && deltaY > 0)
+                            {
+                                if (deltaX * -1 >= deltaY)
+                                {
+                                    if (IsSpaceAvailable(new Position(pos.x + 1, pos.y)))
+                                        targetPos.x++;
+                                    else if (IsSpaceAvailable(new Position(pos.x, pos.y - 1)))
+                                        targetPos.y--;
+                                }
+                                else
+                                {
+                                    if (IsSpaceAvailable(new Position(pos.x, pos.y - 1)))
+                                        targetPos.y--;
+                                    else if (IsSpaceAvailable(new Position(pos.x + 1, pos.y)))
+                                        targetPos.x++;
+                                }
+                            }
+                            else if (deltaX < 0 && deltaY < 0)
+                            {
+                                if (deltaX * -1 >= deltaY * -1)
+                                {
+                                    if (IsSpaceAvailable(new Position(pos.x + 1, pos.y)))
+                                        targetPos.x++;
+                                    else if (IsSpaceAvailable(new Position(pos.x, pos.y + 1)))
+                                        targetPos.y++;
+                                }
+                                else
+                                {
+                                    if (IsSpaceAvailable(new Position(pos.x, pos.y + 1)))
+                                        targetPos.y++;
+                                    else if (IsSpaceAvailable(new Position(pos.x + 1, pos.y)))
+                                        targetPos.x++;
+                                }
+                            }
+                            else if (deltaX == 0)
+                            {
+                                if (deltaY < 0)
+                                {
+                                    if (IsSpaceAvailable(new Position(pos.x, pos.y + 1)))
+                                        targetPos.y++;
+                                    else if (IsSpaceAvailable(new Position(pos.x - 1, pos.y)))
+                                        targetPos.x--;
+                                    else
+                                        targetPos.x++;
+                                }
+                                else
+                                {
+                                    if (IsSpaceAvailable(new Position(pos.x, pos.y - 1)))
+                                        targetPos.y--;
+                                    else if (IsSpaceAvailable(new Position(pos.x - 1, pos.y)))
+                                        targetPos.x--;
+                                    else
+                                        targetPos.x++;
+                                }
+                            }
+                            else if (deltaY == 0)
+                            {
+                                if (deltaX < 0)
+                                {
+                                    if (IsSpaceAvailable(new Position(pos.x + 1, pos.y)))
+                                        targetPos.x++;
+                                    else if (IsSpaceAvailable(new Position(pos.x, pos.y - 1)))
+                                        targetPos.y--;
+                                    else
+                                        targetPos.y++;
+                                }
+                                else
+                                {
+                                    if (IsSpaceAvailable(new Position(pos.x - 1, pos.y)))
+                                        targetPos.x--;
+                                    else if (IsSpaceAvailable(new Position(pos.x, pos.y - 1)))
+                                        targetPos.y--;
+                                    else
+                                        targetPos.y++;
+                                }
+                            }
+                            //---------------------------Direction chosen (run)
+
+
+                            if (IsSpaceAvailable(targetPos))
+                            {
+                                pos = targetPos;
+                            }
+                        }
+                        break;
+                    case Behavior.Chase:
+                        if (!CanSeePlayer())
+                        {
+                            RandomMove();
+                        }
+                        else
+                        {
+                            int deltaX = player.GetPos().x - pos.x;         //
+                            int deltaY = player.GetPos().y - pos.y;         //  Prepare to move
+                            targetPos = pos;
+
+                            //---------------------------Chose a direction (chase)
+                            if (deltaX > 0 && deltaY > 0)
+                            {
+                                if (deltaX >= deltaY)
+                                {
+                                    if (IsSpaceAvailable(new Position(pos.x + 1, pos.y)))
+                                        targetPos.x++;
+                                    else if (IsSpaceAvailable(new Position(pos.x, pos.y + 1)))
+                                        targetPos.y++;
+                                }
+                                else
+                                {
+                                    if (IsSpaceAvailable(new Position(pos.x, pos.y + 1)))
+                                        targetPos.y++;
+                                    else if (IsSpaceAvailable(new Position(pos.x + 1, pos.y)))
+                                        targetPos.x++;
+                                }
+                            }
+                            else if (deltaX > 0 && deltaY < 0)
+                            {
+                                if (deltaX >= deltaY * -1)
+                                {
+                                    if (IsSpaceAvailable(new Position(pos.x + 1, pos.y)))
+                                        targetPos.x++;
+                                    else if (IsSpaceAvailable(new Position(pos.x, pos.y - 1)))
+                                        targetPos.y--;
+                                }
+                                else
+                                {
+                                    if (IsSpaceAvailable(new Position(pos.x, pos.y - 1)))
+                                        targetPos.y--;
+                                    else if (IsSpaceAvailable(new Position(pos.x + 1, pos.y)))
+                                        targetPos.x++;
+                                }
+                            }
+                            else if (deltaX < 0 && deltaY > 0)
+                            {
+                                if (deltaX * -1 >= deltaY)
+                                {
+                                    if (IsSpaceAvailable(new Position(pos.x - 1, pos.y)))
+                                        targetPos.x--;
+                                    else if (IsSpaceAvailable(new Position(pos.x, pos.y + 1)))
+                                        targetPos.y++;
+                                }
+                                else
+                                {
+                                    if (IsSpaceAvailable(new Position(pos.x, pos.y + 1)))
+                                        targetPos.y++;
+                                    else if (IsSpaceAvailable(new Position(pos.x - 1, pos.y)))
+                                        targetPos.x--;
+                                }
+                            }
+                            else if (deltaX < 0 && deltaY < 0)
+                            {
+                                if (deltaX * -1 >= deltaY * -1)
+                                {
+                                    if (IsSpaceAvailable(new Position(pos.x - 1, pos.y)))
+                                        targetPos.x--;
+                                    else if (IsSpaceAvailable(new Position(pos.x, pos.y - 1)))
+                                        targetPos.y--;
+                                }
+                                else
+                                {
+                                    if (IsSpaceAvailable(new Position(pos.x, pos.y - 1)))
+                                        targetPos.y--;
+                                    else if (IsSpaceAvailable(new Position(pos.x - 1, pos.y)))
+                                        targetPos.x--;
+                                }
+                            }
+                            else if (deltaX == 0)
+                            {
+                                if (deltaY < 0)
+                                {
+                                    if (IsSpaceAvailable(new Position(pos.x, pos.y - 1)))
+                                        targetPos.y--;
+                                    else if (IsSpaceAvailable(new Position(pos.x + 1, pos.y)))
+                                        targetPos.x++;
+                                    else
+                                        targetPos.x--;
+                                }
+                                else
+                                {
+                                    if (IsSpaceAvailable(new Position(pos.x, pos.y + 1)))
+                                        targetPos.y++;
+                                    else if (IsSpaceAvailable(new Position(pos.x + 1, pos.y)))
+                                        targetPos.x++;
+                                    else
+                                        targetPos.x--;
+                                }
+                            }
+                            else if (deltaY == 0)
+                            {
+                                if (deltaX < 0)
+                                {
+                                    if (IsSpaceAvailable(new Position(pos.x - 1, pos.y)))
+                                        targetPos.x--;
+                                    else if (IsSpaceAvailable(new Position(pos.x, pos.y + 1)))
+                                        targetPos.y++;
+                                    else
+                                        targetPos.y--;
+                                }
+                                else
+                                {
+                                    if (IsSpaceAvailable(new Position(pos.x + 1, pos.y)))
+                                        targetPos.x++;
+                                    else if (IsSpaceAvailable(new Position(pos.x, pos.y + 1)))
+                                        targetPos.y++;
+                                    else
+                                        targetPos.y--;
+                                }
+                            }
+                            //---------------------------Direction Chosen (chase)
+
+                            if (IsSpaceAvailable(targetPos))
+                            {
+                                pos = targetPos;
+                            }
+                        }
+                        break;
+                }
+            }
+        }
 
         protected void RandomMove()
         {
@@ -106,6 +392,10 @@ namespace TextRPG
                 enemyManager.RemoveEnemy(this);
                 player.giveXP(XPReward);
                 player.giveGold(GoldReward);
+                if(isFinalBoss)
+                {
+                    manager.EndGame(true);
+                }
             }
         }
 
@@ -168,6 +458,22 @@ namespace TextRPG
         public string GetName()
         {
             return name;
+        }
+
+        public static Behavior GetBehavior(string input)
+        {
+            string behaviorString = input.Split('^')[1];
+            switch (behaviorString)
+            {
+                case "Random":
+                    return Behavior.Random;
+                case "Flee":
+                    return Behavior.Flee;
+                case "Chase":
+                    return Behavior.Chase;
+                default:
+                    return Behavior.Random;
+            }
         }
 
     }

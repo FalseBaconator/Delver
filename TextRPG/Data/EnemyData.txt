@@ -1,0 +1,28 @@
+﻿Enemy 1 Name "Slime"
+Enemy 1 Attack:1
+Enemy 1 HP:1
+Enemy 1 XP:1
+Enemy 1 Gold:1
+Enemy 1 Behavior ^Random
+Enemy 1 Sprite |O|!<Cyan>|!<Black>|
+Enemy 2 Name "Kobold"
+Enemy 2 Attack:1
+Enemy 2 HP:3
+Enemy 2 XP:2
+Enemy 2 Gold:3
+Enemy 2 Behavior ^Flee
+Enemy 2 Sprite |X|!<DarkRed>|!<Black>|
+Enemy 3 Name "Goblin"
+Enemy 3 Attack:2
+Enemy 3 HP:5
+Enemy 3 XP:5
+Enemy 3 Gold:5
+Enemy 3 Behavior ^Chase
+Enemy 3 Sprite |X|!<DarkGreen>|!<Black>|
+Enemy 4 Name "Lil' Guy"
+Enemy 4 Attack:0
+Enemy 4 HP:99
+Enemy 4 XP:0
+Enemy 4 Gold:99
+Enemy 4 Behavior ^Flee
+Enemy 4 Sprite|☺|!<DarkYellow>|!<Black>|

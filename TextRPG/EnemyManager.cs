@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -23,6 +24,11 @@ namespace TextRPG
         public event EventHandler<KilledEnemyEventArgs> EnemyKilled;
         private int enemiesKilled;
 
+        private string[] dataArray;
+        private string[] bossDataArray;
+        private int enemyTypes;
+        private int bossTypes;
+
         public void SetHud(Hud hud)
         {
             this.hud = hud;
@@ -36,6 +42,13 @@ namespace TextRPG
             this.manager = manager;
             this.exit = exit;
             this.soundManager = soundManager;
+
+            dataArray = File.ReadAllLines("Data/EnemyData.txt");
+            bossDataArray = File.ReadAllLines("Data/BossData.txt");
+
+            enemyTypes = (int)dataArray.Count() / 7;
+            bossTypes = (int)bossDataArray.Count() / 7;
+
         }
 
         public void GenerateEnemies(Player player)
@@ -46,32 +59,17 @@ namespace TextRPG
             int placedEnemies = 0;
             while (placedEnemies < GameManager.constants.EnemyAmount)
             {
-                //Console.WriteLine("Attempt(Enemy)");
                 tempPos = new Position(random.Next(GameManager.constants.mapWidth * GameManager.constants.roomWidth), random.Next(GameManager.constants.mapHeight * GameManager.constants.roomHeight));
                 if ((Math.Abs(player.GetPos().x - tempPos.x) > 5 || Math.Abs(player.GetPos().y - tempPos.y) > 5) && map.isFloorAt(tempPos) && itemManager.ItemAt(tempPos) == null && exit.isExitAt(tempPos, false) == false && EnemyAt(tempPos, false) == null)
                 {
-                    switch (random.Next(5))
-                    {
-                        case 0:
-                        case 1:
-                            enemies.Add(new Slime(tempPos, map, player, this, itemManager, rend, manager, hud, exit, soundManager));
-                            placedEnemies++;
-                            enemyMap[tempPos.x, tempPos.y] = enemies[placedEnemies - 1];
-                            break;
-                        case 2:
-                        case 3:
-                            enemies.Add(new Kobold(tempPos, map, player, this, itemManager, rend, manager, hud, exit, soundManager));
-                            placedEnemies++;
-                            enemyMap[tempPos.x, tempPos.y] = enemies[placedEnemies - 1];
-                            break;
-                        case 4:
-                            enemies.Add(new Goblin(tempPos, map, player, this, itemManager, rend, manager, hud, exit, soundManager));
-                            placedEnemies++;
-                            enemyMap[tempPos.x, tempPos.y] = enemies[placedEnemies - 1];
-                            break;
-                    }
+                    int toPlace = random.Next(enemyTypes);
+                    int offset = toPlace * 7;
+                    enemies.Add(new Enemy(tempPos, Constants.GetInt(dataArray[(offset + 2)]), Constants.GetInt(dataArray[offset + 1]), Constants.GetTile(dataArray[offset + 6]), Constants.GetString(dataArray[offset]), Enemy.GetBehavior(dataArray[offset + 5]), false, map, player, this, itemManager, rend, manager, hud, exit, Constants.GetInt(dataArray[offset + 3]), Constants.GetInt(dataArray[offset + 4]), soundManager));
+                    enemyMap[tempPos.x, tempPos.y] = enemies[placedEnemies];
+                    placedEnemies++;
                 }
             }
+
 
         }
 
@@ -86,7 +84,10 @@ namespace TextRPG
                 tempPos = new Position(random.Next(GameManager.constants.BossRoomWidth), random.Next(GameManager.constants.BossRoomHeight));
                 if ((Math.Abs(player.GetPos().x - tempPos.x) > 2 || Math.Abs(player.GetPos().y - tempPos.y) > 2) && map.isFloorAt(tempPos) && itemManager.ItemAt(tempPos) == null && exit.isExitAt(tempPos, false) == false && EnemyAt(tempPos, false) == null)
                 {
-                    enemies.Add(new Boss(tempPos, map, player, this, itemManager, rend, manager, hud, exit, soundManager));
+                    //enemies.Add(new Boss(tempPos, map, player, this, itemManager, rend, manager, hud, exit, soundManager));
+                    int toPlace = random.Next(bossTypes);
+                    int offset = toPlace * 7;
+                    enemies.Add(new Enemy(tempPos, Constants.GetInt(bossDataArray[(offset + 2)]), Constants.GetInt(bossDataArray[offset + 1]), Constants.GetTile(bossDataArray[offset + 6]), Constants.GetString(bossDataArray[offset]), Enemy.GetBehavior(bossDataArray[offset + 5]), true, map, player, this, itemManager, rend, manager, hud, exit, Constants.GetInt(bossDataArray[offset + 3]), Constants.GetInt(bossDataArray[offset + 4]), soundManager));
                     placedBoss = true;
                     enemyMap[tempPos.x, tempPos.y] = enemies[0];
                 }

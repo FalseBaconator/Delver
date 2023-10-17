@@ -115,9 +115,9 @@ namespace TextRPG
         public void Play()
         {
             startScreen.Display();
-            Console.WriteLine("A");
+            //Console.WriteLine("A");
             loadManager.FloorSetUp();
-            Console.WriteLine("B");
+            //Console.WriteLine("B");
             while(play == true)
             {
                 Update();

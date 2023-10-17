@@ -220,26 +220,26 @@ namespace TextRPG
 
         }
 
-        private int GetInt(string line)
+        public static int GetInt(string line)
         {
             string[] result = line.Split(':');
             return Int32.Parse(result[1]);
         }
 
-        private string GetString(string line)
+        public static string GetString(string line)
         {
             string result = line.Split('"')[1];
 
             return result;
         }
 
-        private Tile GetTile(string line)
+        public static Tile GetTile(string line)
         {
             string[] elements = line.Split('|');
             return new Tile(elements[1][0], GetColor(elements[2]), GetColor(elements[3]));
         }
 
-        private ConsoleColor GetColor(string line)
+        public static ConsoleColor GetColor(string line)
         {
             string result = line.Split('!')[1];
 
