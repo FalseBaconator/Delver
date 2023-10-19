@@ -1,4 +1,4 @@
-﻿Player Base HP:7
+﻿Player Base HP:5
 Player Base Shield:5
 Player Base Attack:1
 Player XP Threshold:25
@@ -16,32 +16,6 @@ Shopkeep Name "Shop Keep"
 Health Potion Cost:8
 Shield Repair Cost:4
 Attack Buff Cost:12
-
-Slime Base HP:1
-Slime Base Attack:1
-Slime XP:1
-Slime Gold:1
-Slime Tile |O|!<Cyan>|!<Black>|
-Slime Name "Slime"
-
-Goblin Base HP:5
-Goblin Base Attack:2
-Goblin XP:5
-Goblin Gold:5
-Goblin Tile |X|!<DarkGreen>|!<Black>|
-Goblin Name "Goblin"
-
-Kobold Base HP:3
-Kobold Base Attack:1
-Kobold XP:2
-Kobold Gold:3
-Kobold Tile |X|!<DarkRed>|!<Black>|
-Kobold Name "Kobold"
-
-Boss Base HP:150
-Boss Base Attack:3
-Boss Tile |M|!<DarkRed>|!<Black>|
-Boss Name "Boss"
 
 Item Amount:50
 Boss Item Amount:10

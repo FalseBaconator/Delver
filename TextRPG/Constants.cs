@@ -145,78 +145,52 @@ namespace TextRPG
             shieldRepairCost = GetInt(lines[16]);
             ATKBuffCost = GetInt(lines[17]);
 
-            slimeBaseHP = GetInt(lines[19]);
-            slimeBaseAttack = GetInt(lines[20]);
-            slimeXP = GetInt(lines[21]);
-            slimeGold = GetInt(lines[22]);
-            slimeSprite = GetTile(lines[23]);
-            slimeName = GetString(lines[24]);
+            itemAmount = GetInt(lines[19]);
+            bossItemAmount = GetInt(lines[20]);
+            healAmount = GetInt(lines[21]);
+            ATKBuffAmount = GetInt(lines[22]);
+            shieldRepairAmount = GetInt(lines[23]);
+            healSprite = GetTile(lines[24]);
+            ATKSprite = GetTile(lines[25]);
+            ShieldRepairSprite = GetTile(lines[26]);
+            healName = GetString(lines[27]);
+            ATKBuffName = GetString(lines[28]);
+            ShieldRepairName = GetString(lines[29]);
 
-            goblinBaseHP = GetInt(lines[26]);
-            goblinBaseAttack = GetInt(lines[27]);
-            goblinXP = GetInt(lines[28]);
-            goblinGold = GetInt(lines[29]);
-            goblinSprite = GetTile(lines[30]);
-            goblinName = GetString(lines[31]);
+            mapColor = GetColor(lines[31]);
+            mapHeight = GetInt(lines[32]);
+            mapWidth = GetInt(lines[33]);
+            roomHeight = GetInt(lines[34]);
+            roomWidth = GetInt(lines[35]);
+            BossRoomHeight = GetInt(lines[36]);
+            BossRoomWidth = GetInt(lines[37]);
+            BossFloor = GetInt(lines[38]);
+            RoomsPerCategory = GetInt(lines[39]);
 
-            koboldBaseHP = GetInt(lines[33]);
-            koboldBaseAttack = GetInt(lines[34]);
-            koboldXP = GetInt(lines[35]);
-            koboldGold = GetInt(lines[36]);
-            koboldSprite = GetTile(lines[37]);
-            koboldName = GetString(lines[38]);
+            camSize = GetInt(lines[41]);
 
-            bossBaseHP = GetInt(lines[40]);
-            bossBaseAttack = GetInt(lines[41]);
-            bossSprite = GetTile(lines[42]);
-            bossName = GetString(lines[43]);
+            rendWidth = GetInt(lines[43]);
+            rendHeight = GetInt(lines[44]);
+            borderColor = GetColor(lines[45]);
+            BGColor = GetColor(lines[46]);
 
-            itemAmount = GetInt(lines[45]);
-            bossItemAmount = GetInt(lines[45]);
-            healAmount = GetInt(lines[47]);
-            ATKBuffAmount = GetInt(lines[48]);
-            shieldRepairAmount = GetInt(lines[49]);
-            healSprite = GetTile(lines[50]);
-            ATKSprite = GetTile(lines[51]);
-            ShieldRepairSprite = GetTile(lines[52]);
-            healName = GetString(lines[53]);
-            ATKBuffName = GetString(lines[54]);
-            ShieldRepairName = GetString(lines[55]);
+            hudWidth = GetInt(lines[48]);
+            messageBoxHeight = GetInt(lines[49]);
+            statsHeight = GetInt(lines[50]);
+            playerStatsList = GetString(lines[51]);
+            enemyStatsList = GetString(lines[52]);
+            shopList = GetString(lines[53]);
 
-            mapColor = GetColor(lines[57]);
-            mapHeight = GetInt(lines[58]);
-            mapWidth = GetInt(lines[59]);
-            roomHeight = GetInt(lines[60]);
-            roomWidth = GetInt(lines[61]);
-            BossRoomHeight = GetInt(lines[62]);
-            BossRoomWidth = GetInt(lines[63]);
-            BossFloor = GetInt(lines[64]);
-            RoomsPerCategory = GetInt(lines[65]);
+            exitSprite = GetTile(lines[55]);
 
-            camSize = GetInt(lines[67]);
+            killEnemiesString = GetString(lines[57]);
+            loseShieldString = GetString(lines[58]);
+            killBossString = GetString(lines[59]);
+            buyFromShopString = GetString(lines[60]);
+            pickUpItemsString = GetString(lines[61]);
 
-            rendWidth = GetInt(lines[69]);
-            rendHeight = GetInt(lines[70]);
-            borderColor = GetColor(lines[71]);
-            BGColor = GetColor(lines[72]);
-
-            hudWidth = GetInt(lines[74]);
-            messageBoxHeight = GetInt(lines[75]);
-            statsHeight = GetInt(lines[76]);
-            playerStatsList = GetString(lines[77]);
-            enemyStatsList = GetString(lines[78]);
-            shopList = GetString(lines[79]);
-
-            exitSprite = GetTile(lines[81]);
-
-            killEnemiesString = GetString(lines[83]);
-            loseShieldString = GetString(lines[84]);
-            killBossString = GetString(lines[85]);
-            buyFromShopString = GetString(lines[86]);
-            pickUpItemsString = GetString(lines[87]);
-
-            enemiesToKill = GetInt(lines[89]);
-            itemsToGet = GetInt(lines[90]);
+            enemiesToKill = GetInt(lines[63]);
+            itemsToGet = GetInt(lines[64]);
 
         }
 
