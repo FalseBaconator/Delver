@@ -21,8 +21,8 @@ Enemy 3 Behavior ^Chase
 Enemy 3 Sprite |X|!<DarkGreen>|!<Black>|
 Enemy 4 Name "Lil' Guy"
 Enemy 4 Attack:0
-Enemy 4 HP:99
+Enemy 4 HP:2
 Enemy 4 XP:0
-Enemy 4 Gold:99
+Enemy 4 Gold:0
 Enemy 4 Behavior ^Flee
 Enemy 4 Sprite|☺|!<DarkYellow>|!<Black>|
