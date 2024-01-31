@@ -18,7 +18,7 @@ Shield Repair Cost:4
 Attack Buff Cost:12
 
 Item Amount:50
-Boss Item Amount:10
+Boss Item Amount:25
 Heal Worth:3
 Attack Buff Worth:1
 Shield Repair Worth:3

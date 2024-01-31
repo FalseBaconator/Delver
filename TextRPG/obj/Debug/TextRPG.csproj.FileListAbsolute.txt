@@ -130,3 +130,11 @@ C:\Users\w0460451\Desktop\TextRPG\TextRPG\bin\Debug\TextRPG.exe
 C:\Users\w0460451\Desktop\TextRPG\TextRPG\bin\Debug\TextRPG.pdb
 C:\Users\w0460451\Desktop\TextRPG\TextRPG\bin\Debug\Data\BossData.txt
 C:\Users\w0460451\Desktop\TextRPG\TextRPG\bin\Debug\Data\EnemyData.txt
+C:\Users\ryanw\Desktop\TextRPG\TextRPG\bin\Debug\Audio\hitHurt.wav
+C:\Users\ryanw\Desktop\TextRPG\TextRPG\bin\Debug\Audio\Loss.wav
+C:\Users\ryanw\Desktop\TextRPG\TextRPG\bin\Debug\Audio\pickUp.wav
+C:\Users\ryanw\Desktop\TextRPG\TextRPG\bin\Debug\Audio\questComplete.wav
+C:\Users\ryanw\Desktop\TextRPG\TextRPG\bin\Debug\Audio\Victory.wav
+C:\Users\ryanw\Desktop\TextRPG\TextRPG\bin\Debug\Data\BossData.txt
+C:\Users\ryanw\Desktop\TextRPG\TextRPG\bin\Debug\Data\Data.txt
+C:\Users\ryanw\Desktop\TextRPG\TextRPG\bin\Debug\Data\EnemyData.txt
